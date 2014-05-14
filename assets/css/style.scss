@@ -1,0 +1,187 @@
+@import "neat/neat";
+
+// VARIABLES
+
+// -- Color
+$white: #fff;
+$lightestgray: #eee;
+$lightgray: #ccc;
+$gray: #999;
+$black:	#222;
+$color_link: #0090ff;
+
+// -- Box Model
+$nav_width: 100px;
+$margin: 40px;
+$pad: 10px;
+
+// -- Typography
+$source: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+// LAYOUT
+
+html {
+  height: 100%;
+}
+
+html, body, h1, h2, h3, h4, h5, h6, div, p {
+	font-family: $source;
+	color: $black;
+}
+h1, h2, h3 {
+	font-weight: 300;
+}
+h1 {
+	padding-bottom: $pad;
+	margin-bottom: $pad;
+	border-bottom: 1px solid $lightestgray;
+}
+
+a {
+	color: $color_link;
+	text-decoration: none;
+}
+
+section {
+	margin-left: $nav_width;
+	margin-top: $margin;
+}
+
+// COMPONENTS
+
+// -- Navigation
+#nav {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: $nav_width;
+	text-align: center;
+	background-color: $black;
+
+	ul { padding-left: 0; }
+
+	li {
+		border-left: 3px solid $black;
+		border-right: 3px solid $black;
+		margin-bottom: 5px;
+
+		a {
+			display: block;
+			padding-top: $pad;
+			padding-bottom: $pad;
+			font-size: 0.75em;
+			color: $gray;
+		}
+
+		.fa { 
+			display: block; 
+			margin-bottom: 5px;
+		}
+
+		&.active {
+			border-left-color: $color_link;
+
+			a { color: $white; }
+		}
+	}
+}
+
+.subnav {
+	float: right;
+	margin-top: -11px;
+
+	li {
+		float: left;
+		padding: $pad $pad 15px;
+
+		a { color: $lightgray; }
+
+		&.active { 
+			border-bottom: 1px solid $black; 
+
+			a { color: $black; }
+		}
+	}
+}
+
+// -- Others
+
+.container {
+	@include outer-container;
+}
+
+.avatar {
+	@include span-columns(1);
+	height: 75px;
+	background-color: $lightgray;
+}
+
+.moc-item {
+	@include span-columns(12);
+	padding-top: $pad;
+	padding-bottom: $pad;
+	border-bottom: 1px solid $lightestgray;
+}
+
+.moc-content {
+	@include span-columns(11);
+
+	.moc-title {
+		@include span-columns (4 of 11);
+
+		a { 
+			color: $black; 
+
+			&:hover { color: $color_link; }
+		}
+	}
+	.moc-fees {
+		@include span-columns (3 of 11);
+	}
+	.moc-parts {
+		@include span-columns (4 of 11);
+		@include omega();
+		text-align: right;
+	}
+	.moc-byline {
+		// @include span-columns (4);
+		color: $lightgray;
+	}
+	.tags {
+		margin-top: 5px;
+	}
+}
+
+.tag {
+	border: 1px solid $lightestgray;
+	padding: 3px 8px;
+	border-radius: 20px;
+	font-size: 0.75em;
+	color: $lightgray;
+}
+
+
+// MEDIA QUERIES
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+  
+  /* Styles for mobile */
+
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+
+  /* Styles for tablet */
+
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+
+  /* Don't forget your Retina CSS! */
+  
+  body {
+    background-size: 72px 72px;
+  }
+
+}
