@@ -4,8 +4,10 @@
 
 // -- Color
 $white: #fff;
+$softgray: #f7f7f5;
 $lightestgray: #eee;
-$lightgray: #ccc;
+$lightergray: #ccc;
+$lightgray: #aaa;
 $gray: #999;
 $black:	#222;
 $color_link: #0090ff;
@@ -14,14 +16,17 @@ $color_link: #0090ff;
 $nav_width: 100px;
 $margin: 40px;
 $pad: 10px;
+$radius: 5px;
 
 // -- Typography
 $source: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$small: 0.75em;
 
 // LAYOUT
 
 html {
   height: 100%;
+  background-color: $softgray;
 }
 
 html, body, h1, h2, h3, h4, h5, h6, div, p {
@@ -33,7 +38,7 @@ h1, h2, h3 {
 }
 h1 {
 	padding-bottom: $pad;
-	margin-bottom: $pad;
+	margin-bottom: $pad*2;
 	border-bottom: 1px solid $lightestgray;
 }
 
@@ -51,7 +56,7 @@ section {
 
 // -- Navigation
 #nav {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	bottom: 0;
 	left: 0;
@@ -70,7 +75,7 @@ section {
 			display: block;
 			padding-top: $pad;
 			padding-bottom: $pad;
-			font-size: 0.75em;
+			font-size: $small;
 			color: $gray;
 		}
 
@@ -95,7 +100,10 @@ section {
 		float: left;
 		padding: $pad $pad 15px;
 
-		a { color: $lightgray; }
+		a { 
+			color: $lightgray; 
+			&:hover { color: $color_link; }
+		}
 
 		&.active { 
 			border-bottom: 1px solid $black; 
@@ -111,54 +119,116 @@ section {
 	@include outer-container;
 }
 
-.avatar {
-	@include span-columns(1);
-	height: 75px;
-	background-color: $lightgray;
-}
-
-.moc-item {
+/* legacy code */
+/*
+.moc-item.line {
 	@include span-columns(12);
 	padding-top: $pad;
 	padding-bottom: $pad;
 	border-bottom: 1px solid $lightestgray;
-}
 
-.moc-content {
-	@include span-columns(11);
+	.moc-image {
+		@include span-columns(1);
+		height: 75px;
+		background-color: $lightgray;
+	}
 
-	.moc-title {
-		@include span-columns (4 of 11);
+	.moc-content {
+		@include span-columns(11);
 
-		a { 
-			color: $black; 
+		.moc-title {
+			@include span-columns (4 of 11);
 
-			&:hover { color: $color_link; }
+			a { 
+				color: $black; 
+
+				&:hover { color: $color_link; }
+			}
+		}
+		.moc-fees {
+			@include span-columns (3 of 11);
+		}
+		.moc-parts {
+			@include span-columns (4 of 11);
+			@include omega();
+			text-align: right;
+		}
+		.moc-byline {
+			// @include span-columns (4);
+			color: $lightgray;
+		}
+		.tags {
+			margin-top: 5px;
+		}
+		.tag {
+			border: 1px solid $lightestgray;
+			padding: 3px 8px;
+			border-radius: 20px;
+			font-size: $small;
+			color: $lightgray;
 		}
 	}
-	.moc-fees {
-		@include span-columns (3 of 11);
-	}
-	.moc-parts {
-		@include span-columns (4 of 11);
-		@include omega();
-		text-align: right;
-	}
-	.moc-byline {
-		// @include span-columns (4);
-		color: $lightgray;
-	}
-	.tags {
-		margin-top: 5px;
-	}
 }
+*/
 
-.tag {
-	border: 1px solid $lightestgray;
-	padding: 3px 8px;
-	border-radius: 20px;
-	font-size: 0.75em;
-	color: $lightgray;
+.moc-item.card {
+	@include span-columns(4);
+	@include omega(3n);
+
+	margin-bottom: $margin;
+	border: 1px solid $lightergray;
+	border-radius: $radius;
+	overflow: hidden;
+	background-color: $white;
+
+	.moc-image {
+		height: 180px;
+		background-color: $lightestgray;
+		overflow: hidden;
+
+		img { max-width: 100%; }
+	}
+
+	h3 a { 
+		color: $black; 
+
+		&:hover { color: $color_link; }
+	}
+
+	.moc-content {
+		padding: $pad 2*$pad;
+	}
+
+	.moc-info {
+		> div {
+			padding: $pad 2*$pad;
+			border-top: 1px solid $lightestgray;
+			font-size: $small;
+			color: $lightgray;
+
+			&.line {
+				padding: 0;
+				@include row(table);
+			}
+
+			span {
+				@include span-columns(1 of 3);
+				@include pad();
+				padding-left: 2*$pad;
+
+				&.moc-fees {
+					border-left: 1px solid $lightestgray;
+					border-right: 1px solid $lightestgray;
+				}
+				&.moc-parts {
+					@include reset-display;
+				}
+			}
+		}
+		
+		i { margin-right: $pad; }
+	}
+
 }
 
 
