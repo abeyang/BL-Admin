@@ -33,6 +33,7 @@ var app = angular.module('app', []);
 app.controller('MocController', function($scope, mocResource, tagResource) {
 
 	$scope.mocs = mocResource.list();
+	$scope.single = mocResource.findById(0);
 
 	$scope.tagnames = function(tags) {
 		// tags is an array of tag id's

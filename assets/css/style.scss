@@ -41,6 +41,7 @@ h1 {
 	margin-bottom: $pad*2;
 	border-bottom: 1px solid $lightestgray;
 }
+/*h2 { margin-top: $margin; }*/
 
 a {
 	color: $color_link;
@@ -51,6 +52,8 @@ section {
 	margin-left: $nav_width;
 	margin-top: $margin;
 }
+
+img { max-width: 100%; }
 
 // COMPONENTS
 
@@ -117,6 +120,17 @@ section {
 
 .container {
 	@include outer-container;
+
+	main {
+		@include span-columns(8);
+	}
+
+	aside {
+		@include span-columns(4);
+		@include omega();
+	}
+
+	.content { padding: $pad $pad*2 $pad*2; }
 }
 
 /* legacy code */
@@ -171,22 +185,24 @@ section {
 }
 */
 
+.card {
+	border: 1px solid $lightergray;
+	border-radius: $radius;
+	background-color: $white;
+	margin-bottom: $pad*2;
+}
+
 .moc-item.card {
 	@include span-columns(4);
 	@include omega(3n);
 
-	margin-bottom: $margin;
-	border: 1px solid $lightergray;
-	border-radius: $radius;
+	
 	overflow: hidden;
-	background-color: $white;
 
 	.moc-image {
 		height: 180px;
 		background-color: $lightestgray;
 		overflow: hidden;
-
-		img { max-width: 100%; }
 	}
 
 	h3 a { 
@@ -228,7 +244,26 @@ section {
 		
 		i { margin-right: $pad; }
 	}
+}
 
+.breadcrumbs {
+	@include span-columns(12);
+
+	border-top: 1px solid $lightestgray;
+	padding-top: $pad;
+	margin-top: $pad*2;
+
+	color: $lightergray;
+
+	a {
+		color: $gray;
+		text-decoration: underline;
+	}
+	span { 
+		margin-left: $pad;
+		margin-right: $pad;
+		color: $lightestgray; 
+	}
 }
 
 

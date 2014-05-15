@@ -1,9 +1,10 @@
-<!-- $title - MOC Page -->
+<!-- $title - MOCs -->
 <!-- $isactive-mocs class="nav-mocs active" -->
 <!-- @include _header -->
 
+<!-- @todo show sort filters (date, # parts, etc) -->
+<!-- @todo show toggle between list and card view -->
 
-	<!-- @todo redo entire page -->
 	<section ng-controller="MocController">
 		<div class="container">
 			<nav class="subnav">
@@ -17,7 +18,9 @@
 			</nav>
 			
 			<h1>MOCs</h1>
-
+			<!-- @todo show featured MOCs -->
+			<!-- @todo ratings (# of raters) -->
+			<!-- @todo figure out grid -->
 
 			<div class="moc-item card" ng-repeat="moc in mocs">
 				<div class="moc-image">
@@ -39,9 +42,30 @@
 				</div> <!-- /.moc-info -->
 			</div>
 
+<!-- 			<div class="moc-item line">
+				<div class="moc-image"></div>
+				<div class="moc-content">
+					<div class="moc-title">
+						<h3><a href="#">{{ moc.title }}</a></h3>
+						<span class="moc-byline">by {{ moc.name }} on date/time</span>	
+					</div>
+					
+					<div class="moc-fees">{{ moc.fee }}% fee</div>
+					<div class="moc-parts">
+						{{ moc.parts }} parts
+						<div class="tags">
+							<span class="tag">Tag1</span>
+							<span class="tag">Tag2</span>
+							<span class="tag">Tag3</span>
+						</div>
+					</div>
+				</div>
+			</div> -->
 		
 
 		</div>
 	</section>
+
+	<!-- @todo show pagination -->
   
 <!-- @include _footer -->
