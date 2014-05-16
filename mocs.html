@@ -1,28 +1,26 @@
 <!-- $title - MOCs -->
 <!-- $isactive-mocs class="active" -->
+<!-- $body-meta ng-controller="MocController" -->
 <!-- @include _header -->
 
 <!-- @todo show sort filters (date, # parts, etc) -->
-<!-- @todo show toggle between list and card view -->
 
 	<nav class="subnav">
 		<ul class="container">
-			<li class="active"><a href="#">New</a></li>
-			<li><a href="#">Pending</a></li>
-			<li><a href="#">Approved</a></li>
-			<li><a href="#">Rejected</a></li>
-			<li><a href="#">Featured</a></li>
+			<li ng-class="{active: filterCards.status == 0 && filterCards.isFeatured == ''}"><a ng-click="filterCards.status=0; filterCards.isFeatured=''" href="#">{{ getStatus(0) }}</a></li>
+			<li ng-class="{active: filterCards.status == 1}"><a ng-click="filterCards.status=1; filterCards.isFeatured=''" href="#">{{ getStatus(1) }}</a></li>
+			<li ng-class="{active: filterCards.status == 2}"><a ng-click="filterCards.status=2; filterCards.isFeatured=''" href="#">{{ getStatus(2) }}</a></li>
+			<li ng-class="{active: filterCards.status == 3}"><a ng-click="filterCards.status=3; filterCards.isFeatured=''" href="#">{{ getStatus(3) }}</a></li>
+			<li ng-class="{active: filterCards.isFeatured == true}"><a ng-click="filterCards.status=''; filterCards.isFeatured=true" href="#">Featured</a></li>
 		</ul>
-	    <!-- @todo add sorting button -->
 	</nav>
 
-	<section ng-controller="MocController">
+	<section>
 		<div class="container">
 			
-			<!-- @todo ratings (# of raters) -->
-			<!-- @todo # of comments -->
+			<!-- @todo ratings stars -->
 
-			<div class="moc-item" ng-repeat="moc in mocs">
+			<div class="moc-item" ng-repeat="moc in mocs | filter:filterCards">
 				<div class="card">
 					<div class="featured" ng-if="moc.isFeatured"><i class="fa fa-heart-o"></i></div>
 					<div class="line">

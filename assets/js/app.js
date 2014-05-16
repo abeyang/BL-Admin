@@ -50,6 +50,11 @@ app.controller('MocController', function($scope, mocResource, tagResource, statu
 		return statusResource.findNameById(status);
 	};
 
+	$scope.filterCards = {
+		isFeatured: '',
+		status: 0
+	};
+
 });
 
 
