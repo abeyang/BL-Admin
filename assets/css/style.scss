@@ -10,7 +10,12 @@ $lightergray: #ccc;
 $lightgray: #aaa;
 $gray: #999;
 $black:	#222;
+
 $color_link: #0090ff;
+$green: #2EAB00;
+$purple: #B249FF;
+$red: #FF1C00;
+$orange: #FF7700;
 
 // -- Box Model
 $nav_width: 100px;
@@ -26,7 +31,12 @@ $small: 0.75em;
 
 html {
   height: 100%;
-  background-color: $softgray;
+}
+
+body {
+	background-color: $softgray;
+
+	&.blank { background-color: $white; }
 }
 
 html, body, h1, h2, h3, h4, h5, h6, div, p {
@@ -41,7 +51,10 @@ h1 {
 	margin-bottom: $pad*2;
 	border-bottom: 1px solid $lightestgray;
 }
-/*h2 { margin-top: $margin; }*/
+h2 { 
+	margin-top: $margin;
+	margin-bottom: $pad*2; 
+}
 
 a {
 	color: $color_link;
@@ -52,8 +65,27 @@ section {
 	margin-left: $nav_width;
 	margin-top: $margin;
 }
+section.blank { background-color: $white; }
 
 img { max-width: 100%; }
+
+.right {
+	float: right;
+}
+
+// GENERAL ASSETS
+
+.badge { 
+	border-radius: $radius;
+	position: relative;
+	top: -3px;
+	padding: 3px 7px;
+	background-color: $lightestgray;
+
+	&.badge-pending { background-color: $orange; color: $white; }
+	&.badge-approved { background-color: $green; color: $white; }
+	&.badge-rejected { background-color: $red; color: $white; }
+}
 
 // COMPONENTS
 
@@ -130,7 +162,23 @@ img { max-width: 100%; }
 		@include omega();
 	}
 
-	.content { padding: $pad $pad*2 $pad*2; }
+	.content { padding: $pad $pad*2; }
+}
+
+.comment {
+	@include span-columns (8 of 8);
+	border-top: 1px solid $lightestgray;
+	padding-top: $pad;
+
+	.avatar { 
+		@include span-columns(1 of 8); 
+		height: 60px;
+		background-color: $lightergray;
+	}
+	.content { 
+		@include span-columns (7 of 8); 
+		padding: 0;
+	}
 }
 
 /* legacy code */
@@ -190,14 +238,12 @@ img { max-width: 100%; }
 	border-radius: $radius;
 	background-color: $white;
 	margin-bottom: $pad*2;
+	overflow: hidden;
 }
 
 .moc-item.card {
 	@include span-columns(4);
 	@include omega(3n);
-
-	
-	overflow: hidden;
 
 	.moc-image {
 		height: 180px;
@@ -215,35 +261,40 @@ img { max-width: 100%; }
 		padding: $pad 2*$pad;
 	}
 
-	.moc-info {
-		> div {
-			padding: $pad 2*$pad;
-			border-top: 1px solid $lightestgray;
-			font-size: $small;
-			color: $lightgray;
+	.moc-info > div { 
+		font-size: $small; 
+		padding-left: 2*$pad;
+		&.line { padding: 0; }
+	}
+}
 
-			&.line {
-				padding: 0;
-				@include row(table);
+.moc-info {
+	> div {
+		padding: $pad 2*$pad $pad 0;
+		border-top: 1px solid $lightestgray;
+		color: $lightgray;
+
+		&.line {
+			/*padding: 0;*/
+			@include row(table);
+		}
+
+		span {
+			@include span-columns(1 of 3);
+			@include pad();
+			padding-left: $pad*2;
+
+			&.moc-fees {
+				border-left: 1px solid $lightestgray;
+				border-right: 1px solid $lightestgray;
 			}
-
-			span {
-				@include span-columns(1 of 3);
-				@include pad();
-				padding-left: 2*$pad;
-
-				&.moc-fees {
-					border-left: 1px solid $lightestgray;
-					border-right: 1px solid $lightestgray;
-				}
-				&.moc-parts {
-					@include reset-display;
-				}
+			&.moc-parts {
+				@include reset-display;
 			}
 		}
-		
-		i { margin-right: $pad; }
 	}
+	
+	i { margin-right: $pad; }
 }
 
 .breadcrumbs {

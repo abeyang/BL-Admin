@@ -14,6 +14,7 @@
 					<li><a href="#">Approved</a></li>
 					<li><a href="#">Rejected</a></li>
 					<li><a href="#">Featured</a></li>
+					<li><a href="#">All</a></li>
 				</ul>
 			</nav>
 			
@@ -24,21 +25,22 @@
 
 			<div class="moc-item card" ng-repeat="moc in mocs">
 				<div class="moc-image">
-					<img src="../assets/images/cover_{{moc.id}}.jpg">
+					<a href="<!-- @path moc.html -->"><img src="../assets/images/cover_{{moc.id}}.jpg"></a>
 				</div>
 				<div class="moc-content">
 					<h3><a href="<!-- @path moc.html -->">{{ moc.title }}</a></h3>
 				</div> <!-- /.moc-content -->
 				<div class="moc-info">
-					<div><i class="fa fa-tag"></i>{{ tagnames(moc.tags) }}</div>
-					<div><i class="fa fa-user"></i> {{ moc.name }}</div>	
+					<div>
+						<div class="right badge badge-{{ getStatus(moc.status).toLowerCase() }}">{{ getStatus(moc.status) }}</div>
+						<i class="fa fa-user"></i> {{ moc.name }}
+					</div>	
+					<div><i class="fa fa-tag"></i>{{ getTagNames(moc.tags) }}</div>
 					<div class="line">
 						<span class="moc-submission"><i class="fa fa-clock-o"></i> date/time</span>
 						<span class="moc-fees"><i class="fa fa-credit-card"></i> {{ moc.fee }}%</span>
 						<span class="moc-parts"><i class="fa fa-square"></i> {{ moc.parts }} parts</span>
 					</div>
-					
-					
 				</div> <!-- /.moc-info -->
 			</div>
 
