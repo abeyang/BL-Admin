@@ -1,8 +1,13 @@
 <nav id="nav">
-  <ul>
-    <li <!-- $isactive-dashboard | class="nav-dashboard" -->><a href="@path index.html"><i class="fa fa-tachometer fa-2x"></i> Dashboard</a></li>
-    <li <!-- $isactive-mocs | class="nav-mocs" -->><a href="@path mocs.html"><i class="fa fa-check-circle-o fa-2x"></i> MOCs</a></li>
-    <li <!-- $isactive-tags | class="nav-tags" -->><a href="#"><i class="fa fa-tag fa-2x"></i> Tags</a></li>
-    <!-- @todo design contest, featured, poll, blog, flagged messages, help center -->
+  <ul class="container">
+    <li <!-- $isactive-dashboard | "" -->><a href="@path index.html">(Logo)</a></li>
+    <li <!-- $isactive-mocs | ""-->><a href="@path mocs.html">MOCs</a></li>
+    <li <!-- $isactive-tags | "" -->><a href="#">Tags</a></li>
+    <li <!-- $isactive-contest | "" -->><a href="#">Design Contest</a></li>
+    <li <!-- $isactive-poll | "" -->><a href="#">Poll</a></li>
+    <li <!-- $isactive-blog | "" -->><a href="#">Blog</a></li>
+    <li <!-- $isactive-help | "" -->><a href="#">Help Center</a></li>
+    <li class="right"><a href="#">Admin <i class="fa fa-angle-down"></i></a></li>
+    <!-- @todo featured, flagged messages -->
   </ul>
 </nav>

@@ -1,71 +1,43 @@
 <!-- $title - MOCs -->
-<!-- $isactive-mocs class="nav-mocs active" -->
+<!-- $isactive-mocs class="active" -->
 <!-- @include _header -->
 
 <!-- @todo show sort filters (date, # parts, etc) -->
 <!-- @todo show toggle between list and card view -->
 
+	<nav class="subnav">
+		<ul class="container">
+			<li class="active"><a href="#">New</a></li>
+			<li><a href="#">Pending</a></li>
+			<li><a href="#">Approved</a></li>
+			<li><a href="#">Rejected</a></li>
+			<li><a href="#">Featured</a></li>
+		</ul>
+	    <!-- @todo add sorting button -->
+	</nav>
+
 	<section ng-controller="MocController">
 		<div class="container">
-			<nav class="subnav">
-				<ul>
-					<li class="active"><a href="#">New</a></li>
-					<li><a href="#">Pending</a></li>
-					<li><a href="#">Approved</a></li>
-					<li><a href="#">Rejected</a></li>
-					<li><a href="#">Featured</a></li>
-					<li><a href="#">All</a></li>
-				</ul>
-			</nav>
 			
-			<h1>MOCs</h1>
-			<!-- @todo show featured MOCs -->
 			<!-- @todo ratings (# of raters) -->
-			<!-- @todo figure out grid -->
+			<!-- @todo # of comments -->
 
-			<div class="moc-item card" ng-repeat="moc in mocs">
-				<div class="moc-image">
-					<a href="<!-- @path moc.html -->"><img src="../assets/images/cover_{{moc.id}}.jpg"></a>
-				</div>
-				<div class="moc-content">
-					<h3><a href="<!-- @path moc.html -->">{{ moc.title }}</a></h3>
-				</div> <!-- /.moc-content -->
-				<div class="moc-info">
-					<div>
-						<div class="right badge badge-{{ getStatus(moc.status).toLowerCase() }}">{{ getStatus(moc.status) }}</div>
-						<i class="fa fa-user"></i> {{ moc.name }}
-					</div>	
-					<div><i class="fa fa-tag"></i>{{ getTagNames(moc.tags) }}</div>
+			<div class="moc-item" ng-repeat="moc in mocs">
+				<div class="card">
+					<div class="featured" ng-if="moc.isFeatured"><i class="fa fa-heart-o"></i></div>
 					<div class="line">
-						<span class="moc-submission"><i class="fa fa-clock-o"></i> date/time</span>
-						<span class="moc-fees"><i class="fa fa-credit-card"></i> {{ moc.fee }}%</span>
-						<span class="moc-parts"><i class="fa fa-square"></i> {{ moc.parts }} parts</span>
+						<span class="right"><i class="fa fa-comment-o"></i> {{ moc.comments }}</span>
+						{{ moc.ratings }} stars ({{ moc.raters }})
 					</div>
-				</div> <!-- /.moc-info -->
-			</div>
-
-<!-- 			<div class="moc-item line">
-				<div class="moc-image"></div>
-				<div class="moc-content">
-					<div class="moc-title">
-						<h3><a href="#">{{ moc.title }}</a></h3>
-						<span class="moc-byline">by {{ moc.name }} on date/time</span>	
-					</div>
-					
-					<div class="moc-fees">{{ moc.fee }}% fee</div>
-					<div class="moc-parts">
-						{{ moc.parts }} parts
-						<div class="tags">
-							<span class="tag">Tag1</span>
-							<span class="tag">Tag2</span>
-							<span class="tag">Tag3</span>
-						</div>
+					<div class="moc-image">
+						<a href="<!-- @path moc.html -->"><img src="../assets/images/cover_{{moc.id}}.jpg"></a>
 					</div>
 				</div>
-			</div> -->
-		
 
-		</div>
+				<a class="title" href="<!-- @path moc.html -->">{{ moc.title }}</a>
+			</div> <!-- /.moc-item -->
+
+		</div> <!-- /.container -->
 	</section>
 
 	<!-- @todo show pagination -->
