@@ -7,11 +7,12 @@
 
 	<nav class="subnav">
 		<ul class="container">
-			<li ng-class="{active: filterCards.status == 0 && filterCards.isFeatured == ''}"><a ng-click="filterCards.status=0; filterCards.isFeatured=''" href="#">{{ getStatus(0) }}</a></li>
+			<li ng-class="{active: filterCards.status === 0 && filterCards.isFeatured == ''}"><a ng-click="filterCards.status=0; filterCards.isFeatured=''" href="#">{{ getStatus(0) }}</a></li>
 			<li ng-class="{active: filterCards.status == 1}"><a ng-click="filterCards.status=1; filterCards.isFeatured=''" href="#">{{ getStatus(1) }}</a></li>
 			<li ng-class="{active: filterCards.status == 2}"><a ng-click="filterCards.status=2; filterCards.isFeatured=''" href="#">{{ getStatus(2) }}</a></li>
 			<li ng-class="{active: filterCards.status == 3}"><a ng-click="filterCards.status=3; filterCards.isFeatured=''" href="#">{{ getStatus(3) }}</a></li>
 			<li ng-class="{active: filterCards.isFeatured == true}"><a ng-click="filterCards.status=''; filterCards.isFeatured=true" href="#">Featured</a></li>
+			<li ng-class="{active: filterCards.status === '' && filterCards.isFeatured == ''}"><a ng-click="filterCards.status=''; filterCards.isFeatured=''" href="#">(All)</a></li>
 		</ul>
 	</nav>
 

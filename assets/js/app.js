@@ -30,7 +30,7 @@ var app = angular.module('app', []);
 
 /* 	MOC controller */
 
-app.controller('MocController', function($scope, mocResource, tagResource, statusResource) {
+app.controller('MocController', function($scope, mocResource, tagResource, statusResource, metaResource) {
 
 	$scope.mocs = mocResource.list();
 	$scope.single = mocResource.findById(0);
@@ -49,6 +49,8 @@ app.controller('MocController', function($scope, mocResource, tagResource, statu
 	$scope.getStatus = function(status) {
 		return statusResource.findNameById(status);
 	};
+
+	// $scope.getTitle...
 
 	$scope.filterCards = {
 		isFeatured: '',
@@ -366,6 +368,38 @@ app.factory('statusResource', function () {
             });
 
             return s.name;
+        }
+	}
+});
+
+app.factory('metaResource', function () {
+
+	var data = [
+		{id:0,	title:"The Fail Whale"},	
+		{id:1,	title:"Hogwarts Castle"},
+		{id:2,	title:"This is the Captain Speaking"},
+		{id:3,	title:"The Kingdom of Tiny Little Lego People"},
+		{id:4,	title:"My Little Typewriter"},
+		{id:5,	title:"Tank in Snow"},
+		{id:6,	title:"The Gray Battalion"},
+		{id:7,	title:"Shelob"},
+		{id:8,	title:"USS Enterprise"},
+		{id:9,	title:"The White Crane"}
+	];
+	
+	return {
+		list: function() {
+			return data;
+		},
+		findById: function(id) {
+            return _.find(data, function (moc) {
+                return moc.id == id;
+            });
+        },
+		findTitleById: function(id) {
+            var meta = findById(id);
+
+            return meta.title;
         }
 	}
 });
