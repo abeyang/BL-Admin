@@ -60,7 +60,10 @@ app.controller('MocController', function($scope, $location, mocResource, tagReso
 		return statusResource.findNameById(status);
 	};
 
-	// $scope.getTitle...
+	$scope.getTitle = function(id) {
+		var m = metaResource.findById(id);
+		return m.title;
+	};
 
 	$scope.filterCards = {
 		isFeatured: '',
