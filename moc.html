@@ -10,7 +10,6 @@
 		</ul>
 	</nav>
 
-	<!-- @todo add author / misc info -->
 	<section>
 		<div class="container">	
 			<main>
@@ -41,16 +40,13 @@
 			<aside>
 				<div class="moc-info">
 					<a class="btn btn-pill" href="#">{{ getStatus(single.status) }}</a>
+					<div><input type="checkbox" ng-model="single.isFeatured"> Featured</div>
+					<div class="color"><span ng-bind-html="getRatings(single.id)"></span></div>
 					<div><i class="fa fa-user"></i> {{ single.name }}</div>	
+					<div><i class="fa fa-clock-o"></i> {{ single.submitTime }}</div>
 					<div><i class="fa fa-tag"></i>{{ getTagNames(single.tags) }}</div>
-					<div class="line">
-						<span class="moc-submission"><i class="fa fa-clock-o"></i> d/t</span>
-						<span class="moc-fees"><i class="fa fa-credit-card"></i> {{ single.fee }}%</span>
-						<span class="moc-parts"><i class="fa fa-square"></i> {{ single.parts }} parts</span>
-					</div>
+					<div><i class="fa fa-credit-card"></i> {{ single.fee }}% / {{ single.parts }} parts</div>
 				</div> <!-- /.moc-info -->
-				<br />Rating
-				<br />Featured
 				
 			</aside>
 

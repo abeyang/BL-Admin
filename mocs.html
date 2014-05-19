@@ -18,15 +18,13 @@
 
 	<section>
 		<div class="container">
-			
-			<!-- @todo ratings stars -->
 
 			<div class="moc-item" ng-repeat="moc in mocs | filter:filterCards">
 				<div class="card">
 					<div class="featured" ng-if="moc.isFeatured"><i class="fa fa-heart-o"></i></div>
 					<div class="line">
 						<span class="right"><i class="fa fa-comment-o"></i> {{ moc.comments }}</span>
-						{{ moc.ratings }} stars ({{ moc.raters }})
+						<span ng-bind-html="getRatings(moc.id)"></span>
 					</div>
 					<div class="moc-image">
 						<a href="moc.html#/{{moc.id}}"><img src="../assets/images/cover_{{moc.id}}.jpg"></a>

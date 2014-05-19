@@ -14,7 +14,7 @@ Created by Abe Yang 5/14/2014
 
 'use strict';
 
-var app = angular.module('app', []);
+var app = angular.module('app', ['ngSanitize']);
 
 // ROUTERS
 
@@ -62,6 +62,10 @@ app.controller('MocController', function($scope, $location, mocResource, tagReso
 
 	$scope.getTitle = function(id) {
 		return metaResource.findTitleById(id);
+	};
+
+	$scope.getRatings = function(id) {
+		return mocResource.ratingsById(id);
 	};
 
 	$scope.filterCards = {
@@ -158,9 +162,9 @@ app.factory('mocResource', function () {
 	        "status": 3,
 	        "tags": [
 	            4,
-	            4,
+	            5,
 	            11,
-	            4,
+	            7,
 	            16
 	        ]
 	    },
@@ -317,6 +321,18 @@ app.factory('mocResource', function () {
             return _.find(data, function (moc) {
                 return moc.id == id;
             });
+        },
+        ratingsById: function(id) {
+        	var moc = this.findById(id);
+        	var html = '';
+            if (moc.raters) {
+            	for (var i=1; i<=5; i++) {
+            		if (moc.ratings >= i) html += '<i class="fa fa-star"></i>';
+            		else html += '<i class="fa fa-star-o"></i>';
+            	}
+            }
+            html += ' (' + moc.raters + ')';
+            return html;
         }
 	}
 });
@@ -390,7 +406,7 @@ app.factory('metaResource', function () {
 		{id:0,	title:"The Fail Whale"},	
 		{id:1,	title:"Hogwarts Castle"},
 		{id:2,	title:"This is the Captain Speaking"},
-		{id:3,	title:"The Kingdom of Tiny Little Lego People"},
+		{id:3,	title:"The Kingdom of Super Bite-Sized Tiny Little Lego People of Hobbitton"},
 		{id:4,	title:"My Little Typewriter"},
 		{id:5,	title:"Tank in Snow"},
 		{id:6,	title:"The Gray Battalion"},

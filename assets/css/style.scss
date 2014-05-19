@@ -273,27 +273,11 @@ nav {
 		padding: $pad 2*$pad $pad 0;
 		border-top: 1px solid $lightestgray;
 		color: $lightgray;
-
-		&.line {
-			@include row(table);
-		}
-
-		span {
-			@include span-columns(1 of 3);
-			@include pad();
-			padding-left: $pad*2;
-
-			&.moc-fees {
-				border-left: 1px solid $lightestgray;
-				border-right: 1px solid $lightestgray;
-			}
-			&.moc-parts {
-				@include reset-display;
-			}
-		}
 	}
 	
 	i { margin-right: $pad; }
+
+	.color .fa-star { color: $lightorange; }
 }
 
 
