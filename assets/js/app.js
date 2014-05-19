@@ -20,6 +20,12 @@ var app = angular.module('app', []);
 
 // app.config(['$routeProvider', function($routeProvider) {
 //   $routeProvider.
+//       when('/moc/:mid', {controller: 'MocController'}).
+//       	otherwise({redirectTo: '/tasks'});
+// }]);
+
+// app.config(['$routeProvider', function($routeProvider) {
+//   $routeProvider.
 //       when('/tasks', {templateUrl: 'partials/task-list.html', controller: 'TaskListController'}).
 // 	  when('/tasks/new', {templateUrl: 'partials/task-new.html', controller: 'TaskListController'}).
 //       when('/tasks/:taskId', {templateUrl: 'partials/task-detail.html', controller: 'TaskListController'}).
@@ -30,10 +36,14 @@ var app = angular.module('app', []);
 
 /* 	MOC controller */
 
-app.controller('MocController', function($scope, mocResource, tagResource, statusResource, metaResource) {
+app.controller('MocController', function($scope, $location, mocResource, tagResource, statusResource, metaResource) {
 
 	$scope.mocs = mocResource.list();
-	$scope.single = mocResource.findById(0);
+
+	if ($location.path()) $scope.mid = $location.path().substr(1);		// remove the first character, '/'
+	else $scope.mid = 0;
+	
+	$scope.single = mocResource.findById($scope.mid);
 
 	$scope.getTagNames = function(tags) {
 		// tags is an array of tag id's
