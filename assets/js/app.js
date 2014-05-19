@@ -61,8 +61,7 @@ app.controller('MocController', function($scope, $location, mocResource, tagReso
 	};
 
 	$scope.getTitle = function(id) {
-		var m = metaResource.findById(id);
-		return m.title;
+		return metaResource.findTitleById(id);
 	};
 
 	$scope.filterCards = {
@@ -91,7 +90,6 @@ app.factory('mocResource', function () {
                 comments: '{{integer(0, 10)}}',
 		        fee: '{{integer(0, 5)}}',
 		        parts: '{{integer(1, 100)}}',
-		        title: '{{lorem(7, "words")}}',
 		        content: '{{lorem(1, "paragraphs")}}',
 		        submitTime: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
 		        status: '{{integer(0, 3)}}',
@@ -326,6 +324,7 @@ app.factory('mocResource', function () {
 app.factory('tagResource', function () {
 
 	var data = [
+		{id:0,	tagname:"Ship"},
 		{id:1,	tagname:"Red"},
 		{id:2,	tagname:"Brown"},
 		{id:3,	tagname:"Black"},
@@ -410,8 +409,7 @@ app.factory('metaResource', function () {
             });
         },
 		findTitleById: function(id) {
-            var meta = findById(id);
-
+            var meta = this.findById(id);
             return meta.title;
         }
 	}
