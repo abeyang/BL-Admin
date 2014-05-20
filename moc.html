@@ -20,7 +20,7 @@
 
 				<h2>Activity Stream</h2>
 
-				<div class="comment" ng-repeat="moc in mocs">
+				<div class="comment" ng-repeat="stat in statii">
 					<div class="avatar"></div>
 					<div class="content">
 						<strong>Admin</strong> on Date/Time
@@ -40,11 +40,10 @@
 			<aside>
 				<div class="moc-info">
 					<a class="btn btn-pill" href="#">{{ getStatus(single.status) }}</a>
-					<div><input type="checkbox" ng-model="single.isFeatured"> Featured</div>
 					<div class="color"><span ng-bind-html="getRatings(single.id)"></span></div>
 					<div><i class="fa fa-user"></i> {{ single.name }}</div>	
 					<div><i class="fa fa-clock-o"></i> {{ single.submitTime }}</div>
-					<div><i class="fa fa-tag"></i>{{ getTagNames(single.tags) }}</div>
+					<div><i class="fa fa-tag"></i> {{ getTagNames(single.tags) }}</div>
 					<div><i class="fa fa-credit-card"></i> {{ single.fee }}% / {{ single.parts }} parts</div>
 				</div> <!-- /.moc-info -->
 				

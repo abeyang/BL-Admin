@@ -4,34 +4,46 @@
 <!-- @include _header -->
 
 <!-- @todo show sort filters (date, # parts, etc) -->
+<!-- @todo zero states: what does it look like? -->
 
 	<nav class="subnav">
 		<ul class="container">
-			<li ng-class="{active: filterCards.status === 0 && filterCards.isFeatured == ''}"><a ng-click="filterCards.status=0; filterCards.isFeatured=''" href="#">{{ getStatus(0) }}</a></li>
-			<li ng-class="{active: filterCards.status == 1}"><a ng-click="filterCards.status=1; filterCards.isFeatured=''" href="#">{{ getStatus(1) }}</a></li>
-			<li ng-class="{active: filterCards.status == 2}"><a ng-click="filterCards.status=2; filterCards.isFeatured=''" href="#">{{ getStatus(2) }}</a></li>
-			<li ng-class="{active: filterCards.status == 3}"><a ng-click="filterCards.status=3; filterCards.isFeatured=''" href="#">{{ getStatus(3) }}</a></li>
-			<li ng-class="{active: filterCards.isFeatured == true}"><a ng-click="filterCards.status=''; filterCards.isFeatured=true" href="#">Featured</a></li>
-			<li ng-class="{active: filterCards.status === '' && filterCards.isFeatured == ''}"><a ng-click="filterCards.status=''; filterCards.isFeatured=''" href="#">(All)</a></li>
+			<li ng-repeat="stat in statii" ng-class="{active: filterCards.status === stat.id }"><a ng-click="filterCards.status=stat.id" href="#">{{ getStatus(stat.id) }}</a></li>
+			<li ng-class="{active: filterCards.status === ''}"><a ng-click="filterCards.status=''" href="#">(All)</a></li>
 		</ul>
 	</nav>
 
 	<section>
+		<nav class="updatebar">
+			<ul class="container">
+				<li><a class="btn" ng-class="{'btn-disabled': selectCount() == 0}" href="#">Tags <i class="fa fa-angle-down"></i></a></li>
+				<li><a class="btn" ng-class="{'btn-disabled': selectCount() == 0}" href="#">Status <i class="fa fa-angle-down"></i></a></li>
+				<li class="right" ng-show="selectCount() > 0">{{ selectCount() }} selected</li>
+			</ul>
+		</nav>
+
 		<div class="container">
 
 			<div class="moc-item" ng-repeat="moc in mocs | filter:filterCards">
-				<div class="card">
-					<div class="featured" ng-if="moc.isFeatured"><i class="fa fa-heart-o"></i></div>
-					<div class="line">
-						<span class="right"><i class="fa fa-comment-o"></i> {{ moc.comments }}</span>
-						<span ng-bind-html="getRatings(moc.id)"></span>
+				<div class="card" ng-class="moc.selected">
+					<div class="line top">
+					<!-- @todo remove isFeatured heart -->
+						<div class="featured" ng-if="moc.isFeatured"><i class="fa fa-heart-o"></i></div>
+						<a class="title" href="moc.html#/{{moc.id}}"><input type="checkbox" ng-model="moc.selected" ng-true-value="selected"> {{ getTitle(moc.id) }}</a>	
 					</div>
 					<div class="moc-image">
 						<a href="moc.html#/{{moc.id}}"><img src="../assets/images/cover_{{moc.id}}.jpg"></a>
 					</div>
+					<div class="line">
+						<span class="right"><i class="fa fa-comment-o"></i> {{ moc.comments }}</span>
+						<span ng-bind-html="getRatings(moc.id)"></span>
+					</div>
+					<div class="line moc-tags">
+						<i class="fa fa-tag"></i> {{ getTagNames(moc.tags) }}
+					</div>
+					
 				</div>
-
-				<a class="title" href="moc.html#/{{moc.id}}">{{ getTitle(moc.id) }}</a>
+				
 			</div> <!-- /.moc-item -->
 
 		</div> <!-- /.container -->
