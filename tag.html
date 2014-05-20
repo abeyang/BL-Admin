@@ -1,0 +1,38 @@
+<!-- $title - Tag -->
+<!-- $isactive-tags class="active" -->
+<!-- $body-meta class="blank" ng-controller="TagController" -->
+<!-- @include _header -->
+
+
+	<nav class="subnav">
+		<ul class="container">
+			<li class="active"><a class="title" href="#">{{ tag.tagname }}</a></li>
+			<li class="right"><a class="btn btn-danger" href="#">Delete</a></li>
+			<li class="right"><a class="btn" href="#">Rename</a></li>
+		</ul>
+	</nav>
+
+	<section>
+		<div class="container">	
+
+<!--			<div>{{ mocs.length }} items labeled as {{ tag.tagname }}</div>-->
+
+			<div class="moc-item" ng-repeat="moc in mocs">
+				<div class="card">
+					<div class="featured" ng-if="moc.isFeatured"><i class="fa fa-heart-o"></i></div>
+					<div class="line">
+						<span class="right"><i class="fa fa-comment-o"></i> {{ moc.comments }}</span>
+						<span ng-bind-html="getRatings(moc.id)"></span>
+					</div>
+					<div class="moc-image">
+						<a href="moc.html#/{{moc.id}}"><img src="../assets/images/cover_{{moc.id}}.jpg"></a>
+					</div>
+				</div>
+
+				<a class="title" href="moc.html#/{{moc.id}}">{{ getTitle(moc.id) }}</a>
+			</div> <!-- /.moc-item -->
+
+		</div> <!-- /.container -->
+	</section>
+  
+<!-- @include _footer -->

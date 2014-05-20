@@ -101,10 +101,6 @@ img {
     text-overflow: ellipsis;
 }
 
-.title {
-    text-transform: capitalize;
-}
-
 // -- Forms
 
 input, textarea, .btn {
@@ -117,8 +113,8 @@ input, textarea, .btn {
 .btn {
     padding-left: $pad * 2;
     padding-right: $pad * 2;
-    background-color: $lightestgray;
     color: $black;
+    background-color: $lightestgray;
 }
 
 .btn-pill {
@@ -127,9 +123,25 @@ input, textarea, .btn {
 }
 
 .btn-primary {
-    background-color: $color_link;
     color: $white;
     border-color: transparent;
+    background-color: $color_link;
+}
+
+.btn-danger {
+	// ...
+}
+
+.subnav {
+	a.btn {
+		color: $white;
+		background-color: transparent;
+		border-color: $white;
+	}
+	a.btn-danger {
+		color: $red;
+		border-color: $red;
+	}
 }
 
 // COMPONENTS
@@ -147,7 +159,7 @@ nav {
         &:first-child {
             padding-left: 0;
         }
-        &:last-child {
+        &.right {
             padding-right: 0;
         }
     }

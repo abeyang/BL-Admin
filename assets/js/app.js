@@ -3,7 +3,7 @@ Created by Abe Yang 5/14/2014
 
 	Legend:
 	+ mid = MOC id
-	
+	+ tid = tag id
 */
 
 // =========================================================================================================
@@ -85,16 +85,21 @@ app.controller('TagsController', function($scope, $location, tagResource) {
 
 });
 
-// app.controller('TagController', function($scope, $location, mocResource, tagResource) {
+app.controller('TagController', function($scope, $location, mocResource, tagResource, metaResource) {
 
-// 	$scope.mid = getIdFromUrl($location);
-// 	$scope.single = mocResource.findById($scope.mid);
+	var id = getIdFromUrl($location);
+	$scope.tag = tagResource.findById(id);
 
-// 	$scope.tagOrder = '-count';		// default tag order: sort by popularity
+	$scope.mocs = mocResource.filterByTagId(id);
 
-// 	$scope.max = tagResource.maxCount();
+	$scope.getTitle = function(id) {
+		return metaResource.findTitleById(id);
+	};
+	$scope.getRatings = function(id) {
+		return mocResource.ratingsById(id);
+	};
 
-// });
+});
 
 
 // HELPERS
@@ -363,6 +368,12 @@ app.factory('mocResource', function () {
             }
             html += ' (' + moc.raters + ')';
             return html;
+        },
+        filterByTagId: function(tid) {
+			return _.filter(data, function (moc) {
+        		// tid is a string; need to convert to number to compare
+        		return _.contains(moc.tags, Number(tid)); 
+        	});
         }
 	}
 });
@@ -397,6 +408,11 @@ app.factory('tagResource', function () {
 		list: function() {
 			return data;
 		},
+		findById: function(id) {
+            return _.find(data, function (moc) {
+                return moc.id == id;
+            });
+        },
 		findNameById: function(id) {
             var t = _.find(data, function (tag) {
                 return tag.id == id;
