@@ -3,12 +3,11 @@
 <!-- $body-meta class="blank" ng-controller="TagsController" -->
 <!-- @include _header -->
 
-<!-- @todo add tag -->
-
 	<nav class="subnav">
 		<ul class="container">
 			<li ng-class="{active: tagOrder == '-count'}"><a ng-click="tagOrder = '-count'" href="#">Popular</a></li>
 			<li ng-class="{active: tagOrder == 'tagname'}"><a ng-click="tagOrder = 'tagname'" href="#">Name</a></li>
+			<li class="right"><a class="btn" href="#">Add Tag</a></li>
 		</ul>
 	</nav>
 

@@ -134,6 +134,7 @@ input, textarea, .btn {
 
 .subnav {
 	a.btn {
+		padding: $pad/2 $pad;
 		color: $white;
 		background-color: transparent;
 		border-color: $white;
