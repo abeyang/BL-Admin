@@ -34,14 +34,12 @@ var app = angular.module('app', ['ngSanitize']);
 
 // CONTROLLERS
 
-/* 	MOC controller */
+/* MOC controller */
 
 app.controller('MocController', function($scope, $location, mocResource, tagResource, statusResource, metaResource) {
 
 	$scope.mocs = mocResource.list();
-
-	if ($location.path()) $scope.mid = $location.path().substr(1);		// remove the first character, '/'
-	else $scope.mid = 0;
+	$scope.mid = getIdFromUrl($location);
 	
 	$scope.single = mocResource.findById($scope.mid);
 
@@ -74,6 +72,38 @@ app.controller('MocController', function($scope, $location, mocResource, tagReso
 	};
 
 });
+
+/* Tag controller */
+
+app.controller('TagsController', function($scope, $location, tagResource) {
+
+	$scope.tags = tagResource.list();
+
+	$scope.tagOrder = '-count';		// default tag order: sort by popularity
+
+	$scope.max = tagResource.maxCount();
+
+});
+
+// app.controller('TagController', function($scope, $location, mocResource, tagResource) {
+
+// 	$scope.mid = getIdFromUrl($location);
+// 	$scope.single = mocResource.findById($scope.mid);
+
+// 	$scope.tagOrder = '-count';		// default tag order: sort by popularity
+
+// 	$scope.max = tagResource.maxCount();
+
+// });
+
+
+// HELPERS
+
+function getIdFromUrl(location) {
+	var id = 0;
+	if (location.path()) id = location.path().substr(1);		// remove the first character, '/'
+	return id;
+}
 
 
 // FACTORIES
@@ -340,27 +370,27 @@ app.factory('mocResource', function () {
 app.factory('tagResource', function () {
 
 	var data = [
-		{id:0,	tagname:"Ship"},
-		{id:1,	tagname:"Red"},
-		{id:2,	tagname:"Brown"},
-		{id:3,	tagname:"Black"},
-		{id:4,	tagname:"White",},
-		{id:5,	tagname:"Plane"},
-		{id:6,	tagname:"Boat"},
-		{id:7,	tagname:"House"},
-		{id:8,	tagname:"Horse"},
-		{id:9,	tagname:"Dog"},
-		{id:10,	tagname:"Cat"},
-		{id:11,	tagname:"Mouse"},
-		{id:12,	tagname:"Hamster"},
-		{id:13,	tagname:"Thing"},
-		{id:14,	tagname:"Purple",},
-		{id:15,	tagname:"Blue"},
-		{id:16,	tagname:"Sweet"},
-		{id:17,	tagname:"Console"},
-		{id:18,	tagname:"Eagle"},
-		{id:19,	tagname:"Mecha"},
-		{id:20,	tagname:"Robot"}
+		{id:0,	tagname:"Ship",		count: 56},
+		{id:1,	tagname:"Red",		count: 1},
+		{id:2,	tagname:"Brown",	count: 3},
+		{id:3,	tagname:"Black",	count: 49},
+		{id:4,	tagname:"White",	count: 34},
+		{id:5,	tagname:"Plane",	count: 52},
+		{id:6,	tagname:"Boat",		count: 21},
+		{id:7,	tagname:"House",	count: 19},
+		{id:8,	tagname:"Horse",	count: 7},
+		{id:9,	tagname:"Dog",		count: 41},
+		{id:10,	tagname:"Cat",		count: 86},
+		{id:11,	tagname:"Mouse",	count: 37},
+		{id:12,	tagname:"Hamster",	count: 45},
+		{id:13,	tagname:"Thing",	count: 11},
+		{id:14,	tagname:"Purple",	count: 15},
+		{id:15,	tagname:"Blue",		count: 17},
+		{id:16,	tagname:"Sweet",	count: 2},
+		{id:17,	tagname:"Console",	count: 5},
+		{id:18,	tagname:"Eagle",	count: 8},
+		{id:19,	tagname:"Mecha",	count: 33},
+		{id:20,	tagname:"Robot",	count: 52}
 	];
 	
 	return {
@@ -373,6 +403,10 @@ app.factory('tagResource', function () {
             });
 
             return t.tagname;
+        },
+        maxCount: function() {
+        	var t = _.max(data, function(tag){ return tag.count; });
+        	return t.count;
         }
 	}
 });

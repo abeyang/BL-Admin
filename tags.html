@@ -1,0 +1,30 @@
+<!-- $title - Tags -->
+<!-- $isactive-tags class="active" -->
+<!-- $body-meta class="blank" ng-controller="TagsController" -->
+<!-- @include _header -->
+
+<!-- @todo toggle between list and graph -->
+<!-- @todo maybe have some visual indicator of count? -->
+
+	<nav class="subnav">
+		<ul class="container">
+			<li ng-class="{active: tagOrder == '-count'}"><a ng-click="tagOrder = '-count'" href="#">Popular</a></li>
+			<li ng-class="{active: tagOrder == 'tagname'}"><a ng-click="tagOrder = 'tagname'" href="#">Name</a></li>
+		</ul>
+	</nav>
+
+	<section>
+		<div class="container">
+
+			<div class="tag-item" ng-repeat="tag in tags | orderBy:tagOrder">
+				<span class="right count">{{ tag.count }}</span>
+				<a href="tag.html#/{{ tag.id }}">{{ tag.tagname }}</a>
+				<div class="hairline" style="width: {{ tag.count / max * 100 }}%"></div>
+			</div> <!-- /.tag-item -->
+
+		</div> <!-- /.container -->
+	</section>
+
+	<!-- @todo show pagination -->
+  
+<!-- @include _footer -->

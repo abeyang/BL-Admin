@@ -3,21 +3,21 @@
 // VARIABLES
 
 // -- Color
-$white: #fff;
+$white: white;
 $softgray: #f7f7f5;
-$lightestgray: #eee;
-$lightergray: #ccc;
-$lightgray: #aaa;
-$gray: #999;
+$lightestgray: #eeeeee;
+$lightergray: #cccccc;
+$lightgray: #aaaaaa;
+$gray: #999999;
 $offblack: #333539;
-$black:	#222;
+$black: #222222;
 
 $color_link: #0090ff;
-$green: #2EAB00;
-$purple: #B249FF;
-$red: #FF1C00;
-$orange: #FF7700;
-$lightorange: lighten(#FF7700, 10);
+$green: #2eab00;
+$purple: #b249ff;
+$red: #ff1c00;
+$orange: #ff7700;
+$lightorange: lighten(#ff7700, 10);
 
 // -- Box Model
 /*$nav_width: 100px;*/
@@ -32,275 +32,295 @@ $small: 0.9em;
 // LAYOUT
 
 html {
-  height: 100%;
+    height: 100%;
 }
 
 body {
-	margin-bottom: $margin;
-	background-color: $softgray;
-
-	&.blank { background-color: $white; }
+    margin-bottom: $margin;
+    background-color: $softgray;
+    &.blank {
+        background-color: $white;
+    }
 }
 
 html, body, h1, h2, h3, h4, h5, h6, div, p {
-	font-family: $source;
-	color: $black;
+    font-family: $source;
+    color: $black;
 }
-h1, h2, h3 {
-	font-weight: 700;
-	font-size: 1em;
-}
-h2 { 
-	margin-top: $margin;
-	margin-bottom: $pad*2;
-	padding-bottom: $pad;
 
-	&.line {
-		border-bottom: 1px solid $lightestgray;
-	}
+h1, h2, h3 {
+    font-weight: 700;
+    font-size: 1em;
+}
+
+h2 {
+    margin-top: $margin;
+    margin-bottom: $pad * 2;
+    padding-bottom: $pad;
+    &.line {
+        border-bottom: 1px solid $lightestgray;
+    }
 }
 
 a {
-	color: $color_link;
-	text-decoration: none;
+    color: $color_link;
+    text-decoration: none;
 }
 
 section {
-	margin-top: $margin;
+    margin-top: $margin;
 }
-section.blank { background-color: $white; }
 
-img { max-width: 100%; }
+section.blank {
+    background-color: $white;
+}
+
+img {
+    max-width: 100%;
+}
 
 .right {
-	float: right;
+    float: right;
 }
 
 // HELPER ASSETS
 
-.badge { 
-	border-radius: $radius*3;
-	padding: 3px 7px;
-	background-color: $lightestgray;
-
-/*	&.badge-pending { background-color: $orange; color: $white; }
-	&.badge-approved { background-color: $green; color: $white; }
-	&.badge-rejected { background-color: $red; color: $white; }*/
+.badge {
+    border-radius: $radius * 3;
+    padding: 3px 7px;
+    background-color: $lightestgray;
+    /*	&.badge-pending { background-color: $orange; color: $white; }
+    	&.badge-approved { background-color: $green; color: $white; }
+    	&.badge-rejected { background-color: $red; color: $white; }*/
 }
 
 .truncate {
-	@include span-columns(4 of 4);
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+    @include span-columns(4 of 4);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .title {
-	text-transform: capitalize;
+    text-transform: capitalize;
 }
 
 // -- Forms
 
 input, textarea, .btn {
-	padding: $pad;
-	margin-bottom: $pad;
-	border-radius: $radius;	
-	border: 1px solid $lightergray;
+    padding: $pad;
+    margin-bottom: $pad;
+    border-radius: $radius;
+    border: 1px solid $lightergray;
 }
 
 .btn {
-	padding-left: $pad*2;
-	padding-right: $pad*2;
-	background-color: $lightestgray;
-	color: $black;
+    padding-left: $pad * 2;
+    padding-right: $pad * 2;
+    background-color: $lightestgray;
+    color: $black;
 }
+
 .btn-pill {
-	display: block;
-	text-align: center;
+    display: block;
+    text-align: center;
 }
+
 .btn-primary {
-	background-color: $color_link;
-	color: $white;
-	border-color: transparent;
+    background-color: $color_link;
+    color: $white;
+    border-color: transparent;
 }
 
 // COMPONENTS
 
 // -- Navigation
 nav {
-	ul { 
-		margin-top: 0; 
-		margin-bottom: 0; 
-		padding-left: 0;
-	}
-	li { 
-		float: left; 
-		padding: $pad*2;
-
-		&:first-child { padding-left: 0; }
-		&:last-child { padding-right: 0; }
-	}
+    ul {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-left: 0;
+    }
+    li {
+        float: left;
+        padding: $pad * 2;
+        &:first-child {
+            padding-left: 0;
+        }
+        &:last-child {
+            padding-right: 0;
+        }
+    }
 }
 
 #nav {
-	background-color: $black;
-
-	li {
-		&.active a { color: $white; }
-	}
-
-	a {
-		font-size: $small;
-		font-weight: 600;
-		text-transform: uppercase;
-		color: $gray;
-	}
+    background-color: $black;
+    li {
+        &.active a {
+            color: $white;
+        }
+    }
+    a {
+        font-size: $small;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: $gray;
+    }
 }
 
 .subnav {
-	background-color: $offblack;
-	
-	li {
-		padding: $pad*1.5 $pad*2;
-
-		a { 
-			color: $lightgray; 
-			/*&:hover { color: $color_link; }*/
-		}
-
-		&.active { 
-			a { color: $white; }
-		}
-	}
+    background-color: $offblack;
+    li {
+        padding: $pad * 1.5 $pad * 2;
+        a {
+            color: $lightgray;
+            /*&:hover { color: $color_link; }*/
+        }
+        &.active {
+            a {
+                color: $white;
+            }
+        }
+    }
 }
 
 // -- Others
 
 .container {
-	@include outer-container;
-
-	main {
-		@include span-columns(8);
-	}
-
-	aside {
-		@include span-columns(4);
-		@include omega();
-	}
-
-	.content { padding: $pad $pad*2; }
+    @include outer-container;
+    main {
+        @include span-columns(8);
+    }
+    aside {
+        @include span-columns(4);
+        @include omega;
+    }
+    .content {
+        padding: $pad $pad * 2;
+    }
 }
 
 .comment {
-	@include span-columns (8 of 8);
-	border-top: 1px solid $lightestgray;
-	padding-top: $pad;
-
-	.avatar { 
-		@include span-columns(1 of 8); 
-		height: 60px;
-		background-color: $lightergray;
-	}
-	.content { 
-		@include span-columns (7 of 8); 
-		padding: 0;
-	}
-	textarea {
-		width: 100%;
-		height: 100px;
-	}
+    @include span-columns(8 of 8);
+    border-top: 1px solid $lightestgray;
+    padding-top: $pad;
+    .avatar {
+        @include span-columns(1 of 8);
+        height: 60px;
+        background-color: $lightergray;
+    }
+    .content {
+        @include span-columns(7 of 8);
+        padding: 0;
+    }
+    textarea {
+        width: 100%;
+        height: 100px;
+    }
 }
 
 .card {
-	border: 1px solid $lightergray;
-	border-radius: $radius;
-	background-color: $white;
-	/*margin-bottom: $pad*2;*/
-	overflow: hidden;
+    border: 1px solid $lightergray;
+    border-radius: $radius;
+    background-color: $white;
+    /*margin-bottom: $pad*2;*/
+    overflow: hidden;
 }
 
 .featured {
-	position: absolute;
-	right: 0;
-	width: 0;
-	height: 0;
-	border-style: solid;
-	border-width: 0 50px 50px 0;
-	border-color: transparent $lightorange transparent transparent;
-	color: $white;
-
-	i {
-		margin-left: 25px;
-		margin-top: 8px;
-	}
+    position: absolute;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 50px 50px 0;
+    border-color: transparent $lightorange transparent transparent;
+    color: $white;
+    i {
+        margin-left: 25px;
+        margin-top: 8px;
+    }
 }
 
 .moc-item {
-	@include span-columns(4);
-	@include omega(3n);
-	margin-bottom: $margin;
-
-	.card { position: relative; }
-
-	.moc-image {
-		height: 220px;
-		background-color: $lightergray;
-		overflow: hidden;
-	}
-
-	.title { 
-		display: block;
-		@extend .truncate;
-		margin-top: $pad; 
-		color: $black; 
-		text-align: center;
-
-		&:hover { color: $color_link; }
-	}
-
-	.line {
-		position: absolute;
-		bottom: 0;
-		width: 100%;
-		padding: $pad*2 $pad $pad;
-		color: $lightestgray;
-		@include linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.5));
-	}
+    @include span-columns(4);
+    @include omega(3n);
+    margin-bottom: $margin;
+    .card {
+        position: relative;
+    }
+    .moc-image {
+        height: 220px;
+        background-color: $lightergray;
+        overflow: hidden;
+    }
+    .title {
+        display: block;
+        @extend .truncate;
+        margin-top: $pad;
+        color: $black;
+        text-align: center;
+        &:hover {
+            color: $color_link;
+        }
+    }
+    .line {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: $pad * 2 $pad $pad;
+        color: $lightestgray;
+        @include linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+    }
 }
 
 .moc-info {
-	> div {
-		padding: $pad 2*$pad $pad 0;
-		border-top: 1px solid $lightestgray;
-		color: $lightgray;
-	}
-	
-	i { margin-right: $pad; }
-
-	.color .fa-star { color: $lightorange; }
+    > div {
+        padding: $pad 2 * $pad $pad 0;
+        border-top: 1px solid $lightestgray;
+        color: $lightgray;
+    }
+    i {
+        margin-right: $pad;
+    }
+    .color .fa-star {
+        color: $lightorange;
+    }
 }
 
+.tag-item {
+	@include span-columns(4);
+    @include omega(3n);
+    margin-bottom: $margin;
+	border-bottom: 1px solid $lightestgray;
+    
+    a { 
+    	display: block;
+    	padding-bottom: $pad;
+    	color: $black; 
+    }
+    .count { color: $lightergray; }
+    .hairline { 
+    	position: relative;
+    	top: 1px;
+    	height: 1px;
+    	background-color: $gray; 
+    }
+}
 
 // MEDIA QUERIES
 
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-  
-  /* Styles for mobile */
-
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    /* Styles for mobile */
 }
 
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
-
-  /* Styles for tablet */
-
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    /* Styles for tablet */
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
-
-  /* Don't forget your Retina CSS! */
-  
-  body {
-    background-size: 72px 72px;
-  }
-
+    /* Don't forget your Retina CSS! */
+    body {
+        background-size: 72px 72px;
+    }
 }
