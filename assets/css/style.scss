@@ -12,12 +12,13 @@ $gray: #999999;
 $offblack: #333539;
 $black: #222222;
 
-$color_link: #0090ff;
+$blue: #44A3EC;
 $green: #2eab00;
 $purple: #b249ff;
 $red: #ff1c00;
 $orange: #ff7700;
 $lightorange: lighten(#ff7700, 10);
+$color_link: $orange;
 
 // -- Box Model
 /*$nav_width: 100px;*/

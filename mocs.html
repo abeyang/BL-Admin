@@ -8,8 +8,8 @@
 
 	<nav class="subnav">
 		<ul class="container">
-			<li ng-repeat="stat in statii" ng-class="{active: filterCards.status === stat.id }"><a ng-click="filterCards.status=stat.id" href="#">{{ getStatus(stat.id) }}</a></li>
-			<li ng-class="{active: filterCards.status === ''}"><a ng-click="filterCards.status=''" href="#">(All)</a></li>
+			<li ng-repeat="stat in statii" ng-class="{active: filterCards.status === stat.id }"><a ng-click="filterCards.status=stat.id; selectNone()" href="#">{{ getStatus(stat.id) }}</a></li>
+			<li ng-class="{active: filterCards.status === ''}"><a ng-click="filterCards.status=''; selectNone()" href="#">(All)</a></li>
 		</ul>
 	</nav>
 

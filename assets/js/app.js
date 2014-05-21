@@ -18,19 +18,19 @@ var app = angular.module('app', ['ngSanitize']);
 
 // ROUTERS
 
-// app.config(['$routeProvider', function($routeProvider) {
-//   $routeProvider.
-//       when('/moc/:mid', {controller: 'MocController'}).
-//       	otherwise({redirectTo: '/tasks'});
-// }]);
+/* app.config(['$routeProvider', function($routeProvider) {
+  $routeProvider.
+      when('/moc/:mid', {controller: 'MocController'}).
+      	otherwise({redirectTo: '/tasks'});
+}]);*/
 
-// app.config(['$routeProvider', function($routeProvider) {
-//   $routeProvider.
-//       when('/tasks', {templateUrl: 'partials/task-list.html', controller: 'TaskListController'}).
-// 	  when('/tasks/new', {templateUrl: 'partials/task-new.html', controller: 'TaskListController'}).
-//       when('/tasks/:taskId', {templateUrl: 'partials/task-detail.html', controller: 'TaskListController'}).
-//       otherwise({redirectTo: '/tasks'});
-// }]);
+/* app.config(['$routeProvider', function($routeProvider) {
+  $routeProvider.
+      when('/tasks', {templateUrl: 'partials/task-list.html', controller: 'TaskListController'}).
+	  when('/tasks/new', {templateUrl: 'partials/task-new.html', controller: 'TaskListController'}).
+      when('/tasks/:taskId', {templateUrl: 'partials/task-detail.html', controller: 'TaskListController'}).
+      otherwise({redirectTo: '/tasks'});
+}]);*/
 
 // CONTROLLERS
 
@@ -69,6 +69,13 @@ app.controller('MocController', function($scope, $location, mocResource, tagReso
 
 	$scope.selectCount = function() {
 		return mocResource.findSelected().length;	
+	};
+
+	$scope.selectNone = function() {
+		var mocs = mocResource.findSelected();
+		_.each(mocs, function (moc) {
+			moc.selected = '';
+		});
 	}
 
 	$scope.filterCards = {
