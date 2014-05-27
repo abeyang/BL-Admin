@@ -17,11 +17,10 @@ $green: #2eab00;
 $purple: #b249ff;
 $red: #ff1c00;
 $orange: #ff7700;
-$lightorange: lighten(#ff7700, 10);
+$lightorange: lighten($orange, 10);
 $color_link: $orange;
 
 // -- Box Model
-/*$nav_width: 100px;*/
 $margin: 40px;
 $pad: 10px;
 $radius: 5px;
@@ -175,15 +174,25 @@ nav {
     background-color: $black;
     li {
         &.active a {
-            color: $white;
+            opacity: 1.0;
+        }
+
+        &#logo {
+        	padding-top: 14px;
+        	padding-bottom: 0;
+
+        	img { max-width: 30px; }
         }
     }
     a {
         font-size: $small;
         font-weight: 600;
         text-transform: uppercase;
-        color: $gray;
+        color: $white;
+        opacity: 0.4;
     }
+
+    
 }
 
 .subnav {
