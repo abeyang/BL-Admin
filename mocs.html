@@ -25,25 +25,7 @@
 		<div class="container">
 
 			<div class="moc-item" ng-repeat="moc in mocs | filter:filterCards">
-				<div class="card" ng-class="moc.selected">
-					<div class="line top">
-					<!-- @todo remove isFeatured heart -->
-						<div class="featured" ng-if="moc.isFeatured"><i class="fa fa-heart-o"></i></div>
-						<a class="title" href="moc.html#/{{moc.id}}"><input type="checkbox" ng-model="moc.selected" ng-true-value="selected"> {{ getTitle(moc.id) }}</a>	
-					</div>
-					<div class="moc-image">
-						<a href="moc.html#/{{moc.id}}"><img src="../assets/images/cover_{{moc.id}}.jpg"></a>
-					</div>
-					<div class="line">
-						<span class="right"><i class="fa fa-comment-o"></i> {{ moc.comments }}</span>
-						<span ng-bind-html="getRatings(moc.id)"></span>
-					</div>
-					<div class="line moc-tags">
-						<i class="fa fa-tag"></i> {{ getTagNames(moc.tags) }}
-					</div>
-					
-				</div>
-				
+				<ng-include src="'includes/moc_item.html'"></ng-include>
 			</div> <!-- /.moc-item -->
 
 		</div> <!-- /.container -->

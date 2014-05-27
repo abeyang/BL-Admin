@@ -44,6 +44,8 @@ app.controller('MocController', function($scope, $location, mocResource, tagReso
 	var id = getIdFromUrl($location);
 	$scope.single = mocResource.findById(id);
 
+	$scope.showTags = true;
+
 	$scope.getTagNames = function(tags) {
 		// tags is an array of tag id's
 		var str = '';
@@ -102,6 +104,8 @@ app.controller('TagController', function($scope, $location, mocResource, tagReso
 	$scope.tag = tagResource.findById(id);
 
 	$scope.mocs = mocResource.filterByTagId(id);
+
+	$scope.showTags = false;
 
 	$scope.getTitle = function(id) {
 		return metaResource.findTitleById(id);
