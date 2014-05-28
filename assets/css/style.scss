@@ -21,6 +21,7 @@ $lightorange: lighten($orange, 10);
 $color_link: $orange;
 
 // -- Box Model
+$thumb_width: 140px;
 $margin: 40px;
 $pad: 10px;
 $radius: 5px;
@@ -386,6 +387,16 @@ nav {
 
     .block {
         padding: $pad*2;
+
+        &.thumb {
+            width: $thumb_width;
+            height: $thumb_width*0.66;
+            padding: 0;
+            overflow: hidden;
+            background-color: $lightestgray;
+
+            img { max-width: $thumb_width; }
+        }
     }
 
     .right .block {

@@ -10,6 +10,9 @@
 			Votes
 		</div>
 	</div>
+	<div class="block thumb" ng-if="entry.status==3">
+		<img src="../assets/images/cover_{{entry.id}}.jpg">
+	</div>
 	<div class="block">
 		<h3>{{ getTitle(entry.id) }}</h3>
 		{{ entry.startDate }}
