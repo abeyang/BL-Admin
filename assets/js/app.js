@@ -36,13 +36,13 @@ var app = angular.module('app', ['ngSanitize']);
 
 /* MOC controller */
 
-app.controller('MocController', function($scope, $location, mocResource, tagResource, statusResource, metaResource) {
+app.controller('MocController', function($scope, $location, ui, mocResource, tagResource, statusResource, metaResource) {
 
 	$scope.mocs = mocResource.list();
 	$scope.statii = statusResource.list();
 	
 	var id = getIdFromUrl($location);
-	$scope.single = mocResource.findById(id);
+	$scope.single = ui.findById(mocResource, id);
 
 	$scope.showTags = true;
 
@@ -58,11 +58,11 @@ app.controller('MocController', function($scope, $location, mocResource, tagReso
 	};
 
 	$scope.getStatus = function(status) {
-		return statusResource.findNameById(status);
+		return ui.findAttrById(statusResource, 'name', status);
 	};
 
 	$scope.getTitle = function(id) {
-		return metaResource.findTitleById(id);
+		return ui.findAttrById(metaResource, 'title', id);
 	};
 
 	$scope.getRatings = function(id) {
@@ -86,7 +86,7 @@ app.controller('MocController', function($scope, $location, mocResource, tagReso
 
 });
 
-/* Tag controller */
+/* Tag controllers */
 
 app.controller('TagsController', function($scope, $location, tagResource) {
 
@@ -98,20 +98,36 @@ app.controller('TagsController', function($scope, $location, tagResource) {
 
 });
 
-app.controller('TagController', function($scope, $location, mocResource, tagResource, metaResource) {
+app.controller('TagController', function($scope, $location, ui, mocResource, tagResource, metaResource) {
 
 	var id = getIdFromUrl($location);
-	$scope.tag = tagResource.findById(id);
+	$scope.tag = ui.findById(tagResource, id);
 
 	$scope.mocs = mocResource.filterByTagId(id);
 
 	$scope.showTags = false;
 
 	$scope.getTitle = function(id) {
-		return metaResource.findTitleById(id);
+		return ui.findAttrById(metaResource, 'title', id);
 	};
 	$scope.getRatings = function(id) {
 		return mocResource.ratingsById(id);
+	};
+
+});
+
+/* Contest controllers */
+
+app.controller('ContestController', function($scope, $location, ui, contestResource, metaResource) {
+
+	$scope.entries = contestResource.list();
+
+	$scope.getTitle = function(id) {
+		return ui.findAttrById(metaResource, 'contest', id);
+	};
+
+	$scope.filterCards = {
+		status: '1,2'
 	};
 
 });
@@ -127,6 +143,23 @@ function getIdFromUrl(location) {
 
 
 // FACTORIES
+
+app.factory('ui', function() {
+	var context = 'dashboard';
+	var contact = '';
+
+	return {
+        findById: function(resource, id) {
+        	return _.find(resource.list(), function(obj) {
+                return obj.id == id;
+            });
+        },
+        findAttrById: function(resource, attr, id) {
+        	var obj = this.findById(resource, id);
+        	return obj[attr];
+        }
+	}
+});
 
 app.factory('mocResource', function () {
 
@@ -526,8 +559,8 @@ app.factory('mocResource', function () {
 			return data;
 		},
 		findById: function(id) {
-            return _.find(data, function(moc) {
-                return moc.id == id;
+        	return _.find(data, function(obj) {
+                return obj.id == id;
             });
         },
         ratingsById: function(id) {
@@ -588,11 +621,6 @@ app.factory('tagResource', function () {
 		list: function() {
 			return data;
 		},
-		findById: function(id) {
-            return _.find(data, function (moc) {
-                return moc.id == id;
-            });
-        },
 		findNameById: function(id) {
             var t = _.find(data, function (tag) {
                 return tag.id == id;
@@ -604,6 +632,123 @@ app.factory('tagResource', function () {
         	var t = _.max(data, function(tag){ return tag.count; });
         	return t.count;
         }
+	}
+});
+
+app.factory('contestResource', function() {
+	// http://www.json-generator.com/
+	/*
+	[
+	    '{{repeat(10)}}',
+	    {
+	        id: '{{index()}}',
+	        entries: '{{integer(1, 200)}}',
+	        votes: '{{integer(1, 100)}}',
+	        views: '{{integer(1, 500)}}',
+	        content: '{{lorem(1, "paragraphs")}}',
+	        expiredTime: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
+	        status: '{{integer(1, 3)}}'
+	    }
+	]
+	*/
+
+	var data = [
+	    {
+	        "id": 0,
+	        "entries": 45,
+	        "votes": 23,
+	        "views": 169,
+	        "content": "Ad anim ut tempor ex sit culpa cillum esse veniam quis cupidatat labore ullamco. Incididunt deserunt officia incididunt duis. Exercitation velit ea dolor sint cupidatat. Consequat do cillum ex irure pariatur ex. Lorem consequat consequat commodo dolore qui officia. Non cillum sint consequat elit minim. Non commodo mollit ipsum duis nisi in.\r\n",
+	        "expiredTime": "2014-03-25T05:32:18",
+	        "status": 1
+	    },
+	    {
+	        "id": 1,
+	        "entries": 48,
+	        "votes": 76,
+	        "views": 165,
+	        "content": "Labore eu excepteur consequat laboris exercitation eiusmod. Veniam dolore ipsum anim pariatur aute dolor. Lorem tempor cillum consequat sunt ut veniam ad enim laborum quis non proident reprehenderit aliqua.\r\n",
+	        "expiredTime": "2014-05-08T10:54:45",
+	        "status": 1
+	    },
+	    {
+	        "id": 2,
+	        "entries": 52,
+	        "votes": 68,
+	        "views": 353,
+	        "content": "Voluptate in est velit aliquip amet reprehenderit commodo et et ullamco sit laboris ea. Cupidatat est esse proident ex velit pariatur occaecat reprehenderit est anim et ut pariatur cillum. Adipisicing incididunt cillum consectetur pariatur. Ex tempor elit qui tempor adipisicing est adipisicing consectetur. Incididunt irure excepteur amet quis cupidatat irure aute sint duis irure ut et quis dolore. Minim tempor esse magna do sunt ullamco.\r\n",
+	        "expiredTime": "2014-01-22T08:24:14",
+	        "status": 1
+	    },
+	    {
+	        "id": 3,
+	        "entries": 50,
+	        "votes": 7,
+	        "views": 8,
+	        "content": "Amet ad officia deserunt id ullamco commodo. Dolor quis aliquip tempor magna veniam est esse mollit excepteur amet irure. Amet nulla laboris incididunt laborum irure et sint ipsum amet. Non et labore esse Lorem ea anim.\r\n",
+	        "expiredTime": "2014-05-06T17:04:03",
+	        "status": 3
+	    },
+	    {
+	        "id": 4,
+	        "entries": 94,
+	        "votes": 90,
+	        "views": 87,
+	        "content": "Magna pariatur consequat ea nisi anim sint aliqua deserunt deserunt eiusmod ea non deserunt exercitation. Velit enim elit ad ipsum sit officia. Adipisicing magna do nostrud tempor sint sint. Ut et proident anim ullamco ea exercitation nisi eiusmod occaecat cupidatat.\r\n",
+	        "expiredTime": "2014-03-28T12:39:12",
+	        "status": 3
+	    },
+	    {
+	        "id": 5,
+	        "entries": 163,
+	        "votes": 6,
+	        "views": 244,
+	        "content": "Ipsum fugiat cupidatat duis deserunt occaecat duis labore quis ut consequat in culpa. Do culpa laborum laborum fugiat. Exercitation sint cupidatat labore veniam ipsum. Velit exercitation et ut aliqua mollit esse consequat.\r\n",
+	        "expiredTime": "2014-01-28T00:16:56",
+	        "status": 1
+	    },
+	    {
+	        "id": 6,
+	        "entries": 24,
+	        "votes": 21,
+	        "views": 99,
+	        "content": "Ullamco ipsum commodo ex tempor. Consectetur est qui eu occaecat pariatur mollit duis aliqua Lorem Lorem dolore enim. Ad esse qui sunt est. Magna fugiat commodo ad duis labore cillum aliqua sint sint officia.\r\n",
+	        "expiredTime": "2014-02-06T14:24:22",
+	        "status": 1
+	    },
+	    {
+	        "id": 7,
+	        "entries": 185,
+	        "votes": 45,
+	        "views": 466,
+	        "content": "Tempor do ad mollit proident eu voluptate adipisicing nostrud. Voluptate anim deserunt officia esse do reprehenderit deserunt cupidatat duis ullamco mollit adipisicing. Id deserunt sit ullamco irure proident laborum elit Lorem tempor qui excepteur et. Cillum minim reprehenderit dolore elit est commodo. Aute nulla dolor cillum nisi. Nulla aliquip dolore proident cupidatat consectetur sint exercitation irure incididunt ullamco. Minim aute cupidatat commodo laboris occaecat incididunt esse consequat ex occaecat aute.\r\n",
+	        "expiredTime": "2014-01-06T23:14:37",
+	        "status": 2
+	    },
+	    {
+	        "id": 8,
+	        "entries": 51,
+	        "votes": 79,
+	        "views": 323,
+	        "content": "Eiusmod magna nisi occaecat nulla veniam laboris nisi. Eiusmod minim minim voluptate non voluptate aliqua tempor veniam id laborum enim. Aliqua nulla amet nisi ipsum do eu. Cillum sit veniam culpa adipisicing mollit minim velit mollit pariatur aute occaecat. Qui culpa sunt incididunt eu deserunt pariatur labore qui. Laboris ad veniam occaecat excepteur minim nostrud laboris veniam id.\r\n",
+	        "expiredTime": "2014-02-13T22:53:03",
+	        "status": 1
+	    },
+	    {
+	        "id": 9,
+	        "entries": 86,
+	        "votes": 87,
+	        "views": 157,
+	        "content": "Nostrud est ullamco est aliqua consectetur mollit culpa. Non Lorem sit ad ut elit tempor sit in enim occaecat fugiat. Nisi duis duis aute qui non excepteur in incididunt. Laboris amet amet amet officia dolor cillum labore eu. Exercitation do esse enim occaecat incididunt dolor deserunt. Elit pariatur ut nisi consectetur cillum. Laborum aliqua in incididunt exercitation commodo in excepteur laborum quis minim ipsum quis elit irure.\r\n",
+	        "expiredTime": "2014-05-01T15:45:27",
+	        "status": 2
+	    }
+	];
+
+	return {
+		list: function() {
+			return data;
+		}
 	}
 });
 
@@ -620,55 +765,39 @@ app.factory('statusResource', function () {
 	return {
 		list: function() {
 			return data;
-		},
-		findNameById: function(id) {
-            var s = _.find(data, function (status) {
-                return status.id == id;
-            });
-
-            return s.name;
-        }
+		}
 	}
 });
 
 app.factory('metaResource', function () {
 
 	var data = [
-		{id:0,	title:"The Fail Whale"},
-		{id:1,	title:"Hogwarts Castle"},
-		{id:2,	title:"This is the Captain Speaking"},
-		{id:3,	title:"The Kingdom of Super Bite-Sized Tiny Little Lego People of Hobbitton"},
-		{id:4,	title:"My Little Typewriter"},
-		{id:5,	title:"Tank in Snow"},
-		{id:6,	title:"The Gray Battalion"},
-		{id:7,	title:"Shelob"},
-		{id:8,	title:"USS Enterprise"},
-		{id:9,	title:"The White Crane"},
-		{id:10,	title:"Mecha of Doom"},
-		{id:11,	title:"R2D2, where are you?"},
-		{id:12,	title:"Crows Landing"},
-		{id:13,	title:"Blockheads"},
-		{id:14,	title:"2001: Space Odyssey"},
-		{id:15,	title:"Bomber Plane"},
-		{id:16,	title:"Assimilation is Inevitable"},
-		{id:17,	title:"Cancer is in my DNA"},
-		{id:18,	title:"Polly wants a cracker!"},
-		{id:19,	title:"Alice in Wonderland"},
+		{id:0,	contest: "All Black Pieces", title:"The Fail Whale"},
+		{id:1,	contest: "25 Piece or Under Club", title:"Hogwarts Castle"},
+		{id:2,	contest: "Awesome Contest", title:"This is the Captain Speaking"},
+		{id:3,	contest: "Lord of the Rings Theme", title:"The Kingdom of Super Bite-Sized Tiny Little Lego People of Hobbitton"},
+		{id:4,	contest: "temp", title:"My Little Typewriter"},
+		{id:5,	contest: "temp", title:"Tank in Snow"},
+		{id:6,	contest: "temp", title:"The Gray Battalion"},
+		{id:7,	contest: "temp", title:"Shelob"},
+		{id:8,	contest: "temp", title:"USS Enterprise"},
+		{id:9,	contest: "temp", title:"The White Crane"},
+		{id:10,	contest: "temp", title:"Mecha of Doom"},
+		{id:11,	contest: "temp", title:"R2D2, where are you?"},
+		{id:12,	contest: "temp", title:"Crows Landing"},
+		{id:13,	contest: "temp", title:"Blockheads"},
+		{id:14,	contest: "temp", title:"2001: Space Odyssey"},
+		{id:15,	contest: "temp", title:"Bomber Plane"},
+		{id:16,	contest: "temp", title:"Assimilation is Inevitable"},
+		{id:17,	contest: "temp", title:"Cancer is in my DNA"},
+		{id:18,	contest: "temp", title:"Polly wants a cracker!"},
+		{id:19,	contest: "temp", title:"Alice in Wonderland"},
 	];
 	
 	return {
 		list: function() {
 			return data;
-		},
-		findById: function(id) {
-            return _.find(data, function (moc) {
-                return moc.id == id;
-            });
-        },
-		findTitleById: function(id) {
-            var meta = this.findById(id%data.length);
-            return meta.title;
-        }
+		}
 	}
 });
 

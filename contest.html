@@ -1,0 +1,27 @@
+<!-- $title - Design Contest -->
+<!-- $isactive-contest class="active" -->
+<!-- $body-meta ng-controller="ContestController" -->
+<!-- @include _header -->
+
+	<nav class="subnav">
+		<ul class="container">
+			<li ng-class="{active: filterCards.status != 3}"><a href="#">Pending + Active</a></li>
+			<li ng-class="{active: filterCards.status == 3}"><a href="#">Expired</a></li>
+			<li class="right"><a class="btn" href="#">Add Contest</a></li>
+		</ul>
+	</nav>
+
+	<section>
+
+		<div class="container">
+			<!-- @todo add | filter:filterCards -->
+			<div class="entry-item" ng-repeat="entry in entries ">
+				{{ getTitle(entry.id) }}
+			</div> 
+
+		</div> <!-- /.container -->
+	</section>
+
+	<!-- @todo show pagination -->
+  
+<!-- @include _footer -->
