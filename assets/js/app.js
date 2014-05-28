@@ -127,7 +127,7 @@ app.controller('ContestController', function($scope, $location, ui, contestResou
 	};
 
 	$scope.filterCards = {
-		status: '1,2'
+		status: 1
 	};
 
 });
@@ -646,7 +646,9 @@ app.factory('contestResource', function() {
 	        votes: '{{integer(1, 100)}}',
 	        views: '{{integer(1, 500)}}',
 	        content: '{{lorem(1, "paragraphs")}}',
-	        expiredTime: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
+	        startDate: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-dd")}}',
+	        duration: '{{integer(1, 30)}}',
+	        daysleft: '{{integer(1, 20)}}',
 	        status: '{{integer(1, 3)}}'
 	    }
 	]
@@ -655,93 +657,113 @@ app.factory('contestResource', function() {
 	var data = [
 	    {
 	        "id": 0,
-	        "entries": 45,
-	        "votes": 23,
-	        "views": 169,
-	        "content": "Ad anim ut tempor ex sit culpa cillum esse veniam quis cupidatat labore ullamco. Incididunt deserunt officia incididunt duis. Exercitation velit ea dolor sint cupidatat. Consequat do cillum ex irure pariatur ex. Lorem consequat consequat commodo dolore qui officia. Non cillum sint consequat elit minim. Non commodo mollit ipsum duis nisi in.\r\n",
-	        "expiredTime": "2014-03-25T05:32:18",
-	        "status": 1
+	        "entries": 113,
+	        "votes": 36,
+	        "views": 352,
+	        "content": "Sint proident esse esse deserunt. Deserunt aliqua ipsum minim proident voluptate sunt. Enim mollit sit occaecat occaecat. Incididunt irure magna tempor deserunt enim nostrud mollit. Aliquip ad nostrud occaecat consectetur irure. Reprehenderit sint officia eiusmod veniam pariatur est esse do ea do tempor et. Quis adipisicing ut ad consectetur occaecat nisi exercitation sint esse nulla amet excepteur elit.\r\n",
+	        "startDate": "2014-01-06",
+	        "duration": 19,
+	        "daysleft": 18,
+	        "status": 3
 	    },
 	    {
 	        "id": 1,
-	        "entries": 48,
-	        "votes": 76,
-	        "views": 165,
-	        "content": "Labore eu excepteur consequat laboris exercitation eiusmod. Veniam dolore ipsum anim pariatur aute dolor. Lorem tempor cillum consequat sunt ut veniam ad enim laborum quis non proident reprehenderit aliqua.\r\n",
-	        "expiredTime": "2014-05-08T10:54:45",
+	        "entries": 154,
+	        "votes": 22,
+	        "views": 154,
+	        "content": "Quis commodo esse commodo fugiat reprehenderit est ex dolore esse cillum fugiat. Elit irure exercitation et consectetur anim. Elit dolore eu laborum enim aliquip.\r\n",
+	        "startDate": "2014-04-12",
+	        "duration": 28,
+	        "daysleft": 14,
 	        "status": 1
 	    },
 	    {
 	        "id": 2,
-	        "entries": 52,
-	        "votes": 68,
-	        "views": 353,
-	        "content": "Voluptate in est velit aliquip amet reprehenderit commodo et et ullamco sit laboris ea. Cupidatat est esse proident ex velit pariatur occaecat reprehenderit est anim et ut pariatur cillum. Adipisicing incididunt cillum consectetur pariatur. Ex tempor elit qui tempor adipisicing est adipisicing consectetur. Incididunt irure excepteur amet quis cupidatat irure aute sint duis irure ut et quis dolore. Minim tempor esse magna do sunt ullamco.\r\n",
-	        "expiredTime": "2014-01-22T08:24:14",
-	        "status": 1
+	        "entries": 93,
+	        "votes": 65,
+	        "views": 199,
+	        "content": "Amet labore pariatur aliqua occaecat in sit ad ad ex esse nulla. Aute reprehenderit aute in in veniam est enim aute. Incididunt incididunt nulla duis fugiat enim est sit ullamco elit tempor. Reprehenderit occaecat duis duis excepteur ad. Pariatur dolor id dolor ex adipisicing commodo cillum excepteur in cupidatat consequat labore id ut. Cillum velit occaecat laborum aliqua laborum cillum ullamco.\r\n",
+	        "startDate": "2014-02-19",
+	        "duration": 27,
+	        "daysleft": 1,
+	        "status": 3
 	    },
 	    {
 	        "id": 3,
-	        "entries": 50,
-	        "votes": 7,
-	        "views": 8,
-	        "content": "Amet ad officia deserunt id ullamco commodo. Dolor quis aliquip tempor magna veniam est esse mollit excepteur amet irure. Amet nulla laboris incididunt laborum irure et sint ipsum amet. Non et labore esse Lorem ea anim.\r\n",
-	        "expiredTime": "2014-05-06T17:04:03",
+	        "entries": 27,
+	        "votes": 26,
+	        "views": 450,
+	        "content": "Voluptate eu ad commodo duis ut commodo et in enim nostrud consectetur consectetur commodo. Occaecat cupidatat veniam cupidatat id mollit adipisicing tempor nisi laborum deserunt amet veniam commodo non. Nulla consectetur enim eu ad ex cillum sit quis cillum dolor incididunt dolor ad. Labore commodo enim elit anim occaecat elit eiusmod nulla ad excepteur enim nisi aliquip. Eiusmod laboris ut reprehenderit in eiusmod non laboris. Ipsum incididunt proident duis tempor reprehenderit et culpa do laborum dolor deserunt officia.\r\n",
+	        "startDate": "2014-01-09",
+	        "duration": 30,
+	        "daysleft": 4,
 	        "status": 3
 	    },
 	    {
 	        "id": 4,
-	        "entries": 94,
-	        "votes": 90,
-	        "views": 87,
-	        "content": "Magna pariatur consequat ea nisi anim sint aliqua deserunt deserunt eiusmod ea non deserunt exercitation. Velit enim elit ad ipsum sit officia. Adipisicing magna do nostrud tempor sint sint. Ut et proident anim ullamco ea exercitation nisi eiusmod occaecat cupidatat.\r\n",
-	        "expiredTime": "2014-03-28T12:39:12",
-	        "status": 3
+	        "entries": 124,
+	        "votes": 83,
+	        "views": 44,
+	        "content": "Culpa dolor dolor minim qui. Ullamco nostrud consectetur est amet est labore commodo non sunt pariatur proident. Aliqua deserunt magna incididunt excepteur consequat aute consequat eu.\r\n",
+	        "startDate": "2014-04-03",
+	        "duration": 19,
+	        "daysleft": 17,
+	        "status": 1
 	    },
 	    {
 	        "id": 5,
-	        "entries": 163,
-	        "votes": 6,
-	        "views": 244,
-	        "content": "Ipsum fugiat cupidatat duis deserunt occaecat duis labore quis ut consequat in culpa. Do culpa laborum laborum fugiat. Exercitation sint cupidatat labore veniam ipsum. Velit exercitation et ut aliqua mollit esse consequat.\r\n",
-	        "expiredTime": "2014-01-28T00:16:56",
-	        "status": 1
+	        "entries": 6,
+	        "votes": 1,
+	        "views": 451,
+	        "content": "Excepteur proident pariatur in aute sint aliquip elit ullamco dolor laboris elit. Anim elit officia amet qui mollit laborum reprehenderit commodo aliquip consectetur sunt. Nostrud consequat velit magna voluptate occaecat laborum esse.\r\n",
+	        "startDate": "2014-03-15",
+	        "duration": 3,
+	        "daysleft": 9,
+	        "status": 2
 	    },
 	    {
 	        "id": 6,
-	        "entries": 24,
-	        "votes": 21,
-	        "views": 99,
-	        "content": "Ullamco ipsum commodo ex tempor. Consectetur est qui eu occaecat pariatur mollit duis aliqua Lorem Lorem dolore enim. Ad esse qui sunt est. Magna fugiat commodo ad duis labore cillum aliqua sint sint officia.\r\n",
-	        "expiredTime": "2014-02-06T14:24:22",
-	        "status": 1
+	        "entries": 32,
+	        "votes": 64,
+	        "views": 234,
+	        "content": "Labore mollit nostrud et qui irure magna laboris eu ullamco est tempor. Est culpa irure reprehenderit mollit est consectetur nulla magna in. Eiusmod id elit aliquip anim incididunt magna est in nostrud enim eu laboris. Id irure Lorem officia aliquip laborum qui anim. Enim culpa qui ad sint esse mollit labore aute dolor commodo ut pariatur laborum est. Laboris tempor culpa dolor velit qui ut cupidatat consectetur irure. Aute cillum culpa irure sunt reprehenderit tempor.\r\n",
+	        "startDate": "2014-03-07",
+	        "duration": 19,
+	        "daysleft": 3,
+	        "status": 2
 	    },
 	    {
 	        "id": 7,
-	        "entries": 185,
-	        "votes": 45,
-	        "views": 466,
-	        "content": "Tempor do ad mollit proident eu voluptate adipisicing nostrud. Voluptate anim deserunt officia esse do reprehenderit deserunt cupidatat duis ullamco mollit adipisicing. Id deserunt sit ullamco irure proident laborum elit Lorem tempor qui excepteur et. Cillum minim reprehenderit dolore elit est commodo. Aute nulla dolor cillum nisi. Nulla aliquip dolore proident cupidatat consectetur sint exercitation irure incididunt ullamco. Minim aute cupidatat commodo laboris occaecat incididunt esse consequat ex occaecat aute.\r\n",
-	        "expiredTime": "2014-01-06T23:14:37",
-	        "status": 2
+	        "entries": 6,
+	        "votes": 66,
+	        "views": 48,
+	        "content": "Velit velit commodo elit quis culpa consectetur do reprehenderit commodo. Occaecat laborum aliquip tempor sint ad et adipisicing qui cillum. Eiusmod dolor mollit labore pariatur. Ad incididunt proident et magna non enim aliquip. Proident aliquip ea consectetur culpa incididunt adipisicing qui laboris dolor. Elit adipisicing dolor incididunt sint consequat et ex consequat.\r\n",
+	        "startDate": "2014-01-06",
+	        "duration": 16,
+	        "daysleft": 20,
+	        "status": 3
 	    },
 	    {
 	        "id": 8,
-	        "entries": 51,
-	        "votes": 79,
-	        "views": 323,
-	        "content": "Eiusmod magna nisi occaecat nulla veniam laboris nisi. Eiusmod minim minim voluptate non voluptate aliqua tempor veniam id laborum enim. Aliqua nulla amet nisi ipsum do eu. Cillum sit veniam culpa adipisicing mollit minim velit mollit pariatur aute occaecat. Qui culpa sunt incididunt eu deserunt pariatur labore qui. Laboris ad veniam occaecat excepteur minim nostrud laboris veniam id.\r\n",
-	        "expiredTime": "2014-02-13T22:53:03",
-	        "status": 1
+	        "entries": 150,
+	        "votes": 29,
+	        "views": 152,
+	        "content": "Eu aliqua voluptate esse cillum voluptate aliqua aliqua aliqua irure. Ullamco deserunt quis Lorem officia eiusmod esse laboris amet adipisicing ullamco pariatur dolor. Ex adipisicing ut amet laborum aliquip et ex pariatur aute excepteur quis non. Lorem dolor in excepteur Lorem anim et excepteur minim.\r\n",
+	        "startDate": "2014-03-01",
+	        "duration": 24,
+	        "daysleft": 15,
+	        "status": 3
 	    },
 	    {
 	        "id": 9,
-	        "entries": 86,
-	        "votes": 87,
-	        "views": 157,
-	        "content": "Nostrud est ullamco est aliqua consectetur mollit culpa. Non Lorem sit ad ut elit tempor sit in enim occaecat fugiat. Nisi duis duis aute qui non excepteur in incididunt. Laboris amet amet amet officia dolor cillum labore eu. Exercitation do esse enim occaecat incididunt dolor deserunt. Elit pariatur ut nisi consectetur cillum. Laborum aliqua in incididunt exercitation commodo in excepteur laborum quis minim ipsum quis elit irure.\r\n",
-	        "expiredTime": "2014-05-01T15:45:27",
-	        "status": 2
+	        "entries": 58,
+	        "votes": 13,
+	        "views": 240,
+	        "content": "Esse nulla laborum incididunt fugiat aute cillum est. Commodo laborum cupidatat ut cupidatat in culpa anim irure velit non reprehenderit. Aute minim laboris anim consequat ex amet excepteur qui.\r\n",
+	        "startDate": "2014-02-08",
+	        "duration": 16,
+	        "daysleft": 12,
+	        "status": 3
 	    }
 	];
 
@@ -776,12 +798,12 @@ app.factory('metaResource', function () {
 		{id:1,	contest: "25 Piece or Under Club", title:"Hogwarts Castle"},
 		{id:2,	contest: "Awesome Contest", title:"This is the Captain Speaking"},
 		{id:3,	contest: "Lord of the Rings Theme", title:"The Kingdom of Super Bite-Sized Tiny Little Lego People of Hobbitton"},
-		{id:4,	contest: "temp", title:"My Little Typewriter"},
-		{id:5,	contest: "temp", title:"Tank in Snow"},
-		{id:6,	contest: "temp", title:"The Gray Battalion"},
-		{id:7,	contest: "temp", title:"Shelob"},
-		{id:8,	contest: "temp", title:"USS Enterprise"},
-		{id:9,	contest: "temp", title:"The White Crane"},
+		{id:4,	contest: "The Contest to End All Contests", title:"My Little Typewriter"},
+		{id:5,	contest: "Designer's Paradise", title:"Tank in Snow"},
+		{id:6,	contest: "50 Brick Challenge", title:"The Gray Battalion"},
+		{id:7,	contest: "Sweet 16", title:"Shelob"},
+		{id:8,	contest: "Europe Challenge", title:"USS Enterprise"},
+		{id:9,	contest: "Space Theme", title:"The White Crane"},
 		{id:10,	contest: "temp", title:"Mecha of Doom"},
 		{id:11,	contest: "temp", title:"R2D2, where are you?"},
 		{id:12,	contest: "temp", title:"Crows Landing"},

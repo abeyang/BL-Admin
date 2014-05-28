@@ -1,25 +1,47 @@
 <!-- $title - Design Contest -->
 <!-- $isactive-contest class="active" -->
-<!-- $body-meta ng-controller="ContestController" -->
+<!-- $body-meta class="blank" ng-controller="ContestController" -->
 <!-- @include _header -->
 
 	<nav class="subnav">
 		<ul class="container">
-			<li ng-class="{active: filterCards.status != 3}"><a href="#">Pending + Active</a></li>
-			<li ng-class="{active: filterCards.status == 3}"><a href="#">Expired</a></li>
-			<li class="right"><a class="btn" href="#">Add Contest</a></li>
+			<li ng-class="{active: filterCards.status != 3}"><a ng-click="filterCards.status=1" href="#">Awaiting Approval</a></li>
+			<li ng-class="{active: filterCards.status == 3}"><a ng-click="filterCards.status=3" href="#">Expired</a></li>
+			<li class="right"><a class="btn" href="#">New Contest</a></li>
 		</ul>
 	</nav>
 
 	<section>
 
-		<div class="container">
-			<!-- @todo add | filter:filterCards -->
-			<div class="entry-item" ng-repeat="entry in entries ">
-				{{ getTitle(entry.id) }}
-			</div> 
+		<div class="container" ng-if="filterCards.status != 3">
+			<!-- @todo need to stylize the headers -->
+			
+			Awaiting Approval
+			
+			<div class="lists">
+				<div class="list-item" ng-repeat="entry in entries | filter:{status:2}">
+					<ng-include src="'includes/line_item.html'"></ng-include>
+				</div> <!-- /.list-item -->
+			</div>
+
+			New Contests
+			
+			<div class="lists">
+				<div class="list-item" ng-repeat="entry in entries | filter:{status:1}">
+					<ng-include src="'includes/line_item.html'"></ng-include>
+				</div> <!-- /.list-item -->
+			</div>
 
 		</div> <!-- /.container -->
+
+		<div class="container" ng-if="filterCards.status == 3">
+			<div class="lists">
+				<div class="list-item" ng-repeat="entry in entries | filter:filterCards">
+					<ng-include src="'includes/line_item.html'"></ng-include>
+				</div> <!-- /.list-item -->
+			</div>
+		</div> <!-- /.container -->
+
 	</section>
 
 	<!-- @todo show pagination -->

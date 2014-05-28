@@ -1,0 +1,17 @@
+<a href="contest_entry.html#/{{entry.id}}">
+	<div class="hairline" ng-if="entry.status==1" style="width: {{ entry.daysleft / entry.duration * 100 }}%"></div>
+	<div class="right">
+		<div class="block">
+			<h3>{{ entry.entries }}</h3>
+			Entries
+		</div>
+		<div class="block">
+			<h3>{{ entry.votes }}</h3>
+			Votes
+		</div>
+	</div>
+	<div class="block">
+		<h3>{{ getTitle(entry.id) }}</h3>
+		{{ entry.startDate }}
+	</div>
+</a>

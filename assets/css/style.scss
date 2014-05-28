@@ -48,11 +48,10 @@ html, body, h1, h2, h3, h4, h5, h6, div, p {
     color: $black;
 }
 
-h1, h2, h3 {
+h1, h2 {
     font-weight: 700;
     font-size: 1em;
 }
-
 h2 {
     margin-top: $margin;
     margin-bottom: $pad * 2;
@@ -60,6 +59,11 @@ h2 {
     &.line {
         border-bottom: 1px solid $lightestgray;
     }
+}
+h3 {
+    font-weight: 700;
+    font-size: 1.25em;
+    line-height: 1.4;
 }
 
 a {
@@ -358,12 +362,43 @@ nav {
     	color: $black; 
     }
     .count { color: $lightergray; }
-    .hairline { 
-    	position: relative;
-    	top: 1px;
-    	height: 1px;
-    	background-color: $gray; 
+}
+
+.hairline { 
+    position: relative;
+    top: 1px;
+    height: 1px;
+    background-color: $gray; 
+}
+
+.lists {
+    margin-top: $pad*2;
+    margin-bottom: $margin;
+}
+
+.list-item {
+    @include clearfix;
+    display: block;
+    border: 1px solid $lightestgray;
+    border-bottom: none;
+
+    &:last-child { border-bottom: 1px solid $lightestgray; }
+
+    .block {
+        padding: $pad*2;
     }
+
+    .right .block {
+        text-align: center;
+    }
+
+    .hairline { background-color: $blue; }
+}
+.block { 
+    float: left; 
+    color: $lightergray;
+
+    h3 { color: $black; }
 }
 
 // MEDIA QUERIES
