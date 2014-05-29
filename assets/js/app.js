@@ -118,7 +118,7 @@ app.controller('TagController', function($scope, $location, ui, mocResource, tag
 
 /* Contest controllers */
 
-app.controller('ContestController', function($scope, $location, ui, contestResource, metaResource) {
+app.controller('ContestController', function($scope, ui, contestResource, metaResource) {
 
 	$scope.entries = contestResource.list();
 
@@ -129,6 +129,16 @@ app.controller('ContestController', function($scope, $location, ui, contestResou
 	$scope.filterCards = {
 		status: 1
 	};
+
+});
+
+app.controller('ContestEntryController', function($scope, $location, ui, mocResource, contestResource, metaResource) {
+
+	var id = getIdFromUrl($location);
+	$scope.entry = ui.findById(contestResource, id);
+	$scope.title = ui.findAttrById(metaResource, 'contest', id);
+
+	$scope.mocs = mocResource.filterByContestId(id);
 
 });
 
@@ -182,7 +192,10 @@ app.factory('mocResource', function () {
 		        tags: [
 		            '{{repeat(1,5)}}',
 		            '{{integer(0, 20)}}'
-		        ]
+		        ],
+		        contest: '{{integer(0, 9)}}',
+		        isRejected: '{{bool()}}',
+		        votes: '{{integer(0, 30)}}'
 		    }
 		]
 	*/
@@ -190,367 +203,419 @@ app.factory('mocResource', function () {
 	var data = [
 	    {
 	        "id": 0,
-	        "name": "Janette Bailey",
-	        "username": "Medesign",
-	        "ratings": 5,
-	        "raters": 8,
-	        "comments": 6,
-	        "fee": 0,
-	        "parts": 69,
-	        "content": "In voluptate nostrud labore voluptate. Ipsum ex cupidatat anim ex sit aliquip cupidatat pariatur non ut in anim. Labore labore esse pariatur dolor laborum magna in anim. Consequat Lorem mollit ea exercitation incididunt mollit ex deserunt tempor non exercitation aliqua.\r\n",
-	        "submitTime": "2014-04-03T18:32:21",
+	        "name": "Bridget Cross",
+	        "username": "Bunga",
+	        "ratings": 1,
+	        "raters": 94,
+	        "comments": 3,
+	        "fee": 4,
+	        "parts": 16,
+	        "content": "Duis occaecat proident excepteur officia nisi nisi laboris laborum tempor consequat commodo ut. Aliquip consequat dolor eiusmod et eiusmod. Elit excepteur nostrud velit elit. Sint sit esse occaecat dolor excepteur aute anim reprehenderit sint. Duis aliquip incididunt nostrud reprehenderit Lorem laboris occaecat nulla cillum aliqua est dolor adipisicing.\r\n",
+	        "submitTime": "2014-03-22T15:24:40",
 	        "status": 3,
 	        "tags": [
+	            13,
 	            8,
-	            5
-	        ]
+	            16
+	        ],
+	        "contest": 3,
+	        "isRejected": true,
+	        "votes": 14
 	    },
 	    {
 	        "id": 1,
-	        "name": "Justice Gallegos",
+	        "name": "Day Collins",
 	        "username": "Norsul",
-	        "ratings": 0,
-	        "raters": 125,
-	        "comments": 7,
-	        "fee": 5,
-	        "parts": 37,
-	        "content": "Quis ullamco ullamco culpa ex velit magna cillum eiusmod reprehenderit. Labore aute deserunt commodo ut fugiat aute pariatur. Tempor sunt do velit aute ex commodo nostrud voluptate nostrud cillum qui. Qui ex excepteur adipisicing esse voluptate adipisicing incididunt amet et.\r\n",
-	        "submitTime": "2014-02-10T10:45:49",
-	        "status": 1,
+	        "ratings": 4,
+	        "raters": 188,
+	        "comments": 1,
+	        "fee": 1,
+	        "parts": 28,
+	        "content": "Excepteur laboris do incididunt pariatur ut. Irure cillum laboris sunt qui id labore. Mollit minim culpa ea ullamco officia tempor ut Lorem reprehenderit. Laboris officia do reprehenderit aute cillum duis aute reprehenderit tempor quis mollit nulla nostrud sit.\r\n",
+	        "submitTime": "2014-03-25T15:43:03",
+	        "status": 4,
 	        "tags": [
-	            5,
-	            8,
-	            6
-	        ]
+	            1,
+	            13,
+	            6,
+	            11
+	        ],
+	        "contest": 1,
+	        "isRejected": true,
+	        "votes": 2
 	    },
 	    {
 	        "id": 2,
-	        "name": "Millie Morton",
-	        "username": "Viagrand",
-	        "ratings": 4,
-	        "raters": 6,
-	        "comments": 2,
+	        "name": "Moreno Robinson",
+	        "username": "Immunics",
+	        "ratings": 1,
+	        "raters": 189,
+	        "comments": 10,
 	        "fee": 3,
-	        "parts": 93,
-	        "content": "Eu sit nostrud aliqua consectetur in et anim veniam aute enim. Nulla ad minim anim eu irure amet sint id ullamco deserunt. Qui sunt incididunt consequat Lorem sunt. Labore elit nisi nostrud deserunt excepteur pariatur minim. Velit eu tempor in commodo commodo dolor aliqua nostrud consequat eu exercitation exercitation consequat. Lorem exercitation et culpa dolore cupidatat mollit nostrud sit excepteur ipsum deserunt.\r\n",
-	        "submitTime": "2014-05-10T05:57:05",
+	        "parts": 42,
+	        "content": "Lorem commodo eu deserunt excepteur exercitation. Ad quis consectetur magna magna mollit nostrud proident Lorem tempor in. Eu sit sint id officia pariatur cillum dolore qui laborum. Tempor non Lorem do adipisicing deserunt reprehenderit est ut eiusmod. In pariatur laborum do irure aute id duis irure esse tempor proident anim aliqua deserunt. Ullamco cillum et Lorem esse aute anim.\r\n",
+	        "submitTime": "2014-02-10T18:21:32",
 	        "status": 4,
 	        "tags": [
-	            7,
-	            6,
-	            20,
-	            19,
-	            4
-	        ]
+	            12,
+	            6
+	        ],
+	        "contest": 2,
+	        "isRejected": true,
+	        "votes": 12
 	    },
 	    {
 	        "id": 3,
-	        "name": "Jerry Myers",
-	        "username": "Dymi",
-	        "ratings": 0,
-	        "raters": 178,
-	        "comments": 2,
-	        "fee": 3,
-	        "parts": 84,
-	        "content": "Lorem consequat ut nisi nulla deserunt amet. Occaecat elit ipsum excepteur ad minim incididunt quis. Magna sint esse nulla anim ex adipisicing voluptate. Deserunt et amet ut et duis id eiusmod laboris do dolor elit elit ipsum.\r\n",
-	        "submitTime": "2014-02-07T06:10:15",
-	        "status": 3,
+	        "name": "Dillard Good",
+	        "username": "Ozean",
+	        "ratings": 3,
+	        "raters": 14,
+	        "comments": 7,
+	        "fee": 4,
+	        "parts": 78,
+	        "content": "Pariatur quis qui quis consequat laboris tempor veniam esse culpa sunt anim. Velit proident ullamco aliquip labore non aute nostrud culpa sit laboris est id adipisicing. Labore velit in consequat do ea fugiat ullamco irure veniam qui. Exercitation excepteur duis Lorem sunt minim sunt aliqua irure. Ullamco ipsum ea est minim reprehenderit incididunt non cupidatat enim cupidatat.\r\n",
+	        "submitTime": "2014-01-22T19:52:31",
+	        "status": 4,
 	        "tags": [
-	            17,
-	            11,
-	            18,
-	            13,
-	            0
-	        ]
+	            6,
+	            0,
+	            5
+	        ],
+	        "contest": 7,
+	        "isRejected": true,
+	        "votes": 11
 	    },
 	    {
 	        "id": 4,
-	        "name": "Felecia Sims",
-	        "username": "Ovation",
-	        "ratings": 3,
-	        "raters": 157,
-	        "comments": 1,
-	        "fee": 4,
-	        "parts": 42,
-	        "content": "Voluptate laboris id qui dolore nisi cupidatat ullamco mollit sint quis non cupidatat. Nulla proident est minim elit dolore non irure ipsum exercitation. Tempor ad labore irure commodo. Adipisicing aute incididunt veniam mollit in dolore duis ullamco officia aliqua labore do. Nulla nostrud excepteur laborum sit cillum. Esse minim deserunt mollit consequat ipsum dolor nulla dolore esse.\r\n",
-	        "submitTime": "2014-04-18T17:31:45",
-	        "status": 4,
+	        "name": "Martin Saunders",
+	        "username": "Navir",
+	        "ratings": 2,
+	        "raters": 75,
+	        "comments": 10,
+	        "fee": 5,
+	        "parts": 80,
+	        "content": "Ullamco nulla voluptate voluptate in duis deserunt dolor irure Lorem nulla. Ipsum ea in magna consequat ipsum. Do incididunt in nisi consequat veniam in esse sunt non nulla consectetur do dolor dolor.\r\n",
+	        "submitTime": "2014-02-05T07:42:16",
+	        "status": 0,
 	        "tags": [
-	            13,
-	            0,
-	            6,
-	            5,
-	            16
-	        ]
+	            1
+	        ],
+	        "contest": 3,
+	        "isRejected": true,
+	        "votes": 29
 	    },
 	    {
 	        "id": 5,
-	        "name": "Reeves Moore",
-	        "username": "Wrapture",
-	        "ratings": 1,
-	        "raters": 58,
-	        "comments": 10,
-	        "fee": 2,
-	        "parts": 54,
-	        "content": "Aute aute occaecat sunt cupidatat officia nostrud proident. Proident dolore eu occaecat nisi adipisicing consectetur dolor ullamco. Culpa qui quis cupidatat ullamco officia dolor aute. Sint adipisicing commodo aliquip veniam ullamco ad fugiat irure ut dolore. Lorem fugiat proident anim quis veniam elit ut nisi eiusmod. Officia labore cupidatat tempor ea do ex esse anim laborum ipsum.\r\n",
-	        "submitTime": "2014-01-16T01:22:55",
-	        "status": 0,
+	        "name": "Angelina Meyers",
+	        "username": "Moltonic",
+	        "ratings": 4,
+	        "raters": 30,
+	        "comments": 7,
+	        "fee": 5,
+	        "parts": 96,
+	        "content": "Enim veniam nisi reprehenderit ea adipisicing. Sit irure veniam laboris nulla magna sunt pariatur ipsum occaecat ex fugiat do occaecat do. Quis aute voluptate consectetur qui quis eu eu irure duis. Officia adipisicing eu consequat consequat ad in nostrud id sit velit ad id consequat aliqua. Laborum sunt nostrud amet sit aliquip magna ea sit sit consectetur eiusmod.\r\n",
+	        "submitTime": "2014-02-19T08:42:23",
+	        "status": 1,
 	        "tags": [
-	            16
-	        ]
+	            15,
+	            5,
+	            5,
+	            2,
+	            9
+	        ],
+	        "contest": 2,
+	        "isRejected": false,
+	        "votes": 16
 	    },
 	    {
 	        "id": 6,
-	        "name": "Jody Roberts",
-	        "username": "Kyaguru",
-	        "ratings": 3,
-	        "raters": 95,
-	        "comments": 8,
-	        "fee": 3,
-	        "parts": 5,
-	        "content": "Pariatur reprehenderit non adipisicing eiusmod id deserunt ut aliqua amet ullamco dolor. Elit dolore excepteur labore dolor fugiat ipsum proident esse velit anim magna culpa exercitation. In nostrud deserunt laboris reprehenderit occaecat voluptate cupidatat. Quis in consectetur esse minim reprehenderit duis pariatur. Ut elit velit Lorem exercitation. Cupidatat duis elit officia deserunt eiusmod in sint est tempor ipsum. Aliquip sint ex deserunt proident proident pariatur sit nulla.\r\n",
-	        "submitTime": "2014-05-11T08:19:08",
+	        "name": "Townsend Dotson",
+	        "username": "Utara",
+	        "ratings": 4,
+	        "raters": 121,
+	        "comments": 1,
+	        "fee": 2,
+	        "parts": 21,
+	        "content": "Magna adipisicing proident consectetur sit ullamco veniam non dolore proident velit aliquip veniam voluptate. Est minim ea Lorem qui amet nostrud nulla. Nulla fugiat est in enim in reprehenderit quis deserunt pariatur mollit id dolore cillum consequat.\r\n",
+	        "submitTime": "2014-01-29T01:58:01",
 	        "status": 4,
 	        "tags": [
-	            3,
-	            6,
-	            3
-	        ]
+	            15
+	        ],
+	        "contest": 6,
+	        "isRejected": false,
+	        "votes": 16
 	    },
 	    {
 	        "id": 7,
-	        "name": "Mueller Lang",
-	        "username": "Norsup",
-	        "ratings": 2,
-	        "raters": 177,
-	        "comments": 2,
-	        "fee": 0,
-	        "parts": 52,
-	        "content": "Pariatur consequat voluptate et sit culpa velit pariatur voluptate. Adipisicing deserunt ad labore elit magna. Mollit ullamco aute ullamco magna mollit sit exercitation ipsum aliquip irure elit. Aute fugiat velit tempor pariatur nulla deserunt.\r\n",
-	        "submitTime": "2014-01-24T23:19:16",
-	        "status": 1,
+	        "name": "Petersen Dalton",
+	        "username": "Ecolight",
+	        "ratings": 3,
+	        "raters": 123,
+	        "comments": 1,
+	        "fee": 5,
+	        "parts": 87,
+	        "content": "Aliquip excepteur cillum veniam tempor. Lorem cupidatat proident et exercitation do veniam ea. Et ipsum est nisi proident irure. Cillum Lorem dolore in adipisicing eu ea eiusmod ipsum quis magna dolor Lorem ex enim. Dolore fugiat fugiat est irure consequat ut.\r\n",
+	        "submitTime": "2014-04-12T18:24:17",
+	        "status": 3,
 	        "tags": [
-	            3,
-	            16
-	        ]
+	            9,
+	            2,
+	            5
+	        ],
+	        "contest": 2,
+	        "isRejected": true,
+	        "votes": 5
 	    },
 	    {
 	        "id": 8,
-	        "name": "Patsy Reid",
-	        "username": "Enersol",
-	        "ratings": 2,
-	        "raters": 182,
+	        "name": "Obrien Nixon",
+	        "username": "Gogol",
+	        "ratings": 3,
+	        "raters": 62,
 	        "comments": 9,
-	        "fee": 3,
-	        "parts": 37,
-	        "content": "Qui irure culpa eiusmod reprehenderit. Exercitation laboris veniam ullamco ad Lorem elit aute et nulla consequat ut enim pariatur. Culpa reprehenderit exercitation reprehenderit exercitation et tempor enim excepteur aliqua sint quis ex. Officia qui quis non in laboris et eiusmod consequat cillum labore fugiat sunt. Ut qui exercitation et adipisicing eiusmod. Incididunt tempor nostrud officia cillum. Minim consequat elit irure velit.\r\n",
-	        "submitTime": "2014-02-18T13:48:55",
-	        "status": 2,
+	        "fee": 1,
+	        "parts": 44,
+	        "content": "Officia esse labore cupidatat nulla dolor nulla enim quis ut irure pariatur eu excepteur eiusmod. Exercitation deserunt ex consequat do irure veniam cillum ea labore quis mollit consequat do et. Deserunt consectetur id incididunt ea ipsum occaecat culpa cillum dolor duis. Lorem et velit minim do laborum aliquip.\r\n",
+	        "submitTime": "2014-04-03T09:35:12",
+	        "status": 0,
 	        "tags": [
-	            19,
-	            0
-	        ]
+	            18,
+	            2
+	        ],
+	        "contest": 2,
+	        "isRejected": true,
+	        "votes": 25
 	    },
 	    {
 	        "id": 9,
-	        "name": "Dionne Ratliff",
-	        "username": "Ohmnet",
-	        "ratings": 1,
-	        "raters": 49,
-	        "comments": 4,
+	        "name": "Wilson House",
+	        "username": "Xurban",
+	        "ratings": 3,
+	        "raters": 16,
+	        "comments": 6,
 	        "fee": 1,
-	        "parts": 78,
-	        "content": "Dolore eiusmod magna aliqua ullamco tempor occaecat aliquip et in veniam dolore. Proident aliquip adipisicing est est mollit deserunt et consectetur ullamco duis sint qui. Eu proident nostrud in minim eu voluptate nulla sint sint exercitation elit dolor.\r\n",
-	        "submitTime": "2014-04-30T19:33:31",
-	        "status": 0,
+	        "parts": 68,
+	        "content": "Laboris aute aute et enim nulla. Exercitation elit excepteur anim commodo fugiat nostrud. Ad quis eu amet ex pariatur reprehenderit. Commodo occaecat aute fugiat minim sint. Sit consectetur qui enim occaecat voluptate amet labore mollit culpa amet. Anim cillum ipsum duis eu dolor quis aliqua excepteur eu et mollit. In proident cillum officia sunt nulla ullamco ut officia amet est.\r\n",
+	        "submitTime": "2014-01-08T10:31:27",
+	        "status": 3,
 	        "tags": [
-	            5,
-	            5,
-	            5
-	        ]
+	            6,
+	            20,
+	            0,
+	            18
+	        ],
+	        "contest": 3,
+	        "isRejected": true,
+	        "votes": 23
 	    },
 	    {
 	        "id": 10,
-	        "name": "Dena Richard",
-	        "username": "Injoy",
-	        "ratings": 0,
-	        "raters": 8,
-	        "comments": 1,
-	        "fee": 0,
-	        "parts": 58,
-	        "content": "Mollit magna deserunt dolor sint voluptate excepteur ea commodo et culpa. Exercitation excepteur dolore tempor ipsum mollit ea laborum voluptate ad. Velit enim anim dolor culpa exercitation cillum.\r\n",
-	        "submitTime": "2014-05-09T22:31:02",
-	        "status": 0,
+	        "name": "Ila Gross",
+	        "username": "Uniworld",
+	        "ratings": 2,
+	        "raters": 171,
+	        "comments": 2,
+	        "fee": 2,
+	        "parts": 29,
+	        "content": "Excepteur officia ullamco sunt qui non proident esse nostrud ea deserunt magna. Nostrud eu eiusmod qui mollit et eiusmod nisi sunt adipisicing magna duis anim. Elit sint nostrud sunt qui officia ut fugiat. Et magna laboris duis aliquip proident cillum Lorem sunt fugiat. Aliquip id fugiat sit cupidatat minim cupidatat duis.\r\n",
+	        "submitTime": "2014-02-21T20:27:56",
+	        "status": 1,
 	        "tags": [
-	            17,
-	            8,
-	            6,
-	            2,
-	            5
-	        ]
+	            15,
+	            1,
+	            17
+	        ],
+	        "contest": 3,
+	        "isRejected": false,
+	        "votes": 25
 	    },
 	    {
 	        "id": 11,
-	        "name": "Muriel Lee",
-	        "username": "Equitax",
+	        "name": "Kelley Juarez",
+	        "username": "Maxemia",
 	        "ratings": 5,
-	        "raters": 33,
+	        "raters": 12,
 	        "comments": 4,
-	        "fee": 1,
-	        "parts": 20,
-	        "content": "Enim cupidatat id magna consequat tempor culpa velit aute. In velit aliquip nostrud laborum exercitation sunt exercitation. Laboris adipisicing irure excepteur est aute qui eiusmod non irure cupidatat qui consequat. Tempor est cupidatat tempor irure. Pariatur eu laboris eiusmod est ea tempor. Amet minim irure mollit deserunt aliquip aliqua nulla eiusmod aliqua est. Incididunt qui velit incididunt proident et cillum Lorem esse voluptate sit esse.\r\n",
-	        "submitTime": "2014-02-17T19:34:13",
-	        "status": 3,
+	        "fee": 5,
+	        "parts": 81,
+	        "content": "Fugiat Lorem qui esse tempor culpa exercitation. Eiusmod Lorem aliqua tempor voluptate magna adipisicing fugiat laborum velit elit nulla consequat ut. Labore occaecat cillum anim nisi id nisi pariatur dolore incididunt voluptate enim sit sit.\r\n",
+	        "submitTime": "2014-02-26T07:05:05",
+	        "status": 1,
 	        "tags": [
-	            18,
-	            9,
-	            1,
-	            12,
-	            8
-	        ]
+	            14,
+	            13,
+	            14,
+	            2
+	        ],
+	        "contest": 4,
+	        "isRejected": true,
+	        "votes": 27
 	    },
 	    {
 	        "id": 12,
-	        "name": "Stacy Hood",
-	        "username": "Proflex",
-	        "ratings": 2,
-	        "raters": 109,
-	        "comments": 5,
-	        "fee": 4,
-	        "parts": 16,
-	        "content": "Ipsum consequat ipsum cupidatat officia. Velit dolore ut anim reprehenderit ullamco amet proident consectetur. In Lorem magna irure non. Aliquip ullamco dolore anim consequat occaecat dolore consectetur do nostrud incididunt irure dolore anim. Voluptate esse consequat fugiat mollit labore. Do amet sint enim aliquip et ullamco consequat minim minim in duis officia qui sit. Officia irure labore do duis ea ut ullamco aliquip et deserunt mollit irure.\r\n",
-	        "submitTime": "2014-04-22T04:46:29",
-	        "status": 4,
+	        "name": "Andrews Elliott",
+	        "username": "Kyagoro",
+	        "ratings": 1,
+	        "raters": 101,
+	        "comments": 1,
+	        "fee": 2,
+	        "parts": 74,
+	        "content": "Ad non proident do id elit eiusmod commodo id nostrud. Mollit nulla in voluptate enim eiusmod eu irure labore. Labore ad consequat Lorem laborum incididunt amet. Occaecat dolore sit occaecat reprehenderit. Officia eu dolor sunt labore pariatur Lorem est commodo.\r\n",
+	        "submitTime": "2014-03-17T16:39:47",
+	        "status": 1,
 	        "tags": [
-	            0,
-	            14,
-	            1,
-	            13,
-	            14
-	        ]
+	            17
+	        ],
+	        "contest": 3,
+	        "isRejected": true,
+	        "votes": 2
 	    },
 	    {
 	        "id": 13,
-	        "name": "Terrie Martin",
-	        "username": "Recrisys",
-	        "ratings": 0,
-	        "raters": 170,
-	        "comments": 7,
-	        "fee": 1,
-	        "parts": 46,
-	        "content": "Qui irure cupidatat veniam reprehenderit eu eu. Enim in occaecat est qui cupidatat cillum fugiat culpa. Est do commodo culpa consequat. Nulla enim eu incididunt pariatur ea ex esse officia laboris magna. Commodo voluptate ea aute non nostrud culpa nisi cupidatat aliquip ullamco labore. In adipisicing commodo dolore quis reprehenderit incididunt amet nisi laborum irure incididunt esse.\r\n",
-	        "submitTime": "2014-01-23T21:05:43",
-	        "status": 1,
+	        "name": "Buck Steele",
+	        "username": "Ecraze",
+	        "ratings": 1,
+	        "raters": 154,
+	        "comments": 10,
+	        "fee": 4,
+	        "parts": 42,
+	        "content": "Irure enim duis sit mollit minim deserunt anim mollit. Sint consequat amet duis anim enim. Sit quis nulla excepteur incididunt pariatur irure fugiat amet velit Lorem. Minim id magna consequat aliqua duis esse veniam eiusmod ea irure eu. Excepteur qui ad est et officia duis nisi. Nisi dolor et reprehenderit non duis cillum pariatur laboris exercitation officia.\r\n",
+	        "submitTime": "2014-05-01T09:29:40",
+	        "status": 2,
 	        "tags": [
-	            7
-	        ]
+	            13,
+	            3,
+	            7,
+	            10,
+	            20
+	        ],
+	        "contest": 0,
+	        "isRejected": false,
+	        "votes": 15
 	    },
 	    {
 	        "id": 14,
-	        "name": "Curtis Turner",
-	        "username": "Sonique",
+	        "name": "Rosalyn Mcbride",
+	        "username": "Glasstep",
 	        "ratings": 2,
-	        "raters": 175,
-	        "comments": 5,
-	        "fee": 0,
-	        "parts": 14,
-	        "content": "Irure magna aute aliquip duis ipsum ea aliquip et magna est officia occaecat reprehenderit ut. Cillum voluptate cillum veniam aliquip officia mollit duis adipisicing deserunt mollit id exercitation irure. Consequat do mollit enim esse amet amet ea sit ad. Amet cupidatat voluptate eu incididunt sit voluptate consequat culpa ut est sit. Do adipisicing et nostrud eu nostrud commodo. Anim exercitation occaecat deserunt amet id duis nisi cillum irure. Tempor qui consectetur Lorem non id proident velit laboris nostrud est pariatur nisi.\r\n",
-	        "submitTime": "2014-04-08T02:19:38",
+	        "raters": 72,
+	        "comments": 4,
+	        "fee": 5,
+	        "parts": 74,
+	        "content": "Veniam deserunt nisi Lorem non sint non anim voluptate anim. Sint culpa ullamco culpa sint magna id consectetur amet aliquip aliqua ad sit. Et exercitation et ea non labore anim aliqua deserunt esse deserunt pariatur sit anim. Ullamco fugiat sunt adipisicing laboris ut eu in. Veniam ex veniam et quis deserunt pariatur dolor ipsum est cupidatat.\r\n",
+	        "submitTime": "2014-05-15T02:12:55",
 	        "status": 4,
 	        "tags": [
-	            18,
-	            2,
-	            5,
-	            16
-	        ]
+	            14,
+	            1,
+	            2
+	        ],
+	        "contest": 3,
+	        "isRejected": true,
+	        "votes": 16
 	    },
 	    {
 	        "id": 15,
-	        "name": "Claudia Dale",
-	        "username": "Genekom",
-	        "ratings": 2,
-	        "raters": 120,
-	        "comments": 2,
+	        "name": "Sykes Huber",
+	        "username": "Goko",
+	        "ratings": 1,
+	        "raters": 81,
+	        "comments": 9,
 	        "fee": 1,
-	        "parts": 62,
-	        "content": "Occaecat ad adipisicing officia officia aliqua irure ullamco proident id cillum do ut. Veniam nostrud nisi sunt quis mollit ullamco cillum. Reprehenderit exercitation excepteur duis laborum.\r\n",
-	        "submitTime": "2014-04-05T07:14:05",
-	        "status": 0,
+	        "parts": 5,
+	        "content": "Adipisicing nulla irure sint voluptate occaecat pariatur magna cillum ut Lorem consectetur anim sit. Aute ea mollit reprehenderit culpa voluptate Lorem commodo tempor deserunt ipsum laboris. Dolor nostrud do tempor voluptate ad sit velit Lorem cillum occaecat labore. Tempor eu proident id dolor culpa nulla aute nostrud est officia in ad. Eu ipsum Lorem ut deserunt culpa adipisicing ea. Labore ullamco non anim nulla qui magna officia in laboris exercitation nulla. Esse officia deserunt commodo non.\r\n",
+	        "submitTime": "2014-01-11T18:10:06",
+	        "status": 2,
 	        "tags": [
-	            15
-	        ]
+	            0,
+	            2,
+	            20,
+	            5
+	        ],
+	        "contest": 8,
+	        "isRejected": true,
+	        "votes": 26
 	    },
 	    {
 	        "id": 16,
-	        "name": "Landry Dawson",
-	        "username": "Zanity",
+	        "name": "Jimenez Ford",
+	        "username": "Pearlesex",
 	        "ratings": 4,
-	        "raters": 145,
-	        "comments": 9,
-	        "fee": 2,
-	        "parts": 80,
-	        "content": "Adipisicing deserunt nulla sint exercitation. Non sunt enim aliquip nisi incididunt. Ipsum qui adipisicing magna eu ea ullamco cillum.\r\n",
-	        "submitTime": "2014-04-02T06:21:02",
-	        "status": 1,
+	        "raters": 31,
+	        "comments": 0,
+	        "fee": 4,
+	        "parts": 76,
+	        "content": "Sunt ut anim eu cupidatat veniam nostrud. Ea sit commodo eu aute nisi est anim duis. Labore qui proident nulla laboris ullamco occaecat laborum eu adipisicing fugiat.\r\n",
+	        "submitTime": "2014-01-28T16:46:05",
+	        "status": 2,
 	        "tags": [
-	            4
-	        ]
+	            19,
+	            5
+	        ],
+	        "contest": 9,
+	        "isRejected": false,
+	        "votes": 7
 	    },
 	    {
 	        "id": 17,
-	        "name": "Lula Grimes",
-	        "username": "Deviltoe",
-	        "ratings": 1,
-	        "raters": 183,
-	        "comments": 7,
+	        "name": "Fay Morgan",
+	        "username": "Neptide",
+	        "ratings": 4,
+	        "raters": 105,
+	        "comments": 6,
 	        "fee": 2,
-	        "parts": 17,
-	        "content": "Qui tempor cupidatat aute nulla ad cillum labore. Laboris sit labore in anim mollit anim excepteur consectetur laborum veniam nulla id ea pariatur. Enim et proident nostrud aliquip nostrud est reprehenderit enim labore ullamco adipisicing pariatur duis.\r\n",
-	        "submitTime": "2014-01-06T17:23:06",
-	        "status": 1,
+	        "parts": 85,
+	        "content": "Officia aliqua occaecat labore consectetur eu in id minim. Do labore Lorem magna ad. Dolor deserunt consequat amet reprehenderit ullamco. Commodo deserunt incididunt qui veniam fugiat pariatur et. Adipisicing qui cillum adipisicing nisi quis cupidatat ullamco sit nisi occaecat eu nisi officia incididunt. Et veniam eu sunt occaecat qui duis proident.\r\n",
+	        "submitTime": "2014-05-25T19:34:43",
+	        "status": 2,
 	        "tags": [
-	            14,
-	            7,
-	            16,
-	            19
-	        ]
+	            17,
+	            2
+	        ],
+	        "contest": 0,
+	        "isRejected": true,
+	        "votes": 28
 	    },
 	    {
 	        "id": 18,
-	        "name": "Carly Byers",
-	        "username": "Zboo",
-	        "ratings": 2,
-	        "raters": 189,
-	        "comments": 3,
-	        "fee": 0,
-	        "parts": 58,
-	        "content": "Ut laborum occaecat cillum commodo elit nostrud fugiat ad laboris exercitation dolor commodo. Reprehenderit cillum qui fugiat aliqua cillum ipsum Lorem laboris. Consequat nostrud Lorem fugiat nostrud consectetur nulla magna exercitation mollit. Enim deserunt ipsum quis dolor id ipsum dolore anim sint ex ea Lorem velit. Nisi eiusmod cupidatat consectetur sint nulla deserunt. Esse occaecat velit dolor Lorem aliquip laborum. Dolore officia non ullamco proident aliquip magna nostrud ut.\r\n",
-	        "submitTime": "2014-01-04T07:59:18",
-	        "status": 1,
+	        "name": "Briana Merrill",
+	        "username": "Duoflex",
+	        "ratings": 3,
+	        "raters": 103,
+	        "comments": 0,
+	        "fee": 4,
+	        "parts": 84,
+	        "content": "Ullamco magna laboris nostrud irure. Amet velit et amet ad excepteur commodo. Minim esse dolor esse ea. Quis voluptate qui exercitation adipisicing nostrud incididunt quis quis consectetur excepteur fugiat ad culpa occaecat.\r\n",
+	        "submitTime": "2014-01-16T12:03:04",
+	        "status": 0,
 	        "tags": [
 	            19,
-	            13
-	        ]
+	            9,
+	            11
+	        ],
+	        "contest": 2,
+	        "isRejected": true,
+	        "votes": 28
 	    },
 	    {
 	        "id": 19,
-	        "name": "Whitney Hamilton",
-	        "username": "Eventage",
-	        "ratings": 1,
-	        "raters": 100,
-	        "comments": 6,
+	        "name": "Schultz Callahan",
+	        "username": "Uni",
+	        "ratings": 5,
+	        "raters": 199,
+	        "comments": 10,
 	        "fee": 0,
-	        "parts": 83,
-	        "content": "Dolore do ea ullamco aute reprehenderit qui veniam reprehenderit anim mollit. Esse anim ad est exercitation eiusmod aliquip ullamco anim laboris excepteur est cupidatat. Reprehenderit dolore occaecat excepteur dolore sit amet occaecat nostrud nulla commodo ut enim.\r\n",
-	        "submitTime": "2014-01-10T01:18:43",
-	        "status": 1,
+	        "parts": 72,
+	        "content": "Exercitation deserunt irure minim amet occaecat. Anim incididunt est irure irure aliquip consequat cillum exercitation aute. Ullamco adipisicing irure amet enim. Dolore veniam ut pariatur incididunt sint officia in labore exercitation laborum esse nisi in do. Enim laborum commodo laborum tempor ullamco dolore.\r\n",
+	        "submitTime": "2014-05-09T15:39:36",
+	        "status": 2,
 	        "tags": [
-	            20,
-	            10,
-	            17,
-	            15,
-	            4
-	        ]
+	            10
+	        ],
+	        "contest": 4,
+	        "isRejected": false,
+	        "votes": 27
 	    }
 	];
 		
@@ -576,6 +641,11 @@ app.factory('mocResource', function () {
             else html = 'No ratings yet';
             
             return html;
+        },
+        filterByContestId: function(cid) {
+			return _.filter(data, function(moc) {
+        		return moc.contest == cid;
+        	});
         },
         filterByTagId: function(tid) {
 			return _.filter(data, function(moc) {

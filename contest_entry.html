@@ -1,0 +1,24 @@
+<!-- $title - Contest -->
+<!-- $isactive-contest class="active" -->
+<!-- $body-meta class="blank" ng-controller="ContestEntryController" -->
+<!-- @include _header -->
+
+	<nav class="subnav">
+		<ul class="container">
+			<li class="active"><a class="title" href="#">{{ title }}</a></li>
+			<li class="right"><a class="btn" href="#">Votes <i class="fa fa-angle-down"></i></a></li>
+			<li class="right"><a class="btn" href="#">Edit</a></li>
+		</ul>
+	</nav>
+
+	<section>
+		<div class="container">
+
+			<div class="moc-item" ng-repeat="moc in mocs">
+				<ng-include src="'includes/moc_item.html'"></ng-include>
+			</div> <!-- /.moc-item -->
+
+		</div> <!-- /.container -->
+	</section>
+  
+<!-- @include _footer -->
