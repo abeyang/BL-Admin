@@ -140,6 +140,13 @@ app.controller('ContestEntryController', function($scope, $location, ui, mocReso
 
 	$scope.mocs = mocResource.filterByContestId(id);
 
+	$scope.getTitle = function(id) {
+		return ui.findAttrById(metaResource, 'title', id);
+	};
+	$scope.getLink = function(id) {
+		return "contest_item.html#/" + id;
+	};
+
 });
 
 

@@ -22,6 +22,7 @@ $color_link: $orange;
 
 // -- Box Model
 $thumb_width: 140px;
+$thumb_height: 220px;
 $margin: 40px;
 $pad: 10px;
 $radius: 5px;
@@ -195,9 +196,7 @@ nav {
         text-transform: uppercase;
         color: $white;
         opacity: 0.4;
-    }
-
-    
+    }    
 }
 
 .subnav {
@@ -290,6 +289,13 @@ nav {
     }
 }
 
+.simple {
+    display: block;
+    height: $thumb_height;
+    background-color: $lightestgray;
+    overflow: hidden;
+}
+
 .moc-item {
     @include span-columns(4);
     @include omega(3n);
@@ -304,13 +310,13 @@ nav {
     }
 
     .moc-image {
-        height: 220px;
+        @extend .simple;
         margin-top: $margin;
+        /*height: $thumb_height;
         background-color: $lightestgray;
-        overflow: hidden;
+        overflow: hidden;*/
     }
     .title {
-        /*display: block;*/
         @extend .truncate;
         margin-top: $pad;
         color: $black;
@@ -335,6 +341,26 @@ nav {
     .moc-tags {
     	@extend .truncate;
     }
+
+    // @todo add on-hover states
+    .simple {
+        position: relative;
+
+        .info {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: $pad/2 $pad;
+            color: $white;
+            // @todo make background a gradient, not solid
+            background-color: rgba($orange, 0.75);
+        }
+        .misc { 
+            float: right;
+            color: $white; 
+        }
+    }
+
 }
 
 .moc-info {

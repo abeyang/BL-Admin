@@ -1,6 +1,6 @@
 <!-- $title - Contest -->
 <!-- $isactive-contest class="active" -->
-<!-- $body-meta class="blank" ng-controller="ContestEntryController" -->
+<!-- $body-meta ng-controller="ContestEntryController" -->
 <!-- @include _header -->
 
 	<nav class="subnav">
@@ -14,8 +14,8 @@
 	<section>
 		<div class="container">
 
-			<div class="moc-item" ng-repeat="moc in mocs">
-				<ng-include src="'includes/moc_item.html'"></ng-include>
+			<div class="moc-item" ng-repeat="moc in mocs | orderBy:'-votes'">
+				<ng-include src="'includes/moc_item_simple.html'"></ng-include>
 			</div> <!-- /.moc-item -->
 
 		</div> <!-- /.container -->
