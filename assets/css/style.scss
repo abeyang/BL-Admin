@@ -340,7 +340,7 @@ nav {
     	@extend .truncate;
     }
 
-    // @todo add on-hover states
+    // @todo add on-hover states (maybe?)
     .simple {
         position: relative;
 
@@ -348,10 +348,10 @@ nav {
             position: absolute;
             bottom: 0;
             width: 100%;
-            padding: $pad/2 $pad;
+            padding: $pad $pad $pad/2;
             color: $white;
-            // @todo make background a gradient, not solid
-            background-color: rgba($lightorange, 0.75);
+            @include background-image(linear-gradient(transparent 0, rgba($black, 0.35) 100%));
+
         }
         .misc { 
             float: right;
