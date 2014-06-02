@@ -9,6 +9,7 @@ $lightestgray: #eeeeee;
 $lightergray: #cccccc;
 $lightgray: #aaaaaa;
 $gray: #999999;
+$darkgray: #666;
 $offblack: #333539;
 $black: #222222;
 
@@ -147,7 +148,10 @@ input, textarea, .btn {
 		padding: $pad/2 $pad;
 		color: $white;
 		background-color: transparent;
-		border-color: $white;
+		border-color: $darkgray;
+        opacity: 1.0;
+
+        &:hover { border-color: $white; }
 	}
 	a.btn-danger {
 		color: $red;
@@ -172,46 +176,40 @@ nav {
         }
         &.right {
             padding-right: 0;
+            padding-left: $pad;
         }
-    }
-}
 
-#nav {
-    background-color: $black;
-    li {
         &.active a {
             opacity: 1.0;
         }
-
-        &#logo {
-        	padding-top: 14px;
-        	padding-bottom: 0;
-
-        	img { max-width: 30px; }
-        }
     }
+
     a {
+        @include transition(opacity 0.3s ease-in-out);
         font-size: $small;
         font-weight: 600;
         text-transform: uppercase;
         color: $white;
         opacity: 0.4;
-    }    
+
+        &:hover { opacity: 1.0; }
+    }   
+}
+
+#nav {
+    background-color: $black;
+    li#logo {
+    	padding-top: 14px;
+    	padding-bottom: 0;
+
+    	img { max-width: 30px; }
+    }
 }
 
 .subnav {
     background-color: $offblack;
     li {
         padding: $pad * 1.5 $pad * 2;
-        a {
-            color: $lightgray;
-            /*&:hover { color: $color_link; }*/
-        }
-        &.active {
-            a {
-                color: $white;
-            }
-        }
     }
 }
 
