@@ -68,6 +68,10 @@ h3 {
     font-size: 1.25em;
     line-height: 1.4;
 }
+h4 {
+    font-weight: 300;
+    font-size: 1.25em;
+}
 
 a {
     color: $color_link;
@@ -290,7 +294,7 @@ nav {
 .simple {
     display: block;
     height: $thumb_height;
-    background-color: $lightestgray;
+    background-color: $darkgray;
     overflow: hidden;
 }
 
@@ -310,9 +314,6 @@ nav {
     .moc-image {
         @extend .simple;
         margin-top: $margin;
-        /*height: $thumb_height;
-        background-color: $lightestgray;
-        overflow: hidden;*/
     }
     .title {
         @extend .truncate;
@@ -356,6 +357,28 @@ nav {
         .misc { 
             float: right;
             color: $white; 
+        }
+        .extra {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            padding-top: $thumb_height/3;
+            background-color: rgba($red, 0.75);
+            
+            &.winner {
+                background-color: rgba($orange, 0.5);
+            }
+            &.rejected h4 { font-size: 2em; }
+
+            h4 { 
+                text-align: center;
+                color: $white; 
+            }
+            .info {
+                background-image: none;
+                /*background-color: rgba($lightorange, 0.5);*/
+            }
         }
     }
 

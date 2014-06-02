@@ -137,6 +137,7 @@ app.controller('ContestEntryController', function($scope, $location, ui, mocReso
 	var id = getIdFromUrl($location);
 	$scope.entry = ui.findById(contestResource, id);
 	$scope.title = ui.findAttrById(metaResource, 'contest', id);
+	$scope.status = ui.findAttrById(contestResource, 'status', id);
 
 	$scope.mocs = mocResource.filterByContestId(id);
 
@@ -201,7 +202,6 @@ app.factory('mocResource', function () {
 		            '{{integer(0, 20)}}'
 		        ],
 		        contest: '{{integer(0, 9)}}',
-		        isRejected: '{{bool()}}',
 		        votes: '{{integer(0, 30)}}'
 		    }
 		]
@@ -714,6 +714,7 @@ app.factory('tagResource', function () {
 
 app.factory('contestResource', function() {
 	// http://www.json-generator.com/
+	// status: 1=new, 2=pending, 3=expired
 	/*
 	[
 	    '{{repeat(10)}}',

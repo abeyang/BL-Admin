@@ -1,8 +1,12 @@
 <!-- @todo show winner / losers based on logic -->
 <a class="simple" href="{{ getLink(moc.id) }}">
-	<div class="info">
-		<div class="misc"><i class="fa fa-heart-o"></i> {{ moc.votes }}</div>
-		<span class="">{{ getTitle(moc.id) }}</span>
+	<div ng-class="{'extra winner': status == 3 && $index==0, 'extra rejected': moc.status==3}">
+		<div class="info">
+			<div class="misc"><i class="fa fa-heart-o"></i> {{ moc.votes }}</div>
+			<span class="">{{ getTitle(moc.id) }}</span>
 		</div>
+		<h4 ng-if="status == 3 && $index==0"><i class="fa fa-trophy"></i><br />Winner</h4>
+		<h4 ng-if="moc.status == 3">Rejected</h4>
+	</div>
 	<img src="../assets/images/cover_{{moc.id}}.jpg">
 </a> <!-- /.simple -->
