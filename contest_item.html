@@ -7,12 +7,9 @@
 		<ul class="container">
 			<li class="active"><a href="#">{{ title }}</a></li>
 			<li class="small"><a href="{{entry_link}}"><i class="fa fa-folder-o pad-right"></i> {{ entry_title }}</a></li>
-			<!-- @todo enable logic for disabling button -->
-			<li class="right">
-				<a class="btn" ng-if="entry_status==3 && !isThisPopular" ng-class="{'btn-disabled': entry_status==3}" href="#">{{ status }} <i class="fa fa-angle-down pad-left"></i></a>
-				<a class="btn btn-success" ng-if="entry_status==3 && isThisPopular" href="#">WINNER!</a>
-			</li>
-			<li class="right small text-warning" ng-if="entry_status==3">Contest is over and winner has been chosen</li>
+			<li class="right" ng-bind-html="button"></li>
+			<li class="right small text-danger" ng-if="entry_status==3">Contest is over and winner has been chosen</li>
+			<li class="right small text-warning" ng-if="entry_status==2">Contest is over &mdash; please select a winner</li>
 		</ul>
 	</nav>
 

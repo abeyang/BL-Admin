@@ -76,8 +76,6 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 
 app.controller('TagsController', function($scope, $location, tagResource) {
 
-	$scope.ui = ui;
-	
 	$scope.tags = tagResource.list();
 
 	$scope.tagOrder = '-count';		// default tag order: sort by popularity
@@ -149,16 +147,31 @@ app.controller('ContestItemController', function($scope, $location, ui, mocResou
 	var id = getIdFromUrl($location);
 	$scope.single = ui.findById(mocResource, id);
 	$scope.title = ui.findAttrById(metaResource, 'title', id);
-	$scope.status = ui.findAttrById(statusResource, 'name', $scope.single.status);
-	
+
 	var contest_id = $scope.single.contest;
 	$scope.entry = ui.findById(contestResource, contest_id);
-	$scope.entry_status = ui.findAttrById(contestResource, 'status', contest_id);
 	$scope.entry_title = ui.findAttrById(metaResource, 'contest', contest_id);
 	$scope.entry_link = "contest_entry.html#/" + contest_id;
 
+	// based on status of entry and status of moc item, button will be different..
+	var status = ui.findAttrById(statusResource, 'name', $scope.single.status);		// moc status
+	$scope.entry_status = ui.findAttrById(contestResource, 'status', contest_id);
 	var popular_moc = mocResource.mostPopular(contest_id);
 	$scope.isThisPopular = (popular_moc.id == id);
+	
+	$scope.button = buttonize(status, '#');		// default button
+	if ($scope.entry_status==3) { // if contest is expired
+		if (popular_moc.id == id) { // if this moc is most popular
+			$scope.button = buttonize('Winner!', '#', 'btn-success')
+		}
+		else $scope.button = buttonize(status, '#', 'btn-disabled');
+	}
+	else if ($scope.entry_status==2) { // if contest is over, but awaiting approval
+		if ($scope.single.status != 3) { // if this moc is not already "rejected"
+			$scope.button = buttonize('Make this the Winner', '#', 'btn-primary')	
+		}
+	}
+
 
 	$scope.statii = statusResource.list();
 
@@ -171,6 +184,11 @@ function getIdFromUrl(location) {
 	var id = 0;
 	if (location.path()) id = location.path().substr(1);		// remove the first character, '/'
 	return id;
+}
+
+function buttonize(content, link, classes) {
+	if (!link) link = '#';
+	return '<a class="btn ' + classes + '" href="' + link + '">' + content + '</a>';
 }
 
 

@@ -162,7 +162,7 @@ input, textarea, .btn {
 
 
 .subnav {
-    li { color: $gray; }
+    /*li { color: $gray; }*/
 
 	.btn {
         @include navbutton($white);
@@ -173,6 +173,9 @@ input, textarea, .btn {
 	.btn-danger {
 		@include navbutton($red);
 	}
+    .btn-warning, .btn-primary {
+        @include navbutton($orange);   
+    }
     .btn-success {
         @include navbutton($green);   
     }
@@ -214,9 +217,6 @@ nav {
             padding-top: 17px;
         }
 
-        &.active a {
-            opacity: 1.0;
-        }
     }
 }
 
@@ -228,6 +228,7 @@ nav {
 
     	img { max-width: 30px; }
     }
+    li.active a { opacity: 1.0; }
     a { @extend .navlink; }
 }
 
@@ -235,6 +236,8 @@ nav {
     background-color: $offblack;
     li {
         padding: $pad * 1.5 $pad * 2;
+
+        &.active a { opacity: 1.0; }
     }
     a { @extend .navlink; }
 }
