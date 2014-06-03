@@ -129,7 +129,6 @@ app.controller('ContestController', function($scope, ui, contestResource, metaRe
 	$scope.filterCards = {
 		status: 1
 	};
-
 });
 
 app.controller('ContestEntryController', function($scope, $location, ui, mocResource, contestResource, metaResource) {
@@ -147,7 +146,23 @@ app.controller('ContestEntryController', function($scope, $location, ui, mocReso
 	$scope.getLink = function(id) {
 		return "contest_item.html#/" + id;
 	};
+});
 
+app.controller('ContestItemController', function($scope, $location, ui, mocResource, tagResource, statusResource, contestResource, metaResource) {
+
+
+	var id = getIdFromUrl($location);
+	$scope.single = ui.findById(mocResource, id);
+	$scope.title = ui.findAttrById(metaResource, 'title', id);
+	$scope.status = ui.findAttrById(statusResource, 'name', $scope.single.status);
+	
+	var contest_id = $scope.single.contest;
+	$scope.entry = ui.findById(contestResource, contest_id);
+	$scope.entry_status = ui.findAttrById(contestResource, 'status', contest_id);
+	$scope.entry_title = ui.findAttrById(metaResource, 'contest', contest_id);
+	$scope.entry_link = "contest_entry.html#/" + contest_id;
+
+	$scope.statii = statusResource.list();
 });
 
 
@@ -714,6 +729,7 @@ app.factory('tagResource', function () {
 
 app.factory('contestResource', function() {
 	// http://www.json-generator.com/
+	// @todo: need status 0=draft
 	// status: 1=new, 2=pending, 3=expired
 	/*
 	[

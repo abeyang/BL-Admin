@@ -1,0 +1,59 @@
+<!-- $title - Contest Item -->
+<!-- $isactive-contest class="active" -->
+<!-- $body-meta class="blank" ng-controller="ContestItemController" -->
+<!-- @include _header -->
+
+	<nav class="subnav">
+		<ul class="container">
+			<li class="active"><a href="#">{{ title }}</a></li>
+			<li class="small"><a href="{{entry_link}}">/ {{ entry_title }}</a></li>
+			<!-- @todo enable logic for disabling button -->
+			<li class="right"><a class="btn" ng-class="{'btn-disabled': entry_status==3}" href="#">{{ status }} <i class="fa fa-angle-down"></i></a></li>
+			<li class="right small text-danger" ng-if="entry_status==3">Contest is over and winner has been chosen</li>
+		</ul>
+	</nav>
+
+	<section>
+		<div class="container">	
+			<main>
+				
+				<!-- @todo add winner/reject labels over image -->				
+				<img src="../assets/images/cover_{{single.id}}.jpg">
+
+				<p>{{ single.content }}</p>
+
+				<!-- @todo will we need an activity stream for this? -->
+				<h2>Activity Stream</h2>
+
+				<div class="comment" ng-repeat="stat in statii">
+					<div class="avatar"></div>
+					<div class="content">
+						<strong>Admin</strong> on Date/Time
+						<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vestibulum id ligula porta felis euismod semper. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>	
+					</div>
+				</div>
+				<div class="comment">
+					<div class="avatar"></div>
+					<div class="content">
+						<textarea></textarea>
+						<a class="btn btn-primary right" href="#">Submit</a>
+					</div>
+				</div>
+
+			</main>
+			
+			<aside>
+				<div class="moc-info">
+					<div><i class="fa fa-user"></i> {{ single.name }}</div>	
+					<div><i class="fa fa-clock-o"></i> {{ single.submitTime }}</div>
+					<div><i class="fa fa-credit-card"></i> {{ single.fee }}% / {{ single.parts }} parts</div>
+					<!-- @todo fix tag list -->
+					<div><i class="fa fa-tag"></i> {{ getTagNames(single.tags) }}</div>
+				</div> <!-- /.moc-info -->
+				
+			</aside>
+
+		</div>
+	</section>
+  
+<!-- @include _footer -->

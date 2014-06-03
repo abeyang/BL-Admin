@@ -30,7 +30,7 @@ $radius: 5px;
 
 // -- Typography
 $source: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$small: 0.9em;
+$small: 0.85em;
 
 // LAYOUT
 
@@ -77,6 +77,9 @@ a {
     color: $color_link;
     text-decoration: none;
 }
+
+.text-warning { color: $orange; }
+.text-danger { color: $red; }
 
 section {
     margin-top: $margin;
@@ -156,6 +159,10 @@ input, textarea, .btn {
         opacity: 1.0;
 
         &:hover { border-color: $white; }
+        &.btn-disabled { 
+            opacity: 0.25;
+            &:hover { border-color: $darkgray; }
+        }
 	}
 	a.btn-danger {
 		color: $red;
@@ -175,12 +182,19 @@ nav {
     li {
         float: left;
         padding: $pad * 2;
+        color: $gray;
+
         &:first-child {
             padding-left: 0;
         }
         &.right {
             padding-right: 0;
             padding-left: $pad;
+        }
+        &.small {
+            font-size: $small;
+            padding-left: 0;
+            padding-top: 17px;
         }
 
         &.active a {
