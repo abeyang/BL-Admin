@@ -16,22 +16,6 @@ Created by Abe Yang 5/14/2014
 
 var app = angular.module('app', ['ngSanitize']);
 
-// ROUTERS
-
-/* app.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.
-      when('/moc/:mid', {controller: 'MocController'}).
-      	otherwise({redirectTo: '/tasks'});
-}]);*/
-
-/* app.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.
-      when('/tasks', {templateUrl: 'partials/task-list.html', controller: 'TaskListController'}).
-	  when('/tasks/new', {templateUrl: 'partials/task-new.html', controller: 'TaskListController'}).
-      when('/tasks/:taskId', {templateUrl: 'partials/task-detail.html', controller: 'TaskListController'}).
-      otherwise({redirectTo: '/tasks'});
-}]);*/
-
 // CONTROLLERS
 
 /* MOC controller */
@@ -45,6 +29,8 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 	$scope.single = ui.findById(mocResource, id);
 
 	$scope.showTags = true;
+
+	$scope.ui = ui;
 
 	$scope.getTagNames = function(tags) {
 		// tags is an array of tag id's
@@ -120,6 +106,8 @@ app.controller('TagController', function($scope, $location, ui, mocResource, tag
 
 app.controller('ContestController', function($scope, ui, contestResource, metaResource) {
 
+	$scope.ui = ui;
+	
 	$scope.entries = contestResource.list();
 
 	$scope.getTitle = function(id) {
@@ -132,6 +120,8 @@ app.controller('ContestController', function($scope, ui, contestResource, metaRe
 });
 
 app.controller('ContestEntryController', function($scope, $location, ui, mocResource, contestResource, metaResource) {
+
+	$scope.ui = ui;
 
 	var id = getIdFromUrl($location);
 	$scope.entry = ui.findById(contestResource, id);
@@ -150,6 +140,7 @@ app.controller('ContestEntryController', function($scope, $location, ui, mocReso
 
 app.controller('ContestItemController', function($scope, $location, ui, mocResource, tagResource, statusResource, contestResource, metaResource) {
 
+	$scope.ui = ui;
 
 	var id = getIdFromUrl($location);
 	$scope.single = ui.findById(mocResource, id);
@@ -178,6 +169,7 @@ function getIdFromUrl(location) {
 // FACTORIES
 
 app.factory('ui', function() {
+	// var isProduction = true;
 	var context = 'dashboard';
 	var contact = '';
 
@@ -190,6 +182,9 @@ app.factory('ui', function() {
         findAttrById: function(resource, attr, id) {
         	var obj = this.findById(resource, id);
         	return obj[attr];
+        },
+        imageLink: function(id) {
+        	return 'assets/images/cover_' + id + '.jpg';
         }
 	}
 });

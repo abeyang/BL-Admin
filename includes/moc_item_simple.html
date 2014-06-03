@@ -8,5 +8,5 @@
 		<h4 ng-if="status == 3 && $index==0"><i class="fa fa-trophy"></i><br />Winner</h4>
 		<h4 ng-if="moc.status == 3">Rejected</h4>
 	</div>
-	<img src="../assets/images/cover_{{moc.id}}.jpg">
+	<img src="{{ui.imageLink(moc.id)}}">
 </a> <!-- /.simple -->
