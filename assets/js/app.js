@@ -106,7 +106,7 @@ app.controller('TagController', function($scope, $location, ui, mocResource, tag
 
 /* Contest controllers */
 
-app.controller('ContestController', function($scope, ui, contestResource, metaResource) {
+app.controller('ContestController', function($scope, ui, mocResource, contestResource, metaResource) {
 
 	$scope.ui = ui;
 	
@@ -114,6 +114,11 @@ app.controller('ContestController', function($scope, ui, contestResource, metaRe
 
 	$scope.getTitle = function(id) {
 		return ui.findAttrById(metaResource, 'contest', id);
+	};
+	
+	$scope.getPopular = function(id) {
+		var moc = mocResource.mostPopular(id);
+		return (moc) ? moc.id : id;		// default to regular id
 	};
 
 	$scope.filterCards = {
@@ -679,6 +684,7 @@ app.factory('mocResource', function () {
             		if (moc.ratings >= i) html += '<i class="fa fa-star"></i>';
             		else html += '<i class="fa fa-star-o"></i>';
             	}
+            	// @todo should use an actual circle graphic instead of parens ()
             	html += ' (' + moc.raters + ')';
             }
             else html = 'No ratings yet';

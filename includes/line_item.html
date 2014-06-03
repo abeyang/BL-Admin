@@ -10,8 +10,9 @@
 			Votes
 		</div>
 	</div>
+	
 	<div class="block thumb" ng-if="entry.status==3">
-		<img src="{{ui.imageLink(entry.id)}}">
+		<img src="{{ui.imageLink(getPopular(entry.id))}}">
 	</div>
 	<div class="block">
 		<h3>{{ getTitle(entry.id) }}</h3>
