@@ -86,6 +86,7 @@ h3, h4 {
 a {
     color: $color_link;
     text-decoration: none;
+    @include transition(opacity 0.3s ease-in-out);
 }
 
 .text-warning { color: $orange; }
@@ -155,12 +156,14 @@ input, textarea, .btn {
     background-color: $color_link;
 }
 
-.btn-disabled {
+.btn-disabled, a.btn-disabled {
 	opacity: 0.25;
 }
 
 
 .subnav {
+    li { color: $gray; }
+
 	.btn {
         @include navbutton($white);
         padding: $pad/2 $pad;
@@ -178,6 +181,16 @@ input, textarea, .btn {
 // COMPONENTS
 
 // -- Navigation
+.navlink {
+    font-size: $small;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: $white;
+    opacity: 0.4;
+
+    &:hover { opacity: 1.0; }
+}
+
 nav {
     ul {
         margin-top: 0;
@@ -187,7 +200,6 @@ nav {
     li {
         float: left;
         padding: $pad * 2;
-        color: $gray;
 
         &:first-child {
             padding-left: 0;
@@ -206,17 +218,6 @@ nav {
             opacity: 1.0;
         }
     }
-
-    a {
-        @include transition(opacity 0.3s ease-in-out);
-        font-size: $small;
-        font-weight: 600;
-        text-transform: uppercase;
-        color: $white;
-        opacity: 0.4;
-
-        &:hover { opacity: 1.0; }
-    }   
 }
 
 #nav {
@@ -227,6 +228,7 @@ nav {
 
     	img { max-width: 30px; }
     }
+    a { @extend .navlink; }
 }
 
 .subnav {
@@ -234,6 +236,7 @@ nav {
     li {
         padding: $pad * 1.5 $pad * 2;
     }
+    a { @extend .navlink; }
 }
 
 .updatebar {
