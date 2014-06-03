@@ -76,6 +76,8 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 
 app.controller('TagsController', function($scope, $location, tagResource) {
 
+	$scope.ui = ui;
+	
 	$scope.tags = tagResource.list();
 
 	$scope.tagOrder = '-count';		// default tag order: sort by popularity
@@ -85,6 +87,8 @@ app.controller('TagsController', function($scope, $location, tagResource) {
 });
 
 app.controller('TagController', function($scope, $location, ui, mocResource, tagResource, metaResource) {
+
+	$scope.ui = ui;
 
 	var id = getIdFromUrl($location);
 	$scope.tag = ui.findById(tagResource, id);
@@ -153,7 +157,11 @@ app.controller('ContestItemController', function($scope, $location, ui, mocResou
 	$scope.entry_title = ui.findAttrById(metaResource, 'contest', contest_id);
 	$scope.entry_link = "contest_entry.html#/" + contest_id;
 
+	var popular_moc = mocResource.mostPopular(contest_id);
+	$scope.isThisPopular = (popular_moc.id == id);
+
 	$scope.statii = statusResource.list();
+
 });
 
 
@@ -663,6 +671,11 @@ app.factory('mocResource', function () {
 			return _.filter(data, function(moc) {
         		return moc.contest == cid;
         	});
+        },
+        mostPopular: function(cid) {
+        	// takes in contest id, returns moc object (with most votes)
+        	var mocs = this.filterByContestId(cid);
+        	return _.max(mocs, function(moc){ return moc.votes; });
         },
         filterByTagId: function(tid) {
 			return _.filter(data, function(moc) {

@@ -32,6 +32,20 @@ $radius: 5px;
 $source: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $small: 0.85em;
 
+
+// MIXINS
+
+@mixin navbutton($color) {
+    color: $color;
+    border-color: rgba($color, 0.5);
+    
+    &:hover { border-color: rgba($color, 1.0); }
+    &.btn-disabled { 
+        opacity: 0.5;
+        &:hover { border-color: rgba($color, 0.5); }
+    }
+}
+
 // LAYOUT
 
 html {
@@ -63,14 +77,10 @@ h2 {
         border-bottom: 1px solid $lightestgray;
     }
 }
-h3 {
-    font-weight: 700;
-    font-size: 1.25em;
-    line-height: 1.4;
-}
-h4 {
+h3, h4 {
     font-weight: 300;
     font-size: 1.25em;
+    line-height: 1.4;
 }
 
 a {
@@ -80,6 +90,9 @@ a {
 
 .text-warning { color: $orange; }
 .text-danger { color: $red; }
+
+.pad-left { padding-left: 3px; }
+.pad-right { padding-right: 3px; }
 
 section {
     margin-top: $margin;
@@ -146,28 +159,20 @@ input, textarea, .btn {
 	opacity: 0.25;
 }
 
-.btn-danger {
-	// ...
-}
 
 .subnav {
-	a.btn {
-		padding: $pad/2 $pad;
-		color: $white;
-		background-color: transparent;
-		border-color: $darkgray;
+	.btn {
+        @include navbutton($white);
+        padding: $pad/2 $pad;
+        background-color: transparent;
         opacity: 1.0;
-
-        &:hover { border-color: $white; }
-        &.btn-disabled { 
-            opacity: 0.25;
-            &:hover { border-color: $darkgray; }
-        }
 	}
-	a.btn-danger {
-		color: $red;
-		border-color: $red;
+	.btn-danger {
+		@include navbutton($red);
 	}
+    .btn-success {
+        @include navbutton($green);   
+    }
 }
 
 // COMPONENTS
@@ -233,7 +238,6 @@ nav {
 
 .updatebar {
 	margin-top: -$pad*2;
-	/*margin-bottom: $pad*2;*/
 
 	ul {
 		padding-bottom: $pad;
@@ -243,6 +247,11 @@ nav {
 	li {
 		padding-left: 0;
 	}
+}
+
+// -- Alerts
+.alert {
+    // ...
 }
 
 // -- Others
@@ -381,7 +390,7 @@ nav {
             background-color: rgba($red, 0.75);
             
             &.winner {
-                background-color: rgba($orange, 0.5);
+                background-color: rgba($green, 0.5);
             }
             &.rejected h4 { font-size: 2em; }
 
