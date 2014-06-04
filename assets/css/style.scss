@@ -473,6 +473,7 @@ nav {
 
             img { max-width: $thumb_width; }
         }
+        &.no-pad-right { padding-right: 0; }
     }
 
     .right .block {

@@ -9,10 +9,17 @@
 			<h3>{{ entry.votes }}</h3>
 			Votes
 		</div>
+		<div class="block">
+			<h3>{{ entry.views }}</h3>
+			Views
+		</div>
 	</div>
 	
 	<div class="block thumb" ng-if="entry.status==3">
 		<img src="{{ui.imageLink(getPopular(entry.id))}}">
+	</div>
+	<div class="block no-pad-right" ng-if="entry.status!=3">
+		<i class="fa fa-folder-o fa-3x"></i>
 	</div>
 	<div class="block">
 		<h3>{{ getTitle(entry.id) }}</h3>

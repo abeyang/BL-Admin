@@ -917,6 +917,7 @@ app.factory('statusResource', function () {
 	}
 });
 
+// Catch-all Factory (reduces need for many singular factories)
 app.factory('metaResource', function () {
 
 	var data = [
