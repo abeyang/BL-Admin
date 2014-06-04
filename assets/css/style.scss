@@ -71,7 +71,7 @@ h1, h2 {
 }
 h2 {
     margin-top: $margin;
-    margin-bottom: $pad * 2;
+    /*margin-bottom: $pad * 2;*/
     padding-bottom: $pad;
     &.line {
         border-bottom: 1px solid $lightestgray;
@@ -86,7 +86,7 @@ h3, h4 {
 a {
     color: $color_link;
     text-decoration: none;
-    @include transition(opacity 0.3s ease-in-out);
+    @include transition(opacity 0.3s ease-in-out, border-color 0.3s ease-in-out);
 }
 
 .text-warning { color: $orange; }
@@ -449,7 +449,7 @@ nav {
 }
 
 .lists {
-    margin-top: $pad*2;
+    /*margin-top: $pad*2;*/
     margin-bottom: $margin;
 }
 
