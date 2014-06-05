@@ -5,14 +5,16 @@
 
 	<nav class="subnav">
 		<ul class="container">
-			<li class="active title"><a ng-click="filterCards.status=1" href="#">Questions &amp; Answers <i class="fa fa-angle-down pad-left"></i></a></li>
-			<!-- @todo need sort by these items -->
-			<li><a ng-click="filterCards.status=1" href="#">Recent</a></li>
-			<li ng-class="{active: filterCards.status == 3}"><a ng-click="filterCards.status=3" href="#">Votes</a></li>
-			<li ng-class="{active: filterCards.status == 3}"><a ng-click="filterCards.status=3" href="#">Answers</a></li>
-			<li ng-class="{active: filterCards.status == 3}"><a ng-click="filterCards.status=3" href="#">Views</a></li>
+			<li class="separator">&nbsp;</li>
+			<li class="active"><a ng-click="filterCards.status=1" href="#">Questions &amp; Answers <i class="fa fa-angle-down pad-left"></i></a></li>
+			<li class="separator">&nbsp;</li>
+			<!-- @todo show "most active?" -->
+			<li ng-class="{active: entryOrder == '-submitTime'}"><a ng-click="entryOrder='-submitTime'" href="#">Newest</a></li>
+			<li ng-class="{active: entryOrder == '-votes'}"><a ng-click="entryOrder='-votes'" href="#">Highest Votes</a></li>
+			<li ng-class="{active: entryOrder == '-views'}"><a ng-click="entryOrder='-views'" href="#">Most Views</a></li>
 			<li ng-class="{active: filterEntries.isAnswered === ''}" class="right"><a ng-click="filterEntries.isAnswered=''" href="#">All</a></li>
-			<li ng-class="{active: filterEntries.isAnswered === false}" class="right"><a ng-click="filterEntries.isAnswered=false" href="#">Unanswered</a></li>
+			<li ng-class="{active: filterEntries.isAnswered === false}" class="right pad"><a ng-click="filterEntries.isAnswered=false" href="#">Unanswered</a></li>
+			<li class="right separator">&nbsp;</li>
 		</ul>
 	</nav>
 
@@ -20,7 +22,7 @@
 
 		<div class="container">
 			<div class="lists">
-				<div class="list-item" ng-repeat="entry in entries | filter:filterEntries">
+				<div class="list-item" ng-repeat="entry in entries | filter:filterEntries | orderBy:entryOrder">
 					<ng-include src="'includes/hc_question_item.html'"></ng-include>
 				</div> <!-- /.list-item -->
 			</div>

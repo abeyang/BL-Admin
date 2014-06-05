@@ -20,7 +20,7 @@ $purple: #b249ff;
 $red: #ff1c00;
 $orange: #ff7700;
 $lightorange: lighten($orange, 10);
-$lightgreen: lighten($green, 10);
+$lightgreen: desaturate(lighten(#2eab00, 20), 40);
 $color_link: $orange;
 
 // -- Box Model
@@ -67,6 +67,9 @@ html, body, h1, h2, h3, h4, h5, h6, div, p {
     font-family: $source;
     color: $black;
 }
+html, body, div, p {
+    font-weight: 300;
+}
 
 h1, h2 {
     font-weight: 700;
@@ -81,7 +84,7 @@ h2 {
     }
 }
 h3, h4 {
-    font-weight: 300;
+    font-weight: 200;
     font-size: 1.25em;
     line-height: 1.4;
 }
@@ -90,6 +93,8 @@ a {
     color: $color_link;
     text-decoration: none;
     @include transition(opacity 0.3s ease-in-out, border-color 0.3s ease-in-out);
+
+    &.underline { text-decoration: underline; }
 }
 
 .text-warning { color: $orange; }
@@ -218,11 +223,21 @@ nav {
         &.right {
             padding-right: 0;
             padding-left: $pad;
+
+            &.pad {
+                padding-right: $pad*2;
+                padding-left: $pad*2;
+            }
         }
         &.small {
             font-size: $small;
             padding-left: 0;
             padding-top: 17px;
+        }
+        &.separator {
+            border-left: 1px solid $darkergray;
+            padding-left: 0;
+            padding-right: 0;
         }
 
     }
@@ -498,6 +513,7 @@ nav {
             }
 
             &.answered {
+                border-color: transparent;
                 background-color: $lightgreen;
             }
             &.answered, &.answered h3 { color: $white; }
@@ -514,7 +530,9 @@ nav {
     float: left; 
     color: $lightergray;
 
-    h3 { color: $black; }
+    a { color: $lightergray; }
+
+    h3, h3 a { color: $black; }
 }
 
 // MEDIA QUERIES

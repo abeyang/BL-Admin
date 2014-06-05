@@ -192,6 +192,8 @@ app.controller('HelpQAController', function($scope, ui, helpQuestionsResource) {
 	$scope.filterEntries = {
 		isAnswered: false
 	};
+
+	$scope.entryOrder = '-submitTime';
 });
 
 
