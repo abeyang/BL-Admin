@@ -1,4 +1,4 @@
-<!-- $title - Help Center - Q&A -->
+<!-- $title - Help Center - Entries -->
 <!-- $isactive-help class="active" -->
 <!-- $body-meta class="blank" ng-controller="HelpQAController" -->
 <!-- @include _header -->
@@ -9,7 +9,7 @@
 			<li class="active">
 				<ul class="menu">
 					<li>
-						<a href="#">Questions &amp; Answers <i class="fa fa-angle-down pad-left"></i></a>
+						<a href="#">Entries <i class="fa fa-angle-down pad-left"></i></a>
 						<ul>
 							<li><a href="@path helpcenter_qa">Questions &amp; Answers</a></li>
 							<li><a href="@path helpcenter_ent">Entries</a></li>
@@ -22,12 +22,8 @@
 
 			<li ng-class="{active: entryOrder == '-activeTime'}"><a ng-click="entryOrder='-activeTime'" href="#">Active</a></li>
 			<li ng-class="{active: entryOrder == '-submitTime'}"><a ng-click="entryOrder='-submitTime'" href="#">Newest</a></li>
-			<li ng-class="{active: entryOrder == '-votes'}"><a ng-click="entryOrder='-votes'" href="#">Highest Votes</a></li>
-			<li ng-class="{active: entryOrder == '-views'}"><a ng-click="entryOrder='-views'" href="#">Most Views</a></li>
-			
-			<li ng-class="{active: filterEntries.isAnswered === ''}" class="right"><a ng-click="filterEntries.isAnswered=''" href="#">All</a></li>
-			<li ng-class="{active: filterEntries.isAnswered === false}" class="right pad"><a ng-click="filterEntries.isAnswered=false" href="#">Unanswered</a></li>
-			<li class="right separator">&nbsp;</li>
+
+			<li class="right"><a class="btn" href="#">Add Entry</a></li>
 		</ul>
 	</nav>
 
@@ -35,8 +31,8 @@
 
 		<div class="container">
 			<div class="lists">
-				<div class="list-item" ng-repeat="entry in entries | filter:filterEntries | orderBy:entryOrder">
-					<ng-include src="'includes/hc_question_item.html'"></ng-include>
+				<div class="list-item" ng-repeat="entry in entries | orderBy:entryOrder">
+					<ng-include src="'includes/hc_entry_item.html'"></ng-include>
 				</div> <!-- /.list-item -->
 			</div>
 		</div> <!-- /.container -->

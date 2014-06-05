@@ -203,43 +203,44 @@ input, textarea, .btn {
 }
 
 nav {
-    ul {
+    > ul {
         margin-top: 0;
         margin-bottom: 0;
         padding-left: 0;
-    }
-    li {
-        float: left;
-        padding: $pad * 2;
 
-        &:first-child {
-            padding-left: 0;
-        }
-        &.title {
-            padding-left: $pad*2;
-            border-left: 1px solid $darkergray;
-            border-right: 1px solid $darkergray;
-        }
-        &.right {
-            padding-right: 0;
-            padding-left: $pad;
+        > li {
+            float: left;
+            padding: $pad * 2;
 
-            &.pad {
-                padding-right: $pad*2;
-                padding-left: $pad*2;
+            &:first-child {
+                padding-left: 0;
             }
-        }
-        &.small {
-            font-size: $small;
-            padding-left: 0;
-            padding-top: 17px;
-        }
-        &.separator {
-            border-left: 1px solid $darkergray;
-            padding-left: 0;
-            padding-right: 0;
-        }
+            &.title {
+                padding-left: $pad*2;
+                border-left: 1px solid $darkergray;
+                border-right: 1px solid $darkergray;
+            }
+            &.right {
+                padding-right: 0;
+                padding-left: $pad;
 
+                &.pad {
+                    padding-right: $pad*2;
+                    padding-left: $pad*2;
+                }
+            }
+            &.small {
+                font-size: $small;
+                padding-left: 0;
+                padding-top: 17px;
+            }
+            &.separator {
+                border-left: 1px solid $darkergray;
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+        }
     }
 }
 
@@ -257,12 +258,12 @@ nav {
 
 .subnav {
     background-color: $offblack;
-    li {
+    > ul > li {
         padding: $pad * 1.5 $pad * 2;
 
         &.active a { opacity: 1.0; }
     }
-    a { @extend .navlink; }
+    a { @extend .navlink; font-weight: 400; }
 }
 
 .updatebar {
@@ -276,6 +277,35 @@ nav {
 	li {
 		padding-left: 0;
 	}
+}
+
+/* Taken from dropit.css (for dropdown menu) */
+/* These styles assume you are using ul and li */
+.dropit {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .dropit-trigger { position: relative; }
+    .dropit-submenu {
+        position: absolute;
+        top: 100%;
+        left: -$pad*2; /* dropdown left or right */
+        display: none;
+        padding: $pad $pad*2;
+        margin: $pad 0 0;
+        min-width: 200px;
+        border: 1px solid $darkergray;
+        list-style: none;
+        z-index: 1000;
+        background-color: $offblack;
+
+        li {
+            padding: $pad/2 0;
+            a { text-transform: none; }
+        }
+    }
+    .dropit-open .dropit-submenu { display: block; }
 }
 
 // -- Alerts

@@ -1,12 +1,8 @@
 <!-- @todo need to show marks of staff updates -->
 <div class="right">
 	<div class="block circle">
-		<h3>{{ entry.votes }}</h3>
-		Votes
-	</div>
-	<div ng-class="{answered: entry.isAnswered}" class="block circle">
 		<h3>{{ entry.answers }}</h3>
-		Answers
+		Comments
 	</div>
 	<div class="block circle">
 		<h3>{{ entry.views }}</h3>
@@ -15,7 +11,7 @@
 </div>
 
 <div class="block">
-	<h3><a href="#/{{entry.id}}">{{ entry.title }}?</a></h3>
+	<h3><a href="#/{{entry.id}}">{{ entry.title }}</a></h3>
 	<span ng-if="entryOrder != '-submitTime'">Last commented by {{ entry.lastUpdater }} on {{ entry.activeTime }} </span>
 	<span ng-if="entryOrder == '-submitTime'">Submitted by {{ entry.name }} on {{ entry.submitTime }} </span>
 </div>

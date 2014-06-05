@@ -3,6 +3,8 @@
 <!-- $body-meta class="blank" ng-controller="HelpQAController" -->
 <!-- @include _header -->
 
+<!-- @todo THIS IS JUST A DUMMY PAGE! -->
+
 	<nav class="subnav">
 		<ul class="container">
 			<li class="separator">&nbsp;</li>
@@ -19,12 +21,10 @@
 				</ul>
 			</li>
 			<li class="separator">&nbsp;</li>
-
-			<li ng-class="{active: entryOrder == '-activeTime'}"><a ng-click="entryOrder='-activeTime'" href="#">Active</a></li>
+			<!-- @todo show "most active?" -->
 			<li ng-class="{active: entryOrder == '-submitTime'}"><a ng-click="entryOrder='-submitTime'" href="#">Newest</a></li>
 			<li ng-class="{active: entryOrder == '-votes'}"><a ng-click="entryOrder='-votes'" href="#">Highest Votes</a></li>
 			<li ng-class="{active: entryOrder == '-views'}"><a ng-click="entryOrder='-views'" href="#">Most Views</a></li>
-			
 			<li ng-class="{active: filterEntries.isAnswered === ''}" class="right"><a ng-click="filterEntries.isAnswered=''" href="#">All</a></li>
 			<li ng-class="{active: filterEntries.isAnswered === false}" class="right pad"><a ng-click="filterEntries.isAnswered=false" href="#">Unanswered</a></li>
 			<li class="right separator">&nbsp;</li>
