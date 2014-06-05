@@ -565,6 +565,25 @@ nav {
     h3, h3 a { color: $black; }
 }
 
+.category {
+    @include span-columns(3);
+    @include omega(4n);
+
+    margin-bottom: $margin;
+    padding: $pad;
+    border: 1px solid $lightestgray;
+
+    h3 a { color: $black; }
+    .main { 
+        margin-top: $pad; 
+        height: 100px;
+    }
+    .labels {
+        font-size: $small;
+        color: $lightgray;
+    }
+}
+
 // MEDIA QUERIES
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {

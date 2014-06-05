@@ -196,6 +196,13 @@ app.controller('HelpQAController', function($scope, ui, helpQuestionsResource) {
 	$scope.entryOrder = '-activeTime';
 });
 
+app.controller('HelpCatController', function($scope, ui, helpCategoriesResource) {
+
+	$scope.ui = ui;
+	
+	$scope.categories = helpCategoriesResource.list();
+});
+
 
 // HELPERS
 
@@ -1636,6 +1643,81 @@ app.factory('helpQuestionsResource', function() {
 	        "activeTime": "2014-05-06T01:11:22",
 	        "isAnswered": false,
 	        "markedByStaff": true
+	    }
+	];
+
+	return {
+		list: function() {
+			return data;
+		}
+	}
+});
+
+app.factory('helpCategoriesResource', function() {
+	var data = [
+	    {
+	        "id": 0,
+	        "title": "Design Process",
+	        "content": "Learn the full process, from uploading your MOC to creating instruction manuals to using the Lego Designer tool.",
+	        "for": "Designers",
+	        "entries": 17,
+	        "questions": 37
+	    },
+	    {
+	        "id": 1,
+	        "title": "Design Contest",
+	        "content": "Understand how the MOC Contest works, and how to gain greater exposure.",
+	        "for": "Designers",
+	        "entries": 8,
+	        "questions": 62
+	    },
+	    {
+	        "id": 2,
+	        "title": "Selling MOCs",
+	        "content": "How to pair up with a seller or designer, and how buyers play a big part in helping them partner up.",
+	        "for": "Designers, Sellers, Shoppers",
+	        "entries": 12,
+	        "questions": 25
+	    },
+	    {
+	        "id": 3,
+	        "title": "Shop Management",
+	        "content": "How to keep track of your inventory on both the new and the old BrickLink systems.",
+	        "for": "Sellers",
+	        "entries": 21,
+	        "questions": 46
+	    },
+	    {
+	        "id": 4,
+	        "title": "Ordering & Shipping",
+	        "content": "Learn how to deal with ordering issues and understand how weight and location affects shipping costs.",
+	        "for": "Sellers, Shoppers",
+	        "entries": 26,
+	        "questions": 94
+	    },
+	    {
+	        "id": 5,
+	        "title": "Community",
+	        "content": "How to positively engage the BrickLink community, and what to do with those who don't.",
+	        "for": "Designers, Sellers, Shoppers",
+	        "entries": 15,
+	        "questions": 20
+	    },
+	    {
+	        "id": 6,
+	        "title": "Account & Membership",
+	        "content": "Learn how to manage your account, and how to become a seller and/or designer.",
+	        "for": "Designers, Sellers, Shoppers",
+	        "entries": 6,
+	        "questions": 11
+	    },
+	    {
+	        "id": 7,
+	        "title": "Rules & Policies",
+	        "content": "Guidelines to how BrickLink and MOC Shop operate.",
+	        "for": "Designers, Sellers, Shoppers",
+	        "entries": 7,
+	        "questions": 4
 	    }
 	];
 
