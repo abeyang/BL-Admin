@@ -177,9 +177,21 @@ app.controller('ContestItemController', function($scope, $location, ui, mocResou
 		}
 	}
 
-
 	$scope.statii = statusResource.list();
 
+});
+
+/* Help Center Controllers */
+
+app.controller('HelpQAController', function($scope, ui, helpQuestionsResource) {
+
+	$scope.ui = ui;
+	
+	$scope.entries = helpQuestionsResource.list();
+
+	$scope.filterEntries = {
+		isAnswered: false
+	};
 });
 
 
@@ -900,6 +912,636 @@ app.factory('contestResource', function() {
 	}
 });
 
+app.factory('helpQuestionsResource', function() {
+	// http://www.json-generator.com/
+	/*
+	[
+	    '{{repeat(50)}}',
+	    {
+	        id: '{{index()}}',
+	        name: '{{firstName()}} {{surname()}}',
+	        title: '{{lorem(7, "words")}}',
+	        category: '{{integer(0, 7)}}',
+	        votes: '{{integer(0, 20)}}',
+	        answers: '{{integer(1, 30)}}',
+	        views: '{{integer(1, 500)}}',
+	        submitTime: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
+	        isAnswered: '{{bool()}}',
+	        markedByStaff: '{{bool()}}'
+	    }
+	]
+	*/
+
+	var data = [
+	    {
+	        "id": 0,
+	        "name": "Short Barron",
+	        "title": "velit dolore consectetur dolor amet officia elit",
+	        "category": 5,
+	        "votes": 0,
+	        "answers": 14,
+	        "views": 40,
+	        "submitTime": "2014-02-18T04:21:35",
+	        "isAnswered": false,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 1,
+	        "name": "Lewis Hester",
+	        "title": "et elit cillum amet deserunt nisi quis",
+	        "category": 4,
+	        "votes": 15,
+	        "answers": 22,
+	        "views": 406,
+	        "submitTime": "2014-05-20T17:14:26",
+	        "isAnswered": false,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 2,
+	        "name": "Saunders Mcconnell",
+	        "title": "nisi qui incididunt laborum enim excepteur et",
+	        "category": 7,
+	        "votes": 2,
+	        "answers": 15,
+	        "views": 59,
+	        "submitTime": "2014-01-24T15:43:07",
+	        "isAnswered": true,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 3,
+	        "name": "Sonia Holmes",
+	        "title": "deserunt esse voluptate incididunt fugiat fugiat elit",
+	        "category": 6,
+	        "votes": 9,
+	        "answers": 6,
+	        "views": 410,
+	        "submitTime": "2014-03-16T06:01:49",
+	        "isAnswered": true,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 4,
+	        "name": "Vance Martin",
+	        "title": "dolore cupidatat occaecat quis ipsum laboris veniam",
+	        "category": 6,
+	        "votes": 1,
+	        "answers": 24,
+	        "views": 2,
+	        "submitTime": "2014-04-09T05:32:44",
+	        "isAnswered": false,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 5,
+	        "name": "Jensen Hughes",
+	        "title": "consectetur ex dolore anim amet irure non",
+	        "category": 4,
+	        "votes": 1,
+	        "answers": 18,
+	        "views": 384,
+	        "submitTime": "2014-04-09T05:01:28",
+	        "isAnswered": true,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 6,
+	        "name": "Barker Lindsay",
+	        "title": "et est officia culpa sit enim irure",
+	        "category": 3,
+	        "votes": 9,
+	        "answers": 10,
+	        "views": 137,
+	        "submitTime": "2014-02-24T12:54:58",
+	        "isAnswered": false,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 7,
+	        "name": "Lidia Davis",
+	        "title": "tempor sunt sint Lorem excepteur Lorem fugiat",
+	        "category": 7,
+	        "votes": 4,
+	        "answers": 14,
+	        "views": 399,
+	        "submitTime": "2014-04-07T22:28:15",
+	        "isAnswered": true,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 8,
+	        "name": "Kerry Boyle",
+	        "title": "voluptate labore aute excepteur incididunt nostrud laborum",
+	        "category": 4,
+	        "votes": 16,
+	        "answers": 27,
+	        "views": 240,
+	        "submitTime": "2014-03-17T09:42:03",
+	        "isAnswered": true,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 9,
+	        "name": "Young Santana",
+	        "title": "aliquip cillum quis amet eu non consequat",
+	        "category": 6,
+	        "votes": 0,
+	        "answers": 8,
+	        "views": 203,
+	        "submitTime": "2014-01-17T15:10:11",
+	        "isAnswered": true,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 10,
+	        "name": "Kathleen Nunez",
+	        "title": "proident qui occaecat enim deserunt do sit",
+	        "category": 7,
+	        "votes": 12,
+	        "answers": 17,
+	        "views": 404,
+	        "submitTime": "2014-04-10T19:25:02",
+	        "isAnswered": true,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 11,
+	        "name": "George Cervantes",
+	        "title": "enim elit commodo in sit officia labore",
+	        "category": 3,
+	        "votes": 14,
+	        "answers": 18,
+	        "views": 249,
+	        "submitTime": "2014-05-15T22:50:44",
+	        "isAnswered": true,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 12,
+	        "name": "Lizzie Lee",
+	        "title": "sunt sit occaecat exercitation consequat duis ad",
+	        "category": 2,
+	        "votes": 19,
+	        "answers": 18,
+	        "views": 235,
+	        "submitTime": "2014-03-16T18:06:44",
+	        "isAnswered": true,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 13,
+	        "name": "Lynette Huber",
+	        "title": "incididunt in eu culpa consequat et id",
+	        "category": 0,
+	        "votes": 11,
+	        "answers": 30,
+	        "views": 384,
+	        "submitTime": "2014-01-29T13:10:09",
+	        "isAnswered": true,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 14,
+	        "name": "Annmarie Castro",
+	        "title": "exercitation sunt enim amet aliquip exercitation laboris",
+	        "category": 2,
+	        "votes": 0,
+	        "answers": 22,
+	        "views": 455,
+	        "submitTime": "2014-01-12T14:54:54",
+	        "isAnswered": false,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 15,
+	        "name": "Trevino Guerra",
+	        "title": "pariatur do ipsum minim esse quis mollit",
+	        "category": 0,
+	        "votes": 14,
+	        "answers": 2,
+	        "views": 15,
+	        "submitTime": "2014-05-01T23:11:58",
+	        "isAnswered": false,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 16,
+	        "name": "Lucinda Marsh",
+	        "title": "minim pariatur eu deserunt veniam sint pariatur",
+	        "category": 0,
+	        "votes": 7,
+	        "answers": 25,
+	        "views": 99,
+	        "submitTime": "2014-04-06T04:10:44",
+	        "isAnswered": false,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 17,
+	        "name": "Bridget Moses",
+	        "title": "dolor adipisicing qui commodo ut nostrud qui",
+	        "category": 1,
+	        "votes": 18,
+	        "answers": 20,
+	        "views": 490,
+	        "submitTime": "2014-03-25T07:46:44",
+	        "isAnswered": false,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 18,
+	        "name": "Greta Sullivan",
+	        "title": "incididunt eiusmod aliquip proident tempor enim eu",
+	        "category": 0,
+	        "votes": 7,
+	        "answers": 29,
+	        "views": 280,
+	        "submitTime": "2014-01-19T09:28:01",
+	        "isAnswered": false,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 19,
+	        "name": "Carr Oneill",
+	        "title": "consectetur deserunt ipsum aliquip Lorem minim cupidatat",
+	        "category": 2,
+	        "votes": 15,
+	        "answers": 27,
+	        "views": 226,
+	        "submitTime": "2014-03-04T20:51:58",
+	        "isAnswered": true,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 20,
+	        "name": "Deana Vinson",
+	        "title": "qui esse magna anim ut elit consequat",
+	        "category": 4,
+	        "votes": 14,
+	        "answers": 11,
+	        "views": 244,
+	        "submitTime": "2014-03-26T00:10:28",
+	        "isAnswered": false,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 21,
+	        "name": "Walters Wooten",
+	        "title": "dolor aute cillum ullamco ex aute incididunt",
+	        "category": 6,
+	        "votes": 9,
+	        "answers": 20,
+	        "views": 233,
+	        "submitTime": "2014-03-25T14:18:08",
+	        "isAnswered": false,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 22,
+	        "name": "Esther Pacheco",
+	        "title": "laborum voluptate minim id reprehenderit in dolore",
+	        "category": 7,
+	        "votes": 12,
+	        "answers": 2,
+	        "views": 72,
+	        "submitTime": "2014-01-30T11:15:27",
+	        "isAnswered": false,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 23,
+	        "name": "Glass Pitts",
+	        "title": "pariatur cupidatat fugiat ut proident veniam aliquip",
+	        "category": 2,
+	        "votes": 3,
+	        "answers": 20,
+	        "views": 135,
+	        "submitTime": "2014-01-18T08:41:21",
+	        "isAnswered": false,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 24,
+	        "name": "Bailey Stephenson",
+	        "title": "esse occaecat cupidatat tempor incididunt ipsum adipisicing",
+	        "category": 5,
+	        "votes": 16,
+	        "answers": 16,
+	        "views": 274,
+	        "submitTime": "2014-06-01T04:21:53",
+	        "isAnswered": false,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 25,
+	        "name": "Ayala Conway",
+	        "title": "enim anim excepteur ipsum et laborum magna",
+	        "category": 2,
+	        "votes": 9,
+	        "answers": 15,
+	        "views": 120,
+	        "submitTime": "2014-04-17T02:27:03",
+	        "isAnswered": false,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 26,
+	        "name": "Payne Rios",
+	        "title": "laboris adipisicing laborum do est laboris do",
+	        "category": 1,
+	        "votes": 3,
+	        "answers": 17,
+	        "views": 92,
+	        "submitTime": "2014-03-23T18:56:40",
+	        "isAnswered": true,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 27,
+	        "name": "Benton Mcdowell",
+	        "title": "tempor ut excepteur dolore ipsum veniam duis",
+	        "category": 6,
+	        "votes": 8,
+	        "answers": 18,
+	        "views": 297,
+	        "submitTime": "2014-04-07T17:35:54",
+	        "isAnswered": true,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 28,
+	        "name": "Douglas Delaney",
+	        "title": "dolore ipsum labore nostrud ad sit ea",
+	        "category": 1,
+	        "votes": 11,
+	        "answers": 14,
+	        "views": 64,
+	        "submitTime": "2014-04-30T13:48:36",
+	        "isAnswered": false,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 29,
+	        "name": "Rochelle Stafford",
+	        "title": "laboris adipisicing eu enim voluptate est veniam",
+	        "category": 2,
+	        "votes": 18,
+	        "answers": 21,
+	        "views": 476,
+	        "submitTime": "2014-05-07T19:50:28",
+	        "isAnswered": true,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 30,
+	        "name": "Fischer Gilbert",
+	        "title": "culpa et quis deserunt officia ipsum occaecat",
+	        "category": 7,
+	        "votes": 2,
+	        "answers": 2,
+	        "views": 42,
+	        "submitTime": "2014-04-15T01:51:01",
+	        "isAnswered": false,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 31,
+	        "name": "Mendoza Burke",
+	        "title": "officia Lorem cillum elit dolore esse dolore",
+	        "category": 7,
+	        "votes": 10,
+	        "answers": 23,
+	        "views": 339,
+	        "submitTime": "2014-04-08T23:22:42",
+	        "isAnswered": false,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 32,
+	        "name": "Myers Salinas",
+	        "title": "commodo eiusmod eiusmod elit quis eu Lorem",
+	        "category": 3,
+	        "votes": 4,
+	        "answers": 5,
+	        "views": 57,
+	        "submitTime": "2014-02-01T23:03:38",
+	        "isAnswered": true,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 33,
+	        "name": "Bauer Charles",
+	        "title": "anim labore ea est laboris incididunt consequat",
+	        "category": 2,
+	        "votes": 7,
+	        "answers": 22,
+	        "views": 484,
+	        "submitTime": "2014-01-02T00:13:26",
+	        "isAnswered": false,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 34,
+	        "name": "Harmon Mendoza",
+	        "title": "dolor tempor et magna consequat ex laborum",
+	        "category": 5,
+	        "votes": 14,
+	        "answers": 10,
+	        "views": 132,
+	        "submitTime": "2014-03-20T18:10:39",
+	        "isAnswered": true,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 35,
+	        "name": "Sargent Blair",
+	        "title": "consequat ad duis nisi proident veniam id",
+	        "category": 4,
+	        "votes": 1,
+	        "answers": 23,
+	        "views": 453,
+	        "submitTime": "2014-01-21T11:28:27",
+	        "isAnswered": true,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 36,
+	        "name": "Fulton Allen",
+	        "title": "cupidatat aliquip adipisicing dolor Lorem id adipisicing",
+	        "category": 1,
+	        "votes": 12,
+	        "answers": 20,
+	        "views": 390,
+	        "submitTime": "2014-01-13T20:07:58",
+	        "isAnswered": false,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 37,
+	        "name": "Finley Murray",
+	        "title": "laborum id id irure ipsum sint aliqua",
+	        "category": 6,
+	        "votes": 19,
+	        "answers": 2,
+	        "views": 74,
+	        "submitTime": "2014-05-25T06:22:38",
+	        "isAnswered": true,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 38,
+	        "name": "Grimes Cooke",
+	        "title": "in culpa adipisicing reprehenderit nostrud aliquip aliqua",
+	        "category": 4,
+	        "votes": 12,
+	        "answers": 19,
+	        "views": 70,
+	        "submitTime": "2014-04-29T23:40:50",
+	        "isAnswered": false,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 39,
+	        "name": "Molly Gonzales",
+	        "title": "mollit labore voluptate ut proident adipisicing eu",
+	        "category": 4,
+	        "votes": 2,
+	        "answers": 26,
+	        "views": 407,
+	        "submitTime": "2014-04-10T12:49:33",
+	        "isAnswered": true,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 40,
+	        "name": "Mcmahon Adkins",
+	        "title": "irure excepteur adipisicing laborum adipisicing magna ullamco",
+	        "category": 4,
+	        "votes": 7,
+	        "answers": 23,
+	        "views": 120,
+	        "submitTime": "2014-01-29T04:57:41",
+	        "isAnswered": false,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 41,
+	        "name": "Frank Sykes",
+	        "title": "sint cupidatat Lorem dolore exercitation quis et",
+	        "category": 2,
+	        "votes": 3,
+	        "answers": 26,
+	        "views": 386,
+	        "submitTime": "2014-02-14T13:28:20",
+	        "isAnswered": true,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 42,
+	        "name": "Harriet Osborn",
+	        "title": "eu consectetur dolore pariatur proident dolore ad",
+	        "category": 5,
+	        "votes": 6,
+	        "answers": 6,
+	        "views": 122,
+	        "submitTime": "2014-04-27T12:46:22",
+	        "isAnswered": true,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 43,
+	        "name": "Marcy Marks",
+	        "title": "duis officia deserunt id aliquip sint ea",
+	        "category": 5,
+	        "votes": 15,
+	        "answers": 27,
+	        "views": 184,
+	        "submitTime": "2014-05-13T02:12:36",
+	        "isAnswered": true,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 44,
+	        "name": "Amanda Harrington",
+	        "title": "commodo commodo culpa consectetur sit ea culpa",
+	        "category": 7,
+	        "votes": 17,
+	        "answers": 4,
+	        "views": 203,
+	        "submitTime": "2014-05-11T07:13:43",
+	        "isAnswered": false,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 45,
+	        "name": "Kelli Giles",
+	        "title": "irure voluptate aliqua cillum id adipisicing labore",
+	        "category": 3,
+	        "votes": 18,
+	        "answers": 1,
+	        "views": 36,
+	        "submitTime": "2014-01-29T23:08:31",
+	        "isAnswered": true,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 46,
+	        "name": "Summer Woods",
+	        "title": "consequat enim tempor ullamco magna quis reprehenderit",
+	        "category": 4,
+	        "votes": 13,
+	        "answers": 7,
+	        "views": 383,
+	        "submitTime": "2014-01-09T06:46:01",
+	        "isAnswered": true,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 47,
+	        "name": "Ollie Walter",
+	        "title": "occaecat aliqua veniam pariatur consequat qui nostrud",
+	        "category": 1,
+	        "votes": 5,
+	        "answers": 24,
+	        "views": 463,
+	        "submitTime": "2014-01-25T02:20:59",
+	        "isAnswered": false,
+	        "markedByStaff": false
+	    },
+	    {
+	        "id": 48,
+	        "name": "Brock Sloan",
+	        "title": "reprehenderit tempor do dolore amet veniam labore",
+	        "category": 5,
+	        "votes": 14,
+	        "answers": 10,
+	        "views": 80,
+	        "submitTime": "2014-01-30T20:12:52",
+	        "isAnswered": false,
+	        "markedByStaff": true
+	    },
+	    {
+	        "id": 49,
+	        "name": "Savannah Morgan",
+	        "title": "commodo consequat culpa excepteur non ex et",
+	        "category": 6,
+	        "votes": 12,
+	        "answers": 25,
+	        "views": 75,
+	        "submitTime": "2014-06-04T10:27:06",
+	        "isAnswered": true,
+	        "markedByStaff": false
+	    }
+	];
+
+	return {
+		list: function() {
+			return data;
+		}
+	}
+});
+
 app.factory('statusResource', function () {
 
 	var data = [
@@ -917,7 +1559,7 @@ app.factory('statusResource', function () {
 	}
 });
 
-// Catch-all Factory (reduces need for many singular factories)
+/* Catch-all Factory (reduces need for many singular factories) */
 app.factory('metaResource', function () {
 
 	var data = [

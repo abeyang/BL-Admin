@@ -10,6 +10,7 @@ $lightergray: #cccccc;
 $lightgray: #aaaaaa;
 $gray: #999999;
 $darkgray: #666;
+$darkergray: #444;
 $offblack: #333539;
 $black: #222222;
 
@@ -19,11 +20,13 @@ $purple: #b249ff;
 $red: #ff1c00;
 $orange: #ff7700;
 $lightorange: lighten($orange, 10);
+$lightgreen: lighten($green, 10);
 $color_link: $orange;
 
 // -- Box Model
 $thumb_width: 140px;
 $thumb_height: 220px;
+$circle: 70px;
 $margin: 40px;
 $pad: 10px;
 $radius: 5px;
@@ -206,6 +209,11 @@ nav {
 
         &:first-child {
             padding-left: 0;
+        }
+        &.title {
+            padding-left: $pad*2;
+            border-left: 1px solid $darkergray;
+            border-right: 1px solid $darkergray;
         }
         &.right {
             padding-right: 0;
@@ -474,6 +482,26 @@ nav {
             img { max-width: $thumb_width; }
         }
         &.no-pad-right { padding-right: 0; }
+
+        &.circle {
+            width: $circle;
+            height: $circle;
+            margin: $pad $pad*2 $pad 0;
+            padding: 0;
+            border-radius: $circle/2;
+            border: 1px solid $lightestgray;
+            font-size: $small;
+
+            h3 { 
+                margin-top: $pad*1.5; 
+                line-height: 1;
+            }
+
+            &.answered {
+                background-color: $lightgreen;
+            }
+            &.answered, &.answered h3 { color: $white; }
+        }
     }
 
     .right .block {

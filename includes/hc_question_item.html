@@ -1,0 +1,21 @@
+<div class="right">
+	<div class="block circle">
+		<h3>{{ entry.votes }}</h3>
+		Votes
+	</div>
+	<div ng-class="{answered: entry.isAnswered}" class="block circle">
+		<h3>{{ entry.answers }}</h3>
+		Answers
+	</div>
+	<div class="block circle">
+		<h3>{{ entry.views }}</h3>
+		Views
+	</div>
+</div>
+
+<div class="block">
+	<!-- @todo change link colors -->
+	<h3><a href="#/{{entry.id}}">{{ entry.title }}?</a></h3>
+	<!-- @todo need category name -->
+	{{ entry.submitTime }} <a href="#"><i class="fa fa-folder-open-o pad-right"></i> {{ entry.category }}</a>
+</div>

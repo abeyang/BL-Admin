@@ -1,0 +1,38 @@
+<!-- $title - Help Center - Q&A -->
+<!-- $isactive-help class="active" -->
+<!-- $body-meta class="blank" ng-controller="HelpQAController" -->
+<!-- @include _header -->
+
+	<nav class="subnav">
+		<ul class="container">
+			<li class="active title"><a ng-click="filterCards.status=1" href="#">Questions &amp; Answers <i class="fa fa-angle-down pad-left"></i></a></li>
+			<!-- @todo need sort by these items -->
+			<li><a ng-click="filterCards.status=1" href="#">Recent</a></li>
+			<li ng-class="{active: filterCards.status == 3}"><a ng-click="filterCards.status=3" href="#">Votes</a></li>
+			<li ng-class="{active: filterCards.status == 3}"><a ng-click="filterCards.status=3" href="#">Answers</a></li>
+			<li ng-class="{active: filterCards.status == 3}"><a ng-click="filterCards.status=3" href="#">Views</a></li>
+			<li ng-class="{active: filterEntries.isAnswered === ''}" class="right"><a ng-click="filterEntries.isAnswered=''" href="#">All</a></li>
+			<li ng-class="{active: filterEntries.isAnswered === false}" class="right"><a ng-click="filterEntries.isAnswered=false" href="#">Unanswered</a></li>
+		</ul>
+	</nav>
+
+	<section>
+
+		<div class="container">
+			<div class="lists">
+				<div class="list-item" ng-repeat="entry in entries | filter:filterEntries">
+					<ng-include src="'includes/hc_question_item.html'"></ng-include>
+				</div> <!-- /.list-item -->
+			</div>
+		</div> <!-- /.container -->
+
+	</section>
+
+	<!-- @todo need recent answers on the side -->
+	<aside>
+		
+	</aside>
+
+	<!-- @todo show pagination -->
+  
+<!-- @include _footer -->
