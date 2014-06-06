@@ -20,6 +20,7 @@ $purple: #b249ff;
 $red: #ff1c00;
 $orange: #ff7700;
 $lightorange: lighten($orange, 10);
+$lighterorange: lighten($orange, 20);
 $lightgreen: desaturate(lighten(#2eab00, 20), 40);
 $color_link: $orange;
 
@@ -359,20 +360,21 @@ nav {
     overflow: hidden;
 }
 
-.featured {
+.staff-mark {
     position: absolute;
-    right: $pad;
-    top: $pad;
-/*    width: 0;
+    right: 0;
+    top: 0;
+    width: 0;
     height: 0;
     border-style: solid;
-    border-width: 0 50px 50px 0;
-    border-color: transparent $lightorange transparent transparent;*/
-    float: right;
-    color: $lightorange;
-    i {
-/*        margin-left: 25px;
-        margin-top: 8px;*/
+    border-width: 0 15px 15px 0;
+    border-color: transparent $lighterorange transparent transparent;
+    font-size: $small;
+    color: $white;
+
+    i, span {
+        position: relative;
+        right: -10px;
     }
 }
 
@@ -511,6 +513,7 @@ nav {
 
 .list-item {
     @include clearfix;
+    position: relative;
     display: block;
     border: 1px solid $lightestgray;
     border-bottom: none;
