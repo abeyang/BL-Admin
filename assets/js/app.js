@@ -55,20 +55,14 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 		return mocResource.ratingsById(id);
 	};
 
-	$scope.selectCount = function() {
-		return mocResource.findSelected().length;	
+	$scope.getLink = function(id) {
+		return "moc.html#/" + id;
 	};
-
-	$scope.selectNone = function() {
-		var mocs = mocResource.findSelected();
-		_.each(mocs, function (moc) {
-			moc.selected = '';
-		});
-	}
 
 	$scope.filterCards = {
 		status: 0
 	};
+	$scope.entryOrder = '-submitTime';
 
 });
 
@@ -84,7 +78,7 @@ app.controller('TagsController', function($scope, $location, tagResource) {
 
 });
 
-app.controller('TagController', function($scope, $location, ui, mocResource, tagResource, metaResource) {
+app.controller('TagController', function($scope, $location, ui, mocResource, tagResource, statusResource, metaResource) {
 
 	$scope.ui = ui;
 
@@ -100,6 +94,9 @@ app.controller('TagController', function($scope, $location, ui, mocResource, tag
 	};
 	$scope.getRatings = function(id) {
 		return mocResource.ratingsById(id);
+	};
+	$scope.getStatus = function(status) {
+		return ui.findAttrById(statusResource, 'name', status);
 	};
 
 });
@@ -1731,11 +1728,11 @@ app.factory('helpCategoriesResource', function() {
 app.factory('statusResource', function () {
 
 	var data = [
-		{id:0,	name:"New"},	
-		{id:1,	name:"Pending"},
-		{id:2,	name:"Approved"},
-		{id:3,	name:"Rejected"},
-		{id:4,	name:"Featured"}
+		{id:0,	name:"inbox"},	
+		{id:1,	name:"featured"},
+		{id:2,	name:"approved"},
+		{id:3,	name:"pending"},
+		{id:4,	name:"rejected"}
 	];
 	
 	return {

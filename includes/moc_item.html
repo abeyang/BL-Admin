@@ -1,7 +1,18 @@
+<a class="simple" href="{{ getLink(moc.id) }}">
+	<div class="staff-mark mark-{{ getStatus(moc.status) }}" ng-if="moc.status"></div>
+
+	<div class="info">
+		<div class="misc"><span ng-bind-html="getRatings(moc.id)"></span></div>
+		<!-- @todo need to truncate titles -->
+		<span class="">{{ getTitle(moc.id) }}</span>
+	</div>
+
+	<img src="{{ui.imageLink(moc.id)}}">
+</a> <!-- /.simple -->
+
+<!-- 
 <div class="card" ng-class="moc.selected">
 	<div class="line top">
-	<!-- @todo remove isFeatured heart -->
-	<!-- @todo show status for "tags" view -->
 		<div class="featured" ng-if="moc.isFeatured"><i class="fa fa-heart-o"></i></div>
 		<a class="title" href="moc.html#/{{moc.id}}">
 			<input type="checkbox" ng-model="moc.selected" ng-true-value="selected" ng-if="showTags"> 
@@ -17,4 +28,5 @@
 	<div class="line moc-tags" ng-if="showTags">
 		<i class="fa fa-tag"></i> {{ getTagNames(moc.tags) }}
 	</div>
-</div> <!-- /.card -->
+</div> 
+ -->

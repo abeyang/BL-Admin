@@ -7,6 +7,8 @@
 	<nav class="subnav">
 		<ul class="container">
 			<li class="active"><a class="title" href="#">{{ getTitle(single.id) }}</a></li>
+			<!-- @todo maybe show all the statuses, with cookie-cutter message for certain ones (pending, rejection) -->
+			<!-- --OR, have the message on bottom, in the comment? -->
 			<li class="right"><a class="btn" href="#">{{ getStatus(single.status) }} <i class="fa fa-angle-down pad-left"></i></a></li>
 		</ul>
 	</nav>
@@ -27,7 +29,8 @@
 				<div class="comment">
 					<div class="avatar"></div>
 					<div class="content">
-						<textarea></textarea>
+					<!-- @todo add option to send message to designer -->
+						<textarea placeholder="Message will only be shown to other admins"></textarea>
 						<a class="btn btn-primary right" href="#">Submit</a>
 					</div>
 				</div>

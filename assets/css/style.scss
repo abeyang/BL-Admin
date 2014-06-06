@@ -19,10 +19,16 @@ $green: #2eab00;
 $purple: #b249ff;
 $red: #ff1c00;
 $orange: #ff7700;
+$yellow: #ffca00;
 $lightorange: lighten($orange, 10);
 $lighterorange: lighten($orange, 20);
 $lightgreen: desaturate(lighten(#2eab00, 20), 40);
+
 $color_link: $orange;
+$color_featured: $green;
+$color_approved: $blue;
+$color_pending: $yellow;
+$color_rejected: $red;
 
 // -- Box Model
 $thumb_width: 140px;
@@ -171,8 +177,6 @@ input, textarea, .btn {
 
 
 .subnav {
-    /*li { color: $gray; }*/
-
 	.btn {
         @include navbutton($white);
         padding: $pad/2 $pad;
@@ -189,6 +193,16 @@ input, textarea, .btn {
         @include navbutton($green);   
     }
 }
+
+.mocs-nav li {
+    border-bottom: 2px solid transparent;
+
+    &.mocs-nav-featured { border-bottom-color: $color_featured; }
+    &.mocs-nav-approved { border-bottom-color: $color_approved; }
+    &.mocs-nav-pending  { border-bottom-color: $color_pending; }
+    &.mocs-nav-rejected { border-bottom-color: $color_rejected; }
+}
+
 
 // COMPONENTS
 
@@ -376,6 +390,11 @@ nav {
         position: relative;
         right: -10px;
     }
+
+    &.mark-featured { border-right-color: $color_featured; }
+    &.mark-approved { border-right-color: $color_approved; }
+    &.mark-pending  { border-right-color: $color_pending; }
+    &.mark-rejected { border-right-color: $color_rejected; }
 }
 
 .simple {

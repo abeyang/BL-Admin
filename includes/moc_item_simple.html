@@ -1,12 +1,12 @@
 <a class="simple" href="{{ getLink(moc.id) }}">
-	<div ng-class="{'extra winner': status == 3 && $index==0, 'extra rejected': moc.status==3}">
+	<div ng-class="{'extra winner': status == 4 && $index==0, 'extra rejected': moc.status==4}">
 		<div class="info">
 			<div class="misc"><i class="fa fa-heart-o"></i> {{ moc.votes }}</div>
 			<!-- @todo need to truncate titles -->
 			<span class="">{{ getTitle(moc.id) }}</span>
 		</div>
-		<h4 ng-if="status == 3 && $index==0"><i class="fa fa-trophy"></i><br />Winner</h4>
-		<h4 ng-if="moc.status == 3">Rejected</h4>
+		<h4 ng-if="status == 4 && $index==0"><i class="fa fa-trophy"></i><br />Winner</h4>
+		<h4 ng-if="moc.status == 4">Rejected</h4>
 	</div>
 	<img src="{{ui.imageLink(moc.id)}}">
 </a> <!-- /.simple -->

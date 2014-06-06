@@ -9,25 +9,21 @@
 
 <!-- @todo zero states: what does it look like? -->
 
-	<nav class="subnav">
+	<nav class="subnav mocs-nav">
 		<ul class="container">
-			<li ng-repeat="stat in statii" ng-class="{active: filterCards.status === stat.id }"><a ng-click="filterCards.status=stat.id; selectNone()" href="#">{{ getStatus(stat.id) }}</a></li>
-			<li ng-class="{active: filterCards.status === ''}"><a ng-click="filterCards.status=''; selectNone()" href="#">(All)</a></li>
+			<li class="mocs-nav-{{ getStatus(stat.id) }}" ng-repeat="stat in statii" ng-class="{active: filterCards.status === stat.id }"><a ng-click="filterCards.status=stat.id" href="#">{{ getStatus(stat.id) }}</a></li>
+			<li ng-class="{active: filterCards.status === ''}"><a ng-click="filterCards.status=''" href="#">All</a></li>
+
+			<li ng-class="{active: entryOrder == '-ratings'}" class="right"><a ng-click="entryOrder='-ratings'" href="#">Most Popular</a></li>
+			<li ng-class="{active: entryOrder == '-submitTime'}" class="right pad"><a ng-click="entryOrder='-submitTime'" href="#">Recent</a></li>
+			<li class="right separator">&nbsp;</li>
 		</ul>
 	</nav>
 
 	<section>
-		<nav class="updatebar">
-			<ul class="container">
-				<li><a class="btn" ng-class="{'btn-disabled': selectCount() == 0}" href="#">Tags <i class="fa fa-angle-down"></i></a></li>
-				<li><a class="btn" ng-class="{'btn-disabled': selectCount() == 0}" href="#">Status <i class="fa fa-angle-down"></i></a></li>
-				<li class="right" ng-show="selectCount() > 0">{{ selectCount() }} selected</li>
-			</ul>
-		</nav>
-
 		<div class="container">
 
-			<div class="moc-item" ng-repeat="moc in mocs | filter:filterCards">
+			<div class="moc-item" ng-repeat="moc in mocs | filter:filterCards | orderBy:entryOrder">
 				<ng-include src="'includes/moc_item.html'"></ng-include>
 			</div> <!-- /.moc-item -->
 
