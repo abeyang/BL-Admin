@@ -20,6 +20,7 @@ $purple: #b249ff;
 $red: #ff1c00;
 $orange: #ff7700;
 $yellow: #ffca00;
+$lightblue: lighten($blue, 10);
 $lightorange: lighten($orange, 10);
 $lighterorange: lighten($orange, 20);
 $lightgreen: desaturate(lighten(#2eab00, 20), 40);
@@ -76,6 +77,7 @@ html, body, h1, h2, h3, h4, h5, h6, div, p {
 }
 html, body, div, p {
     font-weight: 300;
+    line-height: 1.4;
 }
 
 h1, h2 {
@@ -112,6 +114,8 @@ a {
 
 section {
     margin-top: $margin;
+
+    &.nomargin { margin-top: 0; }
 }
 
 section.blank {
@@ -335,12 +339,16 @@ nav {
 
 .container {
     @include outer-container;
+    position: relative; 
+
     main {
         @include span-columns(8);
+
     }
     aside {
         @include span-columns(4);
         @include omega;
+        /*background-color: $lightblue;*/
     }
     .content {
         padding: $pad $pad * 2;
@@ -350,11 +358,16 @@ nav {
 .comment {
     @include span-columns(8 of 8);
     border-top: 1px solid $lightestgray;
-    padding-top: $pad;
+    padding-top: $pad*1.5;
     .avatar {
         @include span-columns(1 of 8);
-        height: 60px;
+        height: 65px;
+        border-radius: $radius;
+        overflow: hidden;
         background-color: $lightergray;
+    }
+    .byline {
+        margin-bottom: -1em;
     }
     .content {
         @include span-columns(7 of 8);
@@ -492,12 +505,18 @@ nav {
 
 .moc-info {
     > div {
-        padding: $pad $pad*2 $pad 0;
+        padding: $pad 0;
         border-top: 1px solid $lightestgray;
         color: $lightgray;
     }
+    a { color: $lightgray; }
     i {
         margin-right: $pad;
+    }
+    ul {
+        margin: 0;
+        padding-left: 0;
+        list-style-type: none;
     }
     .color .fa-star {
         color: $lightorange;

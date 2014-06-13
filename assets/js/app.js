@@ -32,15 +32,25 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 
 	$scope.ui = ui;
 
+	$scope.getRatings = function(id) {
+		return mocResource.ratingsById(id);
+	};
+
 	$scope.getTagNames = function(tags) {
 		// tags is an array of tag id's
-		var str = '';
+
+		if (!tags.length) return;	// if tag is empty, return nothing
+
+		var html = '<ul>Tag';
+		if (tags.length > 1) html += 's';	// pluralize 'tag'
 
 		_.each(tags, function(id) {
-			str += tagResource.findNameById(id) + ', ';
+			var count = ui.findAttrById(tagResource, 'count', id);
+			html += '<li><a href="tag.html#/' + id + '"><span class="right">' + count + '</span>' + tagResource.findNameById(id) + '</a></li>';
 		});
 
-		return str.substring(0, str.length-2);		// remove the final ", " in str
+		html += '</ul>'
+		return html;
 	};
 
 	$scope.getStatus = function(status) {
@@ -49,10 +59,6 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 
 	$scope.getTitle = function(id) {
 		return ui.findAttrById(metaResource, 'title', id);
-	};
-
-	$scope.getRatings = function(id) {
-		return mocResource.ratingsById(id);
 	};
 
 	$scope.getLink = function(id) {
@@ -176,6 +182,27 @@ app.controller('ContestItemController', function($scope, $location, ui, mocResou
 
 	$scope.statii = statusResource.list();
 
+	$scope.getRatings = function(id) {
+		return mocResource.ratingsById(id);
+	};
+	
+	$scope.getTagNames = function(tags) {
+		// tags is an array of tag id's
+
+		if (!tags.length) return;	// if tag is empty, return nothing
+
+		var html = '<ul>Tag';
+		if (tags.length > 1) html += 's';	// pluralize 'tag'
+
+		_.each(tags, function(id) {
+			var count = ui.findAttrById(tagResource, 'count', id);
+			html += '<li><a href="tag.html#/' + id + '"><span class="right">' + count + '</span>' + tagResource.findNameById(id) + '</a></li>';
+		});
+
+		html += '</ul>'
+		return html;
+	};
+
 });
 
 /* Help Center Controllers */
@@ -234,6 +261,9 @@ app.factory('ui', function() {
         },
         imageLink: function(id) {
         	return 'assets/images/cover_' + id + '.jpg';
+        },
+        avatarLink: function(id) {
+        	return 'assets/images/face_' + id + '.jpg';	
         }
 	}
 });
@@ -247,13 +277,12 @@ app.factory('mocResource', function () {
 		    {
 		        id: '{{index()}}',
 		        name: '{{firstName()}} {{surname()}}',
-		        username: '{{company()}}',
 		        ratings: '{{integer(0, 5)}}',
 		        raters: '{{integer(1, 200)}}',
+		        mocability: '{{integer(30, 100)}}',
                 comments: '{{integer(0, 10)}}',
 		        fee: '{{integer(0, 5)}}',
 		        parts: '{{integer(1, 100)}}',
-		        content: '{{lorem(1, "paragraphs")}}',
 		        submitTime: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
 		        status: '{{integer(0, 4)}}',
 		        tags: [
@@ -267,422 +296,398 @@ app.factory('mocResource', function () {
 	*/
 
 	var data = [
-	    {
-	        "id": 0,
-	        "name": "Bridget Cross",
-	        "username": "Bunga",
-	        "ratings": 1,
-	        "raters": 94,
-	        "comments": 3,
-	        "fee": 4,
-	        "parts": 16,
-	        "content": "Duis occaecat proident excepteur officia nisi nisi laboris laborum tempor consequat commodo ut. Aliquip consequat dolor eiusmod et eiusmod. Elit excepteur nostrud velit elit. Sint sit esse occaecat dolor excepteur aute anim reprehenderit sint. Duis aliquip incididunt nostrud reprehenderit Lorem laboris occaecat nulla cillum aliqua est dolor adipisicing.\r\n",
-	        "submitTime": "2014-03-22T15:24:40",
-	        "status": 3,
-	        "tags": [
-	            13,
-	            8,
-	            16
-	        ],
-	        "contest": 3,
-	        "isRejected": true,
-	        "votes": 14
-	    },
-	    {
-	        "id": 1,
-	        "name": "Day Collins",
-	        "username": "Norsul",
-	        "ratings": 4,
-	        "raters": 188,
-	        "comments": 1,
-	        "fee": 1,
-	        "parts": 28,
-	        "content": "Excepteur laboris do incididunt pariatur ut. Irure cillum laboris sunt qui id labore. Mollit minim culpa ea ullamco officia tempor ut Lorem reprehenderit. Laboris officia do reprehenderit aute cillum duis aute reprehenderit tempor quis mollit nulla nostrud sit.\r\n",
-	        "submitTime": "2014-03-25T15:43:03",
-	        "status": 4,
-	        "tags": [
-	            1,
-	            13,
-	            6,
-	            11
-	        ],
-	        "contest": 1,
-	        "isRejected": true,
-	        "votes": 2
-	    },
-	    {
-	        "id": 2,
-	        "name": "Moreno Robinson",
-	        "username": "Immunics",
-	        "ratings": 1,
-	        "raters": 189,
-	        "comments": 10,
-	        "fee": 3,
-	        "parts": 42,
-	        "content": "Lorem commodo eu deserunt excepteur exercitation. Ad quis consectetur magna magna mollit nostrud proident Lorem tempor in. Eu sit sint id officia pariatur cillum dolore qui laborum. Tempor non Lorem do adipisicing deserunt reprehenderit est ut eiusmod. In pariatur laborum do irure aute id duis irure esse tempor proident anim aliqua deserunt. Ullamco cillum et Lorem esse aute anim.\r\n",
-	        "submitTime": "2014-02-10T18:21:32",
-	        "status": 4,
-	        "tags": [
-	            12,
-	            6
-	        ],
-	        "contest": 2,
-	        "isRejected": true,
-	        "votes": 12
-	    },
-	    {
-	        "id": 3,
-	        "name": "Dillard Good",
-	        "username": "Ozean",
-	        "ratings": 3,
-	        "raters": 14,
-	        "comments": 7,
-	        "fee": 4,
-	        "parts": 78,
-	        "content": "Pariatur quis qui quis consequat laboris tempor veniam esse culpa sunt anim. Velit proident ullamco aliquip labore non aute nostrud culpa sit laboris est id adipisicing. Labore velit in consequat do ea fugiat ullamco irure veniam qui. Exercitation excepteur duis Lorem sunt minim sunt aliqua irure. Ullamco ipsum ea est minim reprehenderit incididunt non cupidatat enim cupidatat.\r\n",
-	        "submitTime": "2014-01-22T19:52:31",
-	        "status": 4,
-	        "tags": [
-	            6,
-	            0,
-	            5
-	        ],
-	        "contest": 7,
-	        "isRejected": true,
-	        "votes": 11
-	    },
-	    {
-	        "id": 4,
-	        "name": "Martin Saunders",
-	        "username": "Navir",
-	        "ratings": 2,
-	        "raters": 75,
-	        "comments": 10,
-	        "fee": 5,
-	        "parts": 80,
-	        "content": "Ullamco nulla voluptate voluptate in duis deserunt dolor irure Lorem nulla. Ipsum ea in magna consequat ipsum. Do incididunt in nisi consequat veniam in esse sunt non nulla consectetur do dolor dolor.\r\n",
-	        "submitTime": "2014-02-05T07:42:16",
-	        "status": 0,
-	        "tags": [
-	            1
-	        ],
-	        "contest": 3,
-	        "isRejected": true,
-	        "votes": 29
-	    },
-	    {
-	        "id": 5,
-	        "name": "Angelina Meyers",
-	        "username": "Moltonic",
-	        "ratings": 4,
-	        "raters": 30,
-	        "comments": 7,
-	        "fee": 5,
-	        "parts": 96,
-	        "content": "Enim veniam nisi reprehenderit ea adipisicing. Sit irure veniam laboris nulla magna sunt pariatur ipsum occaecat ex fugiat do occaecat do. Quis aute voluptate consectetur qui quis eu eu irure duis. Officia adipisicing eu consequat consequat ad in nostrud id sit velit ad id consequat aliqua. Laborum sunt nostrud amet sit aliquip magna ea sit sit consectetur eiusmod.\r\n",
-	        "submitTime": "2014-02-19T08:42:23",
-	        "status": 1,
-	        "tags": [
-	            15,
-	            5,
-	            5,
-	            2,
-	            9
-	        ],
-	        "contest": 2,
-	        "isRejected": false,
-	        "votes": 16
-	    },
-	    {
-	        "id": 6,
-	        "name": "Townsend Dotson",
-	        "username": "Utara",
-	        "ratings": 4,
-	        "raters": 121,
-	        "comments": 1,
-	        "fee": 2,
-	        "parts": 21,
-	        "content": "Magna adipisicing proident consectetur sit ullamco veniam non dolore proident velit aliquip veniam voluptate. Est minim ea Lorem qui amet nostrud nulla. Nulla fugiat est in enim in reprehenderit quis deserunt pariatur mollit id dolore cillum consequat.\r\n",
-	        "submitTime": "2014-01-29T01:58:01",
-	        "status": 4,
-	        "tags": [
-	            15
-	        ],
-	        "contest": 6,
-	        "isRejected": false,
-	        "votes": 16
-	    },
-	    {
-	        "id": 7,
-	        "name": "Petersen Dalton",
-	        "username": "Ecolight",
-	        "ratings": 3,
-	        "raters": 123,
-	        "comments": 1,
-	        "fee": 5,
-	        "parts": 87,
-	        "content": "Aliquip excepteur cillum veniam tempor. Lorem cupidatat proident et exercitation do veniam ea. Et ipsum est nisi proident irure. Cillum Lorem dolore in adipisicing eu ea eiusmod ipsum quis magna dolor Lorem ex enim. Dolore fugiat fugiat est irure consequat ut.\r\n",
-	        "submitTime": "2014-04-12T18:24:17",
-	        "status": 3,
-	        "tags": [
-	            9,
-	            2,
-	            5
-	        ],
-	        "contest": 2,
-	        "isRejected": true,
-	        "votes": 5
-	    },
-	    {
-	        "id": 8,
-	        "name": "Obrien Nixon",
-	        "username": "Gogol",
-	        "ratings": 3,
-	        "raters": 62,
-	        "comments": 9,
-	        "fee": 1,
-	        "parts": 44,
-	        "content": "Officia esse labore cupidatat nulla dolor nulla enim quis ut irure pariatur eu excepteur eiusmod. Exercitation deserunt ex consequat do irure veniam cillum ea labore quis mollit consequat do et. Deserunt consectetur id incididunt ea ipsum occaecat culpa cillum dolor duis. Lorem et velit minim do laborum aliquip.\r\n",
-	        "submitTime": "2014-04-03T09:35:12",
-	        "status": 0,
-	        "tags": [
-	            18,
-	            2
-	        ],
-	        "contest": 2,
-	        "isRejected": true,
-	        "votes": 25
-	    },
-	    {
-	        "id": 9,
-	        "name": "Wilson House",
-	        "username": "Xurban",
-	        "ratings": 3,
-	        "raters": 16,
-	        "comments": 6,
-	        "fee": 1,
-	        "parts": 68,
-	        "content": "Laboris aute aute et enim nulla. Exercitation elit excepteur anim commodo fugiat nostrud. Ad quis eu amet ex pariatur reprehenderit. Commodo occaecat aute fugiat minim sint. Sit consectetur qui enim occaecat voluptate amet labore mollit culpa amet. Anim cillum ipsum duis eu dolor quis aliqua excepteur eu et mollit. In proident cillum officia sunt nulla ullamco ut officia amet est.\r\n",
-	        "submitTime": "2014-01-08T10:31:27",
-	        "status": 3,
-	        "tags": [
-	            6,
-	            20,
-	            0,
-	            18
-	        ],
-	        "contest": 3,
-	        "isRejected": true,
-	        "votes": 23
-	    },
-	    {
-	        "id": 10,
-	        "name": "Ila Gross",
-	        "username": "Uniworld",
-	        "ratings": 2,
-	        "raters": 171,
-	        "comments": 2,
-	        "fee": 2,
-	        "parts": 29,
-	        "content": "Excepteur officia ullamco sunt qui non proident esse nostrud ea deserunt magna. Nostrud eu eiusmod qui mollit et eiusmod nisi sunt adipisicing magna duis anim. Elit sint nostrud sunt qui officia ut fugiat. Et magna laboris duis aliquip proident cillum Lorem sunt fugiat. Aliquip id fugiat sit cupidatat minim cupidatat duis.\r\n",
-	        "submitTime": "2014-02-21T20:27:56",
-	        "status": 1,
-	        "tags": [
-	            15,
-	            1,
-	            17
-	        ],
-	        "contest": 3,
-	        "isRejected": false,
-	        "votes": 25
-	    },
-	    {
-	        "id": 11,
-	        "name": "Kelley Juarez",
-	        "username": "Maxemia",
-	        "ratings": 5,
-	        "raters": 12,
-	        "comments": 4,
-	        "fee": 5,
-	        "parts": 81,
-	        "content": "Fugiat Lorem qui esse tempor culpa exercitation. Eiusmod Lorem aliqua tempor voluptate magna adipisicing fugiat laborum velit elit nulla consequat ut. Labore occaecat cillum anim nisi id nisi pariatur dolore incididunt voluptate enim sit sit.\r\n",
-	        "submitTime": "2014-02-26T07:05:05",
-	        "status": 1,
-	        "tags": [
-	            14,
-	            13,
-	            14,
-	            2
-	        ],
-	        "contest": 4,
-	        "isRejected": true,
-	        "votes": 27
-	    },
-	    {
-	        "id": 12,
-	        "name": "Andrews Elliott",
-	        "username": "Kyagoro",
-	        "ratings": 1,
-	        "raters": 101,
-	        "comments": 1,
-	        "fee": 2,
-	        "parts": 74,
-	        "content": "Ad non proident do id elit eiusmod commodo id nostrud. Mollit nulla in voluptate enim eiusmod eu irure labore. Labore ad consequat Lorem laborum incididunt amet. Occaecat dolore sit occaecat reprehenderit. Officia eu dolor sunt labore pariatur Lorem est commodo.\r\n",
-	        "submitTime": "2014-03-17T16:39:47",
-	        "status": 1,
-	        "tags": [
-	            17
-	        ],
-	        "contest": 3,
-	        "isRejected": true,
-	        "votes": 2
-	    },
-	    {
-	        "id": 13,
-	        "name": "Buck Steele",
-	        "username": "Ecraze",
-	        "ratings": 1,
-	        "raters": 154,
-	        "comments": 10,
-	        "fee": 4,
-	        "parts": 42,
-	        "content": "Irure enim duis sit mollit minim deserunt anim mollit. Sint consequat amet duis anim enim. Sit quis nulla excepteur incididunt pariatur irure fugiat amet velit Lorem. Minim id magna consequat aliqua duis esse veniam eiusmod ea irure eu. Excepteur qui ad est et officia duis nisi. Nisi dolor et reprehenderit non duis cillum pariatur laboris exercitation officia.\r\n",
-	        "submitTime": "2014-05-01T09:29:40",
-	        "status": 2,
-	        "tags": [
-	            13,
-	            3,
-	            7,
-	            10,
-	            20
-	        ],
-	        "contest": 0,
-	        "isRejected": false,
-	        "votes": 15
-	    },
-	    {
-	        "id": 14,
-	        "name": "Rosalyn Mcbride",
-	        "username": "Glasstep",
-	        "ratings": 2,
-	        "raters": 72,
-	        "comments": 4,
-	        "fee": 5,
-	        "parts": 74,
-	        "content": "Veniam deserunt nisi Lorem non sint non anim voluptate anim. Sint culpa ullamco culpa sint magna id consectetur amet aliquip aliqua ad sit. Et exercitation et ea non labore anim aliqua deserunt esse deserunt pariatur sit anim. Ullamco fugiat sunt adipisicing laboris ut eu in. Veniam ex veniam et quis deserunt pariatur dolor ipsum est cupidatat.\r\n",
-	        "submitTime": "2014-05-15T02:12:55",
-	        "status": 4,
-	        "tags": [
-	            14,
-	            1,
-	            2
-	        ],
-	        "contest": 3,
-	        "isRejected": true,
-	        "votes": 16
-	    },
-	    {
-	        "id": 15,
-	        "name": "Sykes Huber",
-	        "username": "Goko",
-	        "ratings": 1,
-	        "raters": 81,
-	        "comments": 9,
-	        "fee": 1,
-	        "parts": 5,
-	        "content": "Adipisicing nulla irure sint voluptate occaecat pariatur magna cillum ut Lorem consectetur anim sit. Aute ea mollit reprehenderit culpa voluptate Lorem commodo tempor deserunt ipsum laboris. Dolor nostrud do tempor voluptate ad sit velit Lorem cillum occaecat labore. Tempor eu proident id dolor culpa nulla aute nostrud est officia in ad. Eu ipsum Lorem ut deserunt culpa adipisicing ea. Labore ullamco non anim nulla qui magna officia in laboris exercitation nulla. Esse officia deserunt commodo non.\r\n",
-	        "submitTime": "2014-01-11T18:10:06",
-	        "status": 2,
-	        "tags": [
-	            0,
-	            2,
-	            20,
-	            5
-	        ],
-	        "contest": 8,
-	        "isRejected": true,
-	        "votes": 26
-	    },
-	    {
-	        "id": 16,
-	        "name": "Jimenez Ford",
-	        "username": "Pearlesex",
-	        "ratings": 4,
-	        "raters": 31,
-	        "comments": 0,
-	        "fee": 4,
-	        "parts": 76,
-	        "content": "Sunt ut anim eu cupidatat veniam nostrud. Ea sit commodo eu aute nisi est anim duis. Labore qui proident nulla laboris ullamco occaecat laborum eu adipisicing fugiat.\r\n",
-	        "submitTime": "2014-01-28T16:46:05",
-	        "status": 2,
-	        "tags": [
-	            19,
-	            5
-	        ],
-	        "contest": 9,
-	        "isRejected": false,
-	        "votes": 7
-	    },
-	    {
-	        "id": 17,
-	        "name": "Fay Morgan",
-	        "username": "Neptide",
-	        "ratings": 4,
-	        "raters": 105,
-	        "comments": 6,
-	        "fee": 2,
-	        "parts": 85,
-	        "content": "Officia aliqua occaecat labore consectetur eu in id minim. Do labore Lorem magna ad. Dolor deserunt consequat amet reprehenderit ullamco. Commodo deserunt incididunt qui veniam fugiat pariatur et. Adipisicing qui cillum adipisicing nisi quis cupidatat ullamco sit nisi occaecat eu nisi officia incididunt. Et veniam eu sunt occaecat qui duis proident.\r\n",
-	        "submitTime": "2014-05-25T19:34:43",
-	        "status": 2,
-	        "tags": [
-	            17,
-	            2
-	        ],
-	        "contest": 0,
-	        "isRejected": true,
-	        "votes": 28
-	    },
-	    {
-	        "id": 18,
-	        "name": "Briana Merrill",
-	        "username": "Duoflex",
-	        "ratings": 3,
-	        "raters": 103,
-	        "comments": 0,
-	        "fee": 4,
-	        "parts": 84,
-	        "content": "Ullamco magna laboris nostrud irure. Amet velit et amet ad excepteur commodo. Minim esse dolor esse ea. Quis voluptate qui exercitation adipisicing nostrud incididunt quis quis consectetur excepteur fugiat ad culpa occaecat.\r\n",
-	        "submitTime": "2014-01-16T12:03:04",
-	        "status": 0,
-	        "tags": [
-	            19,
-	            9,
-	            11
-	        ],
-	        "contest": 2,
-	        "isRejected": true,
-	        "votes": 28
-	    },
-	    {
-	        "id": 19,
-	        "name": "Schultz Callahan",
-	        "username": "Uni",
-	        "ratings": 5,
-	        "raters": 199,
-	        "comments": 10,
-	        "fee": 0,
-	        "parts": 72,
-	        "content": "Exercitation deserunt irure minim amet occaecat. Anim incididunt est irure irure aliquip consequat cillum exercitation aute. Ullamco adipisicing irure amet enim. Dolore veniam ut pariatur incididunt sint officia in labore exercitation laborum esse nisi in do. Enim laborum commodo laborum tempor ullamco dolore.\r\n",
-	        "submitTime": "2014-05-09T15:39:36",
-	        "status": 2,
-	        "tags": [
-	            10
-	        ],
-	        "contest": 4,
-	        "isRejected": false,
-	        "votes": 27
-	    }
+	  {
+	    "id": 0,
+	    "name": "Gamble Keller",
+	    "ratings": 4,
+	    "raters": 47,
+	    "mocability": 85,
+	    "comments": 1,
+	    "fee": 3,
+	    "parts": 65,
+	    "submitTime": "2014-04-09T10:37:24",
+	    "status": 3,
+	    "tags": [
+	      18,
+	      19,
+	      0
+	    ],
+	    "contest": 0,
+	    "votes": 5
+	  },
+	  {
+	    "id": 1,
+	    "name": "Luisa Petty",
+	    "ratings": 3,
+	    "raters": 106,
+	    "mocability": 78,
+	    "comments": 9,
+	    "fee": 4,
+	    "parts": 95,
+	    "submitTime": "2014-05-01T21:57:32",
+	    "status": 2,
+	    "tags": [
+	      19,
+	      2,
+	      10,
+	      1,
+	      11
+	    ],
+	    "contest": 6,
+	    "votes": 15
+	  },
+	  {
+	    "id": 2,
+	    "name": "Maureen Stout",
+	    "ratings": 0,
+	    "raters": 117,
+	    "mocability": 85,
+	    "comments": 4,
+	    "fee": 5,
+	    "parts": 4,
+	    "submitTime": "2014-01-01T01:04:27",
+	    "status": 3,
+	    "tags": [
+	      3,
+	      12
+	    ],
+	    "contest": 2,
+	    "votes": 9
+	  },
+	  {
+	    "id": 3,
+	    "name": "Thornton Mack",
+	    "ratings": 1,
+	    "raters": 193,
+	    "mocability": 70,
+	    "comments": 10,
+	    "fee": 2,
+	    "parts": 45,
+	    "submitTime": "2014-04-08T17:00:01",
+	    "status": 2,
+	    "tags": [
+	      3,
+	      19,
+	      9
+	    ],
+	    "contest": 7,
+	    "votes": 16
+	  },
+	  {
+	    "id": 4,
+	    "name": "Isabella Mason",
+	    "ratings": 3,
+	    "raters": 23,
+	    "mocability": 97,
+	    "comments": 8,
+	    "fee": 0,
+	    "parts": 98,
+	    "submitTime": "2014-03-28T20:24:12",
+	    "status": 4,
+	    "tags": [
+	      19
+	    ],
+	    "contest": 1,
+	    "votes": 17
+	  },
+	  {
+	    "id": 5,
+	    "name": "Holman Gould",
+	    "ratings": 0,
+	    "raters": 37,
+	    "mocability": 37,
+	    "comments": 9,
+	    "fee": 0,
+	    "parts": 81,
+	    "submitTime": "2014-03-10T17:39:50",
+	    "status": 0,
+	    "tags": [
+	      5,
+	      17,
+	      13,
+	      20,
+	      0
+	    ],
+	    "contest": 3,
+	    "votes": 23
+	  },
+	  {
+	    "id": 6,
+	    "name": "Kemp Barnes",
+	    "ratings": 2,
+	    "raters": 194,
+	    "mocability": 70,
+	    "comments": 4,
+	    "fee": 5,
+	    "parts": 95,
+	    "submitTime": "2014-06-09T19:36:16",
+	    "status": 0,
+	    "tags": [
+	      17,
+	      5,
+	      17,
+	      11,
+	      3
+	    ],
+	    "contest": 7,
+	    "votes": 24
+	  },
+	  {
+	    "id": 7,
+	    "name": "Robyn Mcbride",
+	    "ratings": 5,
+	    "raters": 27,
+	    "mocability": 75,
+	    "comments": 1,
+	    "fee": 5,
+	    "parts": 31,
+	    "submitTime": "2014-03-29T02:03:59",
+	    "status": 1,
+	    "tags": [
+	      3,
+	      1,
+	      0,
+	      20
+	    ],
+	    "contest": 2,
+	    "votes": 18
+	  },
+	  {
+	    "id": 8,
+	    "name": "Ellen Cabrera",
+	    "ratings": 1,
+	    "raters": 179,
+	    "mocability": 41,
+	    "comments": 10,
+	    "fee": 1,
+	    "parts": 97,
+	    "submitTime": "2014-05-13T00:18:58",
+	    "status": 4,
+	    "tags": [
+	      4,
+	      17,
+	      17,
+	      2,
+	      9
+	    ],
+	    "contest": 8,
+	    "votes": 9
+	  },
+	  {
+	    "id": 9,
+	    "name": "Claudette Clarke",
+	    "ratings": 2,
+	    "raters": 74,
+	    "mocability": 66,
+	    "comments": 5,
+	    "fee": 4,
+	    "parts": 34,
+	    "submitTime": "2014-01-26T21:36:44",
+	    "status": 3,
+	    "tags": [
+	      15,
+	      0
+	    ],
+	    "contest": 1,
+	    "votes": 16
+	  },
+	  {
+	    "id": 10,
+	    "name": "Garrison Nash",
+	    "ratings": 2,
+	    "raters": 184,
+	    "mocability": 38,
+	    "comments": 7,
+	    "fee": 1,
+	    "parts": 68,
+	    "submitTime": "2014-05-14T13:50:24",
+	    "status": 1,
+	    "tags": [
+	      18,
+	      15,
+	      16,
+	      19,
+	      10
+	    ],
+	    "contest": 6,
+	    "votes": 7
+	  },
+	  {
+	    "id": 11,
+	    "name": "Patricia Schwartz",
+	    "ratings": 1,
+	    "raters": 177,
+	    "mocability": 46,
+	    "comments": 4,
+	    "fee": 0,
+	    "parts": 8,
+	    "submitTime": "2014-04-10T02:43:42",
+	    "status": 1,
+	    "tags": [
+	      0,
+	      18,
+	      8,
+	      3,
+	      8
+	    ],
+	    "contest": 1,
+	    "votes": 10
+	  },
+	  {
+	    "id": 12,
+	    "name": "Maura Cannon",
+	    "ratings": 4,
+	    "raters": 146,
+	    "mocability": 32,
+	    "comments": 3,
+	    "fee": 4,
+	    "parts": 77,
+	    "submitTime": "2014-05-10T07:15:02",
+	    "status": 0,
+	    "tags": [
+	      19,
+	      10,
+	      9
+	    ],
+	    "contest": 0,
+	    "votes": 17
+	  },
+	  {
+	    "id": 13,
+	    "name": "Caldwell Goodman",
+	    "ratings": 4,
+	    "raters": 82,
+	    "mocability": 93,
+	    "comments": 10,
+	    "fee": 4,
+	    "parts": 83,
+	    "submitTime": "2014-02-26T01:58:12",
+	    "status": 2,
+	    "tags": [
+	      19,
+	      6,
+	      11
+	    ],
+	    "contest": 6,
+	    "votes": 4
+	  },
+	  {
+	    "id": 14,
+	    "name": "Diane Dominguez",
+	    "ratings": 3,
+	    "raters": 7,
+	    "mocability": 76,
+	    "comments": 9,
+	    "fee": 0,
+	    "parts": 28,
+	    "submitTime": "2014-03-19T09:17:56",
+	    "status": 0,
+	    "tags": [
+	      3,
+	      7,
+	      13,
+	      7,
+	      2
+	    ],
+	    "contest": 6,
+	    "votes": 1
+	  },
+	  {
+	    "id": 15,
+	    "name": "Hannah Heath",
+	    "ratings": 0,
+	    "raters": 133,
+	    "mocability": 78,
+	    "comments": 1,
+	    "fee": 4,
+	    "parts": 37,
+	    "submitTime": "2014-03-27T16:41:05",
+	    "status": 4,
+	    "tags": [
+	      3,
+	      9
+	    ],
+	    "contest": 1,
+	    "votes": 11
+	  },
+	  {
+	    "id": 16,
+	    "name": "Odom Odom",
+	    "ratings": 4,
+	    "raters": 196,
+	    "mocability": 49,
+	    "comments": 2,
+	    "fee": 0,
+	    "parts": 41,
+	    "submitTime": "2014-01-15T15:07:38",
+	    "status": 0,
+	    "tags": [
+	      13,
+	      17,
+	      1,
+	      2,
+	      7
+	    ],
+	    "contest": 4,
+	    "votes": 16
+	  },
+	  {
+	    "id": 17,
+	    "name": "Blanche Skinner",
+	    "ratings": 2,
+	    "raters": 95,
+	    "mocability": 49,
+	    "comments": 1,
+	    "fee": 1,
+	    "parts": 76,
+	    "submitTime": "2014-05-06T08:16:43",
+	    "status": 0,
+	    "tags": [
+	      17,
+	      11,
+	      15,
+	      4,
+	      8
+	    ],
+	    "contest": 5,
+	    "votes": 13
+	  },
+	  {
+	    "id": 18,
+	    "name": "Trudy Shelton",
+	    "ratings": 4,
+	    "raters": 119,
+	    "mocability": 61,
+	    "comments": 6,
+	    "fee": 2,
+	    "parts": 82,
+	    "submitTime": "2014-04-03T23:49:36",
+	    "status": 0,
+	    "tags": [
+	      4
+	    ],
+	    "contest": 6,
+	    "votes": 29
+	  },
+	  {
+	    "id": 19,
+	    "name": "Lizzie Lynch",
+	    "ratings": 2,
+	    "raters": 16,
+	    "mocability": 91,
+	    "comments": 8,
+	    "fee": 1,
+	    "parts": 19,
+	    "submitTime": "2014-04-14T05:25:06",
+	    "status": 2,
+	    "tags": [
+	      14,
+	      17,
+	      16
+	    ],
+	    "contest": 8,
+	    "votes": 4
+	  }
 	];
 		
 	return {

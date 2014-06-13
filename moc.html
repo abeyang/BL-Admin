@@ -19,7 +19,9 @@
 				
 				<img src="{{ui.imageLink(single.id)}}">
 
-				<p>{{ single.content }}</p>
+				<p>Donec sed odio dui. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Curabitur blandit tempus porttitor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+
+				<p>Donec id elit non mi porta gravida at eget metus. Donec ullamcorper nulla non metus auctor fringilla. Nullam quis risus eget urna mollis ornare vel eu leo. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Cras mattis consectetur purus sit amet fermentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 
 				<h2>Activity Stream</h2>
 
@@ -44,10 +46,9 @@
 				<div class="moc-info">
 					<div><i class="fa fa-user"></i> {{ single.name }}</div>	
 					<div><i class="fa fa-clock-o"></i> {{ single.submitTime }}</div>
-					<!-- @todo re-do tags; make it more dribbble-like -->
-					<div><i class="fa fa-tag"></i> {{ getTagNames(single.tags) }}</div>
 					<div><i class="fa fa-credit-card"></i> {{ single.fee }}% / {{ single.parts }} parts</div>
 					<div class="color"><span ng-bind-html="getRatings(single.id)"></span></div>
+					<div ng-bind-html="getTagNames(single.tags)"></div>
 				</div> <!-- /.moc-info -->
 				
 			</aside>
