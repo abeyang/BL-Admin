@@ -25,17 +25,22 @@
 
 				<h2>Activity Stream</h2>
 
-				<div class="comment" ng-repeat="stat in statii">
+				<div class="comment" ng-repeat="comment in comments">
 					<ng-include src="'includes/comment.html'"></ng-include>
 				</div>
 				<div class="comment">
-					<div class="avatar"></div>
+					<div class="avatar"><img src="{{ui.avatarLink(3)}}" /></div>
 					<div class="content">
 					<!-- @todo add option to send message to designer -->
-						<textarea placeholder="Message will only be shown to other admins"></textarea>
+						<span class="badge right" ng-show="!myComment.isPublic">Private</span>
+						<input type="checkbox" ng-model="myComment.isPublic" /> Send message to designer
+						<textarea placeholder="{{getMsg()}}"></textarea>
 						<a class="btn btn-primary right" href="#">Submit</a>
+						<a class="btn right" href="#">Cancel</a>
 					</div>
 				</div>
+
+				{{ myComment}}
 
 			</main>
 			
@@ -47,7 +52,7 @@
 						<span ng-bind-html="getRatings(single.id, false)"></span>
 					</div>
 					<div class="color">
-						<i class="fa fa-heart-o"></i> {{ single.votes }} wants this to be sold
+						<i class="fa fa-heart-o"></i> {{ single.votes }} requests for this to be sold
 					</div>
 					<div class="color">
 						<i class="fa fa-smile-o" ng-if="single.issues<3"></i> 

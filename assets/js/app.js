@@ -20,13 +20,20 @@ var app = angular.module('app', ['ngSanitize']);
 
 /* MOC controller */
 
-app.controller('MocController', function($scope, $location, ui, mocResource, tagResource, statusResource, metaResource) {
+app.controller('MocController', function($scope, $location, ui, mocResource, tagResource, statusResource, metaResource, commentsResource) {
 
 	$scope.mocs = mocResource.list();
 	$scope.statii = statusResource.list();
 	
 	var id = getIdFromUrl($location);
 	$scope.single = ui.findById(mocResource, id);
+	$scope.comments = commentsResource.list();
+	$scope.myComment = {
+		isPublic: false,
+		isAdmin: true,
+		content: '',
+		submitTime: moment().format()
+	}
 
 	$scope.showTags = true;
 
@@ -54,6 +61,11 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 	$scope.getTagNames = function(tags) {
 		return tagResource.getTagNames(tags);
 	};
+
+	$scope.getMsg = function() {
+		if (!$scope.myComment.isPublic) return 'Message will only be visible to other admins';
+		else return 'Message will be visible to Designer and to other admins';
+	}
 
 	$scope.filterCards = {
 		status: 1,
@@ -244,10 +256,13 @@ app.factory('ui', function() {
         	return 'assets/images/face_' + id + '.jpg';	
         },
         getDate: function(datetimestr) {
-        	return moment(datetimestr).format('LL');
+        	return moment(datetimestr).format('ll');
         },
         getTime: function(datetimestr) {
         	return moment(datetimestr).format('h:mm a');
+        },
+        getDateTime: function(datetimestr) {
+        	return moment(datetimestr).calendar();
         }
 	}
 });
@@ -1801,6 +1816,21 @@ app.factory('statusResource', function () {
 		{id:2,	name:"Ready For Sale",		classname:"sale"},
 		{id:3,	name:"In Stores",			classname:"stores"},
 		{id:4,	name:"Banned",				classname:"banned"}
+	];
+	
+	return {
+		list: function() {
+			return data;
+		}
+	}
+});
+
+app.factory('commentsResource', function () {
+
+	var data = [
+		{id:0,	name:"Eunice Kim",	isAdmin:true,	isPublic:false, content: 'lorem ipsum', submitTime: "2014-06-17T11:36:02"},
+		{id:1,	name:"Alex Nam",	isAdmin:true,	isPublic:true, content: 'lorem ipsum', submitTime: "2014-06-17T12:13:02"},
+		{id:2,	name:"Designer",	isAdmin:false,	isPublic:true, content: 'lorem ipsum', submitTime: "2014-06-17T13:25:02"}
 	];
 	
 	return {
