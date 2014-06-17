@@ -1,32 +1,16 @@
+<!-- @todo need on-hover effects -->
 <a class="simple" href="{{ getLink(moc.id) }}">
-	<div class="staff-mark mark-{{ getStatus(moc.status) }}" ng-if="moc.status"></div>
+	<div class="staff-mark" ng-if="moc.isFeatured && moc.status!=4"></div>
 
 	<div class="info">
-		<div class="misc"><span ng-bind-html="getRatings(moc.id)"></span></div>
-		<!-- @todo need to truncate titles -->
-		<span class="">{{ getTitle(moc.id) }}</span>
+		<div class="misc">
+			<i class="fa fa-heart-o"></i> {{ moc.votes }}
+			<span class="pad-left" ng-bind-html="getRatings(moc.id)"></span></div>
+		
+		<span ng-if="filterCards.status===0 && moc.isRejected" class="text-danger">Rejected</span>
+		<span ng-if="filterCards.status===1 || filterCards.status===2">{{ moc.issues }} issues</span>
+		<span ng-if="filterCards.status===3">{{ moc.stores }} stores</span>
 	</div>
 
 	<img src="{{ui.imageLink(moc.id)}}">
 </a> <!-- /.simple -->
-
-<!-- 
-<div class="card" ng-class="moc.selected">
-	<div class="line top">
-		<div class="featured" ng-if="moc.isFeatured"><i class="fa fa-heart-o"></i></div>
-		<a class="title" href="moc.html#/{{moc.id}}">
-			<input type="checkbox" ng-model="moc.selected" ng-true-value="selected" ng-if="showTags"> 
-			{{ getTitle(moc.id) }}</a>	
-	</div>
-	<div class="moc-image">
-		<a href="moc.html#/{{moc.id}}"><img src="{{ui.imageLink(moc.id)}}"></a>
-	</div>
-	<div class="line">
-		<span class="right"><i class="fa fa-comment-o"></i> {{ moc.comments }}</span>
-		<span ng-bind-html="getRatings(moc.id)"></span>
-	</div>
-	<div class="line moc-tags" ng-if="showTags">
-		<i class="fa fa-tag"></i> {{ getTagNames(moc.tags) }}
-	</div>
-</div> 
- -->

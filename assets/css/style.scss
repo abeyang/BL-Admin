@@ -26,10 +26,9 @@ $lighterorange: lighten($orange, 20);
 $lightgreen: desaturate(lighten(#2eab00, 20), 40);
 
 $color_link: $orange;
-$color_featured: $green;
-$color_approved: $blue;
-$color_pending: $yellow;
-$color_rejected: $red;
+$color_success: $green;
+$color_warning: $orange;
+$color_danger: $red;
 
 // -- Box Model
 $thumb_width: 140px;
@@ -106,11 +105,13 @@ a {
     &.underline { text-decoration: underline; }
 }
 
-.text-warning { color: $orange; }
-.text-danger { color: $red; }
+.text-success { color: $color_success; }
+.text-warning { color: $color_warning; }
+.text-danger { color: $color_danger; }
 
 .pad-left { padding-left: 3px; }
 .pad-right { padding-right: 3px; }
+.unmargin-top { margin-top: -20px; }
 
 section {
     margin-top: $margin;
@@ -200,11 +201,6 @@ input, textarea, .btn {
 
 .mocs-nav li {
     border-bottom: 2px solid transparent;
-
-    &.mocs-nav-featured { border-bottom-color: $color_featured; }
-    &.mocs-nav-approved { border-bottom-color: $color_approved; }
-    &.mocs-nav-pending  { border-bottom-color: $color_pending; }
-    &.mocs-nav-rejected { border-bottom-color: $color_rejected; }
 }
 
 
@@ -403,11 +399,6 @@ nav {
         position: relative;
         right: -10px;
     }
-
-    &.mark-featured { border-right-color: $color_featured; }
-    &.mark-approved { border-right-color: $color_approved; }
-    &.mark-pending  { border-right-color: $color_pending; }
-    &.mark-rejected { border-right-color: $color_rejected; }
 }
 
 .simple {
@@ -511,7 +502,6 @@ nav {
     }
     a { 
         color: $lightgray; 
-        /*text-decoration: underline;*/
         border-bottom: 1px solid $lightestgray;
     }
     i {
@@ -522,8 +512,9 @@ nav {
         padding-left: 0;
         list-style-type: none;
     }
-    .color .fa-star {
-        color: $lightorange;
+    .color {
+        .fa-star { color: $lightorange; }
+        .fa-heart-o { color: $red; }
     }
 }
 

@@ -39,21 +39,36 @@
 
 			</main>
 			
-			<!-- @todo other things to add, like mocability and part items? -->
-			<!-- @todo add link to this moc's public page -->
 			<!-- @todo show next/prev -->
 			<aside>
 				<div class="moc-info">
-					<div><i class="fa fa-user"></i> <a href="#">{{ single.name }}</a></div>	
+					<div class="color">
+						<span class="right">{{ single.raters }} reviews</span>
+						<span ng-bind-html="getRatings(single.id, false)"></span>
+					</div>
+					<div class="color">
+						<i class="fa fa-heart-o"></i> {{ single.votes }} wants this to be sold
+					</div>
+					<div class="color">
+						<i class="fa fa-smile-o" ng-if="single.issues<3"></i> 
+						<i class="fa fa-meh-o" ng-if="single.issues>=3 && single.issues<6"></i> 
+						<i class="fa fa-frown-o" ng-if="single.issues>=6"></i> 
+						{{ single.issues }} issues
+					</div>
+					<div>
+						<span class="right"><a href="#">Live Site</a></span>
+						<i class="fa fa-user"></i> <a href="#">{{ single.name }}</a>
+					</div>	
 					<div>
 						<span class="right">{{ ui.getTime(single.submitTime) }}</span>
-						<i class="fa fa-clock-o"></i> {{ ui.getDate(single.submitTime) }}
+						<i class="fa fa-calendar"></i> {{ ui.getDate(single.submitTime) }}
 					</div>
 					<div>
 						<span class="right">{{ single.parts }} parts</span>
 						<i class="fa fa-credit-card"></i> {{ single.fee }}%
 					</div>
-					<div class="color"><span ng-bind-html="getRatings(single.id)"></span></div>
+					
+					<!-- @todo tags need to be editable -->
 					<div ng-bind-html="getTagNames(single.tags)"></div>
 				</div> <!-- /.moc-info -->
 				

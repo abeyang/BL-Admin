@@ -32,12 +32,15 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 
 	$scope.ui = ui;
 
-	$scope.getRatings = function(id) {
-		return mocResource.ratingsById(id);
+	$scope.getRatings = function(id, includeRaters) {
+		return mocResource.ratingsById(id, includeRaters);
 	};
 
 	$scope.getStatus = function(status) {
 		return ui.findAttrById(statusResource, 'name', status);
+	};
+	$scope.getStatusClass = function(status) {
+		return ui.findAttrById(statusResource, 'classname', status);
 	};
 
 	$scope.getTitle = function(id) {
@@ -53,9 +56,10 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 	};
 
 	$scope.filterCards = {
-		status: 0
+		status: 1,
+		isFeatured: ''
 	};
-	$scope.entryOrder = '-submitTime';
+	$scope.entryOrder = '-ratings';
 
 });
 
@@ -251,6 +255,7 @@ app.factory('ui', function() {
 app.factory('mocResource', function () {
 
 	// http://www.json-generator.com/
+	// isRejected: only useful for "display-only" purposes
 	/*
 		[
 		    '{{repeat(20)}}',
@@ -259,18 +264,21 @@ app.factory('mocResource', function () {
 		        name: '{{firstName()}} {{surname()}}',
 		        ratings: '{{integer(0, 5)}}',
 		        raters: '{{integer(1, 200)}}',
-		        mocability: '{{integer(30, 100)}}',
+		        issues: '{{integer(0, 10)}}',
                 comments: '{{integer(0, 10)}}',
 		        fee: '{{integer(0, 5)}}',
 		        parts: '{{integer(1, 100)}}',
 		        submitTime: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
 		        status: '{{integer(0, 4)}}',
+		        isRejected: '{{bool()}}',
+		        isFeatured: '{{bool()}}',
 		        tags: [
 		            '{{repeat(1,5)}}',
 		            '{{integer(0, 20)}}'
 		        ],
 		        contest: '{{integer(0, 9)}}',
-		        votes: '{{integer(0, 30)}}'
+		        votes: '{{integer(0, 30)}}',
+		        stores: '{{integer(0, 15)}}'
 		    }
 		]
 	*/
@@ -278,398 +286,449 @@ app.factory('mocResource', function () {
 	var data = [
 	  {
 	    "id": 0,
-	    "name": "Gamble Keller",
-	    "ratings": 4,
-	    "raters": 47,
-	    "mocability": 85,
-	    "comments": 1,
-	    "fee": 3,
-	    "parts": 65,
-	    "submitTime": "2014-04-09T10:37:24",
-	    "status": 3,
+	    "name": "Iris Bernard",
+	    "ratings": 2,
+	    "raters": 20,
+	    "issues": 7,
+	    "comments": 8,
+	    "fee": 5,
+	    "parts": 96,
+	    "submitTime": "2014-02-07T01:36:02",
+	    "status": 0,
+	    "isRejected": true,
+	    "isFeatured": false,
 	    "tags": [
-	      18,
-	      19,
-	      0
+	      10,
+	      1
 	    ],
-	    "contest": 0,
-	    "votes": 5
+	    "contest": 9,
+	    "votes": 29,
+	    "stores": 8
 	  },
 	  {
 	    "id": 1,
-	    "name": "Luisa Petty",
+	    "name": "Anthony Stokes",
 	    "ratings": 3,
-	    "raters": 106,
-	    "mocability": 78,
-	    "comments": 9,
-	    "fee": 4,
-	    "parts": 95,
-	    "submitTime": "2014-05-01T21:57:32",
-	    "status": 2,
+	    "raters": 144,
+	    "issues": 10,
+	    "comments": 0,
+	    "fee": 5,
+	    "parts": 49,
+	    "submitTime": "2014-02-10T04:35:38",
+	    "status": 4,
+	    "isRejected": true,
+	    "isFeatured": false,
 	    "tags": [
-	      19,
-	      2,
-	      10,
-	      1,
-	      11
+	      11,
+	      6,
+	      4
 	    ],
-	    "contest": 6,
-	    "votes": 15
+	    "contest": 0,
+	    "votes": 11,
+	    "stores": 3
 	  },
 	  {
 	    "id": 2,
-	    "name": "Maureen Stout",
-	    "ratings": 0,
-	    "raters": 117,
-	    "mocability": 85,
-	    "comments": 4,
-	    "fee": 5,
-	    "parts": 4,
-	    "submitTime": "2014-01-01T01:04:27",
+	    "name": "Gates Blake",
+	    "ratings": 2,
+	    "raters": 162,
+	    "issues": 6,
+	    "comments": 3,
+	    "fee": 3,
+	    "parts": 40,
+	    "submitTime": "2014-03-28T03:02:38",
 	    "status": 3,
+	    "isRejected": false,
+	    "isFeatured": true,
 	    "tags": [
-	      3,
-	      12
+	      1,
+	      12,
+	      18,
+	      18
 	    ],
-	    "contest": 2,
-	    "votes": 9
+	    "contest": 3,
+	    "votes": 4,
+	    "stores": 4
 	  },
 	  {
 	    "id": 3,
-	    "name": "Thornton Mack",
+	    "name": "Kline Ray",
 	    "ratings": 1,
-	    "raters": 193,
-	    "mocability": 70,
-	    "comments": 10,
-	    "fee": 2,
-	    "parts": 45,
-	    "submitTime": "2014-04-08T17:00:01",
-	    "status": 2,
+	    "raters": 194,
+	    "issues": 1,
+	    "comments": 0,
+	    "fee": 0,
+	    "parts": 28,
+	    "submitTime": "2014-02-17T12:41:31",
+	    "status": 1,
+	    "isRejected": true,
+	    "isFeatured": true,
 	    "tags": [
 	      3,
-	      19,
-	      9
+	      13,
+	      3,
+	      17,
+	      13
 	    ],
-	    "contest": 7,
-	    "votes": 16
+	    "contest": 4,
+	    "votes": 4,
+	    "stores": 13
 	  },
 	  {
 	    "id": 4,
-	    "name": "Isabella Mason",
-	    "ratings": 3,
-	    "raters": 23,
-	    "mocability": 97,
-	    "comments": 8,
-	    "fee": 0,
-	    "parts": 98,
-	    "submitTime": "2014-03-28T20:24:12",
-	    "status": 4,
+	    "name": "Carlene Clemons",
+	    "ratings": 0,
+	    "raters": 197,
+	    "issues": 0,
+	    "comments": 10,
+	    "fee": 4,
+	    "parts": 50,
+	    "submitTime": "2014-04-11T10:48:59",
+	    "status": 2,
+	    "isRejected": false,
+	    "isFeatured": false,
 	    "tags": [
-	      19
+	      1,
+	      10,
+	      0,
+	      1
 	    ],
-	    "contest": 1,
-	    "votes": 17
+	    "contest": 8,
+	    "votes": 16,
+	    "stores": 14
 	  },
 	  {
 	    "id": 5,
-	    "name": "Holman Gould",
-	    "ratings": 0,
-	    "raters": 37,
-	    "mocability": 37,
-	    "comments": 9,
-	    "fee": 0,
-	    "parts": 81,
-	    "submitTime": "2014-03-10T17:39:50",
+	    "name": "Kirsten Rios",
+	    "ratings": 2,
+	    "raters": 72,
+	    "issues": 4,
+	    "comments": 3,
+	    "fee": 3,
+	    "parts": 79,
+	    "submitTime": "2014-05-08T00:42:27",
 	    "status": 0,
+	    "isRejected": false,
+	    "isFeatured": false,
 	    "tags": [
-	      5,
-	      17,
-	      13,
-	      20,
-	      0
+	      0,
+	      15
 	    ],
-	    "contest": 3,
-	    "votes": 23
+	    "contest": 7,
+	    "votes": 18,
+	    "stores": 5
 	  },
 	  {
 	    "id": 6,
-	    "name": "Kemp Barnes",
-	    "ratings": 2,
-	    "raters": 194,
-	    "mocability": 70,
-	    "comments": 4,
-	    "fee": 5,
-	    "parts": 95,
-	    "submitTime": "2014-06-09T19:36:16",
-	    "status": 0,
+	    "name": "Lawanda Pope",
+	    "ratings": 4,
+	    "raters": 90,
+	    "issues": 10,
+	    "comments": 0,
+	    "fee": 3,
+	    "parts": 83,
+	    "submitTime": "2014-04-27T04:40:50",
+	    "status": 1,
+	    "isRejected": false,
+	    "isFeatured": true,
 	    "tags": [
-	      17,
 	      5,
-	      17,
-	      11,
-	      3
+	      19,
+	      0
 	    ],
 	    "contest": 7,
-	    "votes": 24
+	    "votes": 18,
+	    "stores": 2
 	  },
 	  {
 	    "id": 7,
-	    "name": "Robyn Mcbride",
-	    "ratings": 5,
-	    "raters": 27,
-	    "mocability": 75,
-	    "comments": 1,
-	    "fee": 5,
-	    "parts": 31,
-	    "submitTime": "2014-03-29T02:03:59",
-	    "status": 1,
+	    "name": "Guadalupe Stephenson",
+	    "ratings": 1,
+	    "raters": 160,
+	    "issues": 9,
+	    "comments": 2,
+	    "fee": 2,
+	    "parts": 84,
+	    "submitTime": "2014-05-19T01:18:15",
+	    "status": 4,
+	    "isRejected": true,
+	    "isFeatured": false,
 	    "tags": [
-	      3,
 	      1,
-	      0,
+	      20,
 	      20
 	    ],
-	    "contest": 2,
-	    "votes": 18
+	    "contest": 9,
+	    "votes": 4,
+	    "stores": 1
 	  },
 	  {
 	    "id": 8,
-	    "name": "Ellen Cabrera",
-	    "ratings": 1,
-	    "raters": 179,
-	    "mocability": 41,
-	    "comments": 10,
+	    "name": "Bowers Robles",
+	    "ratings": 3,
+	    "raters": 88,
+	    "issues": 6,
+	    "comments": 0,
 	    "fee": 1,
-	    "parts": 97,
-	    "submitTime": "2014-05-13T00:18:58",
-	    "status": 4,
+	    "parts": 31,
+	    "submitTime": "2014-04-21T13:25:32",
+	    "status": 1,
+	    "isRejected": true,
+	    "isFeatured": false,
 	    "tags": [
 	      4,
-	      17,
-	      17,
-	      2,
-	      9
+	      16,
+	      15
 	    ],
-	    "contest": 8,
-	    "votes": 9
+	    "contest": 5,
+	    "votes": 11,
+	    "stores": 11
 	  },
 	  {
 	    "id": 9,
-	    "name": "Claudette Clarke",
-	    "ratings": 2,
-	    "raters": 74,
-	    "mocability": 66,
-	    "comments": 5,
-	    "fee": 4,
-	    "parts": 34,
-	    "submitTime": "2014-01-26T21:36:44",
-	    "status": 3,
+	    "name": "Terrie Mathis",
+	    "ratings": 1,
+	    "raters": 124,
+	    "issues": 0,
+	    "comments": 1,
+	    "fee": 3,
+	    "parts": 44,
+	    "submitTime": "2014-01-17T21:56:54",
+	    "status": 1,
+	    "isRejected": false,
+	    "isFeatured": true,
 	    "tags": [
-	      15,
-	      0
+	      17,
+	      1,
+	      20
 	    ],
-	    "contest": 1,
-	    "votes": 16
+	    "contest": 0,
+	    "votes": 17,
+	    "stores": 4
 	  },
 	  {
 	    "id": 10,
-	    "name": "Garrison Nash",
+	    "name": "Townsend Perry",
 	    "ratings": 2,
-	    "raters": 184,
-	    "mocability": 38,
-	    "comments": 7,
-	    "fee": 1,
-	    "parts": 68,
-	    "submitTime": "2014-05-14T13:50:24",
-	    "status": 1,
+	    "raters": 27,
+	    "issues": 2,
+	    "comments": 10,
+	    "fee": 3,
+	    "parts": 38,
+	    "submitTime": "2014-06-05T22:55:28",
+	    "status": 3,
+	    "isRejected": false,
+	    "isFeatured": false,
 	    "tags": [
-	      18,
-	      15,
-	      16,
+	      11,
+	      13,
+	      7,
+	      20,
+	      4
+	    ],
+	    "contest": 3,
+	    "votes": 22,
+	    "stores": 11
+	  },
+	  {
+	    "id": 11,
+	    "name": "Meghan Greene",
+	    "ratings": 4,
+	    "raters": 152,
+	    "issues": 5,
+	    "comments": 5,
+	    "fee": 2,
+	    "parts": 48,
+	    "submitTime": "2014-03-15T01:26:25",
+	    "status": 0,
+	    "isRejected": true,
+	    "isFeatured": false,
+	    "tags": [
+	      7,
+	      0,
 	      19,
 	      10
 	    ],
 	    "contest": 6,
-	    "votes": 7
-	  },
-	  {
-	    "id": 11,
-	    "name": "Patricia Schwartz",
-	    "ratings": 1,
-	    "raters": 177,
-	    "mocability": 46,
-	    "comments": 4,
-	    "fee": 0,
-	    "parts": 8,
-	    "submitTime": "2014-04-10T02:43:42",
-	    "status": 1,
-	    "tags": [
-	      0,
-	      18,
-	      8,
-	      3,
-	      8
-	    ],
-	    "contest": 1,
-	    "votes": 10
+	    "votes": 3,
+	    "stores": 13
 	  },
 	  {
 	    "id": 12,
-	    "name": "Maura Cannon",
-	    "ratings": 4,
-	    "raters": 146,
-	    "mocability": 32,
-	    "comments": 3,
+	    "name": "Gretchen Baxter",
+	    "ratings": 0,
+	    "raters": 161,
+	    "issues": 2,
+	    "comments": 7,
 	    "fee": 4,
-	    "parts": 77,
-	    "submitTime": "2014-05-10T07:15:02",
-	    "status": 0,
+	    "parts": 43,
+	    "submitTime": "2014-03-08T10:18:38",
+	    "status": 1,
+	    "isRejected": true,
+	    "isFeatured": true,
 	    "tags": [
-	      19,
-	      10,
-	      9
+	      11
 	    ],
-	    "contest": 0,
-	    "votes": 17
+	    "contest": 5,
+	    "votes": 17,
+	    "stores": 1
 	  },
 	  {
 	    "id": 13,
-	    "name": "Caldwell Goodman",
-	    "ratings": 4,
-	    "raters": 82,
-	    "mocability": 93,
-	    "comments": 10,
-	    "fee": 4,
-	    "parts": 83,
-	    "submitTime": "2014-02-26T01:58:12",
-	    "status": 2,
+	    "name": "Fuller Moses",
+	    "ratings": 3,
+	    "raters": 180,
+	    "issues": 10,
+	    "comments": 0,
+	    "fee": 0,
+	    "parts": 97,
+	    "submitTime": "2014-02-22T02:44:22",
+	    "status": 3,
+	    "isRejected": false,
+	    "isFeatured": true,
 	    "tags": [
-	      19,
 	      6,
-	      11
+	      4,
+	      1,
+	      10
 	    ],
 	    "contest": 6,
-	    "votes": 4
+	    "votes": 4,
+	    "stores": 1
 	  },
 	  {
 	    "id": 14,
-	    "name": "Diane Dominguez",
+	    "name": "Isabel Benton",
 	    "ratings": 3,
-	    "raters": 7,
-	    "mocability": 76,
-	    "comments": 9,
-	    "fee": 0,
-	    "parts": 28,
-	    "submitTime": "2014-03-19T09:17:56",
-	    "status": 0,
+	    "raters": 34,
+	    "issues": 5,
+	    "comments": 0,
+	    "fee": 2,
+	    "parts": 42,
+	    "submitTime": "2014-02-01T06:45:35",
+	    "status": 3,
+	    "isRejected": true,
+	    "isFeatured": true,
 	    "tags": [
-	      3,
-	      7,
-	      13,
-	      7,
-	      2
+	      6
 	    ],
-	    "contest": 6,
-	    "votes": 1
+	    "contest": 2,
+	    "votes": 9,
+	    "stores": 11
 	  },
 	  {
 	    "id": 15,
-	    "name": "Hannah Heath",
-	    "ratings": 0,
-	    "raters": 133,
-	    "mocability": 78,
-	    "comments": 1,
-	    "fee": 4,
-	    "parts": 37,
-	    "submitTime": "2014-03-27T16:41:05",
-	    "status": 4,
+	    "name": "Wood Solomon",
+	    "ratings": 1,
+	    "raters": 22,
+	    "issues": 10,
+	    "comments": 5,
+	    "fee": 5,
+	    "parts": 83,
+	    "submitTime": "2014-06-14T22:01:38",
+	    "status": 3,
+	    "isRejected": true,
+	    "isFeatured": false,
 	    "tags": [
-	      3,
-	      9
+	      11
 	    ],
-	    "contest": 1,
-	    "votes": 11
+	    "contest": 4,
+	    "votes": 2,
+	    "stores": 4
 	  },
 	  {
 	    "id": 16,
-	    "name": "Odom Odom",
-	    "ratings": 4,
-	    "raters": 196,
-	    "mocability": 49,
-	    "comments": 2,
-	    "fee": 0,
-	    "parts": 41,
-	    "submitTime": "2014-01-15T15:07:38",
-	    "status": 0,
+	    "name": "Workman Bentley",
+	    "ratings": 2,
+	    "raters": 79,
+	    "issues": 3,
+	    "comments": 5,
+	    "fee": 4,
+	    "parts": 94,
+	    "submitTime": "2014-01-21T14:29:45",
+	    "status": 4,
+	    "isRejected": true,
+	    "isFeatured": false,
 	    "tags": [
-	      13,
-	      17,
-	      1,
+	      15,
+	      15,
+	      6,
 	      2,
-	      7
+	      12
 	    ],
-	    "contest": 4,
-	    "votes": 16
+	    "contest": 8,
+	    "votes": 9,
+	    "stores": 10
 	  },
 	  {
 	    "id": 17,
-	    "name": "Blanche Skinner",
-	    "ratings": 2,
-	    "raters": 95,
-	    "mocability": 49,
+	    "name": "Mullins Chaney",
+	    "ratings": 4,
+	    "raters": 112,
+	    "issues": 8,
 	    "comments": 1,
 	    "fee": 1,
-	    "parts": 76,
-	    "submitTime": "2014-05-06T08:16:43",
-	    "status": 0,
+	    "parts": 53,
+	    "submitTime": "2014-02-22T07:58:05",
+	    "status": 1,
+	    "isRejected": true,
+	    "isFeatured": true,
 	    "tags": [
-	      17,
-	      11,
-	      15,
-	      4,
-	      8
+	      3,
+	      19,
+	      10,
+	      10
 	    ],
-	    "contest": 5,
-	    "votes": 13
+	    "contest": 4,
+	    "votes": 28,
+	    "stores": 3
 	  },
 	  {
 	    "id": 18,
-	    "name": "Trudy Shelton",
-	    "ratings": 4,
-	    "raters": 119,
-	    "mocability": 61,
-	    "comments": 6,
-	    "fee": 2,
-	    "parts": 82,
-	    "submitTime": "2014-04-03T23:49:36",
-	    "status": 0,
+	    "name": "Medina Oneal",
+	    "ratings": 1,
+	    "raters": 200,
+	    "issues": 5,
+	    "comments": 2,
+	    "fee": 5,
+	    "parts": 63,
+	    "submitTime": "2014-06-03T02:22:54",
+	    "status": 1,
+	    "isRejected": true,
+	    "isFeatured": false,
 	    "tags": [
-	      4
+	      10
 	    ],
-	    "contest": 6,
-	    "votes": 29
+	    "contest": 0,
+	    "votes": 3,
+	    "stores": 1
 	  },
 	  {
 	    "id": 19,
-	    "name": "Lizzie Lynch",
-	    "ratings": 2,
-	    "raters": 16,
-	    "mocability": 91,
-	    "comments": 8,
-	    "fee": 1,
-	    "parts": 19,
-	    "submitTime": "2014-04-14T05:25:06",
-	    "status": 2,
+	    "name": "Landry Leonard",
+	    "ratings": 4,
+	    "raters": 10,
+	    "issues": 1,
+	    "comments": 3,
+	    "fee": 4,
+	    "parts": 71,
+	    "submitTime": "2014-05-18T03:02:31",
+	    "status": 3,
+	    "isRejected": false,
+	    "isFeatured": false,
 	    "tags": [
-	      14,
 	      17,
-	      16
+	      1,
+	      6,
+	      20,
+	      4
 	    ],
-	    "contest": 8,
-	    "votes": 4
+	    "contest": 3,
+	    "votes": 5,
+	    "stores": 3
 	  }
-	];
-		
+	];		
+
 	return {
 		list: function() {
 			return data;
@@ -679,7 +738,9 @@ app.factory('mocResource', function () {
                 return obj.id == id;
             });
         },
-        ratingsById: function(id) {
+        ratingsById: function(id, includeRaters) {
+        	if (_.isUndefined(includeRaters)) includeRaters = true;
+        	
         	var moc = this.findById(id);
         	var html = '';
             if (moc.raters) {
@@ -688,7 +749,7 @@ app.factory('mocResource', function () {
             		else html += '<i class="fa fa-star-o"></i>';
             	}
             	// @todo should use an actual circle graphic instead of parens ()
-            	html += ' (' + moc.raters + ')';
+            	if (includeRaters) html += ' (' + moc.raters + ')';
             }
             else html = 'No ratings yet';
             
@@ -1735,11 +1796,11 @@ app.factory('helpCategoriesResource', function() {
 app.factory('statusResource', function () {
 
 	var data = [
-		{id:0,	name:"inbox"},	
-		{id:1,	name:"featured"},
-		{id:2,	name:"approved"},
-		{id:3,	name:"pending"},
-		{id:4,	name:"rejected"}
+		{id:0,	name:"Display Only",		classname:"display"},
+		{id:1,	name:"Awaiting Approval",	classname:"pending"},
+		{id:2,	name:"Ready For Sale",		classname:"sale"},
+		{id:3,	name:"In Stores",			classname:"stores"},
+		{id:4,	name:"Banned",				classname:"banned"}
 	];
 	
 	return {
