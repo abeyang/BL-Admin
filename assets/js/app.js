@@ -36,23 +36,6 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 		return mocResource.ratingsById(id);
 	};
 
-	$scope.getTagNames = function(tags) {
-		// tags is an array of tag id's
-
-		if (!tags.length) return;	// if tag is empty, return nothing
-
-		var html = '<ul>Tag';
-		if (tags.length > 1) html += 's';	// pluralize 'tag'
-
-		_.each(tags, function(id) {
-			var count = ui.findAttrById(tagResource, 'count', id);
-			html += '<li><a href="tag.html#/' + id + '"><span class="right">' + count + '</span>' + tagResource.findNameById(id) + '</a></li>';
-		});
-
-		html += '</ul>'
-		return html;
-	};
-
 	$scope.getStatus = function(status) {
 		return ui.findAttrById(statusResource, 'name', status);
 	};
@@ -63,6 +46,10 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 
 	$scope.getLink = function(id) {
 		return "moc.html#/" + id;
+	};
+
+	$scope.getTagNames = function(tags) {
+		return tagResource.getTagNames(tags);
 	};
 
 	$scope.filterCards = {
@@ -185,22 +172,9 @@ app.controller('ContestItemController', function($scope, $location, ui, mocResou
 	$scope.getRatings = function(id) {
 		return mocResource.ratingsById(id);
 	};
-	
+
 	$scope.getTagNames = function(tags) {
-		// tags is an array of tag id's
-
-		if (!tags.length) return;	// if tag is empty, return nothing
-
-		var html = '<ul>Tag';
-		if (tags.length > 1) html += 's';	// pluralize 'tag'
-
-		_.each(tags, function(id) {
-			var count = ui.findAttrById(tagResource, 'count', id);
-			html += '<li><a href="tag.html#/' + id + '"><span class="right">' + count + '</span>' + tagResource.findNameById(id) + '</a></li>';
-		});
-
-		html += '</ul>'
-		return html;
+		return tagResource.getTagNames(tags);
 	};
 
 });
@@ -264,6 +238,12 @@ app.factory('ui', function() {
         },
         avatarLink: function(id) {
         	return 'assets/images/face_' + id + '.jpg';	
+        },
+        getDate: function(datetimestr) {
+        	return moment(datetimestr).format('LL');
+        },
+        getTime: function(datetimestr) {
+        	return moment(datetimestr).format('h:mm a');
         }
 	}
 });
@@ -768,16 +748,38 @@ app.factory('tagResource', function () {
 		list: function() {
 			return data;
 		},
-		findNameById: function(id) {
-            var t = _.find(data, function (tag) {
+		findById: function(id) {
+			return _.find(data, function (tag) {
                 return tag.id == id;
             });
-
+		},
+		findNameById: function(id) {
+			var t = this.findById(id);            
             return t.tagname;
+        },
+        findCountById: function(id) {
+            var t = this.findById(id);
+            return t.count;
         },
         maxCount: function() {
         	var t = _.max(data, function(tag){ return tag.count; });
         	return t.count;
+        },
+        getTagNames: function(tags) {
+        	// tags is an array of tag id's
+
+        	if (!tags.length) return;	// if tag is empty, return nothing
+
+        	var html = '<ul>Tag';
+        	if (tags.length > 1) html += 's';	// pluralize 'tag'
+
+        	_.each(tags, function(id) {
+        		var count = this.findCountById(id);
+        		html += '<li><a href="tag.html#/' + id + '"><span class="right">' + count + '</span>' + this.findNameById(id) + '</a></li>';
+	        }, this);
+
+        	html += '</ul>'
+        	return html;
         }
 	}
 });

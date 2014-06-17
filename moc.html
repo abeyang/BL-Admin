@@ -44,9 +44,15 @@
 			<!-- @todo show next/prev -->
 			<aside>
 				<div class="moc-info">
-					<div><i class="fa fa-user"></i> {{ single.name }}</div>	
-					<div><i class="fa fa-clock-o"></i> {{ single.submitTime }}</div>
-					<div><i class="fa fa-credit-card"></i> {{ single.fee }}% / {{ single.parts }} parts</div>
+					<div><i class="fa fa-user"></i> <a href="#">{{ single.name }}</a></div>	
+					<div>
+						<span class="right">{{ ui.getTime(single.submitTime) }}</span>
+						<i class="fa fa-clock-o"></i> {{ ui.getDate(single.submitTime) }}
+					</div>
+					<div>
+						<span class="right">{{ single.parts }} parts</span>
+						<i class="fa fa-credit-card"></i> {{ single.fee }}%
+					</div>
 					<div class="color"><span ng-bind-html="getRatings(single.id)"></span></div>
 					<div ng-bind-html="getTagNames(single.tags)"></div>
 				</div> <!-- /.moc-info -->
