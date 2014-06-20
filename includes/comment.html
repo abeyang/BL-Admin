@@ -1,10 +1,12 @@
-<div class="avatar"><img src="{{ui.avatarLink($index)}}" /></div>
-<div class="content">
-	<div class="headerline">
-		<span class="badge right" ng-if="!comment.isPublic">Private</span>
-		<strong>{{ comment.name }}</strong>
+<div class="comment_wrapper comment_{{comment.status}}">
+	<div class="avatar"><img src="{{ui.avatarLink(comment.id)}}" /></div>
+	<div class="content">
+		<div class="headerline">
+			<span class="badge badge-clear right" ng-if="!comment.isAdmin">Designer</span>
+			<span class="badge right" ng-if="!comment.isPublic">Private</span>
+			<strong>{{ comment.name || single.name}} <span class="comment_msg">{{comment.status}}ed this MOC</span></strong> on {{ ui.getDateTime(comment.submitTime) }}
+		</div>
+		<p>{{ comment.content }}</p>
+		<!-- <div class="byline"><small> </small></div> -->
 	</div>
-	<p>{{ comment.content }}</p>
-	<p>{{ comment.content }}</p>
-	<div class="byline"><small><span class="badge badge-warning" ng-if="comment.isAdmin">Admin</span> {{ ui.getDateTime(comment.submitTime) }}</small></div>
 </div>

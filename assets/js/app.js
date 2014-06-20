@@ -262,7 +262,8 @@ app.factory('ui', function() {
         	return moment(datetimestr).format('h:mm a');
         },
         getDateTime: function(datetimestr) {
-        	return moment(datetimestr).calendar();
+        	// return moment(datetimestr).calendar();
+        	return this.getDate(datetimestr) + ', ' + this.getTime(datetimestr);
         }
 	}
 });
@@ -1828,9 +1829,12 @@ app.factory('statusResource', function () {
 app.factory('commentsResource', function () {
 
 	var data = [
-		{id:0,	name:"Eunice Kim",	isAdmin:true,	isPublic:false, content: 'lorem ipsum', submitTime: "2014-06-17T11:36:02"},
-		{id:1,	name:"Alex Nam",	isAdmin:true,	isPublic:true, content: 'lorem ipsum', submitTime: "2014-06-17T12:13:02"},
-		{id:2,	name:"Designer",	isAdmin:false,	isPublic:true, content: 'lorem ipsum', submitTime: "2014-06-17T13:25:02"}
+		{id:0,	name:"Eunice Kim",	isAdmin:true,	isPublic:false,content: 'Alex, what do you think of this?', status: '', submitTime: "2014-06-19T11:36:02"},
+		{id:1,	name:"Alex Nam",	isAdmin:true,	isPublic:true, content: "Hi Designer, have you read our ToS? You know you can't pout this up, right?", status: '', submitTime: "2014-06-19T12:13:02"},
+		{id:2,	name:"",	isAdmin:false,	isPublic:true, content: "Oh really? No I didn't!", status: '', submitTime: "2014-06-19T13:25:02"},
+		{id:0,	name:"Eunice Kim",	isAdmin:true,	isPublic:true, content: "We can't approve this because it violates our Terms of Service. Sorry!", status: 'reject', submitTime: "2014-06-19T14:41:02"},
+		{id:2,	name:"",	isAdmin:false,	isPublic:true, content: "Nooo! Here, I changed it, look!", status: '', submitTime: "2014-06-19T15:07:02"},
+		{id:1,	name:"Alex Nam",	isAdmin:true,	isPublic:true, content: "Very nice! Approved!", status: 'approve', submitTime: "2014-06-19T15:11:02"},
 	];
 	
 	return {

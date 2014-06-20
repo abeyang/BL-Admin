@@ -56,6 +56,22 @@ $small: 0.85em;
     }
 }
 
+@mixin comment_status($color) {
+    padding: $pad $pad $pad/2;
+    border-left: 3px solid $color;
+
+    .avatar {
+        height: 40px;
+        width: 40px;
+        margin-left: 15px;
+        margin-top: 3px;
+    }
+
+    .comment_msg { display: inline; color: $color; }
+    .byline { margin-bottom: 0; }
+
+}
+
 // LAYOUT
 
 html {
@@ -116,6 +132,7 @@ a {
 
 .pad-left { padding-left: 3px; }
 .pad-right { padding-right: 3px; }
+.margin-right { margin-right: 3px; }
 .unmargin-top { margin-top: -20px; }
 
 section {
@@ -145,7 +162,8 @@ img {
     color: $white;
     background-color: $lightestgray;
 
-	&.badge-warning { background-color: $white; color: $orange; border: 1px solid $orange;}
+    &.badge-clear { background-color: transparent; color: $gray; border: 1px solid $gray;}
+	&.badge-warning { background-color: transparent; color: $orange; border: 1px solid $orange;}
 	&.badge-success { background-color: $green; }
 	&.badge-danger { background-color: $red; }
 }
@@ -159,16 +177,21 @@ img {
 
 // -- Forms
 
-input, textarea, .btn {
+.form {
     padding: $pad;
     margin-bottom: $pad;
     border-radius: $radius;
     border: 1px solid $lightergray;
 }
 
+input, textarea {
+    @extend .form;
+}
+
 .btn {
-    padding-left: $pad * 2;
-    padding-right: $pad * 2;
+    @extend .form;
+    padding-top: $pad/2;
+    padding-bottom: 7px;
     color: $black;
     background-color: $lightestgray;
 }
@@ -255,7 +278,7 @@ nav {
             &.small {
                 font-size: $small;
                 padding-left: 0;
-                padding-top: 17px;
+                padding-top: 18px;
             }
             &.separator {
                 border-left: 1px solid $darkergray;
@@ -362,7 +385,7 @@ nav {
 .comment {
     @include span-columns(8 of 8);
     border-top: 1px solid $lightestgray;
-    padding-top: $pad*1.5;
+    
     .avatar {
         @include span-columns(1 of 8);
         height: 65px;
@@ -388,6 +411,19 @@ nav {
     .btn {
         margin-left: $pad;
     }
+    .comment_msg { display: none; }
+}
+
+.comment_wrapper { 
+    @include clearfix;
+    padding-top: $pad*1.5; 
+    padding-bottom: $pad*1.5; 
+}
+.comment_reject {
+    @include comment_status($color_danger);
+}
+.comment_approve {
+    @include comment_status($color_success);
 }
 
 .card {
@@ -519,7 +555,7 @@ nav {
         color: $lightgray; 
         border-bottom: 1px solid $lightestgray;
     }
-    i {
+    i, input {
         margin-right: $pad;
     }
     ul {
