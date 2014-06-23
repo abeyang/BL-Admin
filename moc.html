@@ -6,10 +6,7 @@
 
 	<nav class="subnav">
 		<ul class="container">
-			<li class="active"><a class="title" href="#">{{ getTitle(single.id) }}</a></li>
-			
-			<li class="right"><a class="btn" href="#">{{ getStatus(single.status) }}</a></li>
-			<li class="right" ng-if="single.isFeatured"><a class="btn" href="#">Featured</a></li>
+			<li class="active"><a class="title" href="#">{{ getTitle(single.id) }}</a></li>			
 		</ul>
 	</nav>
 
@@ -46,24 +43,20 @@
 					</div>
 				</div>
 
-				{{ myComment }}
-
 			</main>
 			
 			<!-- @todo show next/prev -->
 			<aside>
 				<div class="moc-info">
-					<div>
-						<input type="checkbox" ng-model="single.isFeatured" /> Feature this MOC
-					</div>	
 					<div class="color">
 						<span class="right">{{ single.raters }} reviews</span>
 						<span ng-bind-html="getRatings(single.id, false)"></span>
 					</div>
 					<div class="color">
-						<i class="fa fa-heart-o"></i> {{ single.votes }} requests for this to be sold
+						<i class="fa fa-heart-o"></i> {{ single.votes }} requests
 					</div>
 					<div class="color">
+						<span class="right">{{ single.parts }} parts</span>
 						<i class="fa fa-smile-o" ng-if="single.issues<3"></i> 
 						<i class="fa fa-meh-o" ng-if="single.issues>=3 && single.issues<6"></i> 
 						<i class="fa fa-frown-o" ng-if="single.issues>=6"></i> 
@@ -79,13 +72,24 @@
 						<i class="fa fa-calendar"></i> {{ ui.getDate(single.submitTime) }}
 					</div>
 					<div>
-						<span class="right">{{ single.parts }} parts</span>
 						<i class="fa fa-credit-card"></i> {{ single.fee }}%
 					</div>
 					
 					<!-- @todo tags need to be editable -->
 					<div ng-bind-html="getTagNames(single.tags)"></div>
 				</div> <!-- /.moc-info -->
+
+				<div class="moc-status">
+					<!-- <h3>Update Status</h3> -->
+					<div>
+						<a class="btn btn-pill btn-{{stat.classname}}" ng-class="{active: stat.id==single.status}" ng-click="single.status=stat.id" href="" ng-repeat="stat in statii">{{stat.name}}</a>
+					</div>
+					<div>
+						<a class="btn btn-pill btn-featured" ng-class="{active: single.isFeatured}" ng-click="single.isFeatured=!single.isFeatured" href="">Featured</a>
+						<a class="btn btn-pill btn-featured fadeable" ng-class="{active: single.isPinned, hide: !single.isFeatured}" ng-click="single.isPinned=!single.isPinned" href="">Pin to top</a>
+
+					</div>	
+				</div>
 				
 			</aside>
 

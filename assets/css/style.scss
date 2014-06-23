@@ -23,12 +23,18 @@ $yellow: #ffca00;
 $lightblue: lighten($blue, 10);
 $lightorange: lighten($orange, 10);
 $lighterorange: lighten($orange, 20);
-$lightgreen: desaturate(lighten(#2eab00, 20), 40);
+$lightgreen: desaturate(lighten($green, 20), 40);
 
 $color_link: $orange;
 $color_success: $green;
 $color_warning: $orange;
 $color_danger: $red;
+
+$color_display: $purple;
+$color_pending: $blue;
+$color_sale: $green;
+$color_stores: $green;
+$color_banned: $red;
 
 // -- Box Model
 $thumb_width: 140px;
@@ -56,20 +62,16 @@ $small: 0.85em;
     }
 }
 
-@mixin comment_status($color) {
-    padding: $pad $pad $pad/2;
-    border-left: 3px solid $color;
+@mixin filledbutton($color) {
+    color: $white;
+    border-color: transparent;
+    background-color: $color;
+}
 
-    .avatar {
-        height: 40px;
-        width: 40px;
-        margin-left: 15px;
-        margin-top: 3px;
-    }
+@mixin status($color) {
+    border-left: 2px solid $color;
 
-    .comment_msg { display: inline; color: $color; }
-    .byline { margin-bottom: 0; }
-
+    strong { color: $color; }
 }
 
 // LAYOUT
@@ -175,6 +177,14 @@ img {
     text-overflow: ellipsis;
 }
 
+.fadeable {
+    @include transition(all 0.3s ease-in-out);
+    position: relative;
+    top: 0;
+    opacity: 1.0;
+}
+.hide { top: -20px; opacity: 0; }
+
 // -- Forms
 
 .form {
@@ -202,9 +212,7 @@ input, textarea {
 }
 
 .btn-primary {
-    color: $white;
-    border-color: transparent;
-    background-color: $color_link;
+    @include filledbutton($color_link);
 }
 
 .btn-disabled, a.btn-disabled {
@@ -369,11 +377,11 @@ nav {
     position: relative; 
 
     main {
-        @include span-columns(8);
+        @include span-columns(7);
 
     }
     aside {
-        @include span-columns(4);
+        @include span-columns(5);
         @include omega;
         /*background-color: $lightblue;*/
     }
@@ -388,7 +396,7 @@ nav {
     
     .avatar {
         @include span-columns(1 of 8);
-        height: 65px;
+        height: 58px;
         border-radius: $radius;
         overflow: hidden;
         background-color: $lightergray;
@@ -419,11 +427,13 @@ nav {
     padding-top: $pad*1.5; 
     padding-bottom: $pad*1.5; 
 }
-.comment_reject {
-    @include comment_status($color_danger);
-}
-.comment_approve {
-    @include comment_status($color_success);
+.status_wrapper {
+    padding: $pad;
+
+    &.status_display { @include status($color_display); }
+    &.status_pending { @include status($color_pending); }
+    &.status_sale, &.status_stores { @include status($color_sale); }
+    &.status_banned { @include status($color_banned); }
 }
 
 .card {
@@ -545,11 +555,18 @@ nav {
 
 }
 
+.moc-info-section {
+    padding: $pad 0;
+    border-top: 1px solid $lightestgray;
+    color: $lightgray;
+}
+
 .moc-info {
+    @include span-columns(3 of 5);
+    font-size: $small;
+
     > div {
-        padding: $pad 0;
-        border-top: 1px solid $lightestgray;
-        color: $lightgray;
+        @extend .moc-info-section;
     }
     a { 
         color: $lightgray; 
@@ -566,6 +583,26 @@ nav {
     .color {
         .fa-star { color: $lightorange; }
         .fa-heart-o { color: $red; }
+    }
+}
+
+.moc-status {
+    @include span-columns(2 of 5);
+    font-size: $small;
+
+    > div {
+        @extend .moc-info-section;
+    }
+    .btn {
+        border-color: $black;
+        background-color: transparent;
+    }
+    .btn.active {
+        &.btn-display { @include filledbutton($color_display); }
+        &.btn-pending { @include filledbutton($color_pending); }
+        &.btn-sale, &.btn-stores { @include filledbutton($color_sale); }
+        &.btn-banned { @include filledbutton($color_banned); }
+        &.btn-featured { @include filledbutton($orange); }
     }
 }
 
