@@ -10,6 +10,10 @@
 			<li ng-repeat="stat in statii" ng-class="{active: filterCards.status === stat.id }"><a ng-click="filterCards.status=stat.id" href="#">{{ getStatus(stat.id) }}</a></li>
 			<!-- <li ng-class="{active: filterCards.status === ''}"><a ng-click="filterCards.status=''" href="#">(All)</a></li> -->
 
+			<li class="right active" ng-show="filterCards.isFeatured === true"><a ng-click="filterCards.isFeatured=''" href="#">Featured</a></li>
+			<li class="right" ng-show="filterCards.isFeatured === ''"><a ng-click="filterCards.isFeatured=true" href="#">Featured</a></li>
+			<li class="right separator">&nbsp;</li>
+
 			<li ng-class="{active: entryOrder == '-submitTime'}" class="right pad"><a ng-click="entryOrder='-submitTime'" href="#">Recent</a></li>
 			<li ng-class="{active: entryOrder == '-ratings'}" class="right"><a ng-click="entryOrder='-ratings'" href="#">Most Popular</a></li>
 			<li class="right separator">&nbsp;</li>
@@ -25,14 +29,14 @@
 
 			<p ng-show="filterCards.status===2">Once a seller decides to sell an item listed here, it will automatically be upgraded to "in stores." (Admins have no power to upgrade a MOC's status in this stage.)</p>
 
-			<p ng-show="filterCards.status===3">These MOCs are ready to be sold! <strong>Featured MOCs</strong> will be displayed on the home page.</p>
+			<p ng-show="filterCards.status===3">These MOCs are ready to be sold! <strong>Featured MOCs</strong> will be displayed on the home page; <strong>pinned MOCs</strong> will remain on top.</p>
 
 			<p ng-show="filterCards.status===4">Vulgar, inflammatory, or inappropriate photos/descriptions ought to be banned.</p>
 		</div>
 
 		<div class="container">
 
-			<div class="moc-item" ng-repeat="moc in mocs | filter:filterCards | orderBy:entryOrder">
+			<div class="moc-item" ng-repeat="moc in mocs | filter:filterCards | orderBy:['-isPinned', entryOrder]">
 				<ng-include src="'includes/moc_item.html'"></ng-include>
 			</div> <!-- /.moc-item -->
 

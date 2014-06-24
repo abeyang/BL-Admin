@@ -128,7 +128,7 @@ app.controller('ContestController', function($scope, ui, mocResource, contestRes
 	};
 
 	$scope.filterCards = {
-		status: 1
+		status: 2
 	};
 });
 
@@ -237,7 +237,7 @@ function buttonize(content, link, classes) {
 app.factory('ui', function() {
 	// var isProduction = true;
 	var context = 'dashboard';
-	var contact = '';
+	var name = 'Abe Yang';
 
 	return {
         findById: function(resource, id) {
@@ -264,6 +264,9 @@ app.factory('ui', function() {
         getDateTime: function(datetimestr) {
         	// return moment(datetimestr).calendar();
         	return this.getDate(datetimestr) + ', ' + this.getTime(datetimestr);
+        },
+        getMyName: function() {
+        	return name;
         }
 	}
 });
@@ -878,8 +881,8 @@ app.factory('tagResource', function () {
 
 app.factory('contestResource', function() {
 	// http://www.json-generator.com/
-	// @todo: need status 0=draft
-	// status: 1=new, 2=pending, 3=expired
+	// @todo: need status 
+	// status: 0=draft, 1=scheduled, 2=new(accepting mocs), 3=pending(receiving votes), 4=expired
 	/*
 	[
 	    '{{repeat(10)}}',
@@ -888,126 +891,159 @@ app.factory('contestResource', function() {
 	        entries: '{{integer(1, 200)}}',
 	        votes: '{{integer(1, 100)}}',
 	        views: '{{integer(1, 500)}}',
-	        content: '{{lorem(1, "paragraphs")}}',
+	        prize1: '{{lorem(1, "sentences")}}',
+	        prize2: '{{lorem(1, "sentences")}}',
+	        prize3: '{{lorem(1, "sentences")}}',
 	        startDate: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-dd")}}',
 	        duration: '{{integer(1, 30)}}',
 	        daysleft: '{{integer(1, 20)}}',
-	        status: '{{integer(1, 3)}}'
+	        winners: '{{integer(1, 3)}}',
+	        status: '{{integer(0, 4)}}'
 	    }
 	]
 	*/
 
 	var data = [
-	    {
-	        "id": 0,
-	        "entries": 113,
-	        "votes": 36,
-	        "views": 352,
-	        "content": "Sint proident esse esse deserunt. Deserunt aliqua ipsum minim proident voluptate sunt. Enim mollit sit occaecat occaecat. Incididunt irure magna tempor deserunt enim nostrud mollit. Aliquip ad nostrud occaecat consectetur irure. Reprehenderit sint officia eiusmod veniam pariatur est esse do ea do tempor et. Quis adipisicing ut ad consectetur occaecat nisi exercitation sint esse nulla amet excepteur elit.\r\n",
-	        "startDate": "2014-01-06",
-	        "duration": 19,
-	        "daysleft": 18,
-	        "status": 3
-	    },
-	    {
-	        "id": 1,
-	        "entries": 154,
-	        "votes": 22,
-	        "views": 154,
-	        "content": "Quis commodo esse commodo fugiat reprehenderit est ex dolore esse cillum fugiat. Elit irure exercitation et consectetur anim. Elit dolore eu laborum enim aliquip.\r\n",
-	        "startDate": "2014-04-12",
-	        "duration": 28,
-	        "daysleft": 14,
-	        "status": 1
-	    },
-	    {
-	        "id": 2,
-	        "entries": 93,
-	        "votes": 65,
-	        "views": 199,
-	        "content": "Amet labore pariatur aliqua occaecat in sit ad ad ex esse nulla. Aute reprehenderit aute in in veniam est enim aute. Incididunt incididunt nulla duis fugiat enim est sit ullamco elit tempor. Reprehenderit occaecat duis duis excepteur ad. Pariatur dolor id dolor ex adipisicing commodo cillum excepteur in cupidatat consequat labore id ut. Cillum velit occaecat laborum aliqua laborum cillum ullamco.\r\n",
-	        "startDate": "2014-02-19",
-	        "duration": 27,
-	        "daysleft": 1,
-	        "status": 3
-	    },
-	    {
-	        "id": 3,
-	        "entries": 27,
-	        "votes": 26,
-	        "views": 450,
-	        "content": "Voluptate eu ad commodo duis ut commodo et in enim nostrud consectetur consectetur commodo. Occaecat cupidatat veniam cupidatat id mollit adipisicing tempor nisi laborum deserunt amet veniam commodo non. Nulla consectetur enim eu ad ex cillum sit quis cillum dolor incididunt dolor ad. Labore commodo enim elit anim occaecat elit eiusmod nulla ad excepteur enim nisi aliquip. Eiusmod laboris ut reprehenderit in eiusmod non laboris. Ipsum incididunt proident duis tempor reprehenderit et culpa do laborum dolor deserunt officia.\r\n",
-	        "startDate": "2014-01-09",
-	        "duration": 30,
-	        "daysleft": 4,
-	        "status": 3
-	    },
-	    {
-	        "id": 4,
-	        "entries": 124,
-	        "votes": 83,
-	        "views": 44,
-	        "content": "Culpa dolor dolor minim qui. Ullamco nostrud consectetur est amet est labore commodo non sunt pariatur proident. Aliqua deserunt magna incididunt excepteur consequat aute consequat eu.\r\n",
-	        "startDate": "2014-04-03",
-	        "duration": 19,
-	        "daysleft": 17,
-	        "status": 1
-	    },
-	    {
-	        "id": 5,
-	        "entries": 6,
-	        "votes": 1,
-	        "views": 451,
-	        "content": "Excepteur proident pariatur in aute sint aliquip elit ullamco dolor laboris elit. Anim elit officia amet qui mollit laborum reprehenderit commodo aliquip consectetur sunt. Nostrud consequat velit magna voluptate occaecat laborum esse.\r\n",
-	        "startDate": "2014-03-15",
-	        "duration": 3,
-	        "daysleft": 9,
-	        "status": 2
-	    },
-	    {
-	        "id": 6,
-	        "entries": 32,
-	        "votes": 64,
-	        "views": 234,
-	        "content": "Labore mollit nostrud et qui irure magna laboris eu ullamco est tempor. Est culpa irure reprehenderit mollit est consectetur nulla magna in. Eiusmod id elit aliquip anim incididunt magna est in nostrud enim eu laboris. Id irure Lorem officia aliquip laborum qui anim. Enim culpa qui ad sint esse mollit labore aute dolor commodo ut pariatur laborum est. Laboris tempor culpa dolor velit qui ut cupidatat consectetur irure. Aute cillum culpa irure sunt reprehenderit tempor.\r\n",
-	        "startDate": "2014-03-07",
-	        "duration": 19,
-	        "daysleft": 3,
-	        "status": 2
-	    },
-	    {
-	        "id": 7,
-	        "entries": 6,
-	        "votes": 66,
-	        "views": 48,
-	        "content": "Velit velit commodo elit quis culpa consectetur do reprehenderit commodo. Occaecat laborum aliquip tempor sint ad et adipisicing qui cillum. Eiusmod dolor mollit labore pariatur. Ad incididunt proident et magna non enim aliquip. Proident aliquip ea consectetur culpa incididunt adipisicing qui laboris dolor. Elit adipisicing dolor incididunt sint consequat et ex consequat.\r\n",
-	        "startDate": "2014-01-06",
-	        "duration": 16,
-	        "daysleft": 20,
-	        "status": 3
-	    },
-	    {
-	        "id": 8,
-	        "entries": 150,
-	        "votes": 29,
-	        "views": 152,
-	        "content": "Eu aliqua voluptate esse cillum voluptate aliqua aliqua aliqua irure. Ullamco deserunt quis Lorem officia eiusmod esse laboris amet adipisicing ullamco pariatur dolor. Ex adipisicing ut amet laborum aliquip et ex pariatur aute excepteur quis non. Lorem dolor in excepteur Lorem anim et excepteur minim.\r\n",
-	        "startDate": "2014-03-01",
-	        "duration": 24,
-	        "daysleft": 15,
-	        "status": 3
-	    },
-	    {
-	        "id": 9,
-	        "entries": 58,
-	        "votes": 13,
-	        "views": 240,
-	        "content": "Esse nulla laborum incididunt fugiat aute cillum est. Commodo laborum cupidatat ut cupidatat in culpa anim irure velit non reprehenderit. Aute minim laboris anim consequat ex amet excepteur qui.\r\n",
-	        "startDate": "2014-02-08",
-	        "duration": 16,
-	        "daysleft": 12,
-	        "status": 3
-	    }
+	  {
+	    "id": 0,
+	    "entries": 57,
+	    "votes": 42,
+	    "views": 447,
+	    "prize1": "Nostrud et veniam elit commodo ex.",
+	    "prize2": "Nostrud tempor elit nulla dolore amet cillum sint deserunt excepteur sunt proident sunt cillum adipisicing.",
+	    "prize3": "Incididunt nostrud aliquip sit adipisicing proident qui nulla laboris incididunt ut proident est magna.",
+	    "startDate": "2014-04-21",
+	    "duration": 5,
+	    "daysleft": 13,
+	    "winners": 3,
+	    "status": 4
+	  },
+	  {
+	    "id": 1,
+	    "entries": 194,
+	    "votes": 83,
+	    "views": 310,
+	    "prize1": "Ipsum ex sit aute magna nostrud nulla.",
+	    "prize2": "Ea dolore incididunt minim nostrud ex nisi adipisicing excepteur non.",
+	    "prize3": "Laborum est nisi eiusmod velit.",
+	    "startDate": "2014-02-28",
+	    "duration": 19,
+	    "daysleft": 1,
+	    "winners": 2,
+	    "status": 0
+	  },
+	  {
+	    "id": 2,
+	    "entries": 78,
+	    "votes": 53,
+	    "views": 181,
+	    "prize1": "Incididunt eiusmod id adipisicing voluptate est velit velit voluptate proident cillum eu laborum laboris.",
+	    "prize2": "Esse irure adipisicing magna magna nostrud consectetur dolore officia occaecat voluptate do amet mollit veniam.",
+	    "prize3": "Pariatur cillum nostrud voluptate in.",
+	    "startDate": "2014-02-20",
+	    "duration": 15,
+	    "daysleft": 6,
+	    "winners": 2,
+	    "status": 3
+	  },
+	  {
+	    "id": 3,
+	    "entries": 63,
+	    "votes": 40,
+	    "views": 349,
+	    "prize1": "Deserunt velit consequat mollit in nulla nostrud minim culpa quis id ullamco.",
+	    "prize2": "Id ex consectetur et fugiat laboris aliquip ullamco et id aliquip commodo proident.",
+	    "prize3": "Anim deserunt magna quis irure do enim eiusmod laboris nostrud labore ex irure labore.",
+	    "startDate": "2014-05-08",
+	    "duration": 24,
+	    "daysleft": 16,
+	    "winners": 1,
+	    "status": 2
+	  },
+	  {
+	    "id": 4,
+	    "entries": 80,
+	    "votes": 63,
+	    "views": 53,
+	    "prize1": "Cupidatat ad sit et culpa quis esse nulla nostrud aute amet.",
+	    "prize2": "Consequat do aliquip esse labore.",
+	    "prize3": "Dolore sunt aliquip ut ex.",
+	    "startDate": "2014-02-09",
+	    "duration": 18,
+	    "daysleft": 9,
+	    "winners": 3,
+	    "status": 4
+	  },
+	  {
+	    "id": 5,
+	    "entries": 30,
+	    "votes": 97,
+	    "views": 279,
+	    "prize1": "Qui laboris ad amet nostrud commodo.",
+	    "prize2": "Veniam ipsum enim proident eu reprehenderit magna Lorem deserunt reprehenderit dolor est sit.",
+	    "prize3": "Excepteur dolor consectetur incididunt sunt aute eu voluptate qui veniam.",
+	    "startDate": "2014-01-14",
+	    "duration": 25,
+	    "daysleft": 8,
+	    "winners": 2,
+	    "status": 4
+	  },
+	  {
+	    "id": 6,
+	    "entries": 52,
+	    "votes": 92,
+	    "views": 370,
+	    "prize1": "Adipisicing do proident nostrud enim adipisicing cillum ut reprehenderit id consectetur duis ut exercitation elit.",
+	    "prize2": "Exercitation est laboris laboris ea officia quis elit pariatur amet exercitation nostrud cillum ut dolor.",
+	    "prize3": "Aliqua voluptate duis officia ullamco anim adipisicing exercitation adipisicing aute proident ea occaecat.",
+	    "startDate": "2014-01-16",
+	    "duration": 21,
+	    "daysleft": 10,
+	    "winners": 1,
+	    "status": 3
+	  },
+	  {
+	    "id": 7,
+	    "entries": 37,
+	    "votes": 91,
+	    "views": 62,
+	    "prize1": "Adipisicing ut ex sit ad magna veniam sit esse ea elit.",
+	    "prize2": "Cupidatat elit consequat velit consequat culpa labore excepteur ad occaecat.",
+	    "prize3": "Consectetur nostrud eiusmod adipisicing minim ipsum id voluptate proident cillum dolore.",
+	    "startDate": "2014-05-15",
+	    "duration": 2,
+	    "daysleft": 19,
+	    "winners": 3,
+	    "status": 4
+	  },
+	  {
+	    "id": 8,
+	    "entries": 140,
+	    "votes": 95,
+	    "views": 468,
+	    "prize1": "Culpa eu magna eu esse qui.",
+	    "prize2": "Non anim deserunt Lorem aliquip non duis est laboris enim.",
+	    "prize3": "Ut esse adipisicing duis elit Lorem enim ipsum Lorem incididunt sit proident nulla nostrud dolor.",
+	    "startDate": "2014-06-23",
+	    "duration": 30,
+	    "daysleft": 15,
+	    "winners": 3,
+	    "status": 1
+	  },
+	  {
+	    "id": 9,
+	    "entries": 198,
+	    "votes": 17,
+	    "views": 212,
+	    "prize1": "Non excepteur ullamco dolor qui velit.",
+	    "prize2": "Lorem ipsum laboris sit proident irure proident mollit non labore commodo consectetur.",
+	    "prize3": "Ut voluptate sunt aute fugiat mollit ea amet proident id nostrud anim nisi.",
+	    "startDate": "2014-05-29",
+	    "duration": 4,
+	    "daysleft": 5,
+	    "winners": 3,
+	    "status": 4
+	  }
 	];
 
 	return {

@@ -177,14 +177,6 @@ img {
     text-overflow: ellipsis;
 }
 
-.fadeable {
-    @include transition(all 0.3s ease-in-out);
-    position: relative;
-    top: 0;
-    opacity: 1.0;
-}
-.hide { top: -20px; opacity: 0; }
-
 // -- Forms
 
 .form {
@@ -451,14 +443,14 @@ nav {
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 0 15px 15px 0;
+    border-width: 0 30px 30px 0;
     border-color: transparent $lighterorange transparent transparent;
     font-size: $small;
     color: $white;
 
     i, span {
         position: relative;
-        right: -10px;
+        right: -17px;
     }
 }
 
@@ -603,6 +595,12 @@ nav {
         &.btn-sale, &.btn-stores { @include filledbutton($color_sale); }
         &.btn-banned { @include filledbutton($color_banned); }
         &.btn-featured { @include filledbutton($orange); }
+    }
+
+    .btn.disabled, .btn.disabled.active { 
+        border-color: $lightestgray;
+        color: $gray;
+        background-color: transparent;
     }
 }
 

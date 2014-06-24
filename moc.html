@@ -31,7 +31,7 @@
 						<div class="content">
 							<div class="headerline">
 								<span class="badge right" ng-show="!myComment.isPublic">Private</span>
-								<strong>Abe Yang</strong>
+								<strong>{{ ui.getMyName() }}</strong>
 							</div>
 							<div>
 								<textarea placeholder="{{getMsg()}}"></textarea>	
@@ -80,13 +80,12 @@
 				</div> <!-- /.moc-info -->
 
 				<div class="moc-status">
-					<!-- <h3>Update Status</h3> -->
 					<div>
 						<a class="btn btn-pill btn-{{stat.classname}}" ng-class="{active: stat.id==single.status}" ng-click="single.status=stat.id" href="" ng-repeat="stat in statii">{{stat.name}}</a>
 					</div>
 					<div>
 						<a class="btn btn-pill btn-featured" ng-class="{active: single.isFeatured}" ng-click="single.isFeatured=!single.isFeatured" href="">Featured</a>
-						<a class="btn btn-pill btn-featured fadeable" ng-class="{active: single.isPinned, hide: !single.isFeatured}" ng-click="single.isPinned=!single.isPinned" href="">Pin to top</a>
+						<a class="btn btn-pill btn-featured" ng-class="{active: single.isPinned, disabled: !single.isFeatured}" ng-click="single.isPinned=!single.isPinned" href="">Pin to top</a>
 
 					</div>	
 				</div>

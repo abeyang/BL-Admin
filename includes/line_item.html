@@ -1,29 +1,37 @@
 <a href="contest_entry.html#/{{entry.id}}">
-	<div class="hairline" ng-if="entry.status==1" style="width: {{ entry.daysleft / entry.duration * 100 }}%"></div>
-	<div class="right">
+	<div class="hairline" ng-if="entry.status>=1 && entry.status<=3" style="width: {{ (30-entry.daysleft) / 30 * 100 }}%"></div>
+	<div class="right" ng-if="entry.status>1">
 		<div class="block">
 			<h3>{{ entry.entries }}</h3>
 			Entries
 		</div>
-		<div class="block">
+		<div class="block" ng-if="entry.status>=3">
 			<h3>{{ entry.votes }}</h3>
 			Votes
 		</div>
-		<div class="block">
+		<div class="block" ng-if="entry.status>=3">
 			<h3>{{ entry.views }}</h3>
 			Views
 		</div>
 	</div>
 	
-	<div class="block thumb" ng-if="entry.status==3">
+	<div class="block thumb" ng-if="entry.status==4">
 		<img src="{{ui.imageLink(getPopular(entry.id))}}">
 	</div>
-	<div class="block no-pad-right" ng-if="entry.status!=3">
+	<div class="block no-pad-right" ng-if="entry.status!=4">
 		<i class="fa fa-folder-o fa-3x"></i>
 	</div>
 	<div class="block">
 		<h3>{{ getTitle(entry.id) }}</h3>
-		<!-- @todo needs to include range (end date), not just start date -->
-		{{ entry.startDate }}
+		<span ng-if="entry.status>=1 && entry.status<=3">
+			<ng-pluralize count="entry.daysleft" when="{'one': '1 day left', 'other': '{} days left'}">
+			</ng-pluralize>
+		</span>
+		<span ng-if="entry.status==4">
+			Expired 
+			<ng-pluralize count="entry.daysleft" when="{'one': '1 day ago', 'other': '{} days ago'}">
+			</ng-pluralize>
+		</span>
+		
 	</div>
 </a>

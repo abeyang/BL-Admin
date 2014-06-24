@@ -5,25 +5,18 @@
 
 	<nav class="subnav">
 		<ul class="container">
-			<li ng-class="{active: filterCards.status != 3}"><a ng-click="filterCards.status=1" href="#">Awaiting Approval</a></li>
-			<li ng-class="{active: filterCards.status == 3}"><a ng-click="filterCards.status=3" href="#">Expired</a></li>
+			<li ng-class="{active: filterCards.status == 0}"><a ng-click="filterCards.status=0" href="#">New</a></li>
+			<li ng-class="{active: filterCards.status == 2}"><a ng-click="filterCards.status=2" href="#">Ongoing</a></li>
+			<li ng-class="{active: filterCards.status == 4}"><a ng-click="filterCards.status=4" href="#">Expired</a></li>
 			<li class="right"><a class="btn" href="#">New Contest</a></li>
 		</ul>
 	</nav>
 
 	<section>
 
-		<div class="container" ng-if="filterCards.status != 3">
+	<div class="container" ng-if="filterCards.status == 0">
 			
-			<h2>Awaiting Approval</h2>
-			
-			<div class="lists">
-				<div class="list-item" ng-repeat="entry in entries | filter:{status:2}">
-					<ng-include src="'includes/line_item.html'"></ng-include>
-				</div> <!-- /.list-item -->
-			</div>
-
-			<h2>New Contests</h2>
+			<h2>Scheduled</h2>
 			
 			<div class="lists">
 				<div class="list-item" ng-repeat="entry in entries | filter:{status:1}">
@@ -31,9 +24,37 @@
 				</div> <!-- /.list-item -->
 			</div>
 
+			<h2>Drafts</h2>
+			
+			<div class="lists">
+				<div class="list-item" ng-repeat="entry in entries | filter:{status:0}">
+					<ng-include src="'includes/line_item.html'"></ng-include>
+				</div> <!-- /.list-item -->
+			</div>
+
 		</div> <!-- /.container -->
 
-		<div class="container" ng-if="filterCards.status == 3">
+		<div class="container" ng-if="filterCards.status == 2">
+			
+			<h2>Receiving Votes</h2>
+			
+			<div class="lists">
+				<div class="list-item" ng-repeat="entry in entries | filter:{status:3}">
+					<ng-include src="'includes/line_item.html'"></ng-include>
+				</div> <!-- /.list-item -->
+			</div>
+
+			<h2>Accepting MOCs</h2>
+			
+			<div class="lists">
+				<div class="list-item" ng-repeat="entry in entries | filter:{status:2}">
+					<ng-include src="'includes/line_item.html'"></ng-include>
+				</div> <!-- /.list-item -->
+			</div>
+
+		</div> <!-- /.container -->
+
+		<div class="container" ng-if="filterCards.status == 4">
 			<div class="lists">
 				<div class="list-item" ng-repeat="entry in entries | filter:filterCards">
 					<ng-include src="'includes/line_item.html'"></ng-include>
