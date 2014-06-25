@@ -10,7 +10,7 @@
 			<li class="active"><a href=""><i class="fa fa-folder-open-o pad-right"></i> {{ title }}</a></li>
 			<!-- @todo disable edit when "live" -->
 			
-			<li class="right"><a class="btn" ng-class="{'btn-disabled': status==4}" href="">Edit</a></li>
+			<li class="right"><a class="btn" ng-class="{'btn-disabled': status==4}" href="{{getEditLink}}">Edit</a></li>
 
 			<li class="right small text-dull" ng-if="status==0">Draft</li>
 			<li class="right small text-dull" ng-if="status==1">Scheduled to go live on {{ ui.getDate(entry.startDate) }}</li>

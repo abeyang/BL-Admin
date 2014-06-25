@@ -126,6 +126,8 @@ app.controller('ContestController', function($scope, ui, mocResource, contestRes
 		return (moc) ? moc.id : id;		// default to regular id
 	};
 
+	$scope.getNewContestLink = "contest_entry_edit.html#/-1";
+
 	$scope.filterCards = {
 		status: 2
 	};
@@ -136,11 +138,22 @@ app.controller('ContestEntryController', function($scope, $location, ui, mocReso
 	$scope.ui = ui;
 
 	var id = getIdFromUrl($location);
-	$scope.entry = ui.findById(contestResource, id);
-	$scope.title = ui.findAttrById(metaResource, 'contest', id);
-	$scope.status = ui.findAttrById(contestResource, 'status', id);
+	if (id >= 0) {
+		$scope.entry = ui.findById(contestResource, id);
+		$scope.title = ui.findAttrById(metaResource, 'contest', id);
+		$scope.status = ui.findAttrById(contestResource, 'status', id);
 
-	$scope.mocs = mocResource.filterByContestId(id);
+		$scope.mocs = mocResource.filterByContestId(id);
+		$scope.newedit = 'Edit Contest';
+	}
+	else {
+		$scope.entry = {winners: 3};
+		$scope.title = '';
+		$scope.status = 0;
+
+		$scope.mocs = [];
+		$scope.newedit = 'New Contest';
+	}
 
 	$scope.getTitle = function(id) {
 		return ui.findAttrById(metaResource, 'title', id);
@@ -148,6 +161,9 @@ app.controller('ContestEntryController', function($scope, $location, ui, mocReso
 	$scope.getLink = function(id) {
 		return "contest_item.html#/" + id;
 	};
+	
+	$scope.getContestLink = "contest_entry.html#/" + id;
+	$scope.getEditLink = "contest_entry_edit.html#/" + id;
 });
 
 app.controller('ContestItemController', function($scope, $location, ui, mocResource, tagResource, statusResource, contestResource, metaResource) {

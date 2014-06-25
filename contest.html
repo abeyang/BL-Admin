@@ -8,7 +8,7 @@
 			<li ng-class="{active: filterCards.status == 0}"><a ng-click="filterCards.status=0" href="#">New</a></li>
 			<li ng-class="{active: filterCards.status == 2}"><a ng-click="filterCards.status=2" href="#">Ongoing</a></li>
 			<li ng-class="{active: filterCards.status == 4}"><a ng-click="filterCards.status=4" href="#">Expired</a></li>
-			<li class="right"><a class="btn" href="#">New Contest</a></li>
+			<li class="right"><a class="btn" href="{{getNewContestLink}}">New Contest</a></li>
 		</ul>
 	</nav>
 

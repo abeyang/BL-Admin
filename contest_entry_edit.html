@@ -1,0 +1,79 @@
+<!-- $title - Contest (Edit) -->
+<!-- $isactive-contest class="active" -->
+<!-- $body-meta ng-controller="ContestEntryController" -->
+<!-- @include _header -->
+
+<!-- @todo show current status of contest -->
+
+	<nav class="subnav">
+		<ul class="container">
+			<li class="active"><a href="">{{ newedit }}</a></li>
+			<!-- @todo disable edit when "live" -->
+			
+			<li class="right"><a class="btn btn-primary" href="{{getContestLink}}">Save</a></li>
+			<li class="right"><a class="btn" href="{{getContestLink}}">Cancel</a></li>
+			
+			<li class="right small text-dull" ng-if="status==0">Draft</li>
+			<li class="right small text-dull" ng-if="status==1">Scheduled to go live on {{ ui.getDate(entry.startDate) }}</li>
+			<li class="right small text-dull" ng-if="status==2">Accepting MOCs</li>
+			<li class="right small text-dull" ng-if="status==3">Receiving Votes</li>
+			<li class="right small text-dull" ng-if="status==4">Expired</li>
+		</ul>
+	</nav>
+
+	<section>
+		<div class="container">
+			<main>
+				<div class="form-group">
+					<label for="contestTitle">Contest Title</label>
+					<input type="text" ng-model="title" id="contestTitle">
+				</div>
+				<div class="form-group">
+					<label for="contestDesc">Description</label>
+					<textarea class="tall" ng-model="ui.lorem" id="contestDesc"></textarea>	
+				</div>
+
+				<div class="form-group col-third">
+					<label for="contestPeriodAccept">Accepting Mocs</label>
+					<input type="date" id="contestPeriodAccept">
+				</div>
+				<div class="form-group col-third">
+					<label for="contestPeriodVoting">Voting</label>
+					<input type="date" id="contestPeriodVoting">
+				</div>
+				<div class="form-group col-third">
+					<label for="contestPeriodExpire">Expiration</label>
+					<input type="date" id="contestPeriodExpire">
+				</div>
+				
+			</main>
+
+			<aside class="line">
+				<div class="margin-bottom">
+					<select ng-model="entry.winners">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+					</select>
+					<ng-pluralize count="entry.daysleft" when="{'one': 'winner', 'other': 'winners'}">
+					</ng-pluralize>
+				</div>
+
+				<div class="form-group">
+					<label for="contestPrize1">First Place Prize</label>
+					<textarea class="short" ng-model="entry.prize1" id="contestPrize1"></textarea>
+				</div>
+				<div class="form-group" ng-show="entry.winners>=2">
+					<label for="contestPrize2">Second Place Prize</label>
+					<textarea class="short" ng-model="entry.prize2" id="contestPrize2"></textarea>
+				</div>
+				<div class="form-group" ng-show="entry.winners>=3">
+					<label for="contestPrize3">Third Place Prize</label>
+					<textarea class="short" ng-model="entry.prize3" id="contestPrize3"></textarea>
+				</div>
+
+			</aside>
+		</div>
+	</section>
+  
+<!-- @include _footer -->
