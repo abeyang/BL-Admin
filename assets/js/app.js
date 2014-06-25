@@ -166,11 +166,18 @@ app.controller('ContestEntryController', function($scope, $location, ui, mocReso
 	$scope.getEditLink = "contest_entry_edit.html#/" + id;
 });
 
-app.controller('ContestItemController', function($scope, $location, ui, mocResource, tagResource, statusResource, contestResource, metaResource) {
+app.controller('ContestItemController', function($scope, $location, ui, mocResource, tagResource, statusResource, contestResource, metaResource, commentsResource) {
 
 	$scope.ui = ui;
+	$scope.cr = commentsResource;
 
 	var id = getIdFromUrl($location);
+	$scope.comments = commentsResource.list();
+	$scope.myComment = {
+		isPublic: false,
+		content: ''
+	};
+
 	$scope.single = ui.findById(mocResource, id);
 	$scope.title = ui.findAttrById(metaResource, 'title', id);
 
@@ -200,12 +207,15 @@ app.controller('ContestItemController', function($scope, $location, ui, mocResou
 
 	$scope.statii = statusResource.list();
 
-	$scope.getRatings = function(id) {
-		return mocResource.ratingsById(id);
-	};
-
 	$scope.getTagNames = function(tags) {
 		return tagResource.getTagNames(tags);
+	};
+
+	$scope.getStatus = function(status) {
+		return ui.findAttrById(statusResource, 'name', status);
+	};
+	$scope.getStatusClass = function(status) {
+		return ui.findAttrById(statusResource, 'classname', status);
 	};
 
 });

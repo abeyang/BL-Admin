@@ -12,7 +12,7 @@
 			<li class="active"><a href="#">{{ title }}</a></li>
 			<li class="small"><a href="{{entry_link}}"><i class="fa fa-folder-o pad-right"></i> {{ entry_title }}</a></li>
 			
-			<li class="right" ng-bind-html="button"></li>
+			<!-- <li class="right" ng-bind-html="button"></li> -->
 			<li class="right small text-danger" ng-if="entry_status==3">Contest is over and winner has been chosen</li>
 			<li class="right small text-warning" ng-if="entry_status==2">Contest is over &mdash; please select a winner</li>
 		</ul>
@@ -21,34 +21,59 @@
 	<section>
 		<div class="container">	
 			<main>
-					
-				<img src="../assets/images/cover_{{single.id}}.jpg">
+				
+				<img src="{{ui.imageLink(single.id)}}">
 
-				<p>Curabitur blandit tempus porttitor. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Etiam porta sem malesuada magna mollis euismod.</p>
+				<p>{{ ui.lorem }}</p>
 
-				<!-- @todo will we need an activity stream for this? -->
 				<h2>Activity Stream</h2>
 
-				<div class="comment" ng-repeat="stat in statii">
+				<div class="comment" ng-repeat="comment in comments track by $index">
 					<ng-include src="'includes/comment.html'"></ng-include>
 				</div>
 				<div class="comment">
-					<div class="avatar"></div>
-					<div class="content">
-						<textarea></textarea>
-						<a class="btn btn-primary right" href="#">Submit</a>
+					<div class="comment_wrapper">
+						<div class="avatar"><img src="{{ui.avatarLink(3)}}" /></div>
+						<div class="content">
+							<div>
+								<span class="badge right" ng-show="!myComment.isPublic">Private</span>
+								<strong>{{ ui.getMyName() }}</strong>
+							</div>
+							<div>
+								<textarea placeholder="{{getMsg()}}" ng-model="myComment.content"></textarea>	
+							</div>
+							<a class="btn btn-primary right" ng-click="cr.addComment(myComment.content, myComment.isPublic); myComment.content=''" href="">Submit</a>
+
+							<input type="checkbox" ng-model="myComment.isPublic" /> Send message to {{single.name}}
+						</div>
 					</div>
 				</div>
 			</main>
 			
+			<!-- @todo show next/prev -->
 			<aside>
 				<div class="moc-info">
-					<div><i class="fa fa-user"></i> {{ single.name }}</div>	
-					<div><i class="fa fa-clock-o"></i> {{ single.submitTime }}</div>
-					<div><i class="fa fa-credit-card"></i> {{ single.fee }}% / {{ single.parts }} parts</div>
-					<div class="color"><span ng-bind-html="getRatings(single.id)"></span></div>
+					<div class="color">
+						<i class="fa fa-heart-o"></i> {{ single.votes }} likes
+					</div>
+					<div>
+						<span class="right"><a href="#">Live Site</a></span>
+						<i class="fa fa-user"></i> <a href="#">{{ single.name }}</a>
+					</div>	
+					<div>
+						<span class="right">{{ ui.getTime(single.submitTime) }}</span>
+						<i class="fa fa-calendar"></i> {{ ui.getDate(single.submitTime) }}
+					</div>
+					
 					<div ng-bind-html="getTagNames(single.tags)"></div>
 				</div> <!-- /.moc-info -->
+
+				<div class="moc-status">
+					<!-- @todo NEED TO UPDATE THIS; for design contest only -->
+					<div>
+						<a class="btn btn-pill btn-{{stat.classname}}" ng-class="{active: stat.id==single.status}" ng-click="single.status=stat.id; cr.addStatus(stat.id)" href="" ng-repeat="stat in statii">{{stat.name}}</a>
+					</div>
+				</div>
 				
 			</aside>
 
