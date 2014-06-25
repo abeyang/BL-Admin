@@ -30,14 +30,13 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 	$scope.comments = commentsResource.list();
 	$scope.myComment = {
 		isPublic: false,
-		isAdmin: true,
-		content: '',
-		submitTime: moment().format()
-	}
+		content: ''
+	};
 
 	$scope.showTags = true;
 
 	$scope.ui = ui;
+	$scope.cr = commentsResource;
 
 	$scope.getRatings = function(id, includeRaters) {
 		return mocResource.ratingsById(id, includeRaters);
@@ -1879,6 +1878,8 @@ app.factory('statusResource', function () {
 
 app.factory('commentsResource', function () {
 
+	// 'id' here refers to avatar image
+
 	var data = [
 		{id:0,	name:"Eunice Kim",	isAdmin:true,	isPublic:false,content: 'Alex, what do you think of this?', status: '', submitTime: "2014-06-19T11:36:02"},
 		{id:1,	name:"Alex Nam",	isAdmin:true,	isPublic:true, content: "Hi Designer, have you read our ToS? You know you can't put this up, right?", status: '', submitTime: "2014-06-19T12:13:02"},
@@ -1889,10 +1890,28 @@ app.factory('commentsResource', function () {
 		{id:1,	name:"Alex Nam",	isAdmin:true,	isPublic:true, content: '', status: 2, submitTime: "2014-06-19T15:11:02"},
 		{id:1,	name:"Alex Nam",	isAdmin:true,	isPublic:true, content: "Very nice! Approved!", status: '', submitTime: "2014-06-19T15:11:02"}
 	];
+
+	var defaultComment = {id:3, name:'Abe Yang', isAdmin:true};
 	
 	return {
 		list: function() {
 			return data;
+		},
+		add: function(obj) {
+			obj.submitTime = moment().format();
+			data.push(obj);
+		},
+		addStatus: function(status) {
+			var comment = _.clone(defaultComment);
+			comment.status = status;
+			this.add(comment);
+		},
+		addComment: function(content, isPublic) {
+			var comment = _.clone(defaultComment)
+			comment.status = '';
+			comment.content = content;
+			comment.isPublic = isPublic;
+			this.add(comment);
 		}
 	}
 });

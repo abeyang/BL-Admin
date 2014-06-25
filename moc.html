@@ -22,27 +22,26 @@
 
 				<h2>Activity Stream</h2>
 
-				<div class="comment" ng-repeat="comment in comments">
+				<div class="comment" ng-repeat="comment in comments track by $index">
 					<ng-include src="'includes/comment.html'"></ng-include>
 				</div>
 				<div class="comment">
 					<div class="comment_wrapper">
 						<div class="avatar"><img src="{{ui.avatarLink(3)}}" /></div>
 						<div class="content">
-							<div class="headerline">
+							<div>
 								<span class="badge right" ng-show="!myComment.isPublic">Private</span>
 								<strong>{{ ui.getMyName() }}</strong>
 							</div>
 							<div>
-								<textarea placeholder="{{getMsg()}}"></textarea>	
+								<textarea placeholder="{{getMsg()}}" ng-model="myComment.content"></textarea>	
 							</div>
-							<a class="btn btn-primary right" href="#">Submit</a>
-							<a class="btn right" href="#">Cancel</a>
-							<input type="checkbox" ng-model="myComment.isPublic" /> Send message to designer
+							<a class="btn btn-primary right" ng-click="cr.addComment(myComment.content, myComment.isPublic); myComment.content=''" href="">Submit</a>
+							<!-- <a class="btn right" href="">Cancel</a> -->
+							<input type="checkbox" ng-model="myComment.isPublic" /> Send message to {{single.name}}
 						</div>
 					</div>
 				</div>
-
 			</main>
 			
 			<!-- @todo show next/prev -->
@@ -71,9 +70,9 @@
 						<span class="right">{{ ui.getTime(single.submitTime) }}</span>
 						<i class="fa fa-calendar"></i> {{ ui.getDate(single.submitTime) }}
 					</div>
-					<div>
+<!-- 					<div>
 						<i class="fa fa-credit-card"></i> {{ single.fee }}%
-					</div>
+					</div> -->
 					
 					<!-- @todo tags need to be editable -->
 					<div ng-bind-html="getTagNames(single.tags)"></div>
@@ -81,7 +80,7 @@
 
 				<div class="moc-status">
 					<div>
-						<a class="btn btn-pill btn-{{stat.classname}}" ng-class="{active: stat.id==single.status}" ng-click="single.status=stat.id" href="" ng-repeat="stat in statii">{{stat.name}}</a>
+						<a class="btn btn-pill btn-{{stat.classname}}" ng-class="{active: stat.id==single.status}" ng-click="single.status=stat.id; cr.addStatus(stat.id)" href="" ng-repeat="stat in statii">{{stat.name}}</a>
 					</div>
 					<div>
 						<a class="btn btn-pill btn-featured" ng-class="{active: single.isFeatured}" ng-click="single.isFeatured=!single.isFeatured" href="">Featured</a>

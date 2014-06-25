@@ -92,7 +92,7 @@ html, body, h1, h2, h3, h4, h5, h6, div, p {
     font-family: $source;
     color: $black;
 }
-html, body, div, p {
+html, body, div, p, input, textarea {
     font-weight: 300;
     line-height: 1.4;
 }
@@ -103,7 +103,6 @@ h1, h2 {
 }
 h2 {
     margin-top: $margin;
-    /*margin-bottom: $pad * 2;*/
     padding-bottom: $pad;
     &.line {
         border-bottom: 1px solid $lightestgray;
@@ -401,6 +400,9 @@ nav {
     }
     .headerline {
         margin-bottom: -1em;
+        color: $lightergray;
+
+        strong { color: $black; }
     }
     .byline {
         margin-top: -0.5em;
@@ -427,6 +429,7 @@ nav {
 }
 .status_wrapper {
     padding: $pad;
+    color: $lightergray;
 
     &.status_display { @include status($color_display); }
     &.status_pending { @include status($color_pending); }
