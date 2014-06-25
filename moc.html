@@ -85,7 +85,7 @@
 					</div>
 					<div>
 						<a class="btn btn-pill btn-featured" ng-class="{active: single.isFeatured}" ng-click="single.isFeatured=!single.isFeatured" href="">Featured</a>
-						<a class="btn btn-pill btn-featured" ng-class="{active: single.isPinned, disabled: !single.isFeatured}" ng-click="single.isPinned=!single.isPinned" href="">Pin to top</a>
+						<a class="btn btn-pill btn-featured" ng-class="{active: single.isPinned, 'btn-disabled': !single.isFeatured}" ng-click="single.isPinned=!single.isPinned" href="">Pin to top</a>
 
 					</div>	
 				</div>

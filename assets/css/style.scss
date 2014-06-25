@@ -131,11 +131,13 @@ a {
 .text-success { color: $color_success; }
 .text-warning { color: $color_warning; }
 .text-danger { color: $color_danger; }
+.text-dull { color: $lightgray; }
 
 .pad-left { padding-left: 3px; }
 .pad-right { padding-right: 3px; }
 .margin-right { margin-right: 3px; }
 .unmargin-top { margin-top: -20px; }
+.margin-top { margin-top: 20px; }
 
 section {
     margin-top: $margin;
@@ -366,6 +368,7 @@ nav {
 
 .container {
     @include outer-container;
+
     position: relative; 
 
     main {
@@ -375,7 +378,10 @@ nav {
     aside {
         @include span-columns(5);
         @include omega;
-        /*background-color: $lightblue;*/
+        
+        ul { margin: 0; padding: 0; }
+        li { list-style-type: none; }
+
     }
     .content {
         padding: $pad $pad * 2;
@@ -532,10 +538,10 @@ nav {
             &.winner {
                 background-color: rgba($green, 0.5);
             }
-            &.rejected h4 { font-size: 2em; }
 
             h4 { 
                 text-align: center;
+                font-size: 2em;
                 color: $white; 
             }
             .info {
@@ -597,9 +603,9 @@ nav {
         &.btn-featured { @include filledbutton($orange); }
     }
 
-    .btn.disabled, .btn.disabled.active { 
-        border-color: $lightestgray;
-        color: $gray;
+    .btn.btn-disabled, .btn.btn-disabled.active { 
+        border-color: $gray;
+        color: $black;
         background-color: transparent;
     }
 }

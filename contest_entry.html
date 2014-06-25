@@ -3,17 +3,40 @@
 <!-- $body-meta ng-controller="ContestEntryController" -->
 <!-- @include _header -->
 
+<!-- @todo show current status of contest -->
+
 	<nav class="subnav">
 		<ul class="container">
-			<li class="active"><a href="#"><i class="fa fa-folder-open-o pad-right"></i> {{ title }}</a></li>
-			<li class="right"><a class="btn" href="#">Votes <i class="fa fa-angle-down"></i></a></li>
+			<li class="active"><a href=""><i class="fa fa-folder-open-o pad-right"></i> {{ title }}</a></li>
 			<!-- @todo disable edit when "live" -->
-			<li class="right"><a class="btn" href="#">Edit</a></li>
+			
+			<li class="right"><a class="btn" ng-class="{'btn-disabled': status==4}" href="">Edit</a></li>
+
+			<li class="right small text-dull" ng-if="status==0">Draft</li>
+			<li class="right small text-dull" ng-if="status==1">Scheduled to go live on {{ ui.getDate(entry.startDate) }}</li>
+			<li class="right small text-dull" ng-if="status==2">Accepting MOCs</li>
+			<li class="right small text-dull" ng-if="status==3">Receiving Votes</li>
+			<li class="right small text-dull" ng-if="status==4">Expired</li>
 		</ul>
 	</nav>
 
 	<section>
-		<div class="container">
+		<div class="container unmargin-top">
+			<main>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna. Nulla vitae elit libero, a pharetra augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Curabitur blandit tempus porttitor.
+			</main>
+
+			<aside>
+				<ul>
+					<li><strong>1st Place</strong>: {{ entry.prize1 }}</li>
+					<li><strong>2nd Place</strong>: {{ entry.prize2 }}</li>
+					<li><strong>3rd Place</strong>: {{ entry.prize3 }}</li>
+				</ul>
+
+			</aside>
+		</div>
+
+		<div class="container margin-top">
 			<div class="moc-item" ng-repeat="moc in mocs | orderBy:'-votes'">
 				<ng-include src="'includes/moc_item_simple.html'"></ng-include>
 			</div> <!-- /.moc-item -->

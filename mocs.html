@@ -21,17 +21,17 @@
 	</nav>
 
 	<section>
-		<div class="container unmargin-top">
-			<p ng-show="filterCards.status===0">These MOCs cannot be sold, because they either did not include the required building materials (LDD files), or were rejected by admins.</p>
+		<div class="container unmargin-top" ng-switch="filterCards.status">
+			<p ng-switch-when="0">These MOCs cannot be sold, because they either did not include the required building materials (LDD files), or were rejected by admins.</p>
 
-			<p ng-show="filterCards.status===1">If <strong>approved</strong> — if MOCs don't violate our infringement policy, or have too many "moc-ability" issues — they will be ready "for sale".
+			<p ng-switch-when="1">If <strong>approved</strong> — if MOCs don't violate our infringement policy, or have too many "moc-ability" issues — they will be ready "for sale".
 			Otherwise, <strong>rejected</strong> ones will be "display only."</p>
 
-			<p ng-show="filterCards.status===2">Once a seller decides to sell an item listed here, it will automatically be upgraded to "in stores." (Admins have no power to upgrade a MOC's status in this stage.)</p>
+			<p ng-switch-when="2">Once a seller decides to sell an item listed here, it will automatically be upgraded to "in stores." (Admins have no power to upgrade a MOC's status in this stage.)</p>
 
-			<p ng-show="filterCards.status===3">These MOCs are ready to be sold! <strong>Featured MOCs</strong> will be displayed on the home page; <strong>pinned MOCs</strong> will remain on top.</p>
+			<p ng-switch-when="3">These MOCs are ready to be sold! <strong>Featured MOCs</strong> will be displayed on the home page; <strong>pinned MOCs</strong> will remain on top.</p>
 
-			<p ng-show="filterCards.status===4">Vulgar, inflammatory, or inappropriate photos/descriptions ought to be banned.</p>
+			<p ng-switch-when="4">Vulgar, inflammatory, or inappropriate photos/descriptions ought to be banned.</p>
 		</div>
 
 		<div class="container">
