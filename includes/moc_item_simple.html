@@ -1,5 +1,5 @@
 <a class="simple" href="{{ getLink(moc.id) }}">
-	<div ng-class="{'extra winner': status == 4 && $index<=2, 
+	<div ng-class="{'extra winner': status == 4 && $index<=2 && $index<entry.winners, 
 	'extra rejected': $index > 2 && moc.isRejected==true}">
 		<div class="info">
 			<div class="misc"><i class="fa fa-heart-o"></i> {{ moc.votes }}</div>

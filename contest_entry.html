@@ -23,14 +23,14 @@
 	<section>
 		<div class="container unmargin-top">
 			<main>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna. Nulla vitae elit libero, a pharetra augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Curabitur blandit tempus porttitor.
+				{{ ui.lorem }}
 			</main>
 
 			<aside>
 				<ul>
 					<li><strong>1st Place</strong>: {{ entry.prize1 }}</li>
-					<li><strong>2nd Place</strong>: {{ entry.prize2 }}</li>
-					<li><strong>3rd Place</strong>: {{ entry.prize3 }}</li>
+					<li ng-if="entry.winners>=2"><strong>2nd Place</strong>: {{ entry.prize2 }}</li>
+					<li ng-if="entry.winners>=3"><strong>3rd Place</strong>: {{ entry.prize3 }}</li>
 				</ul>
 
 			</aside>

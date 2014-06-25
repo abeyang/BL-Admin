@@ -266,7 +266,8 @@ app.factory('ui', function() {
         },
         getMyName: function() {
         	return name;
-        }
+        },
+        lorem: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna. Nulla vitae elit libero, a pharetra augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Curabitur blandit tempus porttitor.'
 	}
 });
 
@@ -1040,7 +1041,7 @@ app.factory('contestResource', function() {
 	    "startDate": "2014-05-29",
 	    "duration": 4,
 	    "daysleft": 5,
-	    "winners": 3,
+	    "winners": 2,
 	    "status": 4
 	  }
 	];

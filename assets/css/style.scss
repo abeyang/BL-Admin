@@ -517,6 +517,7 @@ nav {
     .simple {
         position: relative;
 
+        h4 { display: none; }
         .info {
             position: absolute;
             bottom: 0;
@@ -543,6 +544,7 @@ nav {
             }
 
             h4 { 
+                display: block;
                 text-align: center;
                 font-size: 2em;
                 color: $white; 
