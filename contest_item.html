@@ -3,10 +3,6 @@
 <!-- $body-meta class="blank" ng-controller="ContestItemController" -->
 <!-- @include _header -->
 
-<!-- @todo 6/24: NEED MAJOR OVERHAUL: -->
-<!-- @todo need to show winner (1/2/3 place) -->
-<!-- @todo need to show next/prev item -->
-
 	<nav class="subnav">
 		<ul class="container">
 			<li class="active"><a href="#">{{ title }}</a></li>
@@ -72,10 +68,11 @@
 				</div> <!-- /.moc-info -->
 
 				<div class="moc-status">
-					<!-- @todo maybe show status -->
 					<div ng-if="entry_status>=1 && entry_status<=3">
 						<a class="btn btn-pill btn-{{stat.classname}}" ng-class="{active: stat.id==single.status}" ng-click="single.status=stat.id; cr.addStatus(stat.id, 2)" href="" ng-repeat="stat in statii">{{stat.name}}</a>
 					</div>
+
+					<!-- @todo need to show 2nd/3rd place -->
 					<div ng-if="entry_status>3">
 						<div class="badge badge-success" ng-if="isThisPopular">
 							First Place

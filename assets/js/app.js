@@ -1026,7 +1026,7 @@ app.factory('contestResource', function() {
 	    "duration": 17,
 	    "daysleft": 17,
 	    "winners": 1,
-	    "status": 0
+	    "status": 1
 	  },
 	  {
 	    "id": 8,

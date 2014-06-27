@@ -569,11 +569,10 @@ nav {
             height: 100%;
             width: 100%;
             padding-top: $thumb_height/3;
-            background-color: rgba($red, 0.75);
             
-            &.winner {
-                background-color: rgba($green, 0.5);
-            }
+            &.winner { background-color: rgba($color_success, 0.5); }
+            &.pending { background-color: rgba($color_pending, 0.6); }
+            &.rejected { background-color: rgba($color_rejected, 0.75); }
 
             h4 { 
                 display: block;

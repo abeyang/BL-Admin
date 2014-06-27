@@ -1,6 +1,7 @@
 <a class="simple" href="{{ getLink(moc.id) }}">
 	<div ng-class="{'extra winner': status == 4 && $index<=2 && $index<entry.winners, 
-	'extra rejected': $index > 2 && moc.isRejected==true}">
+	'extra rejected': moc.status>=4 && ((status==4 && $index > 2) || status!=4),
+	'extra pending': moc.status<=1 && ((status==4 && $index > 2) || status!=4)}">
 		<div class="info">
 			<div class="misc"><i class="fa fa-heart-o"></i> {{ moc.votes }}</div>
 			<!-- @todo need to truncate titles -->
@@ -9,7 +10,8 @@
 		<h4 ng-if="status == 4 && $index==0">1st Place</h4>
 		<h4 ng-if="status == 4 && $index==1">2nd Place</h4>
 		<h4 ng-if="status == 4 && $index==2">3rd Place</h4>
-		<h4 ng-if="$index > 2 && moc.isRejected==true">Rejected</h4>
+		<h4 ng-if="moc.status>=4 && ((status==4 && $index > 2) || status!=4)">Rejected</h4>
+		<h4 ng-if="moc.status<=1 && ((status==4 && $index > 2) || status!=4)">Awaiting Approval</h4>
 	</div>
 	<img src="{{ui.imageLink(moc.id)}}">
 </a> <!-- /.simple -->
