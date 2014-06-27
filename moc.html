@@ -22,7 +22,7 @@
 
 				<h2>Activity Stream</h2>
 
-				<div class="comment" ng-repeat="comment in comments track by $index">
+				<div class="comment" ng-repeat="comment in comments | filter:{type:1} track by $index">
 					<ng-include src="'includes/comment.html'"></ng-include>
 				</div>
 				<div class="comment">
@@ -36,7 +36,7 @@
 							<div>
 								<textarea placeholder="{{getMsg()}}" ng-model="myComment.content"></textarea>	
 							</div>
-							<a class="btn btn-primary right" ng-click="cr.addComment(myComment.content, myComment.isPublic); myComment.content=''" href="">Submit</a>
+							<a class="btn btn-primary right" ng-click="cr.addComment(myComment.content, myComment.isPublic, 1); myComment.content=''" href="">Submit</a>
 							<!-- <a class="btn right" href="">Cancel</a> -->
 							<input type="checkbox" ng-model="myComment.isPublic" /> Send message to {{single.name}}
 						</div>
@@ -80,7 +80,7 @@
 
 				<div class="moc-status">
 					<div>
-						<a class="btn btn-pill btn-{{stat.classname}}" ng-class="{active: stat.id==single.status}" ng-click="single.status=stat.id; cr.addStatus(stat.id)" href="" ng-repeat="stat in statii">{{stat.name}}</a>
+						<a class="btn btn-pill btn-{{stat.classname}}" ng-class="{active: stat.id==single.status}" ng-click="single.status=stat.id; cr.addStatus(stat.id, 1)" href="" ng-repeat="stat in statii | limitTo: 5">{{stat.name}}</a>
 					</div>
 					<div>
 						<a class="btn btn-pill btn-featured" ng-class="{active: single.isFeatured}" ng-click="single.isFeatured=!single.isFeatured" href="">Featured</a>

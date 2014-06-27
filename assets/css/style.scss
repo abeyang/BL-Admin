@@ -32,9 +32,8 @@ $color_danger: $red;
 
 $color_display: $purple;
 $color_pending: $blue;
-$color_sale: $green;
-$color_stores: $green;
-$color_banned: $red;
+$color_approved: $green;
+$color_rejected: $red;
 
 // -- Box Model
 $thumb_width: 140px;
@@ -72,6 +71,12 @@ $small: 0.85em;
     border-left: 2px solid $color;
 
     strong { color: $color; }
+}
+
+@mixin badge($color) {
+    color: $color; 
+    border: 1px solid $color;
+    background-color: transparent; 
 }
 
 // LAYOUT
@@ -166,10 +171,10 @@ img {
     color: $white;
     background-color: $lightestgray;
 
-    &.badge-clear { background-color: transparent; color: $gray; border: 1px solid $gray;}
-	&.badge-warning { background-color: transparent; color: $orange; border: 1px solid $orange;}
-	&.badge-success { background-color: $green; }
-	&.badge-danger { background-color: $red; }
+    &.badge-clear { @include badge($gray); }
+	&.badge-warning { @include badge($color_warning); }
+	&.badge-success { @include badge($color_success);  }
+	&.badge-danger { @include badge($color_danger); }
 }
 
 .truncate {
@@ -460,8 +465,8 @@ nav {
 
     &.status_display { @include status($color_display); }
     &.status_pending { @include status($color_pending); }
-    &.status_sale, &.status_stores { @include status($color_sale); }
-    &.status_banned { @include status($color_banned); }
+    &.status_approved { @include status($color_approved); }
+    &.status_rejected { @include status($color_rejected); }
 }
 
 .card {
@@ -630,8 +635,8 @@ nav {
     .btn.active {
         &.btn-display { @include filledbutton($color_display); }
         &.btn-pending { @include filledbutton($color_pending); }
-        &.btn-sale, &.btn-stores { @include filledbutton($color_sale); }
-        &.btn-banned { @include filledbutton($color_banned); }
+        &.btn-approved { @include filledbutton($color_approved); }
+        &.btn-rejected { @include filledbutton($color_rejected); }
         &.btn-featured { @include filledbutton($orange); }
     }
 
@@ -639,6 +644,12 @@ nav {
         border-color: $gray;
         color: $black;
         background-color: transparent;
+    }
+
+    .badge {
+        text-align: center;
+        padding-top: $pad;
+        padding-bottom: $pad;
     }
 }
 

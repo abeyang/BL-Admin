@@ -13,8 +13,11 @@
 			<li class="small"><a href="{{entry_link}}"><i class="fa fa-folder-o pad-right"></i> {{ entry_title }}</a></li>
 			
 			<!-- <li class="right" ng-bind-html="button"></li> -->
-			<li class="right small text-danger" ng-if="entry_status==3">Contest is over and winner has been chosen</li>
-			<li class="right small text-warning" ng-if="entry_status==2">Contest is over &mdash; please select a winner</li>
+			<li class="right small text-dull" ng-if="entry_status==0">Contest saved as draft</li>
+			<li class="right small text-dull" ng-if="entry_status==1">Contest scheduled to go live on {{ ui.getDate(entry.startDate) }}</li>
+			<li class="right small text-dull" ng-if="entry_status==2">Contest accepting MOCs</li>
+			<li class="right small text-dull" ng-if="entry_status==3">Contest is receiving votes</li>
+			<li class="right small text-dull" ng-if="entry_status==4">Contest has expired</li>
 		</ul>
 	</nav>
 
@@ -28,7 +31,7 @@
 
 				<h2>Activity Stream</h2>
 
-				<div class="comment" ng-repeat="comment in comments track by $index">
+				<div class="comment" ng-repeat="comment in comments | filter:{type:2} track by $index">
 					<ng-include src="'includes/comment.html'"></ng-include>
 				</div>
 				<div class="comment">
@@ -42,7 +45,7 @@
 							<div>
 								<textarea placeholder="{{getMsg()}}" ng-model="myComment.content"></textarea>	
 							</div>
-							<a class="btn btn-primary right" ng-click="cr.addComment(myComment.content, myComment.isPublic); myComment.content=''" href="">Submit</a>
+							<a class="btn btn-primary right" ng-click="cr.addComment(myComment.content, myComment.isPublic, 2); myComment.content=''" href="">Submit</a>
 
 							<input type="checkbox" ng-model="myComment.isPublic" /> Send message to {{single.name}}
 						</div>
@@ -69,9 +72,14 @@
 				</div> <!-- /.moc-info -->
 
 				<div class="moc-status">
-					<!-- @todo NEED TO UPDATE THIS; for design contest only -->
-					<div>
-						<a class="btn btn-pill btn-{{stat.classname}}" ng-class="{active: stat.id==single.status}" ng-click="single.status=stat.id; cr.addStatus(stat.id)" href="" ng-repeat="stat in statii">{{stat.name}}</a>
+					<!-- @todo maybe show status -->
+					<div ng-if="entry_status>=1 && entry_status<=3">
+						<a class="btn btn-pill btn-{{stat.classname}}" ng-class="{active: stat.id==single.status}" ng-click="single.status=stat.id; cr.addStatus(stat.id, 2)" href="" ng-repeat="stat in statii">{{stat.name}}</a>
+					</div>
+					<div ng-if="entry_status>3">
+						<div class="badge badge-success" ng-if="isThisPopular">
+							First Place
+						</div>
 					</div>
 				</div>
 				

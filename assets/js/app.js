@@ -189,23 +189,16 @@ app.controller('ContestItemController', function($scope, $location, ui, mocResou
 	// based on status of entry and status of moc item, button will be different..
 	var status = ui.findAttrById(statusResource, 'name', $scope.single.status);		// moc status
 	$scope.entry_status = ui.findAttrById(contestResource, 'status', contest_id);
+	
+	// placement: only shows when contest has expired
 	var popular_moc = mocResource.mostPopular(contest_id);
 	$scope.isThisPopular = (popular_moc.id == id);
-	
-	$scope.button = buttonize(status, '#');		// default button
-	if ($scope.entry_status==3) { // if contest is expired
-		if (popular_moc.id == id) { // if this moc is most popular
-			$scope.button = buttonize('Winner!', '#', 'btn-success')
-		}
-		else $scope.button = buttonize(status, '#', 'btn-disabled');
-	}
-	else if ($scope.entry_status==2) { // if contest is over, but awaiting approval
-		if ($scope.single.status != 3) { // if this moc is not already "rejected"
-			$scope.button = buttonize('Make this the Winner', '#', 'btn-primary')	
-		}
-	}
 
-	$scope.statii = statusResource.list();
+	$scope.statii = [
+		ui.findById(statusResource, 5),
+		ui.findById(statusResource, 1),
+		ui.findById(statusResource, 6)
+	];
 
 	$scope.getTagNames = function(tags) {
 		return tagResource.getTagNames(tags);
@@ -250,12 +243,6 @@ function getIdFromUrl(location) {
 	if (location.path()) id = location.path().substr(1);		// remove the first character, '/'
 	return id;
 }
-
-function buttonize(content, link, classes) {
-	if (!link) link = '#';
-	return '<a class="btn ' + classes + '" href="' + link + '">' + content + '</a>';
-}
-
 
 // FACTORIES
 
@@ -907,7 +894,6 @@ app.factory('tagResource', function () {
 
 app.factory('contestResource', function() {
 	// http://www.json-generator.com/
-	// @todo: need status 
 	// status: 0=draft, 1=scheduled, 2=new(accepting mocs), 3=pending(receiving votes), 4=expired
 	/*
 	[
@@ -932,143 +918,143 @@ app.factory('contestResource', function() {
 	var data = [
 	  {
 	    "id": 0,
-	    "entries": 57,
-	    "votes": 42,
-	    "views": 447,
-	    "prize1": "Nostrud et veniam elit commodo ex.",
-	    "prize2": "Nostrud tempor elit nulla dolore amet cillum sint deserunt excepteur sunt proident sunt cillum adipisicing.",
-	    "prize3": "Incididunt nostrud aliquip sit adipisicing proident qui nulla laboris incididunt ut proident est magna.",
-	    "startDate": "2014-04-21",
-	    "duration": 5,
-	    "daysleft": 13,
-	    "winners": 3,
+	    "entries": 17,
+	    "votes": 47,
+	    "views": 268,
+	    "prize1": "Ipsum in eu Lorem incididunt ut eu cupidatat nulla consectetur nostrud exercitation eu aute amet.",
+	    "prize2": "Mollit mollit laboris officia quis ut.",
+	    "prize3": "Quis reprehenderit reprehenderit eiusmod dolore excepteur ad.",
+	    "startDate": "2014-03-10",
+	    "duration": 30,
+	    "daysleft": 2,
+	    "winners": 1,
 	    "status": 4
 	  },
 	  {
 	    "id": 1,
-	    "entries": 194,
-	    "votes": 83,
-	    "views": 310,
-	    "prize1": "Ipsum ex sit aute magna nostrud nulla.",
-	    "prize2": "Ea dolore incididunt minim nostrud ex nisi adipisicing excepteur non.",
-	    "prize3": "Laborum est nisi eiusmod velit.",
-	    "startDate": "2014-02-28",
-	    "duration": 19,
-	    "daysleft": 1,
-	    "winners": 2,
-	    "status": 0
-	  },
-	  {
-	    "id": 2,
-	    "entries": 78,
-	    "votes": 53,
-	    "views": 181,
-	    "prize1": "Incididunt eiusmod id adipisicing voluptate est velit velit voluptate proident cillum eu laborum laboris.",
-	    "prize2": "Esse irure adipisicing magna magna nostrud consectetur dolore officia occaecat voluptate do amet mollit veniam.",
-	    "prize3": "Pariatur cillum nostrud voluptate in.",
-	    "startDate": "2014-02-20",
-	    "duration": 15,
-	    "daysleft": 6,
+	    "entries": 145,
+	    "votes": 42,
+	    "views": 322,
+	    "prize1": "Elit sit pariatur et dolor amet nulla cupidatat occaecat.",
+	    "prize2": "Proident voluptate eiusmod cillum consectetur consectetur adipisicing sunt consectetur ea sint.",
+	    "prize3": "Minim qui elit cillum veniam id occaecat ad officia eiusmod.",
+	    "startDate": "2014-03-07",
+	    "duration": 25,
+	    "daysleft": 3,
 	    "winners": 2,
 	    "status": 3
 	  },
 	  {
-	    "id": 3,
-	    "entries": 63,
-	    "votes": 40,
-	    "views": 349,
-	    "prize1": "Deserunt velit consequat mollit in nulla nostrud minim culpa quis id ullamco.",
-	    "prize2": "Id ex consectetur et fugiat laboris aliquip ullamco et id aliquip commodo proident.",
-	    "prize3": "Anim deserunt magna quis irure do enim eiusmod laboris nostrud labore ex irure labore.",
-	    "startDate": "2014-05-08",
-	    "duration": 24,
-	    "daysleft": 16,
+	    "id": 2,
+	    "entries": 77,
+	    "votes": 80,
+	    "views": 381,
+	    "prize1": "Ex do id fugiat in officia mollit eu labore minim.",
+	    "prize2": "Ex qui elit qui enim ad cupidatat veniam amet occaecat ad fugiat.",
+	    "prize3": "Deserunt reprehenderit incididunt magna magna velit.",
+	    "startDate": "2014-03-11",
+	    "duration": 9,
+	    "daysleft": 10,
 	    "winners": 1,
 	    "status": 2
 	  },
 	  {
-	    "id": 4,
-	    "entries": 80,
-	    "votes": 63,
-	    "views": 53,
-	    "prize1": "Cupidatat ad sit et culpa quis esse nulla nostrud aute amet.",
-	    "prize2": "Consequat do aliquip esse labore.",
-	    "prize3": "Dolore sunt aliquip ut ex.",
-	    "startDate": "2014-02-09",
-	    "duration": 18,
-	    "daysleft": 9,
-	    "winners": 3,
-	    "status": 4
-	  },
-	  {
-	    "id": 5,
-	    "entries": 30,
-	    "votes": 97,
-	    "views": 279,
-	    "prize1": "Qui laboris ad amet nostrud commodo.",
-	    "prize2": "Veniam ipsum enim proident eu reprehenderit magna Lorem deserunt reprehenderit dolor est sit.",
-	    "prize3": "Excepteur dolor consectetur incididunt sunt aute eu voluptate qui veniam.",
-	    "startDate": "2014-01-14",
-	    "duration": 25,
-	    "daysleft": 8,
-	    "winners": 2,
-	    "status": 4
-	  },
-	  {
-	    "id": 6,
-	    "entries": 52,
+	    "id": 3,
+	    "entries": 149,
 	    "votes": 92,
-	    "views": 370,
-	    "prize1": "Adipisicing do proident nostrud enim adipisicing cillum ut reprehenderit id consectetur duis ut exercitation elit.",
-	    "prize2": "Exercitation est laboris laboris ea officia quis elit pariatur amet exercitation nostrud cillum ut dolor.",
-	    "prize3": "Aliqua voluptate duis officia ullamco anim adipisicing exercitation adipisicing aute proident ea occaecat.",
-	    "startDate": "2014-01-16",
-	    "duration": 21,
-	    "daysleft": 10,
+	    "views": 444,
+	    "prize1": "Id cupidatat et dolor ipsum.",
+	    "prize2": "In aliquip non eiusmod ut velit nisi commodo mollit Lorem laborum.",
+	    "prize3": "Adipisicing incididunt officia reprehenderit enim occaecat consequat id labore mollit voluptate nulla.",
+	    "startDate": "2014-02-26",
+	    "duration": 19,
+	    "daysleft": 20,
 	    "winners": 1,
 	    "status": 3
 	  },
 	  {
-	    "id": 7,
-	    "entries": 37,
-	    "votes": 91,
-	    "views": 62,
-	    "prize1": "Adipisicing ut ex sit ad magna veniam sit esse ea elit.",
-	    "prize2": "Cupidatat elit consequat velit consequat culpa labore excepteur ad occaecat.",
-	    "prize3": "Consectetur nostrud eiusmod adipisicing minim ipsum id voluptate proident cillum dolore.",
-	    "startDate": "2014-05-15",
-	    "duration": 2,
-	    "daysleft": 19,
+	    "id": 4,
+	    "entries": 77,
+	    "votes": 51,
+	    "views": 477,
+	    "prize1": "Fugiat ex ex officia minim ut laboris nostrud aute adipisicing ea cillum laboris.",
+	    "prize2": "Reprehenderit tempor adipisicing eiusmod anim commodo duis cillum laboris dolor occaecat.",
+	    "prize3": "Quis do non pariatur exercitation in cupidatat quis laboris.",
+	    "startDate": "2014-03-02",
+	    "duration": 3,
+	    "daysleft": 12,
 	    "winners": 3,
+	    "status": 0
+	  },
+	  {
+	    "id": 5,
+	    "entries": 150,
+	    "votes": 49,
+	    "views": 290,
+	    "prize1": "Id reprehenderit incididunt occaecat anim Lorem magna duis.",
+	    "prize2": "Occaecat qui enim magna nostrud velit reprehenderit consequat esse voluptate nulla laboris culpa.",
+	    "prize3": "Laboris dolore ut et veniam aliqua eu sit tempor irure proident aliquip irure consectetur ex.",
+	    "startDate": "2014-06-04",
+	    "duration": 26,
+	    "daysleft": 5,
+	    "winners": 2,
+	    "status": 2
+	  },
+	  {
+	    "id": 6,
+	    "entries": 164,
+	    "votes": 41,
+	    "views": 438,
+	    "prize1": "Enim sunt ullamco excepteur consectetur enim enim elit non occaecat.",
+	    "prize2": "Eu id commodo exercitation commodo adipisicing sunt commodo.",
+	    "prize3": "Veniam aute occaecat irure id eu dolore dolor pariatur.",
+	    "startDate": "2014-06-20",
+	    "duration": 13,
+	    "daysleft": 18,
+	    "winners": 2,
 	    "status": 4
+	  },
+	  {
+	    "id": 7,
+	    "entries": 29,
+	    "votes": 54,
+	    "views": 241,
+	    "prize1": "Consequat magna ut nostrud excepteur fugiat esse est.",
+	    "prize2": "Minim magna cillum in reprehenderit.",
+	    "prize3": "Lorem pariatur sint consectetur quis minim cupidatat est.",
+	    "startDate": "2014-03-12",
+	    "duration": 17,
+	    "daysleft": 17,
+	    "winners": 1,
+	    "status": 0
 	  },
 	  {
 	    "id": 8,
-	    "entries": 140,
-	    "votes": 95,
-	    "views": 468,
-	    "prize1": "Culpa eu magna eu esse qui.",
-	    "prize2": "Non anim deserunt Lorem aliquip non duis est laboris enim.",
-	    "prize3": "Ut esse adipisicing duis elit Lorem enim ipsum Lorem incididunt sit proident nulla nostrud dolor.",
-	    "startDate": "2014-06-23",
-	    "duration": 30,
-	    "daysleft": 15,
-	    "winners": 3,
-	    "status": 1
+	    "entries": 131,
+	    "votes": 67,
+	    "views": 325,
+	    "prize1": "Magna proident excepteur nostrud voluptate nostrud deserunt cupidatat nostrud.",
+	    "prize2": "Officia culpa minim officia voluptate veniam Lorem aliquip cupidatat.",
+	    "prize3": "Esse nostrud enim qui laboris duis culpa pariatur enim irure adipisicing non velit.",
+	    "startDate": "2014-01-13",
+	    "duration": 18,
+	    "daysleft": 3,
+	    "winners": 2,
+	    "status": 4
 	  },
 	  {
 	    "id": 9,
-	    "entries": 198,
-	    "votes": 17,
-	    "views": 212,
-	    "prize1": "Non excepteur ullamco dolor qui velit.",
-	    "prize2": "Lorem ipsum laboris sit proident irure proident mollit non labore commodo consectetur.",
-	    "prize3": "Ut voluptate sunt aute fugiat mollit ea amet proident id nostrud anim nisi.",
-	    "startDate": "2014-05-29",
-	    "duration": 4,
-	    "daysleft": 5,
+	    "entries": 27,
+	    "votes": 77,
+	    "views": 362,
+	    "prize1": "Occaecat ex consectetur fugiat ullamco enim.",
+	    "prize2": "Ullamco officia sit consequat culpa do quis.",
+	    "prize3": "Ipsum cupidatat culpa officia anim officia pariatur qui eiusmod irure.",
+	    "startDate": "2014-03-24",
+	    "duration": 20,
+	    "daysleft": 17,
 	    "winners": 2,
-	    "status": 4
+	    "status": 0
 	  }
 	];
 
@@ -1891,9 +1877,11 @@ app.factory('statusResource', function () {
 	var data = [
 		{id:0,	name:"Display Only",		classname:"display"},
 		{id:1,	name:"Awaiting Approval",	classname:"pending"},
-		{id:2,	name:"Ready For Sale",		classname:"sale"},
-		{id:3,	name:"In Stores",			classname:"stores"},
-		{id:4,	name:"Banned",				classname:"banned"}
+		{id:2,	name:"Ready For Sale",		classname:"approved"},
+		{id:3,	name:"In Stores",			classname:"approved"},
+		{id:4,	name:"Banned",				classname:"rejected"},
+		{id:5,	name:"Rejected",			classname:"rejected"},
+		{id:6,	name:"Approved",			classname:"approved"}
 	];
 	
 	return {
@@ -1908,14 +1896,15 @@ app.factory('commentsResource', function () {
 	// 'id' here refers to avatar image
 
 	var data = [
-		{id:0,	name:"Eunice Kim",	isAdmin:true,	isPublic:false,content: 'Alex, what do you think of this?', status: '', submitTime: "2014-06-19T11:36:02"},
-		{id:1,	name:"Alex Nam",	isAdmin:true,	isPublic:true, content: "Hi Designer, have you read our ToS? You know you can't put this up, right?", status: '', submitTime: "2014-06-19T12:13:02"},
-		{id:2,	name:"",	isAdmin:false,	isPublic:true, content: "Oh really? No I didn't!", status: '', submitTime: "2014-06-19T13:25:02"},
-		{id:0,	name:"Eunice Kim",	isAdmin:true,	isPublic:true, content: "", status: 0, submitTime: "2014-06-19T14:41:02"},
-		{id:0,	name:"Eunice Kim",	isAdmin:true,	isPublic:true, content: "We can't approve this because it violates our Terms of Service. Sorry!", status: '', submitTime: "2014-06-19T14:41:02"},
-		{id:2,	name:"",	isAdmin:false,	isPublic:true, content: "Nooo! Here, I changed it, look!", status: '', submitTime: "2014-06-19T15:07:02"},
-		{id:1,	name:"Alex Nam",	isAdmin:true,	isPublic:true, content: '', status: 2, submitTime: "2014-06-19T15:11:02"},
-		{id:1,	name:"Alex Nam",	isAdmin:true,	isPublic:true, content: "Very nice! Approved!", status: '', submitTime: "2014-06-19T15:11:02"}
+		{id:0,	type:1, name:"Eunice Kim",	isAdmin:true,	isPublic:false,content: 'Alex, what do you think of this?', status: '', submitTime: "2014-06-19T11:36:02"},
+		{id:1,	type:1, name:"Alex Nam",	isAdmin:true,	isPublic:true, content: "Hi Designer, have you read our ToS? You know you can't put this up, right?", status: '', submitTime: "2014-06-19T12:13:02"},
+		{id:2,	type:1, name:"",	isAdmin:false,	isPublic:true, content: "Oh really? No I didn't!", status: '', submitTime: "2014-06-19T13:25:02"},
+		{id:0,	type:1, name:"Eunice Kim",	isAdmin:true,	isPublic:true, content: "", status: 0, submitTime: "2014-06-19T14:41:02"},
+		{id:0,	type:1, name:"Eunice Kim",	isAdmin:true,	isPublic:true, content: "We can't approve this because it violates our Terms of Service. Sorry!", status: '', submitTime: "2014-06-19T14:41:02"},
+		{id:2,	type:1, name:"",	isAdmin:false,	isPublic:true, content: "Nooo! Here, I changed it, look!", status: '', submitTime: "2014-06-19T15:07:02"},
+		{id:1,	type:1, name:"Alex Nam",	isAdmin:true,	isPublic:true, content: '', status: 2, submitTime: "2014-06-19T15:11:02"},
+		{id:1,	type:1, name:"Alex Nam",	isAdmin:true,	isPublic:true, content: "Very nice! Approved!", status: '', submitTime: "2014-06-19T15:11:02"},
+		{id:8,	type:2, name:"Alice Finch",	isAdmin:true,	isPublic:false, content: "Hmm, I don't know about this MOC", status: '', submitTime: "2014-06-19T15:11:02"}
 	];
 
 	var defaultComment = {id:3, name:'Abe Yang', isAdmin:true};
@@ -1928,16 +1917,18 @@ app.factory('commentsResource', function () {
 			obj.submitTime = moment().format();
 			data.push(obj);
 		},
-		addStatus: function(status) {
+		addStatus: function(status, type) {
 			var comment = _.clone(defaultComment);
 			comment.status = status;
+			comment.type = type;
 			this.add(comment);
 		},
-		addComment: function(content, isPublic) {
+		addComment: function(content, isPublic, type) {
 			var comment = _.clone(defaultComment)
 			comment.status = '';
 			comment.content = content;
 			comment.isPublic = isPublic;
+			comment.type = type;
 			this.add(comment);
 		}
 	}
