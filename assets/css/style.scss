@@ -414,11 +414,6 @@ nav {
         padding: $pad $pad * 2;
     }
 
-    .table-grid {
-        @include span-columns(12);
-        @include row(table);
-    }
-
     .col-half {
         @include span-columns(6);
     }
@@ -430,6 +425,31 @@ nav {
     }
 }
 
+.avatar {
+    border-radius: $radius;
+    overflow: hidden;
+    background-color: $lightergray;
+}
+
+.sidecomment {
+    @include clearfix;
+    margin-bottom: $pad;
+    font-size: $small;
+
+    .avatar {
+        float: left;
+        width: 48px;
+        height: 48px;
+        margin-right: $pad;
+    }
+
+    a { 
+        color: $black;
+        text-decoration: underline;
+    }
+
+}
+
 .comment {
     @include span-columns(8 of 8);
     border-top: 1px solid $lightestgray;
@@ -437,9 +457,6 @@ nav {
     .avatar {
         @include span-columns(1 of 8);
         height: 58px;
-        border-radius: $radius;
-        overflow: hidden;
-        background-color: $lightergray;
     }
     .headerline {
         margin-bottom: -1em;
@@ -458,7 +475,6 @@ nav {
     .btn {
         margin-left: $pad;
     }
-    .comment_msg { display: none; }
 }
 
 .comment_wrapper { 
@@ -685,10 +701,18 @@ nav {
     margin-bottom: $margin;
 }
 
+.col-twothird .block {
+    max-width: 530px;
+}
+
 .table-grid .list-item {
-    @include span-columns(6);
-//    @include reset-display(2n);
-    @include pad();
+    float: left;
+    width: 50%;
+    height: 150px;
+    overflow: hidden;
+    
+    &:nth-child(even) { border-left: none; }
+    &:nth-last-child(2) { border-bottom: 1px solid $lightestgray; }
 }
 .list-item {
     @include clearfix;

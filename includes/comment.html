@@ -4,7 +4,7 @@
 		<div class="headerline">
 			<span class="badge badge-clear right" ng-if="!comment.isAdmin">Designer</span>
 			<span class="badge right" ng-if="!comment.isPublic">Private</span>
-			<strong>{{ comment.name || single.name}} <span class="comment_msg">{{comment.status}}ed this MOC</span></strong> on {{ ui.getDateTime(comment.submitTime) }}
+			<strong>{{ comment.name || single.name}}</strong> on {{ ui.getDateTime(comment.submitTime) }}
 		</div>
 		<p>{{ comment.content }}</p>
 	</div>

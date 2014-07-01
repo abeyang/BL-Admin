@@ -28,9 +28,12 @@
 			</div>
 
 			<div class="col-third">
-				Comments...
-				<!-- @todo need comments on the side -->
-
+				<h3>Recent Comments</h3>
+				<div class="sidecomment" ng-repeat="topic in topics | filter:{category:thisCategory.id}">
+					<div class="avatar"><img src="{{ui.avatarLink($index)}}" /></div> 
+					Name / date <br />
+					<a href="">Donec sed odio dui. Maecenas faucibus mollis interdum.</a>
+				</div>
 			</div>
 			
 		</div> <!-- /.container -->
