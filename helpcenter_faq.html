@@ -1,0 +1,33 @@
+<!-- $title - Help Center - FAQ -->
+<!-- $isactive-help class="active" -->
+<!-- $body-meta class="blank" ng-controller="HelpTopicsController" -->
+<!-- @include _header -->
+
+	<nav class="subnav">
+		<ul class="container">
+			<li class="separator">&nbsp;</li>
+			<li class="active"><a href="">{{ thisCategory.title }}</a></li>
+			<li class="separator">&nbsp;</li>
+
+			<li><a href="{{getTopicsLink}}">Topics</a></li>
+			<li class="active"><a href="">FAQ</a></li> 
+
+			<li class="right"><a class="btn" href="#">Add Question/Answer</a></li>
+		</ul>
+	</nav>
+
+	<section>
+
+		<div class="container">
+			<div class="lists table-grid">
+				<div class="list-item" ng-repeat="topic in topics | filter:{category:thisCategory.id} | orderBy:'submitTime'">
+					<ng-include src="'includes/hc_question_item.html'"></ng-include>
+				</div> <!-- /.list-item -->
+			</div>
+		</div> <!-- /.container -->
+
+	</section>
+
+	<!-- @todo show pagination -->
+  
+<!-- @include _footer -->

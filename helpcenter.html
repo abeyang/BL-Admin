@@ -1,0 +1,31 @@
+<!-- $title - Help Center - Categories -->
+<!-- $isactive-help class="active" -->
+<!-- $body-meta class="blank" ng-controller="HelpController" -->
+<!-- @include _header -->
+
+	<nav class="subnav">
+		<ul class="container">
+			<li class="active"><a href="">Categories</a></li>
+
+			<li class="right"><a class="btn" href="#">Add Category</a></li>
+			<li class="right"><a class="btn" href="#">Sort</a></li>
+		</ul>
+	</nav>
+
+	<section>
+
+		<div class="container">
+		<!-- @todo need to show edit icon -->
+		<!-- @todo ability to sort? delete/archive? -->
+		<!-- @todo need to metrics for # of topics and FAQ -->
+			<div class="category" ng-repeat="cat in categories">
+				<h3><a href="{{ getCategoryLink(cat.id) }}">{{ cat.title }}</a></h3>
+				<div class="main">{{ cat.content }}</div>
+				<div class="labels">For: {{ cat.for }}</div>
+			</div> <!-- /.category -->
+		
+		</div> <!-- /.container -->
+
+	</section>
+  
+<!-- @include _footer -->

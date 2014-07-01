@@ -1,0 +1,17 @@
+<!-- <div class="staff-mark" ng-if="topic.markedByStaff"></div> -->
+
+<div class="right">
+	<div class="block circle">
+		<h3>{{ topic.comments }}</h3>
+		<ng-pluralize count="topic.comments" when="{'one': 'Comment', 'other': 'Comments'}"></ng-pluralize>
+	</div>
+	<div class="block circle">
+		<h3>{{ topic.views }}</h3>
+		<ng-pluralize count="topic.views" when="{'one': 'View', 'other': 'Views'}"></ng-pluralize>
+	</div>
+</div>
+
+<div class="block">
+	<h3><a href="#/{{topic.id}}">{{ topic.title }}</a></h3>
+	<span>Written on {{ ui.getDateTime(topic.submitTime) }} </span>
+</div>

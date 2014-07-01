@@ -215,25 +215,36 @@ app.controller('ContestItemController', function($scope, $location, ui, mocResou
 
 /* Help Center Controllers */
 
-app.controller('HelpQAController', function($scope, ui, helpQuestionsResource) {
-
-	$scope.ui = ui;
-	
-	$scope.entries = helpQuestionsResource.list();
-
-	$scope.filterEntries = {
-		isAnswered: false
-	};
-
-	$scope.entryOrder = '-activeTime';
-});
-
-app.controller('HelpCatController', function($scope, ui, helpCategoriesResource) {
+app.controller('HelpController', function($scope, ui, helpCategoriesResource) {
 
 	$scope.ui = ui;
 	
 	$scope.categories = helpCategoriesResource.list();
+
+	$scope.getCategoryLink = function(id) {
+		return "helpcenter_topics.html#/" + id;
+	};
 });
+
+// app.controller('HelpCatController', function($scope, ui, helpCategoriesResource) {
+
+// 	$scope.ui = ui;
+
+// });
+
+app.controller('HelpTopicsController', function($scope, $location, ui, helpCategoriesResource, helpTopicsResource) {
+
+	$scope.ui = ui;
+
+	var id = getIdFromUrl($location);
+	$scope.thisCategory = ui.findById(helpCategoriesResource, id);
+	
+	$scope.topics = helpTopicsResource.list();
+
+	$scope.getTopicsLink = "helpcenter_topics.html#/" + id;
+	$scope.getFaqLink = "helpcenter_faq.html#/" + id;
+});
+
 
 
 // HELPERS
@@ -1065,729 +1076,475 @@ app.factory('contestResource', function() {
 	}
 });
 
-app.factory('helpQuestionsResource', function() {
+app.factory('helpTopicsResource', function() {
+	// @todo need to delete (or adjust)
 	// http://www.json-generator.com/
 	/*
 	[
 	    '{{repeat(50)}}',
 	    {
 	        id: '{{index()}}',
-	        name: '{{firstName()}} {{surname()}}',
 	        title: '{{lorem(7, "words")}}',
+	        content: '{{lorem(2, "sentences")}}',
 	        category: '{{integer(0, 7)}}',
-	        votes: '{{integer(0, 20)}}',
-	        answers: '{{integer(1, 30)}}',
+	        comments: '{{integer(1, 30)}}',
 	        views: '{{integer(1, 500)}}',
-	        submitTime: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
-	        lastUpdater: '{{firstName()}} {{surname()}}',
-	        activeTime: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
-	        isAnswered: '{{bool()}}',
-	        markedByStaff: '{{bool()}}'
+	        submitTime: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}'
 	    }
 	]
 	*/
 
 	var data = [
-	    {
-	        "id": 0,
-	        "name": "Lakisha Flowers",
-	        "title": "occaecat aute duis sit in eu labore",
-	        "category": 6,
-	        "votes": 7,
-	        "answers": 17,
-	        "views": 227,
-	        "submitTime": "2014-01-05T21:41:48",
-	        "lastUpdater": "Hartman Bowman",
-	        "activeTime": "2014-02-08T04:27:06",
-	        "isAnswered": true,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 1,
-	        "name": "Morales Acosta",
-	        "title": "aliqua Lorem eiusmod aliquip occaecat cillum cillum",
-	        "category": 1,
-	        "votes": 20,
-	        "answers": 4,
-	        "views": 462,
-	        "submitTime": "2014-05-20T06:18:40",
-	        "lastUpdater": "Roach Banks",
-	        "activeTime": "2014-03-12T16:22:46",
-	        "isAnswered": true,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 2,
-	        "name": "Rosario Gillespie",
-	        "title": "quis cillum amet esse est proident veniam",
-	        "category": 0,
-	        "votes": 18,
-	        "answers": 17,
-	        "views": 191,
-	        "submitTime": "2014-01-21T01:34:21",
-	        "lastUpdater": "Sheppard Mosley",
-	        "activeTime": "2014-02-12T13:52:46",
-	        "isAnswered": true,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 3,
-	        "name": "Jodie Brewer",
-	        "title": "quis ad nisi pariatur laboris sunt fugiat",
-	        "category": 0,
-	        "votes": 13,
-	        "answers": 16,
-	        "views": 372,
-	        "submitTime": "2014-05-04T15:55:37",
-	        "lastUpdater": "Liliana Huffman",
-	        "activeTime": "2014-01-20T12:01:52",
-	        "isAnswered": false,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 4,
-	        "name": "Luella Melendez",
-	        "title": "cillum voluptate officia ipsum exercitation occaecat labore",
-	        "category": 7,
-	        "votes": 2,
-	        "answers": 1,
-	        "views": 440,
-	        "submitTime": "2014-05-28T11:02:35",
-	        "lastUpdater": "Alyson Schroeder",
-	        "activeTime": "2014-05-04T02:01:03",
-	        "isAnswered": false,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 5,
-	        "name": "Robin Stark",
-	        "title": "laboris laboris nulla elit eiusmod et anim",
-	        "category": 6,
-	        "votes": 5,
-	        "answers": 16,
-	        "views": 156,
-	        "submitTime": "2014-04-01T03:40:02",
-	        "lastUpdater": "Noemi Wise",
-	        "activeTime": "2014-01-30T00:26:54",
-	        "isAnswered": false,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 6,
-	        "name": "Castro Pacheco",
-	        "title": "ipsum deserunt ullamco occaecat ad dolor cupidatat",
-	        "category": 7,
-	        "votes": 4,
-	        "answers": 19,
-	        "views": 22,
-	        "submitTime": "2014-05-27T23:15:13",
-	        "lastUpdater": "Jenny Conway",
-	        "activeTime": "2014-02-06T16:15:11",
-	        "isAnswered": true,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 7,
-	        "name": "Finley Davenport",
-	        "title": "nisi culpa ut mollit aliqua commodo eiusmod",
-	        "category": 6,
-	        "votes": 19,
-	        "answers": 10,
-	        "views": 270,
-	        "submitTime": "2014-03-25T16:08:58",
-	        "lastUpdater": "West Durham",
-	        "activeTime": "2014-03-19T17:27:13",
-	        "isAnswered": false,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 8,
-	        "name": "Jacquelyn Cantu",
-	        "title": "dolore nostrud ullamco anim est nostrud irure",
-	        "category": 3,
-	        "votes": 1,
-	        "answers": 9,
-	        "views": 154,
-	        "submitTime": "2014-05-18T15:48:52",
-	        "lastUpdater": "Sherman Hendricks",
-	        "activeTime": "2014-01-14T02:50:19",
-	        "isAnswered": true,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 9,
-	        "name": "Kathie Walters",
-	        "title": "ullamco commodo laborum sint sint consectetur velit",
-	        "category": 1,
-	        "votes": 19,
-	        "answers": 27,
-	        "views": 483,
-	        "submitTime": "2014-05-19T19:58:33",
-	        "lastUpdater": "Bridgett Strong",
-	        "activeTime": "2014-01-12T00:00:25",
-	        "isAnswered": true,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 10,
-	        "name": "Elizabeth Spencer",
-	        "title": "reprehenderit dolore consectetur cillum cupidatat enim do",
-	        "category": 5,
-	        "votes": 16,
-	        "answers": 7,
-	        "views": 47,
-	        "submitTime": "2014-02-03T15:26:44",
-	        "lastUpdater": "Alison Langley",
-	        "activeTime": "2014-03-25T18:56:32",
-	        "isAnswered": false,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 11,
-	        "name": "Montgomery Guerrero",
-	        "title": "eu in consectetur do quis et ullamco",
-	        "category": 6,
-	        "votes": 5,
-	        "answers": 2,
-	        "views": 251,
-	        "submitTime": "2014-04-27T23:35:39",
-	        "lastUpdater": "Sellers Fields",
-	        "activeTime": "2014-01-09T15:10:43",
-	        "isAnswered": false,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 12,
-	        "name": "Fry Jacobs",
-	        "title": "dolor irure nostrud qui Lorem voluptate non",
-	        "category": 0,
-	        "votes": 4,
-	        "answers": 15,
-	        "views": 253,
-	        "submitTime": "2014-01-19T11:24:09",
-	        "lastUpdater": "Sharpe Townsend",
-	        "activeTime": "2014-03-05T08:48:46",
-	        "isAnswered": true,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 13,
-	        "name": "Lee Gomez",
-	        "title": "reprehenderit laboris id consectetur labore do eu",
-	        "category": 2,
-	        "votes": 10,
-	        "answers": 27,
-	        "views": 23,
-	        "submitTime": "2014-02-14T19:17:58",
-	        "lastUpdater": "Blair Clarke",
-	        "activeTime": "2014-04-08T04:49:15",
-	        "isAnswered": false,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 14,
-	        "name": "Susanna Faulkner",
-	        "title": "magna aute sit ullamco dolor incididunt et",
-	        "category": 3,
-	        "votes": 12,
-	        "answers": 11,
-	        "views": 340,
-	        "submitTime": "2014-05-16T12:01:51",
-	        "lastUpdater": "Cox Kane",
-	        "activeTime": "2014-04-30T22:56:00",
-	        "isAnswered": true,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 15,
-	        "name": "Pace Nguyen",
-	        "title": "anim duis irure officia consectetur Lorem nostrud",
-	        "category": 2,
-	        "votes": 6,
-	        "answers": 26,
-	        "views": 451,
-	        "submitTime": "2014-01-06T05:53:22",
-	        "lastUpdater": "Dee Alvarado",
-	        "activeTime": "2014-03-19T07:19:52",
-	        "isAnswered": false,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 16,
-	        "name": "Barber Walton",
-	        "title": "irure dolor culpa eu deserunt dolor nulla",
-	        "category": 0,
-	        "votes": 2,
-	        "answers": 24,
-	        "views": 8,
-	        "submitTime": "2014-04-21T03:23:47",
-	        "lastUpdater": "Phyllis Miles",
-	        "activeTime": "2014-05-15T09:34:39",
-	        "isAnswered": false,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 17,
-	        "name": "Eloise Trevino",
-	        "title": "cupidatat magna incididunt aute non qui exercitation",
-	        "category": 7,
-	        "votes": 6,
-	        "answers": 20,
-	        "views": 180,
-	        "submitTime": "2014-05-16T14:12:31",
-	        "lastUpdater": "Estelle Noel",
-	        "activeTime": "2014-01-23T05:20:26",
-	        "isAnswered": true,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 18,
-	        "name": "Mildred Bell",
-	        "title": "veniam nostrud veniam culpa eiusmod duis aliquip",
-	        "category": 4,
-	        "votes": 14,
-	        "answers": 20,
-	        "views": 267,
-	        "submitTime": "2014-06-01T08:45:23",
-	        "lastUpdater": "Estrada Dickerson",
-	        "activeTime": "2014-02-21T16:34:01",
-	        "isAnswered": false,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 19,
-	        "name": "Harvey Evans",
-	        "title": "occaecat ullamco reprehenderit veniam nisi aliqua Lorem",
-	        "category": 5,
-	        "votes": 14,
-	        "answers": 24,
-	        "views": 325,
-	        "submitTime": "2014-01-23T02:25:29",
-	        "lastUpdater": "Pope Schwartz",
-	        "activeTime": "2014-02-14T12:24:00",
-	        "isAnswered": false,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 20,
-	        "name": "Stanton Ratliff",
-	        "title": "aute cillum qui ex dolor ut ad",
-	        "category": 1,
-	        "votes": 15,
-	        "answers": 17,
-	        "views": 370,
-	        "submitTime": "2014-03-17T14:46:04",
-	        "lastUpdater": "Estela Patton",
-	        "activeTime": "2014-02-16T04:05:25",
-	        "isAnswered": true,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 21,
-	        "name": "Dillard Keith",
-	        "title": "excepteur velit cillum sint dolore ipsum pariatur",
-	        "category": 4,
-	        "votes": 9,
-	        "answers": 10,
-	        "views": 119,
-	        "submitTime": "2014-03-21T15:43:20",
-	        "lastUpdater": "Betsy Skinner",
-	        "activeTime": "2014-05-23T19:00:37",
-	        "isAnswered": false,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 22,
-	        "name": "Fuentes Winters",
-	        "title": "quis nulla voluptate sit voluptate id non",
-	        "category": 2,
-	        "votes": 7,
-	        "answers": 21,
-	        "views": 281,
-	        "submitTime": "2014-02-21T10:02:06",
-	        "lastUpdater": "Huber Holland",
-	        "activeTime": "2014-05-04T00:44:44",
-	        "isAnswered": false,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 23,
-	        "name": "Church Gibson",
-	        "title": "ex aute laboris duis aliquip aute commodo",
-	        "category": 7,
-	        "votes": 16,
-	        "answers": 19,
-	        "views": 5,
-	        "submitTime": "2014-03-11T03:13:51",
-	        "lastUpdater": "Brewer Atkins",
-	        "activeTime": "2014-02-28T19:27:19",
-	        "isAnswered": false,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 24,
-	        "name": "Rhodes Larsen",
-	        "title": "nisi laboris reprehenderit pariatur laborum aute et",
-	        "category": 5,
-	        "votes": 0,
-	        "answers": 9,
-	        "views": 79,
-	        "submitTime": "2014-03-27T06:05:44",
-	        "lastUpdater": "Laverne Hendrix",
-	        "activeTime": "2014-04-25T12:32:33",
-	        "isAnswered": true,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 25,
-	        "name": "Lakeisha Santiago",
-	        "title": "duis amet magna ex proident dolor duis",
-	        "category": 5,
-	        "votes": 1,
-	        "answers": 22,
-	        "views": 126,
-	        "submitTime": "2014-05-23T01:50:24",
-	        "lastUpdater": "Daugherty Hammond",
-	        "activeTime": "2014-03-07T00:10:01",
-	        "isAnswered": false,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 26,
-	        "name": "Virgie Marsh",
-	        "title": "laborum culpa voluptate anim duis sunt Lorem",
-	        "category": 7,
-	        "votes": 15,
-	        "answers": 29,
-	        "views": 372,
-	        "submitTime": "2014-02-01T04:17:28",
-	        "lastUpdater": "Michele Garza",
-	        "activeTime": "2014-05-10T17:28:08",
-	        "isAnswered": false,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 27,
-	        "name": "Sawyer Nixon",
-	        "title": "eu ipsum fugiat amet non consequat cillum",
-	        "category": 6,
-	        "votes": 0,
-	        "answers": 2,
-	        "views": 204,
-	        "submitTime": "2014-03-18T04:22:28",
-	        "lastUpdater": "Hayes Dorsey",
-	        "activeTime": "2014-01-31T08:50:43",
-	        "isAnswered": true,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 28,
-	        "name": "Diann York",
-	        "title": "sunt qui velit officia deserunt esse ex",
-	        "category": 5,
-	        "votes": 17,
-	        "answers": 17,
-	        "views": 363,
-	        "submitTime": "2014-05-20T00:51:27",
-	        "lastUpdater": "Nichols Kirby",
-	        "activeTime": "2014-01-02T18:59:40",
-	        "isAnswered": false,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 29,
-	        "name": "Mcdowell French",
-	        "title": "ullamco sint nostrud cupidatat ex tempor est",
-	        "category": 4,
-	        "votes": 9,
-	        "answers": 1,
-	        "views": 249,
-	        "submitTime": "2014-05-15T03:18:05",
-	        "lastUpdater": "Grimes Craft",
-	        "activeTime": "2014-02-16T22:05:02",
-	        "isAnswered": true,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 30,
-	        "name": "Molly Mckee",
-	        "title": "incididunt non aliqua excepteur anim anim voluptate",
-	        "category": 4,
-	        "votes": 18,
-	        "answers": 22,
-	        "views": 472,
-	        "submitTime": "2014-03-17T21:14:41",
-	        "lastUpdater": "George Richards",
-	        "activeTime": "2014-03-17T01:12:39",
-	        "isAnswered": true,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 31,
-	        "name": "Mccoy Fox",
-	        "title": "dolor nulla minim cillum Lorem sint elit",
-	        "category": 2,
-	        "votes": 12,
-	        "answers": 27,
-	        "views": 436,
-	        "submitTime": "2014-04-16T01:33:39",
-	        "lastUpdater": "Miriam Serrano",
-	        "activeTime": "2014-02-24T19:03:06",
-	        "isAnswered": false,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 32,
-	        "name": "Maryanne Wade",
-	        "title": "sunt ea enim anim officia aute pariatur",
-	        "category": 3,
-	        "votes": 7,
-	        "answers": 14,
-	        "views": 445,
-	        "submitTime": "2014-05-31T22:33:45",
-	        "lastUpdater": "Maggie Johnston",
-	        "activeTime": "2014-02-18T17:20:18",
-	        "isAnswered": false,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 33,
-	        "name": "Latisha Meadows",
-	        "title": "cillum sit et dolor veniam magna minim",
-	        "category": 6,
-	        "votes": 5,
-	        "answers": 1,
-	        "views": 99,
-	        "submitTime": "2014-04-18T02:06:40",
-	        "lastUpdater": "Joseph Castillo",
-	        "activeTime": "2014-03-02T23:12:48",
-	        "isAnswered": true,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 34,
-	        "name": "Mcgee Robinson",
-	        "title": "enim laboris ut et mollit occaecat sunt",
-	        "category": 3,
-	        "votes": 3,
-	        "answers": 28,
-	        "views": 22,
-	        "submitTime": "2014-03-30T07:24:49",
-	        "lastUpdater": "Barrett Simpson",
-	        "activeTime": "2014-03-31T07:35:40",
-	        "isAnswered": false,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 35,
-	        "name": "Shirley Copeland",
-	        "title": "et laborum fugiat magna irure nisi anim",
-	        "category": 3,
-	        "votes": 7,
-	        "answers": 6,
-	        "views": 253,
-	        "submitTime": "2014-04-05T04:46:20",
-	        "lastUpdater": "Langley Grant",
-	        "activeTime": "2014-04-24T16:01:42",
-	        "isAnswered": false,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 36,
-	        "name": "Blackwell Stanley",
-	        "title": "ut deserunt anim esse occaecat culpa ex",
-	        "category": 5,
-	        "votes": 2,
-	        "answers": 27,
-	        "views": 464,
-	        "submitTime": "2014-03-19T23:58:35",
-	        "lastUpdater": "Augusta Lara",
-	        "activeTime": "2014-02-23T05:09:27",
-	        "isAnswered": true,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 37,
-	        "name": "Flynn Mcintyre",
-	        "title": "velit tempor exercitation amet dolor est proident",
-	        "category": 3,
-	        "votes": 17,
-	        "answers": 14,
-	        "views": 320,
-	        "submitTime": "2014-02-16T13:52:28",
-	        "lastUpdater": "Petty Solomon",
-	        "activeTime": "2014-04-30T16:08:50",
-	        "isAnswered": true,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 38,
-	        "name": "Oneill Ewing",
-	        "title": "in adipisicing qui laboris minim eiusmod ipsum",
-	        "category": 0,
-	        "votes": 3,
-	        "answers": 10,
-	        "views": 309,
-	        "submitTime": "2014-05-25T11:49:56",
-	        "lastUpdater": "Bell Haney",
-	        "activeTime": "2014-01-20T22:10:38",
-	        "isAnswered": false,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 39,
-	        "name": "Armstrong Wallace",
-	        "title": "Lorem esse culpa aliquip commodo esse fugiat",
-	        "category": 3,
-	        "votes": 12,
-	        "answers": 19,
-	        "views": 383,
-	        "submitTime": "2014-05-18T20:35:43",
-	        "lastUpdater": "Bridget Lyons",
-	        "activeTime": "2014-05-16T06:44:06",
-	        "isAnswered": true,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 40,
-	        "name": "Julie Perkins",
-	        "title": "sunt fugiat proident enim ipsum ullamco id",
-	        "category": 6,
-	        "votes": 14,
-	        "answers": 29,
-	        "views": 445,
-	        "submitTime": "2014-04-27T23:40:02",
-	        "lastUpdater": "Saundra Roman",
-	        "activeTime": "2014-04-27T15:55:02",
-	        "isAnswered": true,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 41,
-	        "name": "Slater Blackburn",
-	        "title": "mollit reprehenderit sunt consectetur pariatur excepteur eiusmod",
-	        "category": 1,
-	        "votes": 0,
-	        "answers": 6,
-	        "views": 271,
-	        "submitTime": "2014-02-07T23:50:18",
-	        "lastUpdater": "Louise Christian",
-	        "activeTime": "2014-04-11T21:06:22",
-	        "isAnswered": false,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 42,
-	        "name": "Johns Cohen",
-	        "title": "nisi reprehenderit minim qui ipsum aliquip incididunt",
-	        "category": 7,
-	        "votes": 14,
-	        "answers": 25,
-	        "views": 220,
-	        "submitTime": "2014-03-27T17:10:14",
-	        "lastUpdater": "Helen Fulton",
-	        "activeTime": "2014-04-03T08:02:32",
-	        "isAnswered": true,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 43,
-	        "name": "Lula Quinn",
-	        "title": "ex exercitation deserunt nulla irure aute occaecat",
-	        "category": 3,
-	        "votes": 18,
-	        "answers": 5,
-	        "views": 300,
-	        "submitTime": "2014-01-02T06:50:31",
-	        "lastUpdater": "Jaime Hewitt",
-	        "activeTime": "2014-03-02T19:07:48",
-	        "isAnswered": false,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 44,
-	        "name": "Myrtle Sosa",
-	        "title": "qui ex sit nisi laboris officia minim",
-	        "category": 4,
-	        "votes": 8,
-	        "answers": 18,
-	        "views": 400,
-	        "submitTime": "2014-01-18T07:56:24",
-	        "lastUpdater": "Spears Gordon",
-	        "activeTime": "2014-04-04T08:48:22",
-	        "isAnswered": false,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 45,
-	        "name": "Evelyn Wiggins",
-	        "title": "anim duis nisi cillum pariatur ipsum nisi",
-	        "category": 1,
-	        "votes": 14,
-	        "answers": 21,
-	        "views": 198,
-	        "submitTime": "2014-02-16T15:18:16",
-	        "lastUpdater": "Padilla Best",
-	        "activeTime": "2014-05-24T08:18:48",
-	        "isAnswered": false,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 46,
-	        "name": "Rita Jackson",
-	        "title": "ea nulla est irure aliqua eu nostrud",
-	        "category": 5,
-	        "votes": 20,
-	        "answers": 28,
-	        "views": 202,
-	        "submitTime": "2014-04-27T04:54:19",
-	        "lastUpdater": "Christy Pitts",
-	        "activeTime": "2014-03-07T14:01:41",
-	        "isAnswered": true,
-	        "markedByStaff": false
-	    },
-	    {
-	        "id": 47,
-	        "name": "Pearson Peters",
-	        "title": "nisi deserunt voluptate minim tempor deserunt ullamco",
-	        "category": 1,
-	        "votes": 6,
-	        "answers": 23,
-	        "views": 285,
-	        "submitTime": "2014-03-24T12:53:49",
-	        "lastUpdater": "Simone Shaw",
-	        "activeTime": "2014-04-17T08:31:25",
-	        "isAnswered": false,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 48,
-	        "name": "Hughes Harris",
-	        "title": "dolore commodo eiusmod qui anim tempor nostrud",
-	        "category": 2,
-	        "votes": 11,
-	        "answers": 28,
-	        "views": 373,
-	        "submitTime": "2014-04-05T03:14:14",
-	        "lastUpdater": "Maria Snider",
-	        "activeTime": "2014-01-26T12:18:05",
-	        "isAnswered": false,
-	        "markedByStaff": true
-	    },
-	    {
-	        "id": 49,
-	        "name": "Crane Brennan",
-	        "title": "proident nulla qui culpa nisi cupidatat pariatur",
-	        "category": 0,
-	        "votes": 20,
-	        "answers": 18,
-	        "views": 83,
-	        "submitTime": "2014-02-20T21:20:10",
-	        "lastUpdater": "Clarke Kramer",
-	        "activeTime": "2014-05-06T01:11:22",
-	        "isAnswered": false,
-	        "markedByStaff": true
-	    }
+	  {
+	    "id": 0,
+	    "title": "est proident ullamco et consectetur labore occaecat",
+	    "content": "Dolore est laborum ad velit consequat amet sunt ex enim cupidatat exercitation. Sit amet proident mollit velit laboris aliqua eiusmod officia.",
+	    "category": 2,
+	    "comments": 26,
+	    "views": 458,
+	    "submitTime": "2014-06-15T03:19:49"
+	  },
+	  {
+	    "id": 1,
+	    "title": "nulla aute exercitation nisi ullamco in proident",
+	    "content": "Velit sit elit tempor eiusmod ea elit deserunt ea velit incididunt deserunt veniam consectetur. Dolor laboris amet non nulla nisi elit nisi ullamco fugiat nisi pariatur nostrud.",
+	    "category": 4,
+	    "comments": 30,
+	    "views": 66,
+	    "submitTime": "2014-03-07T03:26:03"
+	  },
+	  {
+	    "id": 2,
+	    "title": "magna irure aliqua quis culpa in duis",
+	    "content": "Veniam ut aliqua irure amet cupidatat. Ex quis mollit cupidatat ut esse Lorem.",
+	    "category": 6,
+	    "comments": 12,
+	    "views": 421,
+	    "submitTime": "2014-02-28T13:01:15"
+	  },
+	  {
+	    "id": 3,
+	    "title": "elit dolor ex voluptate laborum sunt esse",
+	    "content": "Nostrud eu aliqua ullamco sunt deserunt elit. Et amet et ex ex do mollit ad pariatur cillum eiusmod esse.",
+	    "category": 6,
+	    "comments": 14,
+	    "views": 38,
+	    "submitTime": "2014-01-22T22:07:51"
+	  },
+	  {
+	    "id": 4,
+	    "title": "do do consectetur nulla occaecat est incididunt",
+	    "content": "Dolore velit excepteur aliqua irure. Reprehenderit anim sunt culpa aliquip laboris exercitation consectetur laborum magna.",
+	    "category": 7,
+	    "comments": 25,
+	    "views": 146,
+	    "submitTime": "2014-04-01T13:24:59"
+	  },
+	  {
+	    "id": 5,
+	    "title": "dolore ea fugiat fugiat proident Lorem quis",
+	    "content": "Velit ea esse exercitation eiusmod aute laboris. Occaecat voluptate deserunt exercitation occaecat.",
+	    "category": 6,
+	    "comments": 3,
+	    "views": 206,
+	    "submitTime": "2014-05-07T19:19:24"
+	  },
+	  {
+	    "id": 6,
+	    "title": "dolore sit culpa cillum velit voluptate magna",
+	    "content": "Labore do et laborum ad elit. Et fugiat labore quis duis qui deserunt est ex velit qui et sunt.",
+	    "category": 3,
+	    "comments": 24,
+	    "views": 274,
+	    "submitTime": "2014-02-13T21:44:08"
+	  },
+	  {
+	    "id": 7,
+	    "title": "non tempor qui elit ad id est",
+	    "content": "Est proident ipsum aliqua ad consequat et reprehenderit ullamco et enim quis. Tempor ad qui occaecat ullamco pariatur exercitation excepteur qui quis aliqua consequat.",
+	    "category": 2,
+	    "comments": 14,
+	    "views": 262,
+	    "submitTime": "2014-05-15T20:46:16"
+	  },
+	  {
+	    "id": 8,
+	    "title": "laboris do cillum proident enim deserunt proident",
+	    "content": "Esse id et fugiat laboris ipsum pariatur cupidatat mollit excepteur. Sit cupidatat anim labore ipsum proident proident eiusmod aute.",
+	    "category": 1,
+	    "comments": 25,
+	    "views": 104,
+	    "submitTime": "2014-04-19T20:23:01"
+	  },
+	  {
+	    "id": 9,
+	    "title": "do elit magna in ad dolore et",
+	    "content": "Esse laboris occaecat aliquip ex fugiat Lorem aliquip. Excepteur irure veniam sint exercitation dolore non tempor mollit aute eiusmod sint quis.",
+	    "category": 3,
+	    "comments": 30,
+	    "views": 37,
+	    "submitTime": "2014-02-17T16:27:27"
+	  },
+	  {
+	    "id": 10,
+	    "title": "cillum sint quis nulla dolor et aliqua",
+	    "content": "Laboris incididunt velit proident nulla Lorem commodo amet sint pariatur do est. Consequat duis qui magna duis enim dolor aliqua tempor tempor irure qui voluptate.",
+	    "category": 5,
+	    "comments": 16,
+	    "views": 25,
+	    "submitTime": "2014-02-12T19:38:47"
+	  },
+	  {
+	    "id": 11,
+	    "title": "non pariatur cupidatat ipsum laboris nostrud dolor",
+	    "content": "Duis nostrud sit deserunt magna proident tempor sit aliqua adipisicing. Fugiat culpa aliquip velit aliqua minim sunt laboris do consectetur.",
+	    "category": 5,
+	    "comments": 10,
+	    "views": 456,
+	    "submitTime": "2014-03-26T12:27:55"
+	  },
+	  {
+	    "id": 12,
+	    "title": "ipsum Lorem ex adipisicing quis mollit nisi",
+	    "content": "Mollit laborum non anim deserunt id labore sint nostrud proident aliqua cupidatat duis anim. Eu est enim velit ad duis labore proident ut exercitation.",
+	    "category": 6,
+	    "comments": 5,
+	    "views": 442,
+	    "submitTime": "2014-03-19T09:03:38"
+	  },
+	  {
+	    "id": 13,
+	    "title": "anim enim fugiat do qui reprehenderit ad",
+	    "content": "Non cupidatat fugiat commodo ut Lorem. Dolor amet occaecat dolor aute nisi eiusmod.",
+	    "category": 3,
+	    "comments": 26,
+	    "views": 342,
+	    "submitTime": "2014-05-02T00:49:07"
+	  },
+	  {
+	    "id": 14,
+	    "title": "officia ullamco ex pariatur in ad consectetur",
+	    "content": "Duis veniam tempor ipsum proident consequat consequat culpa nulla. Aute anim minim magna consequat adipisicing qui incididunt.",
+	    "category": 0,
+	    "comments": 10,
+	    "views": 400,
+	    "submitTime": "2014-05-28T13:21:46"
+	  },
+	  {
+	    "id": 15,
+	    "title": "esse ipsum consectetur aute Lorem do labore",
+	    "content": "Fugiat occaecat minim do magna in incididunt et amet dolor irure in eiusmod. Exercitation dolor qui aliqua est veniam deserunt cupidatat dolore commodo.",
+	    "category": 0,
+	    "comments": 30,
+	    "views": 400,
+	    "submitTime": "2014-01-01T21:42:12"
+	  },
+	  {
+	    "id": 16,
+	    "title": "mollit eu occaecat nostrud cillum mollit ea",
+	    "content": "Adipisicing ad sint adipisicing proident aliqua. Occaecat sit ea do aute.",
+	    "category": 0,
+	    "comments": 27,
+	    "views": 312,
+	    "submitTime": "2014-04-23T18:09:17"
+	  },
+	  {
+	    "id": 17,
+	    "title": "excepteur non cupidatat ad amet ea ea",
+	    "content": "Occaecat qui adipisicing voluptate exercitation enim ut adipisicing quis duis. Ad commodo voluptate id ex proident nostrud.",
+	    "category": 6,
+	    "comments": 18,
+	    "views": 36,
+	    "submitTime": "2014-02-27T09:47:33"
+	  },
+	  {
+	    "id": 18,
+	    "title": "dolor amet quis sint laboris cupidatat sit",
+	    "content": "Excepteur culpa qui anim do enim dolore laborum velit. Qui commodo pariatur incididunt cupidatat laboris enim quis labore aliqua nostrud in veniam nulla.",
+	    "category": 1,
+	    "comments": 29,
+	    "views": 307,
+	    "submitTime": "2014-02-17T18:58:38"
+	  },
+	  {
+	    "id": 19,
+	    "title": "sint et veniam est irure laboris sunt",
+	    "content": "Sunt enim elit aute aliqua Lorem labore dolor cupidatat ea mollit enim ex esse. Sint quis officia ad dolore sint elit.",
+	    "category": 4,
+	    "comments": 2,
+	    "views": 389,
+	    "submitTime": "2014-06-20T11:59:32"
+	  },
+	  {
+	    "id": 20,
+	    "title": "ad culpa aute culpa laborum anim amet",
+	    "content": "Minim reprehenderit exercitation cillum aliqua adipisicing voluptate magna anim. Excepteur excepteur Lorem Lorem nulla esse velit.",
+	    "category": 0,
+	    "comments": 23,
+	    "views": 500,
+	    "submitTime": "2014-05-02T16:33:00"
+	  },
+	  {
+	    "id": 21,
+	    "title": "deserunt sint fugiat labore deserunt id ea",
+	    "content": "Dolor pariatur qui ex enim sunt laborum voluptate velit consequat excepteur deserunt cillum. Sint ullamco adipisicing et aliqua ut elit excepteur velit consectetur labore labore nulla.",
+	    "category": 0,
+	    "comments": 29,
+	    "views": 49,
+	    "submitTime": "2014-02-24T18:07:10"
+	  },
+	  {
+	    "id": 22,
+	    "title": "adipisicing nulla labore ut pariatur eiusmod ut",
+	    "content": "Et nisi proident eiusmod officia culpa. Anim Lorem voluptate incididunt proident duis incididunt laborum eiusmod laborum cillum ex nisi sit est.",
+	    "category": 7,
+	    "comments": 9,
+	    "views": 496,
+	    "submitTime": "2014-06-27T10:45:03"
+	  },
+	  {
+	    "id": 23,
+	    "title": "non eiusmod tempor tempor incididunt in cupidatat",
+	    "content": "Occaecat nulla laboris magna laborum mollit cillum et proident id do esse ullamco. Officia ex culpa do ullamco amet aliqua duis ipsum dolor do amet est commodo aliquip.",
+	    "category": 1,
+	    "comments": 19,
+	    "views": 258,
+	    "submitTime": "2014-03-11T14:33:20"
+	  },
+	  {
+	    "id": 24,
+	    "title": "voluptate duis ipsum tempor eu irure magna",
+	    "content": "Voluptate dolor quis sunt sit dolore sint nostrud ullamco cupidatat cupidatat tempor irure. Aute voluptate fugiat exercitation reprehenderit officia id amet irure minim ea minim veniam non enim.",
+	    "category": 5,
+	    "comments": 5,
+	    "views": 201,
+	    "submitTime": "2014-05-18T11:08:34"
+	  },
+	  {
+	    "id": 25,
+	    "title": "fugiat enim reprehenderit incididunt magna excepteur nulla",
+	    "content": "Exercitation irure laborum minim irure cillum aute aliquip magna est Lorem adipisicing Lorem. Adipisicing magna laborum elit adipisicing anim est laborum.",
+	    "category": 0,
+	    "comments": 17,
+	    "views": 259,
+	    "submitTime": "2014-05-11T00:58:32"
+	  },
+	  {
+	    "id": 26,
+	    "title": "magna laborum mollit sit anim exercitation Lorem",
+	    "content": "Dolor mollit nisi nulla deserunt sit dolore dolor do. Reprehenderit deserunt qui incididunt cillum anim deserunt ullamco.",
+	    "category": 0,
+	    "comments": 2,
+	    "views": 211,
+	    "submitTime": "2014-04-20T14:42:32"
+	  },
+	  {
+	    "id": 27,
+	    "title": "incididunt cupidatat mollit ex labore minim et",
+	    "content": "Aliqua est elit occaecat ipsum nisi mollit nostrud ex commodo. Fugiat irure fugiat duis aliquip elit esse.",
+	    "category": 2,
+	    "comments": 11,
+	    "views": 241,
+	    "submitTime": "2014-04-26T01:29:54"
+	  },
+	  {
+	    "id": 28,
+	    "title": "pariatur eiusmod consectetur consequat minim magna tempor",
+	    "content": "Non commodo dolor fugiat anim enim nulla voluptate. In deserunt ea proident consectetur qui anim elit esse.",
+	    "category": 5,
+	    "comments": 11,
+	    "views": 232,
+	    "submitTime": "2014-05-17T07:46:42"
+	  },
+	  {
+	    "id": 29,
+	    "title": "amet consequat aliquip nisi aliqua quis occaecat",
+	    "content": "Nostrud incididunt nulla ipsum nostrud voluptate culpa anim aute. Sint sit magna elit dolor elit velit sit velit culpa proident officia.",
+	    "category": 2,
+	    "comments": 25,
+	    "views": 312,
+	    "submitTime": "2014-06-30T10:40:34"
+	  },
+	  {
+	    "id": 30,
+	    "title": "nisi laborum do tempor pariatur commodo nisi",
+	    "content": "Eu voluptate sunt magna eiusmod nisi cillum non exercitation amet Lorem deserunt. Fugiat nulla aute consequat aliquip quis magna esse.",
+	    "category": 4,
+	    "comments": 9,
+	    "views": 205,
+	    "submitTime": "2014-01-07T04:23:33"
+	  },
+	  {
+	    "id": 31,
+	    "title": "do ex nostrud occaecat id duis reprehenderit",
+	    "content": "Non consectetur nostrud consectetur voluptate eu do laboris. Tempor adipisicing adipisicing incididunt ut pariatur sunt anim incididunt pariatur et aliquip dolor ad.",
+	    "category": 2,
+	    "comments": 22,
+	    "views": 294,
+	    "submitTime": "2014-04-07T08:35:00"
+	  },
+	  {
+	    "id": 32,
+	    "title": "nostrud magna aliqua id officia fugiat duis",
+	    "content": "Ex id dolore elit laboris amet ut mollit eu amet veniam Lorem sit sunt enim. Do duis incididunt qui occaecat dolor commodo ea culpa.",
+	    "category": 0,
+	    "comments": 13,
+	    "views": 317,
+	    "submitTime": "2014-04-10T22:37:36"
+	  },
+	  {
+	    "id": 33,
+	    "title": "fugiat duis consectetur incididunt ullamco culpa magna",
+	    "content": "Deserunt aliqua enim cillum esse. Exercitation elit laboris adipisicing et proident.",
+	    "category": 7,
+	    "comments": 19,
+	    "views": 73,
+	    "submitTime": "2014-05-22T11:02:35"
+	  },
+	  {
+	    "id": 34,
+	    "title": "ex aliqua amet excepteur id id sint",
+	    "content": "Fugiat laborum laboris labore tempor incididunt commodo aliqua ea laborum. Sunt ea voluptate amet qui elit veniam quis adipisicing amet aliqua.",
+	    "category": 1,
+	    "comments": 18,
+	    "views": 80,
+	    "submitTime": "2014-02-09T19:58:38"
+	  },
+	  {
+	    "id": 35,
+	    "title": "officia officia aliqua esse anim ullamco enim",
+	    "content": "Minim commodo do ullamco ut velit nisi aliqua. Proident tempor irure cillum aliqua esse do qui.",
+	    "category": 6,
+	    "comments": 26,
+	    "views": 218,
+	    "submitTime": "2014-06-19T10:41:24"
+	  },
+	  {
+	    "id": 36,
+	    "title": "cillum amet aliquip pariatur reprehenderit mollit laborum",
+	    "content": "Anim ea esse veniam cillum proident aliqua do amet nisi sit laboris. Esse sit labore reprehenderit et minim ipsum ea laborum veniam.",
+	    "category": 1,
+	    "comments": 16,
+	    "views": 361,
+	    "submitTime": "2014-01-21T14:55:14"
+	  },
+	  {
+	    "id": 37,
+	    "title": "proident aute elit cillum cillum ullamco sit",
+	    "content": "Nulla laboris voluptate do laboris nulla est eu consequat. Fugiat eu officia tempor magna anim in est non adipisicing elit.",
+	    "category": 5,
+	    "comments": 30,
+	    "views": 91,
+	    "submitTime": "2014-06-25T22:05:37"
+	  },
+	  {
+	    "id": 38,
+	    "title": "ad qui amet cupidatat laborum mollit qui",
+	    "content": "Esse duis ea officia incididunt. Consequat aliquip pariatur cillum consequat labore cillum.",
+	    "category": 6,
+	    "comments": 18,
+	    "views": 183,
+	    "submitTime": "2014-01-15T03:58:49"
+	  },
+	  {
+	    "id": 39,
+	    "title": "non est dolor anim ut est nisi",
+	    "content": "Esse enim fugiat consequat velit nisi. Do exercitation consequat aliqua eiusmod irure laboris esse enim aliquip.",
+	    "category": 0,
+	    "comments": 18,
+	    "views": 193,
+	    "submitTime": "2014-01-22T18:48:42"
+	  },
+	  {
+	    "id": 40,
+	    "title": "est dolor velit qui ea aliquip occaecat",
+	    "content": "Excepteur et incididunt enim officia amet aliqua deserunt nostrud incididunt ex mollit amet. Ipsum exercitation culpa anim nostrud cillum adipisicing anim consequat.",
+	    "category": 5,
+	    "comments": 19,
+	    "views": 258,
+	    "submitTime": "2014-03-29T00:10:58"
+	  },
+	  {
+	    "id": 41,
+	    "title": "cupidatat duis minim exercitation Lorem occaecat culpa",
+	    "content": "Incididunt sunt nostrud eiusmod officia. Ullamco adipisicing reprehenderit aliquip aliqua velit aute nostrud nostrud do.",
+	    "category": 3,
+	    "comments": 24,
+	    "views": 145,
+	    "submitTime": "2014-06-08T03:32:40"
+	  },
+	  {
+	    "id": 42,
+	    "title": "exercitation id mollit laboris officia nulla elit",
+	    "content": "Non sunt cupidatat aliquip deserunt irure elit excepteur ad consectetur. Proident consectetur sint anim eiusmod occaecat cupidatat nostrud fugiat ut in officia.",
+	    "category": 1,
+	    "comments": 20,
+	    "views": 264,
+	    "submitTime": "2014-06-21T12:01:34"
+	  },
+	  {
+	    "id": 43,
+	    "title": "consectetur sit dolore mollit cupidatat consectetur cupidatat",
+	    "content": "Fugiat id ullamco nulla anim incididunt consectetur. Eiusmod ea do nulla non commodo esse pariatur tempor dolor mollit ex.",
+	    "category": 1,
+	    "comments": 15,
+	    "views": 260,
+	    "submitTime": "2014-01-29T08:20:45"
+	  },
+	  {
+	    "id": 44,
+	    "title": "ea velit anim labore fugiat cillum exercitation",
+	    "content": "Consequat aute qui ex deserunt culpa labore sint Lorem ad eu. Ut sit elit sint fugiat fugiat amet mollit laborum officia sunt sint sunt amet nulla.",
+	    "category": 2,
+	    "comments": 14,
+	    "views": 341,
+	    "submitTime": "2014-04-28T18:49:52"
+	  },
+	  {
+	    "id": 45,
+	    "title": "aliqua voluptate aliquip aliquip nisi laboris anim",
+	    "content": "Cupidatat duis sit eiusmod commodo dolore cillum ullamco Lorem velit. Ex veniam officia labore laborum sunt Lorem dolore cupidatat cillum ex aute cupidatat reprehenderit irure.",
+	    "category": 6,
+	    "comments": 4,
+	    "views": 439,
+	    "submitTime": "2014-03-18T15:24:15"
+	  },
+	  {
+	    "id": 46,
+	    "title": "magna sunt in enim cillum fugiat et",
+	    "content": "Reprehenderit nisi aliquip cupidatat sint in cupidatat ut ut cillum officia enim veniam occaecat. Irure enim sunt laboris occaecat ipsum.",
+	    "category": 6,
+	    "comments": 26,
+	    "views": 261,
+	    "submitTime": "2014-06-13T08:25:43"
+	  },
+	  {
+	    "id": 47,
+	    "title": "mollit dolor enim aliqua tempor eu enim",
+	    "content": "Deserunt est deserunt ipsum incididunt ad laborum. Minim qui et occaecat pariatur quis commodo ut quis nostrud et cupidatat adipisicing quis voluptate.",
+	    "category": 3,
+	    "comments": 12,
+	    "views": 357,
+	    "submitTime": "2014-01-17T14:25:09"
+	  },
+	  {
+	    "id": 48,
+	    "title": "voluptate tempor sunt anim culpa veniam deserunt",
+	    "content": "Enim pariatur veniam elit velit cillum. Sunt consectetur sint qui officia commodo laborum non anim aliquip consectetur eu aliqua nisi.",
+	    "category": 7,
+	    "comments": 28,
+	    "views": 353,
+	    "submitTime": "2014-05-24T16:05:38"
+	  },
+	  {
+	    "id": 49,
+	    "title": "cupidatat veniam do aliquip magna ullamco id",
+	    "content": "Aute reprehenderit et voluptate esse sunt amet culpa ipsum magna duis ut sint nulla ipsum. Velit excepteur ex excepteur enim ad.",
+	    "category": 4,
+	    "comments": 20,
+	    "views": 108,
+	    "submitTime": "2014-02-27T17:49:03"
+	  }
 	];
 
 	return {
@@ -1804,7 +1561,7 @@ app.factory('helpCategoriesResource', function() {
 	        "title": "Design Process",
 	        "content": "Learn the full process, from uploading your MOC to creating instruction manuals to using the Lego Designer tool.",
 	        "for": "Designers",
-	        "entries": 17,
+	        "topics": 17,
 	        "questions": 37
 	    },
 	    {
@@ -1812,7 +1569,7 @@ app.factory('helpCategoriesResource', function() {
 	        "title": "Design Contest",
 	        "content": "Understand how the MOC Contest works, and how to gain greater exposure.",
 	        "for": "Designers",
-	        "entries": 8,
+	        "topics": 8,
 	        "questions": 62
 	    },
 	    {
@@ -1820,7 +1577,7 @@ app.factory('helpCategoriesResource', function() {
 	        "title": "Selling MOCs",
 	        "content": "How to pair up with a seller or designer, and how buyers play a big part in helping them partner up.",
 	        "for": "Designers, Sellers, Shoppers",
-	        "entries": 12,
+	        "topics": 12,
 	        "questions": 25
 	    },
 	    {
@@ -1828,7 +1585,7 @@ app.factory('helpCategoriesResource', function() {
 	        "title": "Shop Management",
 	        "content": "How to keep track of your inventory on both the new and the old BrickLink systems.",
 	        "for": "Sellers",
-	        "entries": 21,
+	        "topics": 21,
 	        "questions": 46
 	    },
 	    {
@@ -1836,7 +1593,7 @@ app.factory('helpCategoriesResource', function() {
 	        "title": "Ordering & Shipping",
 	        "content": "Learn how to deal with ordering issues and understand how weight and location affects shipping costs.",
 	        "for": "Sellers, Shoppers",
-	        "entries": 26,
+	        "topics": 26,
 	        "questions": 94
 	    },
 	    {
@@ -1844,7 +1601,7 @@ app.factory('helpCategoriesResource', function() {
 	        "title": "Community",
 	        "content": "How to positively engage the BrickLink community, and what to do with those who don't.",
 	        "for": "Designers, Sellers, Shoppers",
-	        "entries": 15,
+	        "topics": 15,
 	        "questions": 20
 	    },
 	    {
@@ -1852,7 +1609,7 @@ app.factory('helpCategoriesResource', function() {
 	        "title": "Account & Membership",
 	        "content": "Learn how to manage your account, and how to become a seller and/or designer.",
 	        "for": "Designers, Sellers, Shoppers",
-	        "entries": 6,
+	        "topics": 6,
 	        "questions": 11
 	    },
 	    {
@@ -1860,7 +1617,7 @@ app.factory('helpCategoriesResource', function() {
 	        "title": "Rules & Policies",
 	        "content": "Guidelines to how BrickLink and MOC Shop operate.",
 	        "for": "Designers, Sellers, Shoppers",
-	        "entries": 7,
+	        "topics": 7,
 	        "questions": 4
 	    }
 	];
@@ -1976,6 +1733,6 @@ app.factory('metaResource', function () {
 
 $(document).ready(function(){
   
-	$('.menu').dropit();
+	// $('.menu').dropit();
 
 });
