@@ -38,6 +38,10 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 	$scope.ui = ui;
 	$scope.cr = commentsResource;
 
+	$scope.checklist1 = false;
+	$scope.checklist2 = false;
+	$scope.checklist3 = false;
+
 	$scope.getRatings = function(id, includeRaters) {
 		return mocResource.ratingsById(id, includeRaters);
 	};
@@ -60,11 +64,6 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 	$scope.getTagNames = function(tags) {
 		return tagResource.getTagNames(tags);
 	};
-
-	$scope.getMsg = function() {
-		if (!$scope.myComment.isPublic) return 'Message will only be visible to other admins';
-		else return 'Message will be visible to Designer and to other admins';
-	}
 
 	$scope.filterCards = {
 		status: 1,
@@ -1653,18 +1652,17 @@ app.factory('commentsResource', function () {
 	// 'id' here refers to avatar image
 
 	var data = [
-		{id:0,	type:1, name:"Eunice Kim",	isAdmin:true,	isPublic:false,content: 'Alex, what do you think of this?', status: '', submitTime: "2014-06-19T11:36:02"},
-		{id:1,	type:1, name:"Alex Nam",	isAdmin:true,	isPublic:true, content: "Hi Designer, have you read our ToS? You know you can't put this up, right?", status: '', submitTime: "2014-06-19T12:13:02"},
-		{id:2,	type:1, name:"",	isAdmin:false,	isPublic:true, content: "Oh really? No I didn't!", status: '', submitTime: "2014-06-19T13:25:02"},
-		{id:0,	type:1, name:"Eunice Kim",	isAdmin:true,	isPublic:true, content: "", status: 0, submitTime: "2014-06-19T14:41:02"},
-		{id:0,	type:1, name:"Eunice Kim",	isAdmin:true,	isPublic:true, content: "We can't approve this because it violates our Terms of Service. Sorry!", status: '', submitTime: "2014-06-19T14:41:02"},
-		{id:2,	type:1, name:"",	isAdmin:false,	isPublic:true, content: "Nooo! Here, I changed it, look!", status: '', submitTime: "2014-06-19T15:07:02"},
-		{id:1,	type:1, name:"Alex Nam",	isAdmin:true,	isPublic:true, content: '', status: 2, submitTime: "2014-06-19T15:11:02"},
-		{id:1,	type:1, name:"Alex Nam",	isAdmin:true,	isPublic:true, content: "Very nice! Approved!", status: '', submitTime: "2014-06-19T15:11:02"},
-		{id:8,	type:2, name:"Alice Finch",	isAdmin:true,	isPublic:false, content: "Hmm, I don't know about this MOC", status: '', submitTime: "2014-06-19T15:11:02"}
+		{id:0,	type:1, name:"Admin",	isAdmin:true, content: 'Alex, what do you think of this?', status: '', submitTime: "2014-06-19T11:36:02"},
+		{id:2,	type:1, name:"",	isAdmin:false, content: "Oh really? No I didn't!", status: '', submitTime: "2014-06-19T13:25:02"},
+		{id:0,	type:1, name:"Admin",	isAdmin:true, content: "", status: 0, submitTime: "2014-06-19T14:41:02"},
+		{id:0,	type:1, name:"Admin",	isAdmin:true, content: "We can't approve this because it violates our Terms of Service. Sorry!", status: '', submitTime: "2014-06-19T14:41:02"},
+		{id:2,	type:1, name:"",	isAdmin:false, content: "Nooo! Here, I changed it, look!", status: '', submitTime: "2014-06-19T15:07:02"},
+		{id:1,	type:1, name:"Alex Nam",	isAdmin:true, content: '', status: 2, submitTime: "2014-06-19T15:11:02"},
+		{id:1,	type:1, name:"Alex Nam",	isAdmin:true, content: "Very nice! Approved!", status: '', submitTime: "2014-06-19T15:11:02"},
+		{id:8,	type:2, name:"Alice Finch",	isAdmin:true, content: "Hmm, I don't know about this MOC", status: '', submitTime: "2014-06-19T15:11:02"}
 	];
 
-	var defaultComment = {id:3, name:'Abe Yang', isAdmin:true};
+	var defaultComment = {id:3, name:'Admin', isAdmin:true};
 	
 	return {
 		list: function() {

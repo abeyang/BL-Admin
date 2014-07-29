@@ -350,6 +350,10 @@ nav {
 	}
 }
 
+.clearfix {
+    @include clearfix;
+}
+
 /* Taken from dropit.css (for dropdown menu) */
 /* These styles assume you are using ul and li */
 .dropit {
@@ -395,10 +399,10 @@ nav {
     position: relative; 
 
     main {
-        @include span-columns(7);
+        @include span-columns(8);
     }
     aside {
-        @include span-columns(5);
+        @include span-columns(4);
         @include omega;
         
         ul { margin: 0; padding: 0; }
@@ -425,6 +429,7 @@ nav {
     }
 }
 
+// @todo remove all avatars
 .avatar {
     border-radius: $radius;
     overflow: hidden;
@@ -469,11 +474,26 @@ nav {
         margin-bottom: 1em;
     }
     .content {
-        @include span-columns(7 of 8);
+        // @include span-columns(7 of 8);
         padding: 0;
     }
     .btn {
         margin-left: $pad;
+    }
+
+    ul {
+        @include span-columns(1 of 3);
+        padding-left: 0;
+        list-style-type: none;
+
+        &:last-of-type { 
+            // @include span-columns(2 of 4);
+            @include omega(); 
+        }
+
+        > label { font-weight: bold; }
+
+        li { margin-left: $pad*2; }
     }
 }
 
@@ -619,7 +639,7 @@ nav {
 }
 
 .moc-info {
-    @include span-columns(3 of 5);
+    // @include span-columns(3 of 5);
     font-size: $small;
 
     > div {
@@ -641,18 +661,20 @@ nav {
         .fa-star { color: $lightorange; }
         .fa-heart-o { color: $red; }
     }
-}
 
-.moc-status {
-    @include span-columns(2 of 5);
+
+// .moc-status {
+    //@include span-columns(2 of 5);
     font-size: $small;
 
-    > div {
+/*    > div {
         @extend .moc-info-section;
-    }
+    }*/
     .btn {
+        @include span-columns(1 of 3);
         border-color: $black;
         background-color: transparent;
+        text-align: center;
     }
     .btn.active {
         &.btn-display { @include filledbutton($color_display); }

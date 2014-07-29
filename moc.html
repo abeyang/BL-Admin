@@ -6,7 +6,9 @@
 
 	<nav class="subnav">
 		<ul class="container">
-			<li class="active"><a class="title" href="#">{{ getTitle(single.id) }}</a></li>			
+			<li class="active"><a class="title" href="#">{{ getTitle(single.id) }}</a></li>	
+
+			<li class="right"><a class="title" href="#">{{ getStatus(single.status) }}</a></li>			
 		</ul>
 	</nav>
 
@@ -20,25 +22,45 @@
 
 				<p>{{ ui.lorem }}</p>
 
-				<h2>Activity Stream</h2>
+				<h2 ng-if="single.status>1">Activity Stream</h2>
 
-				<div class="comment" ng-repeat="comment in comments | filter:{type:1} track by $index">
+				<div class="comment" ng-if="single.status>1" ng-repeat="comment in comments | filter:{type:1} track by $index">
 					<ng-include src="'includes/comment.html'"></ng-include>
 				</div>
 				<div class="comment">
 					<div class="comment_wrapper">
-						<div class="avatar"><img src="{{ui.avatarLink(3)}}" /></div>
+						<p>Please review this MOC and see if it passes these qualifications:</p>
+
+						<ul class="col-1"><label><input type="checkbox" ng-model="checklist1" /> Photo Quality</label>
+							<li><label><input type="checkbox" ng-checked="checklist1" /> Size</label></li>
+							<li><label><input type="checkbox" ng-checked="checklist1" /> Clarity</label></li>
+							<li><label><input type="checkbox" ng-checked="checklist1" /> Background</label></li>
+							<li><label><input type="checkbox" ng-checked="checklist1" /> Real-life</label></li>
+						</ul>
+
+						<ul><label><input type="checkbox" ng-model="checklist2" /> Content</label>
+							<li><label><input type="checkbox" ng-checked="checklist2" /> Title</label></li>
+							<li><label><input type="checkbox" ng-checked="checklist2" /> Word Choice</label></li>
+							<li><label><input type="checkbox" ng-checked="checklist2" /> Language</label></li>
+							<li><label><input type="checkbox" ng-checked="checklist2" /> Validity</label></li>
+						</ul>
+
+						<ul><label><input type="checkbox" ng-model="checklist3" /> Parts List</label>
+							<li><label><input type="checkbox" ng-checked="checklist3" /> Digital File Provided</label></li>
+							<li><label><input type="checkbox" ng-checked="checklist3" /> No Missing Parts</label></li>
+							<li><label><input type="checkbox" ng-checked="checklist3" /> No Rare Parts</label></li>
+							<li><label><input type="checkbox" ng-checked="checklist3" /> No Outdated Parts</label></li>
+							<li><label><input type="checkbox" ng-checked="checklist3" /> Stability / Durability</label></li>
+						</ul>
+
 						<div class="content">
+							
+
 							<div>
-								<span class="badge right" ng-show="!myComment.isPublic">Private</span>
-								<strong>{{ ui.getMyName() }}</strong>
-							</div>
-							<div>
-								<textarea placeholder="{{getMsg()}}" ng-model="myComment.content"></textarea>	
+								<textarea placeholder="Optional message to the designer" ng-model="myComment.content"></textarea>	
 							</div>
 							<a class="btn btn-primary right" ng-click="cr.addComment(myComment.content, myComment.isPublic, 1); myComment.content=''" href="">Submit</a>
 							<!-- <a class="btn right" href="">Cancel</a> -->
-							<input type="checkbox" ng-model="myComment.isPublic" /> Send message to {{single.name}}
 						</div>
 					</div>
 				</div>
@@ -47,6 +69,15 @@
 			<!-- @todo show next/prev -->
 			<aside>
 				<div class="moc-info">
+					<!-- <div>
+						<a class="btn btn-pill btn-{{stat.classname}}" ng-class="{active: stat.id==single.status}" ng-click="single.status=stat.id; cr.addStatus(stat.id, 1)" href="" ng-repeat="stat in statii | limitTo: 5">{{stat.name}}</a>
+					</div> -->
+					<div class="clearfix">
+						<a class="btn btn-featured" ng-class="{active: single.isFeatured}" ng-click="single.isFeatured=!single.isFeatured" href="">Featured</a>
+						<a class="btn btn-featured" ng-class="{active: single.isPinned, 'btn-disabled': !single.isFeatured}" ng-click="single.isPinned=!single.isPinned" href="">Pin to top</a>
+						<a class="btn btn-rejected" ng-class="{active: single.isRejected}" ng-click="single.isRejected=!single.isRejected" href="">Reject</a>
+					</div>	
+
 					<div class="color">
 						<span class="right">{{ single.raters }} reviews</span>
 						<span ng-bind-html="getRatings(single.id, false)"></span>
@@ -77,17 +108,6 @@
 					<!-- @todo tags need to be editable -->
 					<div ng-bind-html="getTagNames(single.tags)"></div>
 				</div> <!-- /.moc-info -->
-
-				<div class="moc-status">
-					<div>
-						<a class="btn btn-pill btn-{{stat.classname}}" ng-class="{active: stat.id==single.status}" ng-click="single.status=stat.id; cr.addStatus(stat.id, 1)" href="" ng-repeat="stat in statii | limitTo: 5">{{stat.name}}</a>
-					</div>
-					<div>
-						<a class="btn btn-pill btn-featured" ng-class="{active: single.isFeatured}" ng-click="single.isFeatured=!single.isFeatured" href="">Featured</a>
-						<a class="btn btn-pill btn-featured" ng-class="{active: single.isPinned, 'btn-disabled': !single.isFeatured}" ng-click="single.isPinned=!single.isPinned" href="">Pin to top</a>
-
-					</div>	
-				</div>
 				
 			</aside>
 

@@ -1,9 +1,6 @@
 <div class="comment_wrapper" ng-if="comment.status===''">
-	<div class="avatar"><img src="{{ui.avatarLink(comment.id)}}" /></div>
 	<div class="content">
 		<div class="headerline">
-			<span class="badge badge-clear right" ng-if="!comment.isAdmin">Designer</span>
-			<span class="badge right" ng-if="!comment.isPublic">Private</span>
 			<strong>{{ comment.name || single.name}}</strong> on {{ ui.getDateTime(comment.submitTime) }}
 		</div>
 		<p>{{ comment.content }}</p>
