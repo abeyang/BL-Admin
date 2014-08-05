@@ -27,6 +27,7 @@ $lightgreen: desaturate(lighten($green, 20), 40);
 
 $color_link: $orange;
 $color_success: $green;
+$color_info: $blue;
 $color_warning: $orange;
 $color_danger: $red;
 
@@ -77,6 +78,12 @@ $small: 0.85em;
     color: $color; 
     border: 1px solid $color;
     background-color: transparent; 
+}
+
+@mixin alert($color) {
+    //border-color: $color;
+    //background-color: lighten($color, 45);
+    p { color: $color; }
 }
 
 // LAYOUT
@@ -133,6 +140,7 @@ a {
 }
 
 .text-success { color: $color_success; }
+.text-info { color: $color_info; }
 .text-warning { color: $color_warning; }
 .text-danger { color: $color_danger; }
 .text-dull { color: $lightgray; }
@@ -218,9 +226,9 @@ textarea {
     text-align: center;
 }
 
-.btn-primary {
-    @include filledbutton($color_link);
-}
+.btn-primary { @include filledbutton($color_link); }
+.btn-success { @include filledbutton($color_success);}
+.btn-danger { @include filledbutton($color_danger);}
 
 .btn-disabled, a.btn-disabled {
 	opacity: 0.25;
@@ -455,6 +463,29 @@ nav {
 
 }
 
+.thincomment {
+    @include clearfix;
+    border-top: 1px solid $lightergray;
+    padding: $pad 0;
+
+    p { 
+        float: left; 
+        margin: 0;
+    }
+    .date {
+        float: right;
+        font-size: $small;
+        color: $darkgray;
+        opacity: 0.5;
+    }
+    &:last-of-child { 
+        border-bottom: 1px solid $lightergray;
+    }
+
+    &.success { @include alert($color_success); }
+    &.danger { @include alert($color_danger); }
+}
+
 .comment {
     @include span-columns(8 of 8);
     border-top: 1px solid $lightestgray;
@@ -481,13 +512,12 @@ nav {
         margin-left: $pad;
     }
 
-    ul {
+    div.feedback {
         @include span-columns(1 of 3);
         padding-left: 0;
         list-style-type: none;
 
         &:last-of-type { 
-            // @include span-columns(2 of 4);
             @include omega(); 
         }
 

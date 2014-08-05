@@ -22,44 +22,59 @@
 
 				<p>{{ ui.lorem }}</p>
 
-				<h2 ng-if="single.status>1">Activity Stream</h2>
+				<h2>Activity Stream</h2>
 
-				<div class="comment" ng-if="single.status>1" ng-repeat="comment in comments | filter:{type:1} track by $index">
-					<ng-include src="'includes/comment.html'"></ng-include>
+				<div class="thincomment">
+					<div class="date">Aug 19 2014, 11:31 am</div>
+					<p>Designer submitted MOC to be reviewed.</p>
 				</div>
+				<div class="thincomment success">
+					<div class="date">Aug 19 2014, 11:36 am</div>
+					<p>This MOC has been approved!</p>
+				</div>
+				<div class="thincomment danger">
+					<div class="date">Aug 19 2014, 11:36 am</div>
+					<p>This MOC did not get approved due to 2 issues.</p>
+				</div>
+				<div class="thincomment">
+					<div class="date">Aug 19 2014, 11:42 am</div>
+					<p>Designer re-submitted MOC to be reviewed.</p>
+				</div>
+				<div class="thincomment danger">
+					<div class="date">Aug 19 2014, 11:42 am</div>
+					<p>This MOC has been rejected.</p>
+				</div>
+
 				<div class="comment">
 					<div class="comment_wrapper">
-						<p>Please review this MOC and see if it passes these qualifications:</p>
+						<div class="feedback">
+							<strong ng-class="{'text-danger': myComment.content1}">Photo Quality</strong>
+							<textarea placeholder="List issues here" ng-model="myComment.content1"></textarea>
+						</div>
 
-						<ul class="col-1"><label><input type="checkbox" ng-model="checklist1" /> Photo Quality</label>
-							<li><label><input type="checkbox" ng-checked="checklist1" /> Size</label></li>
-							<li><label><input type="checkbox" ng-checked="checklist1" /> Clarity</label></li>
-							<li><label><input type="checkbox" ng-checked="checklist1" /> Background</label></li>
-							<li><label><input type="checkbox" ng-checked="checklist1" /> Real-life</label></li>
-						</ul>
+						<div class="feedback">
+							<strong ng-class="{'text-danger': myComment.content2}">Content</strong>
+							<textarea placeholder="List issues here" ng-model="myComment.content2"></textarea>
+						</div>
 
-						<ul><label><input type="checkbox" ng-model="checklist2" /> Content</label>
-							<li><label><input type="checkbox" ng-checked="checklist2" /> Title</label></li>
-							<li><label><input type="checkbox" ng-checked="checklist2" /> Word Choice</label></li>
-							<li><label><input type="checkbox" ng-checked="checklist2" /> Language</label></li>
-							<li><label><input type="checkbox" ng-checked="checklist2" /> Validity</label></li>
-						</ul>
-
-						<ul><label><input type="checkbox" ng-model="checklist3" /> Parts List</label>
-							<li><label><input type="checkbox" ng-checked="checklist3" /> Digital File Provided</label></li>
-							<li><label><input type="checkbox" ng-checked="checklist3" /> No Missing Parts</label></li>
-							<li><label><input type="checkbox" ng-checked="checklist3" /> No Rare Parts</label></li>
-							<li><label><input type="checkbox" ng-checked="checklist3" /> No Outdated Parts</label></li>
-							<li><label><input type="checkbox" ng-checked="checklist3" /> Stability / Durability</label></li>
-						</ul>
-
+						<div class="feedback">
+							<strong ng-class="{'text-danger': myComment.content3}">Parts List</strong>
+							<textarea placeholder="List issues here" ng-model="myComment.content3"></textarea>
+						</div>
+					</div>
+					<div class="comment_wrapper">
 						<div class="content">
 							
+							<strong ng-class="{'text-danger': numIssues()}">{{ numIssues() }} <ng-pluralize count="numIssues()" when="{'one': 'Issue', 'other': 'Issues'}"></ng-pluralize> </strong>
 
-							<div>
-								<textarea placeholder="Optional message to the designer" ng-model="myComment.content"></textarea>	
+							<div class="right" ng-switch="numIssues()">
+								<a ng-switch-when="0" class="btn btn-success" href="">Approve!</a>	
+								<a ng-switch-default class="btn btn-danger" href="">Submit Issues to Designer</a>	
 							</div>
-							<a class="btn btn-primary right" ng-click="cr.addComment(myComment.content, myComment.isPublic, 1); myComment.content=''" href="">Submit</a>
+							
+
+							<!-- 
+							<a class="btn btn-primary right" ng-click="cr.addComment(myComment.content, myComment.isPublic, 1); myComment.content=''" href="">Submit</a> -->
 							<!-- <a class="btn right" href="">Cancel</a> -->
 						</div>
 					</div>

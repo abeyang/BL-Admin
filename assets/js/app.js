@@ -30,17 +30,15 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 	$scope.comments = commentsResource.list();
 	$scope.myComment = {
 		isPublic: false,
-		content: ''
+		content1: '',
+		content2: '',
+		content3: ''
 	};
 
 	$scope.showTags = true;
 
 	$scope.ui = ui;
 	$scope.cr = commentsResource;
-
-	$scope.checklist1 = false;
-	$scope.checklist2 = false;
-	$scope.checklist3 = false;
 
 	$scope.getRatings = function(id, includeRaters) {
 		return mocResource.ratingsById(id, includeRaters);
@@ -63,6 +61,14 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 
 	$scope.getTagNames = function(tags) {
 		return tagResource.getTagNames(tags);
+	};
+
+	$scope.numIssues = function() {
+		var issues = 0;
+		if ($scope.myComment.content1) issues++;
+		if ($scope.myComment.content2) issues++;
+		if ($scope.myComment.content3) issues++;
+		return issues;
 	};
 
 	$scope.filterCards = {
