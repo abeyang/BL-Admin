@@ -1,6 +1,7 @@
 <!-- @todo need on-hover effects -->
-<a class="simple" href="{{ getLink(moc.id) }}">
-	<div class="staff-mark" ng-if="moc.isFeatured && moc.status!=4"><i class="fa fa-thumb-tack" ng-if="moc.isPinned"></i></div>
+<a class="simple" ng-class="{'highlight': moc.lastUpdatedByDesigner}" href="{{ getLink(moc.id) }}">
+	<div class="mark notification"><i class="fa fa-circle"></i></div>
+	<div class="mark staff-mark" ng-if="moc.isFeatured && moc.status!=4"><i class="fa fa-thumb-tack" ng-if="moc.isPinned"></i></div>
 
 	<div class="info">
 		<div class="misc">
