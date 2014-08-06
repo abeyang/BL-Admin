@@ -558,8 +558,6 @@ nav {
         left: 5px; 
         color: $color_info;
     }
-
-    &.notification { display: none; }
 }
 
 .staff-mark {
@@ -584,12 +582,6 @@ nav {
     height: $thumb_height;
     background-color: $darkgray;
     overflow: hidden;
-
-    &.highlight {
-        border: 1px solid $blue;
-
-        .mark.notification { display: block; }
-    }
 }
 
 .moc-item {
