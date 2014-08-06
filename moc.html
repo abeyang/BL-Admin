@@ -26,26 +26,39 @@
 
 				<div class="thincomment">
 					<div class="date">Aug 19 2014, 11:31 am</div>
+					<p>Designer published MOC to be displayed.</p>
+				</div>
+				<div class="thincomment">
+					<div class="date">Aug 19 2014, 11:31 am</div>
 					<p>Designer submitted MOC to be reviewed.</p>
 				</div>
-				<div class="thincomment success">
-					<div class="date">Aug 19 2014, 11:36 am</div>
-					<p>This MOC has been approved!</p>
-				</div>
-				<div class="thincomment danger">
+
+				<div class="thincomment danger" ng-if="single.status<=1">
 					<div class="date">Aug 19 2014, 11:36 am</div>
 					<p>This MOC did not get approved due to 2 issues.</p>
 				</div>
-				<div class="thincomment">
+				<div class="thincomment" ng-if="single.status<=1">
 					<div class="date">Aug 19 2014, 11:42 am</div>
 					<p>Designer re-submitted MOC to be reviewed.</p>
 				</div>
-				<div class="thincomment danger">
-					<div class="date">Aug 19 2014, 11:42 am</div>
-					<p>This MOC has been rejected.</p>
+				
+				
+				<div class="thincomment success" ng-if="single.status==2 || single.status==3">
+					<div class="date">Aug 19 2014, 11:36 am</div>
+					<p>This MOC has been approved!</p>
 				</div>
 
-				<div class="comment">
+				<div class="thincomment success" ng-if="single.status==3">
+					<div class="date">Aug 19 2014, 11:36 am</div>
+					<p>Dad's AFOL picked up this MOC! </p>
+				</div>
+
+				<div class="thincomment danger" ng-if="single.status==4">
+					<div class="date">Aug 19 2014, 11:42 am</div>
+					<p>This MOC has been banned.</p>
+				</div>
+
+				<div class="comment" ng-if="single.status<=1">
 					<div class="comment_wrapper">
 						<div class="feedback">
 							<strong ng-class="{'text-danger': myComment.content1}">Photo Quality</strong>
@@ -67,15 +80,10 @@
 							
 							<strong ng-class="{'text-danger': numIssues()}">{{ numIssues() }} <ng-pluralize count="numIssues()" when="{'one': 'Issue', 'other': 'Issues'}"></ng-pluralize> </strong>
 
-							<div class="right" ng-switch="numIssues()">
+							<div class="right" ng-switch="numIssues()" ng-if="single.status==1">
 								<a ng-switch-when="0" class="btn btn-success" href="">Approve!</a>	
 								<a ng-switch-default class="btn btn-danger" href="">Submit Issues to Designer</a>	
 							</div>
-							
-
-							<!-- 
-							<a class="btn btn-primary right" ng-click="cr.addComment(myComment.content, myComment.isPublic, 1); myComment.content=''" href="">Submit</a> -->
-							<!-- <a class="btn right" href="">Cancel</a> -->
 						</div>
 					</div>
 				</div>
@@ -84,13 +92,10 @@
 			<!-- @todo show next/prev -->
 			<aside>
 				<div class="moc-info">
-					<!-- <div>
-						<a class="btn btn-pill btn-{{stat.classname}}" ng-class="{active: stat.id==single.status}" ng-click="single.status=stat.id; cr.addStatus(stat.id, 1)" href="" ng-repeat="stat in statii | limitTo: 5">{{stat.name}}</a>
-					</div> -->
 					<div class="clearfix">
 						<a class="btn btn-featured" ng-class="{active: single.isFeatured}" ng-click="single.isFeatured=!single.isFeatured" href="">Featured</a>
-						<a class="btn btn-featured" ng-class="{active: single.isPinned, 'btn-disabled': !single.isFeatured}" ng-click="single.isPinned=!single.isPinned" href="">Pin to top</a>
-						<a class="btn btn-rejected" ng-class="{active: single.isRejected}" ng-click="single.isRejected=!single.isRejected" href="">Reject</a>
+						<!-- @todo use status, not "isRejected" for banned mocs -->
+						<a class="btn btn-rejected" ng-class="{active: single.status == 4}" href="">Ban</a>
 					</div>	
 
 					<div class="color">

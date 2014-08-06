@@ -1,6 +1,6 @@
 <!-- @todo need on-hover effects -->
 <a class="simple" href="{{ getLink(moc.id) }}">
-	<div class="mark staff-mark" ng-if="moc.isFeatured && moc.status!=4"><i class="fa fa-thumb-tack" ng-if="moc.isPinned"></i></div>
+	<div class="mark staff-mark" ng-if="moc.isFeatured && moc.status!=4"></div>
 
 	<div class="info">
 		<div class="misc">
@@ -8,7 +8,7 @@
 			<span class="pad-left" ng-bind-html="getRatings(moc.id)"></span></div>
 		
 		<!-- <span ng-if="filterCards.status===0 && moc.isRejected" class="text-danger">Rejected</span> -->
-		<span ng-if="filterCards.status <= 2 && moc.issues" class="text-danger">{{ moc.issues }} <ng-pluralize count="moc.issues" when="{'one': 'issue', 'other': 'issues'}"></ng-pluralize> </span>
+		<span ng-if="filterCards.status <= 1 && moc.issues" class="text-danger">{{ moc.issues }} <ng-pluralize count="moc.issues" when="{'one': 'issue', 'other': 'issues'}"></ng-pluralize> </span>
 		<span ng-if="filterCards.status===3">{{ moc.stores }} stores</span>
 	</div>
 
