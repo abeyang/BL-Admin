@@ -116,7 +116,7 @@ app.controller('TagController', function($scope, $location, ui, mocResource, tag
 
 /* Contest controllers */
 
-app.controller('ContestController', function($scope, ui, mocResource, contestResource, metaResource) {
+app.controller('ContestController', function($scope, ui, mocResource, metaResource) {
 
 	$scope.ui = ui;
 	$scope.mocs = mocResource.list();
@@ -129,22 +129,51 @@ app.controller('ContestController', function($scope, ui, mocResource, contestRes
 		return "contest_item.html#/" + id;
 	};
 	
-/*	$scope.entries = contestResource.list();
+	$scope.filterCards = {
+		status: 1
+	};
+});
+
+app.controller('ContestAllController', function($scope, ui, contestResource, metaResource) {
+
+	$scope.ui = ui;
+	
+	$scope.entries = contestResource.list();
 
 	$scope.getTitle = function(id) {
 		return ui.findAttrById(metaResource, 'contest', id);
 	};
 
-	$scope.getPopular = function(id) {
-		var moc = mocResource.mostPopular(id);
-		return (moc) ? moc.id : id;		// default to regular id
+	$scope.getPrize = function(id) {
+		var prize = ui.findAttrById(contestResource, 'prize', id);
+		if (prize) prize *= 10;
+		return prize;
 	};
 
-	$scope.getNewContestLink = "contest_entry_edit.html#/-1";
-*/
-	$scope.filterCards = {
-		status: 1
-	};
+	//$scope.getNewContestLink = "contest_entry_edit.html#/-1";
+
+	$scope.selectedContestId = -1;
+
+	$scope.editContest = function(id) {
+		$scope.selectedContestId = id;
+
+		if (id >= 0) {
+			$scope.title = $scope.getTitle(id);
+			$scope.desc = ui.lorem;
+			$scope.prize = $scope.getPrize(id);
+
+			$scope.acceptStartDate = new Date(ui.findAttrById(contestResource, 'acceptStartDate', id));
+			$scope.acceptEndDate = new Date(ui.findAttrById(contestResource, 'acceptEndDate', id));
+			$scope.voteStartDate = new Date(ui.findAttrById(contestResource, 'voteStartDate', id));
+			$scope.voteEndDate = new Date(ui.findAttrById(contestResource, 'voteEndDate', id));
+			$scope.announceDate = new Date(ui.findAttrById(contestResource, 'announceDate', id));
+		}
+		else {
+			$scope.title = $scope.desc = $scope.prize = '';
+			$scope.acceptStartDate = $scope.acceptEndDate = $scope.voteStartDate = $scope.voteEndDate = $scope.announceDate = '';
+		}
+		
+	}
 });
 
 app.controller('ContestEntryController', function($scope, $location, ui, mocResource, contestResource, metaResource) {
@@ -917,17 +946,16 @@ app.factory('contestResource', function() {
 	    '{{repeat(10)}}',
 	    {
 	        id: '{{index()}}',
+	        isActive: '{{bool()}}',
+	        prize: '{{integer(5, 30)}}',
 	        entries: '{{integer(1, 200)}}',
 	        votes: '{{integer(1, 100)}}',
 	        views: '{{integer(1, 500)}}',
-	        prize1: '{{lorem(1, "sentences")}}',
-	        prize2: '{{lorem(1, "sentences")}}',
-	        prize3: '{{lorem(1, "sentences")}}',
-	        startDate: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-dd")}}',
-	        duration: '{{integer(1, 30)}}',
-	        daysleft: '{{integer(1, 20)}}',
-	        winners: '{{integer(1, 3)}}',
-	        status: '{{integer(0, 4)}}'
+	        acceptStartDate: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
+	        acceptEndDate: '{{date(new Date(2014, 1, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
+	        voteStartDate: '{{date(new Date(2014, 1, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
+	        voteEndDate: '{{date(new Date(2014, 2, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
+	        announceDate: '{{date(new Date(2014, 3, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}'
 	    }
 	]
 	*/
@@ -935,143 +963,133 @@ app.factory('contestResource', function() {
 	var data = [
 	  {
 	    "id": 0,
-	    "entries": 17,
-	    "votes": 47,
-	    "views": 268,
-	    "prize1": "Ipsum in eu Lorem incididunt ut eu cupidatat nulla consectetur nostrud exercitation eu aute amet.",
-	    "prize2": "Mollit mollit laboris officia quis ut.",
-	    "prize3": "Quis reprehenderit reprehenderit eiusmod dolore excepteur ad.",
-	    "startDate": "2014-03-10",
-	    "duration": 30,
-	    "daysleft": 2,
-	    "winners": 1,
-	    "status": 4
+	    "isActive": false,
+	    "prize": 23,
+	    "entries": 136,
+	    "votes": 62,
+	    "views": 362,
+	    "acceptStartDate": "2014-07-11T15:09:07",
+	    "acceptEndDate": "2014-06-11T15:21:06",
+	    "voteStartDate": "2014-03-29T12:17:07",
+	    "voteEndDate": "2014-07-15T04:08:18",
+	    "announceDate": "2014-08-14T04:30:55"
 	  },
 	  {
 	    "id": 1,
-	    "entries": 145,
-	    "votes": 42,
-	    "views": 322,
-	    "prize1": "Elit sit pariatur et dolor amet nulla cupidatat occaecat.",
-	    "prize2": "Proident voluptate eiusmod cillum consectetur consectetur adipisicing sunt consectetur ea sint.",
-	    "prize3": "Minim qui elit cillum veniam id occaecat ad officia eiusmod.",
-	    "startDate": "2014-03-07",
-	    "duration": 25,
-	    "daysleft": 3,
-	    "winners": 2,
-	    "status": 3
+	    "isActive": true,
+	    "prize": 13,
+	    "entries": 17,
+	    "votes": 87,
+	    "views": 171,
+	    "acceptStartDate": "2014-04-16T06:43:53",
+	    "acceptEndDate": "2014-08-03T00:33:48",
+	    "voteStartDate": "2014-04-15T21:10:56",
+	    "voteEndDate": "2014-08-02T07:49:21",
+	    "announceDate": "2014-05-23T13:38:26"
 	  },
 	  {
 	    "id": 2,
-	    "entries": 77,
-	    "votes": 80,
-	    "views": 381,
-	    "prize1": "Ex do id fugiat in officia mollit eu labore minim.",
-	    "prize2": "Ex qui elit qui enim ad cupidatat veniam amet occaecat ad fugiat.",
-	    "prize3": "Deserunt reprehenderit incididunt magna magna velit.",
-	    "startDate": "2014-03-11",
-	    "duration": 9,
-	    "daysleft": 10,
-	    "winners": 1,
-	    "status": 2
+	    "isActive": true,
+	    "prize": 25,
+	    "entries": 27,
+	    "votes": 45,
+	    "views": 45,
+	    "acceptStartDate": "2014-01-19T02:06:16",
+	    "acceptEndDate": "2014-05-20T02:22:29",
+	    "voteStartDate": "2014-04-19T18:48:33",
+	    "voteEndDate": "2014-04-09T16:34:07",
+	    "announceDate": "2014-08-15T01:27:41"
 	  },
 	  {
 	    "id": 3,
-	    "entries": 149,
-	    "votes": 92,
-	    "views": 444,
-	    "prize1": "Id cupidatat et dolor ipsum.",
-	    "prize2": "In aliquip non eiusmod ut velit nisi commodo mollit Lorem laborum.",
-	    "prize3": "Adipisicing incididunt officia reprehenderit enim occaecat consequat id labore mollit voluptate nulla.",
-	    "startDate": "2014-02-26",
-	    "duration": 19,
-	    "daysleft": 20,
-	    "winners": 1,
-	    "status": 3
+	    "isActive": true,
+	    "prize": 17,
+	    "entries": 69,
+	    "votes": 31,
+	    "views": 333,
+	    "acceptStartDate": "2014-08-02T13:26:17",
+	    "acceptEndDate": "2014-03-18T05:14:21",
+	    "voteStartDate": "2014-07-11T07:20:10",
+	    "voteEndDate": "2014-07-30T18:07:59",
+	    "announceDate": "2014-05-10T14:53:20"
 	  },
 	  {
 	    "id": 4,
-	    "entries": 77,
-	    "votes": 51,
-	    "views": 477,
-	    "prize1": "Fugiat ex ex officia minim ut laboris nostrud aute adipisicing ea cillum laboris.",
-	    "prize2": "Reprehenderit tempor adipisicing eiusmod anim commodo duis cillum laboris dolor occaecat.",
-	    "prize3": "Quis do non pariatur exercitation in cupidatat quis laboris.",
-	    "startDate": "2014-03-02",
-	    "duration": 3,
-	    "daysleft": 12,
-	    "winners": 3,
-	    "status": 0
+	    "isActive": false,
+	    "prize": 6,
+	    "entries": 122,
+	    "votes": 74,
+	    "views": 453,
+	    "acceptStartDate": "2014-03-11T05:17:43",
+	    "acceptEndDate": "2014-08-07T20:20:59",
+	    "voteStartDate": "2014-07-29T12:26:20",
+	    "voteEndDate": "2014-05-22T10:53:56",
+	    "announceDate": "2014-08-03T10:22:34"
 	  },
 	  {
 	    "id": 5,
-	    "entries": 150,
-	    "votes": 49,
-	    "views": 290,
-	    "prize1": "Id reprehenderit incididunt occaecat anim Lorem magna duis.",
-	    "prize2": "Occaecat qui enim magna nostrud velit reprehenderit consequat esse voluptate nulla laboris culpa.",
-	    "prize3": "Laboris dolore ut et veniam aliqua eu sit tempor irure proident aliquip irure consectetur ex.",
-	    "startDate": "2014-06-04",
-	    "duration": 26,
-	    "daysleft": 5,
-	    "winners": 2,
-	    "status": 2
+	    "isActive": true,
+	    "prize": 11,
+	    "entries": 10,
+	    "votes": 48,
+	    "views": 47,
+	    "acceptStartDate": "2014-01-26T12:18:25",
+	    "acceptEndDate": "2014-05-03T08:38:09",
+	    "voteStartDate": "2014-05-06T15:11:59",
+	    "voteEndDate": "2014-05-15T19:44:01",
+	    "announceDate": "2014-07-19T10:12:38"
 	  },
 	  {
 	    "id": 6,
-	    "entries": 164,
-	    "votes": 41,
-	    "views": 438,
-	    "prize1": "Enim sunt ullamco excepteur consectetur enim enim elit non occaecat.",
-	    "prize2": "Eu id commodo exercitation commodo adipisicing sunt commodo.",
-	    "prize3": "Veniam aute occaecat irure id eu dolore dolor pariatur.",
-	    "startDate": "2014-06-20",
-	    "duration": 13,
-	    "daysleft": 18,
-	    "winners": 2,
-	    "status": 4
+	    "isActive": true,
+	    "prize": 6,
+	    "entries": 2,
+	    "votes": 72,
+	    "views": 337,
+	    "acceptStartDate": "2014-07-19T19:50:53",
+	    "acceptEndDate": "2014-06-26T17:27:46",
+	    "voteStartDate": "2014-02-07T07:10:05",
+	    "voteEndDate": "2014-05-28T04:42:44",
+	    "announceDate": "2014-08-02T11:09:27"
 	  },
 	  {
 	    "id": 7,
-	    "entries": 29,
-	    "votes": 54,
-	    "views": 241,
-	    "prize1": "Consequat magna ut nostrud excepteur fugiat esse est.",
-	    "prize2": "Minim magna cillum in reprehenderit.",
-	    "prize3": "Lorem pariatur sint consectetur quis minim cupidatat est.",
-	    "startDate": "2014-03-12",
-	    "duration": 17,
-	    "daysleft": 17,
-	    "winners": 1,
-	    "status": 1
+	    "isActive": false,
+	    "prize": 25,
+	    "entries": 147,
+	    "votes": 18,
+	    "views": 69,
+	    "acceptStartDate": "2014-01-24T22:25:55",
+	    "acceptEndDate": "2014-02-12T04:13:43",
+	    "voteStartDate": "2014-08-05T01:24:48",
+	    "voteEndDate": "2014-05-10T17:41:23",
+	    "announceDate": "2014-05-18T16:54:08"
 	  },
 	  {
 	    "id": 8,
-	    "entries": 131,
-	    "votes": 67,
-	    "views": 325,
-	    "prize1": "Magna proident excepteur nostrud voluptate nostrud deserunt cupidatat nostrud.",
-	    "prize2": "Officia culpa minim officia voluptate veniam Lorem aliquip cupidatat.",
-	    "prize3": "Esse nostrud enim qui laboris duis culpa pariatur enim irure adipisicing non velit.",
-	    "startDate": "2014-01-13",
-	    "duration": 18,
-	    "daysleft": 3,
-	    "winners": 2,
-	    "status": 4
+	    "isActive": false,
+	    "prize": 12,
+	    "entries": 80,
+	    "votes": 55,
+	    "views": 246,
+	    "acceptStartDate": "2014-02-14T06:07:40",
+	    "acceptEndDate": "2014-02-17T01:48:47",
+	    "voteStartDate": "2014-07-07T11:01:56",
+	    "voteEndDate": "2014-05-17T02:32:11",
+	    "announceDate": "2014-07-27T07:26:52"
 	  },
 	  {
 	    "id": 9,
-	    "entries": 27,
-	    "votes": 77,
-	    "views": 362,
-	    "prize1": "Occaecat ex consectetur fugiat ullamco enim.",
-	    "prize2": "Ullamco officia sit consequat culpa do quis.",
-	    "prize3": "Ipsum cupidatat culpa officia anim officia pariatur qui eiusmod irure.",
-	    "startDate": "2014-03-24",
-	    "duration": 20,
-	    "daysleft": 17,
-	    "winners": 2,
-	    "status": 0
+	    "isActive": false,
+	    "prize": 15,
+	    "entries": 48,
+	    "votes": 82,
+	    "views": 147,
+	    "acceptStartDate": "2014-04-27T01:41:12",
+	    "acceptEndDate": "2014-02-26T16:11:49",
+	    "voteStartDate": "2014-05-26T13:40:04",
+	    "voteEndDate": "2014-07-30T04:41:36",
+	    "announceDate": "2014-04-23T04:23:04"
 	  }
 	];
 
