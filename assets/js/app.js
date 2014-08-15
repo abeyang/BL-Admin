@@ -150,8 +150,6 @@ app.controller('ContestAllController', function($scope, ui, contestResource, met
 		return prize;
 	};
 
-	//$scope.getNewContestLink = "contest_entry_edit.html#/-1";
-
 	$scope.selectedContestId = -1;
 
 	$scope.editContest = function(id) {
@@ -176,8 +174,9 @@ app.controller('ContestAllController', function($scope, ui, contestResource, met
 	}
 });
 
-app.controller('ContestEntryController', function($scope, $location, ui, mocResource, contestResource, metaResource) {
 
+app.controller('ContestEntryController', function($scope, $location, ui, mocResource, contestResource, metaResource) {
+// @todo can delete this whole section
 	$scope.ui = ui;
 
 	var id = getIdFromUrl($location);
@@ -209,6 +208,7 @@ app.controller('ContestEntryController', function($scope, $location, ui, mocReso
 	$scope.getEditLink = "contest_entry_edit.html#/" + id;
 });
 
+
 app.controller('ContestItemController', function($scope, $location, ui, mocResource, tagResource, statusResource, contestResource, metaResource, commentsResource) {
 
 	$scope.ui = ui;
@@ -227,21 +227,7 @@ app.controller('ContestItemController', function($scope, $location, ui, mocResou
 	var contest_id = $scope.single.contest;
 	$scope.entry = ui.findById(contestResource, contest_id);
 	$scope.entry_title = ui.findAttrById(metaResource, 'contest', contest_id);
-	$scope.entry_link = "contest_entry.html#/" + contest_id;
-
-	// based on status of entry and status of moc item, button will be different..
-	var status = ui.findAttrById(statusResource, 'name', $scope.single.status);		// moc status
-	$scope.entry_status = ui.findAttrById(contestResource, 'status', contest_id);
-	
-	// placement: only shows when contest has expired
-	var popular_moc = mocResource.mostPopular(contest_id);
-	$scope.isThisPopular = (popular_moc.id == id);
-
-	$scope.statii = [
-		ui.findById(statusResource, 5),
-		ui.findById(statusResource, 1),
-		ui.findById(statusResource, 6)
-	];
+	// $scope.entry_link = "contest_entry.html#/" + contest_id;
 
 	$scope.getTagNames = function(tags) {
 		return tagResource.getTagNames(tags);
@@ -250,8 +236,13 @@ app.controller('ContestItemController', function($scope, $location, ui, mocResou
 	$scope.getStatus = function(status) {
 		return ui.findAttrById(statusResource, 'name', status);
 	};
-	$scope.getStatusClass = function(status) {
-		return ui.findAttrById(statusResource, 'classname', status);
+
+	$scope.numIssues = function() {
+		var issues = 0;
+		if ($scope.myComment.content1) issues++;
+		if ($scope.myComment.content2) issues++;
+		if ($scope.myComment.content3) issues++;
+		return issues;
 	};
 
 });

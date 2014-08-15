@@ -1,19 +1,15 @@
 <!-- $title - Contest Item -->
 <!-- $isactive-contest class="active" -->
-<!-- $body-meta class="blank" ng-controller="ContestItemController" -->
+<!-- $body-meta class="blank margin-bottom" ng-controller="ContestItemController" -->
 <!-- @include _header -->
 
 	<nav class="subnav">
 		<ul class="container">
 			<li class="active"><a href="#">{{ title }}</a></li>
-			<li class="small"><a href="{{entry_link}}"><i class="fa fa-folder-o pad-right"></i> {{ entry_title }}</a></li>
+			<li class="small"><a href="#"><i class="fa fa-folder-o pad-right"></i> {{ entry_title }}</a></li>
 			
-			<!-- <li class="right" ng-bind-html="button"></li> -->
-			<li class="right small text-dull" ng-if="entry_status==0">Contest saved as draft</li>
-			<li class="right small text-dull" ng-if="entry_status==1">Contest scheduled to go live on {{ ui.getDate(entry.startDate) }}</li>
-			<li class="right small text-dull" ng-if="entry_status==2">Contest accepting MOCs</li>
-			<li class="right small text-dull" ng-if="entry_status==3">Contest is receiving votes</li>
-			<li class="right small text-dull" ng-if="entry_status==4">Contest has expired</li>
+			<!-- @todo might need to update status titles (approve / rejected) -->
+			<li class="right"><a class="title" href="#">{{ getStatus(single.status) }}</a></li>
 		</ul>
 	</nav>
 
@@ -27,34 +23,92 @@
 
 				<h2>Activity Stream</h2>
 
-				<div class="comment" ng-repeat="comment in comments | filter:{type:2} track by $index">
-					<ng-include src="'includes/comment.html'"></ng-include>
+				<div class="thincomment">
+					<div class="date">Aug 19 2014, 11:31 am</div>
+					<p>Designer published MOC to be displayed.</p>
 				</div>
+				<div class="thincomment">
+					<div class="date">Aug 19 2014, 11:31 am</div>
+					<p>Designer submitted MOC to be reviewed.</p>
+				</div>
+
+				<div class="thincomment danger" ng-if="single.status<=1">
+					<div class="date">Aug 19 2014, 11:36 am</div>
+					<p>This MOC did not get approved due to 2 issues.</p>
+				</div>
+				<div class="thincomment" ng-if="single.status<=1">
+					<div class="date">Aug 19 2014, 11:42 am</div>
+					<p>Designer re-submitted MOC to be reviewed.</p>
+				</div>
+				
+				
+				<div class="thincomment success" ng-if="single.status==2 || single.status==3">
+					<div class="date">Aug 19 2014, 11:36 am</div>
+					<p>This MOC has been approved!</p>
+				</div>
+
+				<div class="thincomment success" ng-if="single.status==3">
+					<div class="date">Aug 19 2014, 11:36 am</div>
+					<p>Dad's AFOL picked up this MOC! </p>
+				</div>
+
+				<div class="thincomment danger" ng-if="single.status==4">
+					<div class="date">Aug 19 2014, 11:42 am</div>
+					<p>This MOC has been banned.</p>
+				</div>
+
 				<div class="comment">
 					<div class="comment_wrapper">
-						<div class="avatar"><img src="{{ui.avatarLink(3)}}" /></div>
-						<div class="content">
-							<div>
-								<span class="badge right" ng-show="!myComment.isPublic">Private</span>
-								<strong>{{ ui.getMyName() }}</strong>
-							</div>
-							<div>
-								<textarea placeholder="{{getMsg()}}" ng-model="myComment.content"></textarea>	
-							</div>
-							<a class="btn btn-primary right" ng-click="cr.addComment(myComment.content, myComment.isPublic, 2); myComment.content=''" href="">Submit</a>
+						<div class="feedback">
+							<strong ng-class="{'text-danger': myComment.content1}">Photo Quality</strong>
+							<textarea placeholder="List issues here" ng-model="myComment.content1"></textarea>
+						</div>
 
-							<input type="checkbox" ng-model="myComment.isPublic" /> Send message to {{single.name}}
+						<div class="feedback">
+							<strong ng-class="{'text-danger': myComment.content2}">Content</strong>
+							<textarea placeholder="List issues here" ng-model="myComment.content2"></textarea>
+						</div>
+
+						<div class="feedback">
+							<strong ng-class="{'text-danger': myComment.content3}">Parts List</strong>
+							<textarea placeholder="List issues here" ng-model="myComment.content3"></textarea>
+						</div>
+					</div>
+					<div class="comment_wrapper">
+						<div class="content">
+							
+							<strong ng-class="{'text-danger': numIssues()}">{{ numIssues() }} <ng-pluralize count="numIssues()" when="{'one': 'Issue', 'other': 'Issues'}"></ng-pluralize> </strong>
+
+							<div class="right" ng-switch="numIssues()">
+								<a ng-switch-when="0" class="btn btn-success" href="">Approve!</a>	
+								<a ng-switch-default class="btn btn-danger" href="">Submit Issues to Designer</a>	
+							</div>
 						</div>
 					</div>
 				</div>
 			</main>
 			
 			<!-- @todo show next/prev -->
+			
 			<aside>
 				<div class="moc-info">
+					<div class="clearfix">
+						<a class="btn btn-featured" ng-class="{active: single.isFeatured}" ng-click="single.isFeatured=!single.isFeatured" href="">Featured</a>
+						<!-- @todo use status, not "isRejected" for banned mocs -->
+						<a class="btn btn-rejected" ng-class="{active: single.status == 4}" href="">Ban</a>
+					</div>	
+
 					<div class="color">
 						<i class="fa fa-heart-o"></i> {{ single.votes }} likes
 					</div>
+					<div class="color">
+						<span class="right">{{ single.parts }} parts</span>
+						<i class="fa fa-smile-o" ng-if="single.issues<3"></i> 
+						<i class="fa fa-meh-o" ng-if="single.issues>=3 && single.issues<6"></i> 
+						<i class="fa fa-frown-o" ng-if="single.issues>=6"></i> 
+						{{ single.issues }} issues
+					</div>
+					<!-- @todo show dollar amount and stores for those "in stores" -->
 					<div>
 						<span class="right"><a href="#">Live Site</a></span>
 						<i class="fa fa-user"></i> <a href="#">{{ single.name }}</a>
@@ -63,22 +117,13 @@
 						<span class="right">{{ ui.getTime(single.submitTime) }}</span>
 						<i class="fa fa-calendar"></i> {{ ui.getDate(single.submitTime) }}
 					</div>
+<!-- 					<div>
+						<i class="fa fa-credit-card"></i> {{ single.fee }}%
+					</div> -->
 					
+					<!-- @todo tags need to be editable -->
 					<div ng-bind-html="getTagNames(single.tags)"></div>
 				</div> <!-- /.moc-info -->
-
-				<div class="moc-status">
-					<div ng-if="entry_status>=1 && entry_status<=3">
-						<a class="btn btn-pill btn-{{stat.classname}}" ng-class="{active: stat.id==single.status}" ng-click="single.status=stat.id; cr.addStatus(stat.id, 2)" href="" ng-repeat="stat in statii">{{stat.name}}</a>
-					</div>
-
-					<!-- @todo need to show 2nd/3rd place -->
-					<div ng-if="entry_status>3">
-						<div class="badge badge-success" ng-if="isThisPopular">
-							First Place
-						</div>
-					</div>
-				</div>
 				
 			</aside>
 
