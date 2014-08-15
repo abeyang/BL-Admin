@@ -1,69 +1,32 @@
 <!-- $title - Design Contest -->
 <!-- $isactive-contest class="active" -->
-<!-- $body-meta class="blank" ng-controller="ContestController" -->
+<!-- $body-meta ng-controller="ContestController" -->
 <!-- @include _header -->
 
 	<nav class="subnav">
 		<ul class="container">
-			<li ng-class="{active: filterCards.status == 0}"><a ng-click="filterCards.status=0" href="#">New</a></li>
+			<li ng-class="{active: filterCards.status === 1 }"><a ng-click="filterCards.status=1" href="#">Awaiting Approval</a></li>
+			<li ng-class="{active: filterCards.status === 2 }"><a ng-click="filterCards.status=2" href="#">Approved</a></li>
+			<li ng-class="{active: filterCards.status === 0 }"><a ng-click="filterCards.status=0" href="#">Rejected</a></li>
+			<li ng-class="{active: filterCards.status === 3 }"><a ng-click="filterCards.status=3" href="#">Receiving Votes</a></li>
+			<!-- <li ng-class="{active: filterCards.status == 0}"><a ng-click="filterCards.status=0" href="#">New</a></li>
 			<li ng-class="{active: filterCards.status == 2}"><a ng-click="filterCards.status=2" href="#">Ongoing</a></li>
 			<li ng-class="{active: filterCards.status == 4}"><a ng-click="filterCards.status=4" href="#">Expired</a></li>
-			<li class="right"><a class="btn" href="{{getNewContestLink}}">New Contest</a></li>
+			<li class="right"><a class="btn" href="{{getNewContestLink}}">New Contest</a></li> -->
+
+			<li class="right"><a href="#">All Contests</a></li>
+			<li class="right separator">&nbsp;</li>
 		</ul>
 	</nav>
 
 	<section>
+		<div class="container">
 
-	<div class="container" ng-if="filterCards.status == 0">
-			
-			<h2>Scheduled</h2>
-			
-			<div class="lists">
-				<div class="list-item" ng-repeat="entry in entries | filter:{status:1}">
-					<ng-include src="'includes/line_item.html'"></ng-include>
-				</div> <!-- /.list-item -->
-			</div>
-
-			<h2>Drafts</h2>
-			
-			<div class="lists">
-				<div class="list-item" ng-repeat="entry in entries | filter:{status:0}">
-					<ng-include src="'includes/line_item.html'"></ng-include>
-				</div> <!-- /.list-item -->
-			</div>
+			<div class="moc-item" ng-repeat="moc in mocs | filter:filterCards">
+				<ng-include src="'includes/moc_item_simple.html'"></ng-include>
+			</div> <!-- /.moc-item -->
 
 		</div> <!-- /.container -->
-
-		<div class="container" ng-if="filterCards.status == 2">
-			
-			<h2>Receiving Votes</h2>
-			
-			<div class="lists">
-				<div class="list-item" ng-repeat="entry in entries | filter:{status:3}">
-					<ng-include src="'includes/line_item.html'"></ng-include>
-				</div> <!-- /.list-item -->
-			</div>
-
-			<h2>Accepting MOCs</h2>
-			
-			<div class="lists">
-				<div class="list-item" ng-repeat="entry in entries | filter:{status:2}">
-					<ng-include src="'includes/line_item.html'"></ng-include>
-				</div> <!-- /.list-item -->
-			</div>
-
-		</div> <!-- /.container -->
-
-		<div class="container" ng-if="filterCards.status == 4">
-			<div class="lists">
-				<div class="list-item" ng-repeat="entry in entries | filter:filterCards">
-					<ng-include src="'includes/line_item.html'"></ng-include>
-				</div> <!-- /.list-item -->
-			</div>
-		</div> <!-- /.container -->
-
 	</section>
-
-	<!-- @todo show pagination -->
   
 <!-- @include _footer -->

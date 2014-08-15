@@ -119,22 +119,31 @@ app.controller('TagController', function($scope, $location, ui, mocResource, tag
 app.controller('ContestController', function($scope, ui, mocResource, contestResource, metaResource) {
 
 	$scope.ui = ui;
+	$scope.mocs = mocResource.list();
+
+	$scope.getTitle = function(id) {
+		return ui.findAttrById(metaResource, 'title', id);
+	};
+
+	$scope.getLink = function(id) {
+		return "contest_item.html#/" + id;
+	};
 	
-	$scope.entries = contestResource.list();
+/*	$scope.entries = contestResource.list();
 
 	$scope.getTitle = function(id) {
 		return ui.findAttrById(metaResource, 'contest', id);
 	};
-	
+
 	$scope.getPopular = function(id) {
 		var moc = mocResource.mostPopular(id);
 		return (moc) ? moc.id : id;		// default to regular id
 	};
 
 	$scope.getNewContestLink = "contest_entry_edit.html#/-1";
-
+*/
 	$scope.filterCards = {
-		status: 2
+		status: 1
 	};
 });
 
