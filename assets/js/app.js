@@ -20,14 +20,14 @@ var app = angular.module('app', ['ngSanitize']);
 
 /* MOC controller */
 
-app.controller('MocController', function($scope, $location, ui, mocResource, tagResource, statusResource, metaResource, commentsResource) {
+app.controller('MocController', function($scope, $location, ui, mocResource, tagResource, statusResource, metaResource) {
 
 	$scope.mocs = mocResource.list();
 	$scope.statii = statusResource.list();
 	
 	var id = getIdFromUrl($location);
 	$scope.single = ui.findById(mocResource, id);
-	$scope.comments = commentsResource.list();
+	// $scope.comments = commentsResource.list();
 	$scope.myComment = {
 		isPublic: false,
 		content1: '',
@@ -38,7 +38,7 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 	$scope.showTags = true;
 
 	$scope.ui = ui;
-	$scope.cr = commentsResource;
+	// $scope.cr = commentsResource;
 
 	$scope.getRatings = function(id, includeRaters) {
 		return mocResource.ratingsById(id, includeRaters);
