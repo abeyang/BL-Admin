@@ -83,10 +83,9 @@ $small: 0.85em;
 }
 
 @mixin alert($color) {
-    //border-color: $color;
-    //background-color: lighten($color, 45);
     p { color: $color; }
 }
+
 
 // LAYOUT
 
@@ -230,10 +229,6 @@ textarea {
 .buttonbar {
     @include clearfix;
     padding-top: $pad*2;
-
-    &.table-footer {
-        border-top: 2px solid $lighterblue;
-    }
 }
 
 .btn {
@@ -418,8 +413,13 @@ nav {
 
 // -- Alerts
 .alert {
-    // ...
+    padding: $pad $pad*2;
+    color: $white;
+    background-color: $lightestgray;
 }
+.alert-warning { background-color: $color-warning; }
+.alert-danger { background-color: $color-danger; }
+.alert-success { background-color: $color-success; }
 
 // -- Others
 
@@ -507,6 +507,8 @@ nav {
     }
     td {
         border-top: 1px solid $lighterblue;
+
+        &.no-border { border: none; }
     }
     th {
         text-align: left;
@@ -515,6 +517,9 @@ nav {
         &.align-right { text-align: right; }
     }
 
+}
+.table-footer {
+    border-top: 2px solid $lighterblue;
 }
 
 .sidecomment {
@@ -941,6 +946,15 @@ a.metric {
         font-size: 4em; 
         line-height: 0.8;
     }
+}
+
+a.invoice {
+    display: block;
+    color: $black;
+
+    &.active { font-weight: 700; }
+    &.text-warning { color: $color-warning; }
+    &.text-danger { color: $color-danger; }
 }
 
 // MEDIA QUERIES

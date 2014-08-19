@@ -6,7 +6,7 @@
 	<nav class="subnav">
 		<ul class="container">
 			<li class="separator">&nbsp;</li>
-			<li class="active"><a href=""><i class="fa fa-search"></i></a></li>
+			<li class="active"><a href="@path backoffice_user_profile.html"><i class="fa fa-search"></i></a></li>
 			<li class="separator">&nbsp;</li>
 			<li class="active">
 				<ul class="menu">
@@ -77,7 +77,7 @@
 							<td class="text-dull">{{ item.issue }}</td>
 							<td>{{ item.order }}</td>
 							<td>{{ item.user }}</td>
-							<td class="align-right">{{ item.amount }}</td>
+							<td class="align-right">{{ item.amount | currency }}</td>
 							<td class="text-dull align-right">{{ item.date2 }}</td>
 						</tr>
 					</tbody>

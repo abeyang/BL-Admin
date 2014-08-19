@@ -1674,17 +1674,17 @@ app.factory('statusResource', function () {
 app.factory('backOfficeResource', function () {
 
 	var data = [
-		{id:0,	issue:"NSS", order: 10035841, date1:"3/14/14", date2:"8/28/14",	amount:"$28.00",	user:"superflynut",		store:"Nutty Legos"},
-		{id:1,	issue:"NRS", order: 10086263, date1:"4/16/14", date2:"8/17/14",	amount:"$36.50",	user:"Captain Brick",	store:"Captain AmeriBrick"},
-		{id:2,	issue:"NPX", order: 10012563, date1:"5/20/14", date2:"8/11/14",	amount:"$18.90",	user:"LegoLass",		store:"Lord of the Bricks"},
-		{id:3,	issue:"NSB", order: 10023463, date1:"6/5/14",  date2:"8/8/14",	amount:"$17.00",	user:"legolandia",		store:"Lego Landia"},
-		{id:4,	issue:"NSS", order: 10089242, date1:"6/23/14", date2:"8/6/14",	amount:"$5.00",		user:"Dad's AFOL",		store:"Dad's AFOL"},
-		{id:5,	issue:"NRS", order: 10082352, date1:"6/23/14", date2:"8/5/14",	amount:"$31.10",	user:"AFOL 4 the Win",	store:"AFOL 4 Life"},
-		{id:6,	issue:"NPX", order: 10046831, date1:"7/27/14", date2:"7/27/14",	amount:"$7.50",		user:"Bricktopia",		store:"Brick Utopia"},
-		{id:7,	issue:"NSB", order: 10092948, date1:"8/8/14",  date2:"7/25/14",	amount:"$180.00",	user:"Free 4 All",		store:"Brick 4 Less"},
-		{id:8,	issue:"NSS", order: 10092352, date1:"8/21/14", date2:"7/23/14",	amount:"$250.00",	user:"Sink or Swim",	store:"Does it Float"},
-		{id:9,	issue:"NPX", order: 10016362, date1:"8/28/14", date2:"7/21/14",	amount:"$52.75",	user:"Brick City",		store:"Bricks 4 Sale"},
-		{id:10,	issue:"NRS", order: 10084634, date1:"8/28/14", date2:"7/16/14",	amount:"$83.80",	user:"Fan of Lego",		store:"Legora"}
+		{id:0,	issue:"NSS", order: 10035841, date1:"3/14/14", date2:"8/28/14",	amount:"28.00",	user:"superflynut",		store:"Nutty Legos"},
+		{id:1,	issue:"NRS", order: 10086263, date1:"4/16/14", date2:"8/17/14",	amount:"36.50",	user:"Captain Brick",	store:"Captain AmeriBrick"},
+		{id:2,	issue:"NPX", order: 10012563, date1:"5/20/14", date2:"8/11/14",	amount:"18.90",	user:"LegoLass",		store:"Lord of the Bricks"},
+		{id:3,	issue:"NSB", order: 10023463, date1:"6/05/14", date2:"8/08/14",	amount:"17.00",	user:"legolandia",		store:"Lego Landia"},
+		{id:4,	issue:"NSS", order: 10089242, date1:"6/23/14", date2:"8/06/14",	amount:"5.00",	user:"Dad's AFOL",		store:"Dad's AFOL"},
+		{id:5,	issue:"NRS", order: 10082352, date1:"6/23/14", date2:"8/05/14",	amount:"31.10",	user:"AFOL 4 the Win",	store:"AFOL 4 Life"},
+		{id:6,	issue:"NPX", order: 10046831, date1:"7/27/14", date2:"7/27/14",	amount:"7.50",	user:"Bricktopia",		store:"Brick Utopia"},
+		{id:7,	issue:"NSB", order: 10092948, date1:"8/08/14", date2:"7/25/14",	amount:"180.00",user:"Free 4 All",		store:"Brick 4 Less"},
+		{id:8,	issue:"NSS", order: 10092352, date1:"8/21/14", date2:"7/23/14",	amount:"250.00",user:"Sink or Swim",	store:"Does it Float"},
+		{id:9,	issue:"NPX", order: 10016362, date1:"8/28/14", date2:"7/21/14",	amount:"52.75",	user:"Brick City",		store:"Bricks 4 Sale"},
+		{id:10,	issue:"NRS", order: 10084634, date1:"8/28/14", date2:"7/16/14",	amount:"83.80",	user:"Fan of Lego",		store:"Legora"}
 	];
 	
 	return {
