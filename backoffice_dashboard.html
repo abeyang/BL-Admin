@@ -5,24 +5,119 @@
 
 	<nav class="subnav">
 		<ul class="container">
-			<li class="active"><a href="">Categories</a></li>
-
-			<li class="right"><a class="btn" href="#">Add Category</a></li>
-			<li class="right"><a class="btn" href="#">Sort</a></li>
+			<li class="separator">&nbsp;</li>
+			<li class="active"><a href=""><i class="fa fa-search"></i></a></li>
+			<li class="separator">&nbsp;</li>
+			<li class="active"><a href="">Dashboard <i class="fa fa-angle-down pad-left"></i></a></li>
+			<li class="separator">&nbsp;</li>
 		</ul>
 	</nav>
 
-	<section>
+	<div class="container">
+		<div class="col-third panelet left">
+			<a class="metric" href="#">
+				<span>Store Logs</span>
+				<h2>8</h2>
+			</a>
+			<a class="metric" href="#">
+				<span>Pending Avatars</span>
+				<h2>17</h2>
+			</a>
+			<a class="metric" href="#">
+				<span>Problem Members</span>
+				<h2>13</h2>
+			</a>
+			<a class="metric" href="#">
+				<span>Pending Real Photos</span>
+				<h2>0</h2>
+			</a>
+			<a class="metric" href="#">
+				<span>Problem Items</span>
+				<h2>51</h2>
+			</a>
+			<a class="metric" href="#">
+				<span>Outstanding Balances</span>
+				<h2>9</h2>
+			</a>
+			<a class="metric" href="#">
+				<span>Feedback Removal</span>
+				<h2>26</h2>
+			</a>
+		</div>
 
-		<div class="container">
-			<div class="category" ng-repeat="cat in categories">
-				<h3><a href="{{ getCategoryLink(cat.id) }}">{{ cat.title }}</a></h3>
-				<div class="main">{{ cat.content }}</div>
-				<div class="labels">For: {{ cat.for }}</div>
-			</div> <!-- /.category -->
-		
-		</div> <!-- /.container -->
+		<div class="col-twothird">
+			<div class="dashboard_fees">
+				<h2 class="pad-left-10">Fee Issues</h2>
+				<table class="table">
+					<tbody>
+						<tr class="hover">
+							<td>superflynut</td><td class="text-dull align-right">3/14/14</td>
+						</tr>
+						<tr class="hover">
+							<td>Captain Brick</td><td class="text-dull align-right">4/16/14</td>
+						</tr>
+						<tr class="hover">
+							<td>LegoLass</td><td class="text-dull align-right">5/20/14</td>
+						</tr>
+						<tr class="hover">
+							<td>legolandia</td><td class="text-dull align-right">6/5/14</td>
+						</tr>
+						<tr class="hover">
+							<td>Dad's AFOL</td><td class="text-dull align-right">6/23/14</td>
+						</tr>
+						<tr class="hover">
+							<td>AFOL 4 the Win</td><td class="text-dull align-right">7/27/14</td>
+						</tr>
+						<tr class="hover">
+							<td>Bricktopia</td><td class="text-dull align-right">8/8/14</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
-	</section>
+			<div class="dashboard_orders">
+				<h2 class="pad-left-10">Order Issues</h2>
+				<table class="table">
+					<tbody>
+						<tr class="hover">
+							<td class="text-dull">NSS</td><td>10035841</td><td>LegoLass</td>
+							<td class="align-right">$28.00</td><td class="text-dull align-right">8/28/14</td>
+						</tr>
+						<tr class="hover">
+							<td class="text-dull">NRS</td><td>10086246</td><td>Bricktopia</td>
+							<td class="align-right">$36.50</td><td class="text-dull align-right">8/21/14</td>
+						</tr>
+						<tr class="hover">
+							<td class="text-dull">NPX</td><td>10035841</td><td>LegoLass</td>
+							<td class="align-right">$18.90</td><td class="text-dull align-right">8/18/14</td>
+						</tr>
+						<tr class="hover">
+							<td class="text-dull">NPB</td><td>10035841</td><td>LegoLass</td>
+							<td class="align-right">$17.00</td><td class="text-dull align-right">8/9/14</td>
+						</tr>
+						<tr class="hover">
+							<td class="text-dull">NPB</td><td>10035841</td><td>LegoLass</td>
+							<td class="align-right">$5.00</td><td class="text-dull align-right">8/8/14</td>
+						</tr>
+						<tr class="hover">
+							<td class="text-dull">NSS</td><td>10035841</td><td>LegoLass</td>
+							<td class="align-right">$31.10</td><td class="text-dull align-right">7/27/14</td>
+						</tr>
+						<tr class="hover">
+							<td class="text-dull">NSX</td><td>10035841</td><td>LegoLass</td>
+							<td class="align-right">$180.00</td><td class="text-dull align-right">7/26/14</td>
+						</tr>
+						<tr class="hover">
+							<td class="text-dull">NPB</td><td>10035841</td><td>LegoLass</td>
+							<td class="align-right">$250.00</td><td class="text-dull align-right">7/23/14</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	
+	</div> <!-- /.container -->
+
+	<div class="pane left"></div>
   
 <!-- @include _footer -->

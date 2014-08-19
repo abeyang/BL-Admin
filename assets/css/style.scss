@@ -150,6 +150,7 @@ a {
 .align-right { text-align: right; }
 
 .pad-left { padding-left: 3px; }
+.pad-left-10 { padding-left: $pad; }
 .pad-right { padding-right: 3px; }
 .pad-top { padding-top: $pad; }
 .margin-right { margin-right: 3px; }
@@ -456,6 +457,9 @@ nav {
     &.right {
         right: 0;
     }
+    &.left {
+        left: 0;
+    }
 }
 .panelet {
     padding-top: $margin;
@@ -469,6 +473,10 @@ nav {
     &.right {
         padding-left: $margin;
         border-left-width: 1px;
+    }
+    &.left {
+        padding-right: $margin;
+        border-right-width: 1px;
     }
 }
 
@@ -494,13 +502,6 @@ nav {
         &.align-right { text-align: right; }
     }
 
-}
-
-// @todo remove all avatars
-.avatar {
-    border-radius: $radius;
-    overflow: hidden;
-    background-color: $lightergray;
 }
 
 .sidecomment {
@@ -605,7 +606,6 @@ nav {
     border: 1px solid $lightergray;
     border-radius: $radius;
     background-color: $white;
-    /*margin-bottom: $pad*2;*/
     overflow: hidden;
 }
 
@@ -903,6 +903,27 @@ nav {
     .labels {
         font-size: $small;
         color: $lightgray;
+    }
+}
+
+.dashboard_fees {
+    @include span-columns(3 of 8);
+}
+.dashboard_orders {
+    @include span-columns(5 of 8);
+}
+
+a.metric {
+    display: block;
+    float: left;
+    width: 50%;
+    margin-bottom: $pad*2;
+
+    span { color: $lightgray; }
+    h2 { 
+        margin-top: 0;
+        font-size: 4em; 
+        line-height: 0.8;
     }
 }
 
