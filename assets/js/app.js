@@ -1747,6 +1747,6 @@ app.factory('metaResource', function () {
 
 $(document).ready(function(){
   
-	// $('.menu').dropit();
+	$('.menu').dropit();	// @todo still has issues where menu initiator disappears after 2nd click..
 
 });

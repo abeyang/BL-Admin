@@ -919,7 +919,10 @@ a.metric {
     width: 50%;
     margin-bottom: $pad*2;
 
-    span { color: $lightgray; }
+    span { 
+        font-size: 14px;
+        color: $lightgray; 
+    }
     h2 { 
         margin-top: 0;
         font-size: 4em; 
