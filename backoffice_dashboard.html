@@ -1,6 +1,6 @@
 <!-- $title - Back Office - Dashboard -->
 <!-- $isactive-backoffice class="active" -->
-<!-- $body-meta class="blank" ng-controller="HelpController" -->
+<!-- $body-meta class="blank" ng-controller="BackOfficeController" -->
 <!-- @include _header -->
 
 	<nav class="subnav">
@@ -60,26 +60,9 @@
 				<h2 class="pad-left-10">Fee Issues</h2>
 				<table class="table">
 					<tbody>
-						<tr class="hover">
-							<td>superflynut</td><td class="text-dull align-right">3/14/14</td>
-						</tr>
-						<tr class="hover">
-							<td>Captain Brick</td><td class="text-dull align-right">4/16/14</td>
-						</tr>
-						<tr class="hover">
-							<td>LegoLass</td><td class="text-dull align-right">5/20/14</td>
-						</tr>
-						<tr class="hover">
-							<td>legolandia</td><td class="text-dull align-right">6/5/14</td>
-						</tr>
-						<tr class="hover">
-							<td>Dad's AFOL</td><td class="text-dull align-right">6/23/14</td>
-						</tr>
-						<tr class="hover">
-							<td>AFOL 4 the Win</td><td class="text-dull align-right">7/27/14</td>
-						</tr>
-						<tr class="hover">
-							<td>Bricktopia</td><td class="text-dull align-right">8/8/14</td>
+					<!-- @todo link to user page -->
+						<tr class="hover" ng-repeat="item in bo | orderBy:'date1'">
+							<td>{{ item.user }}</td><td class="text-dull align-right">{{ item.date1 }}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -89,37 +72,13 @@
 				<h2 class="pad-left-10">Order Issues</h2>
 				<table class="table">
 					<tbody>
-						<tr class="hover">
-							<td class="text-dull">NSS</td><td>10035841</td><td>LegoLass</td>
-							<td class="align-right">$28.00</td><td class="text-dull align-right">8/28/14</td>
-						</tr>
-						<tr class="hover">
-							<td class="text-dull">NRS</td><td>10086246</td><td>Bricktopia</td>
-							<td class="align-right">$36.50</td><td class="text-dull align-right">8/21/14</td>
-						</tr>
-						<tr class="hover">
-							<td class="text-dull">NPX</td><td>10035841</td><td>LegoLass</td>
-							<td class="align-right">$18.90</td><td class="text-dull align-right">8/18/14</td>
-						</tr>
-						<tr class="hover">
-							<td class="text-dull">NPB</td><td>10035841</td><td>LegoLass</td>
-							<td class="align-right">$17.00</td><td class="text-dull align-right">8/9/14</td>
-						</tr>
-						<tr class="hover">
-							<td class="text-dull">NPB</td><td>10035841</td><td>LegoLass</td>
-							<td class="align-right">$5.00</td><td class="text-dull align-right">8/8/14</td>
-						</tr>
-						<tr class="hover">
-							<td class="text-dull">NSS</td><td>10035841</td><td>LegoLass</td>
-							<td class="align-right">$31.10</td><td class="text-dull align-right">7/27/14</td>
-						</tr>
-						<tr class="hover">
-							<td class="text-dull">NSX</td><td>10035841</td><td>LegoLass</td>
-							<td class="align-right">$180.00</td><td class="text-dull align-right">7/26/14</td>
-						</tr>
-						<tr class="hover">
-							<td class="text-dull">NPB</td><td>10035841</td><td>LegoLass</td>
-							<td class="align-right">$250.00</td><td class="text-dull align-right">7/23/14</td>
+					<!-- @todo link to user's specific order page -->
+						<tr class="hover" ng-repeat="item in bo | orderBy:'-date2'">
+							<td class="text-dull">{{ item.issue }}</td>
+							<td>{{ item.order }}</td>
+							<td>{{ item.user }}</td>
+							<td class="align-right">{{ item.amount }}</td>
+							<td class="text-dull align-right">{{ item.date2 }}</td>
 						</tr>
 					</tbody>
 				</table>

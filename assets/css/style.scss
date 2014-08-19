@@ -154,6 +154,7 @@ a {
 .pad-right { padding-right: 3px; }
 .pad-top { padding-top: $pad; }
 .margin-right { margin-right: 3px; }
+.margin-right-10 { margin-right: $pad; }
 .unmargin-top { margin-top: -20px; }
 .margin-top { margin-top: $margin; }
 .margin-bottom { margin-bottom: 20px; }
@@ -179,11 +180,14 @@ img {
 // HELPER ASSETS
 
 .badge {
-    padding: 2px 6px;
+    padding: 1px 7px 2px;
+    position: relative;
+    top: -1px;
     font-size: $small;
     text-transform: uppercase;
     color: $white;
     background-color: $lightestgray;
+    border-radius: 15px;
 
     &.badge-clear { @include badge($gray); }
 	&.badge-warning { @include badge($color_warning); }
@@ -221,6 +225,15 @@ textarea {
 
     &.tall { height: 200px; }
     &.short { height: 60px; }
+}
+
+.buttonbar {
+    @include clearfix;
+    padding-top: $pad*2;
+
+    &.table-footer {
+        border-top: 2px solid $lighterblue;
+    }
 }
 
 .btn {

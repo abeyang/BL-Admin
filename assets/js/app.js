@@ -27,7 +27,7 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 	
 	var id = getIdFromUrl($location);
 	$scope.single = ui.findById(mocResource, id);
-	// $scope.comments = commentsResource.list();
+
 	$scope.myComment = {
 		isPublic: false,
 		content1: '',
@@ -38,7 +38,6 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 	$scope.showTags = true;
 
 	$scope.ui = ui;
-	// $scope.cr = commentsResource;
 
 	$scope.getRatings = function(id, includeRaters) {
 		return mocResource.ratingsById(id, includeRaters);
@@ -209,13 +208,11 @@ app.controller('ContestEntryController', function($scope, $location, ui, mocReso
 });
 
 
-app.controller('ContestItemController', function($scope, $location, ui, mocResource, tagResource, statusResource, contestResource, metaResource, commentsResource) {
+app.controller('ContestItemController', function($scope, $location, ui, mocResource, tagResource, statusResource, contestResource, metaResource) {
 
 	$scope.ui = ui;
-	$scope.cr = commentsResource;
 
 	var id = getIdFromUrl($location);
-	$scope.comments = commentsResource.list();
 	$scope.myComment = {
 		isPublic: false,
 		content: ''
@@ -260,12 +257,6 @@ app.controller('HelpController', function($scope, ui, helpCategoriesResource) {
 	};
 });
 
-// app.controller('HelpCatController', function($scope, ui, helpCategoriesResource) {
-
-// 	$scope.ui = ui;
-
-// });
-
 app.controller('HelpTopicsController', function($scope, $location, ui, helpCategoriesResource, helpTopicsResource) {
 
 	$scope.ui = ui;
@@ -279,7 +270,24 @@ app.controller('HelpTopicsController', function($scope, $location, ui, helpCateg
 	$scope.getFaqLink = "helpcenter_faq.html#/" + id;
 });
 
+/* Back Office Controller */
 
+app.controller('BackOfficeController', function($scope, ui, backOfficeResource) {
+
+	$scope.ui = ui;
+	$scope.bo = backOfficeResource.list();
+
+	$scope.mastercheckbox = false;
+	
+	$scope.selectedItems = 0;
+	$scope.$watch('bo', function(bo){
+		var selectedItems = 0;
+		angular.forEach(bo, function(item){
+	  		selectedItems += item.selected ? 1 : 0;
+		})
+		$scope.selectedItems = selectedItems;
+	}, true);
+});
 
 // HELPERS
 
@@ -1663,44 +1671,25 @@ app.factory('statusResource', function () {
 	}
 });
 
-app.factory('commentsResource', function () {
-
-	// 'id' here refers to avatar image
+app.factory('backOfficeResource', function () {
 
 	var data = [
-		{id:0,	type:1, name:"Admin",	isAdmin:true, content: 'Alex, what do you think of this?', status: '', submitTime: "2014-06-19T11:36:02"},
-		{id:2,	type:1, name:"",	isAdmin:false, content: "Oh really? No I didn't!", status: '', submitTime: "2014-06-19T13:25:02"},
-		{id:0,	type:1, name:"Admin",	isAdmin:true, content: "", status: 0, submitTime: "2014-06-19T14:41:02"},
-		{id:0,	type:1, name:"Admin",	isAdmin:true, content: "We can't approve this because it violates our Terms of Service. Sorry!", status: '', submitTime: "2014-06-19T14:41:02"},
-		{id:2,	type:1, name:"",	isAdmin:false, content: "Nooo! Here, I changed it, look!", status: '', submitTime: "2014-06-19T15:07:02"},
-		{id:1,	type:1, name:"Alex Nam",	isAdmin:true, content: '', status: 2, submitTime: "2014-06-19T15:11:02"},
-		{id:1,	type:1, name:"Alex Nam",	isAdmin:true, content: "Very nice! Approved!", status: '', submitTime: "2014-06-19T15:11:02"},
-		{id:8,	type:2, name:"Alice Finch",	isAdmin:true, content: "Hmm, I don't know about this MOC", status: '', submitTime: "2014-06-19T15:11:02"}
+		{id:0,	issue:"NSS", order: 10035841, date1:"3/14/14", date2:"8/28/14",	amount:"$28.00",	user:"superflynut",		store:"Nutty Legos"},
+		{id:1,	issue:"NRS", order: 10086263, date1:"4/16/14", date2:"8/17/14",	amount:"$36.50",	user:"Captain Brick",	store:"Captain AmeriBrick"},
+		{id:2,	issue:"NPX", order: 10012563, date1:"5/20/14", date2:"8/11/14",	amount:"$18.90",	user:"LegoLass",		store:"Lord of the Bricks"},
+		{id:3,	issue:"NSB", order: 10023463, date1:"6/5/14",  date2:"8/8/14",	amount:"$17.00",	user:"legolandia",		store:"Lego Landia"},
+		{id:4,	issue:"NSS", order: 10089242, date1:"6/23/14", date2:"8/6/14",	amount:"$5.00",		user:"Dad's AFOL",		store:"Dad's AFOL"},
+		{id:5,	issue:"NRS", order: 10082352, date1:"6/23/14", date2:"8/5/14",	amount:"$31.10",	user:"AFOL 4 the Win",	store:"AFOL 4 Life"},
+		{id:6,	issue:"NPX", order: 10046831, date1:"7/27/14", date2:"7/27/14",	amount:"$7.50",		user:"Bricktopia",		store:"Brick Utopia"},
+		{id:7,	issue:"NSB", order: 10092948, date1:"8/8/14",  date2:"7/25/14",	amount:"$180.00",	user:"Free 4 All",		store:"Brick 4 Less"},
+		{id:8,	issue:"NSS", order: 10092352, date1:"8/21/14", date2:"7/23/14",	amount:"$250.00",	user:"Sink or Swim",	store:"Does it Float"},
+		{id:9,	issue:"NPX", order: 10016362, date1:"8/28/14", date2:"7/21/14",	amount:"$52.75",	user:"Brick City",		store:"Bricks 4 Sale"},
+		{id:10,	issue:"NRS", order: 10084634, date1:"8/28/14", date2:"7/16/14",	amount:"$83.80",	user:"Fan of Lego",		store:"Legora"}
 	];
-
-	var defaultComment = {id:3, name:'Admin', isAdmin:true};
 	
 	return {
 		list: function() {
 			return data;
-		},
-		add: function(obj) {
-			obj.submitTime = moment().format();
-			data.push(obj);
-		},
-		addStatus: function(status, type) {
-			var comment = _.clone(defaultComment);
-			comment.status = status;
-			comment.type = type;
-			this.add(comment);
-		},
-		addComment: function(content, isPublic, type) {
-			var comment = _.clone(defaultComment)
-			comment.status = '';
-			comment.content = content;
-			comment.isPublic = isPublic;
-			comment.type = type;
-			this.add(comment);
 		}
 	}
 });

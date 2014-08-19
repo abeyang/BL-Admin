@@ -1,6 +1,6 @@
 <!-- $title - Back Office - Outstanding Balance -->
 <!-- $isactive-backoffice class="active" -->
-<!-- $body-meta class="blank" ng-controller="HelpController" -->
+<!-- $body-meta class="blank" ng-controller="BackOfficeController" -->
 <!-- @include _header -->
 
 	<nav class="subnav">
@@ -20,114 +20,46 @@
 				</ul>
 			</li>
 			<li class="separator">&nbsp;</li>
+
+			<li class="right active pad"><a href="">Active <span class="badge badge-clear">11</span></a></li>
+			<li class="right"><a href="">Revoked</a></li>
 		</ul>
 	</nav>
 
-	<div class="container">
-		<div class="col-third panelet left">
-			<a class="metric" href="#">
-				<span>Store Logs</span>
-				<h2>8</h2>
-			</a>
-			<a class="metric" href="#">
-				<span>Pending Avatars</span>
-				<h2>17</h2>
-			</a>
-			<a class="metric" href="#">
-				<span>Problem Members</span>
-				<h2>13</h2>
-			</a>
-			<a class="metric" href="#">
-				<span>Pending Real Photos</span>
-				<h2>0</h2>
-			</a>
-			<a class="metric" href="#">
-				<span>Problem Items</span>
-				<h2>51</h2>
-			</a>
-			<a class="metric" href="#">
-				<span>Outstanding Balances</span>
-				<h2>9</h2>
-			</a>
-			<a class="metric" href="#">
-				<span>Feedback Removal</span>
-				<h2>26</h2>
-			</a>
-		</div>
+	<section>
+		<div class="container">
+			<table class="table">
+				<thead>
+					<tr>
+						<!-- @todo mastercheckbox doesn't work in conjunction with count on bottom -->
+						<th><input type="checkbox" ng-model="mastercheckbox"></th>
+						<th>Seller ID</th>
+						<th>Store</th>
+						<th>Last Invoice Paid</th>
+						<th>Last Invoice Sent</th>
+						<th class="align-right">Total Amount Owed</th>
+					</tr>	
+				</thead>
+				
+				<tbody>
+					<tr class="hover" ng-repeat="item in bo">
+						<td><input type="checkbox" ng-model="item.selected" ng-checked="mastercheckbox"></td>
+						<td>{{ item.user }}</td>
+						<td>{{ item.store }}</td>
+						<td>July 2014 <span class="text-dull">7/27/14</span></td>
+						<td>August 2014 <span class="text-dull">8/22/14</span></td>
+						<td class="align-right">{{ item.amount }}</td>
+					</tr>
+				</tbody>
+			</table>
 
-		<div class="col-twothird">
-			<div class="dashboard_fees">
-				<h2 class="pad-left-10">Fee Issues</h2>
-				<table class="table">
-					<tbody>
-						<tr class="hover">
-							<td>superflynut</td><td class="text-dull align-right">3/14/14</td>
-						</tr>
-						<tr class="hover">
-							<td>Captain Brick</td><td class="text-dull align-right">4/16/14</td>
-						</tr>
-						<tr class="hover">
-							<td>LegoLass</td><td class="text-dull align-right">5/20/14</td>
-						</tr>
-						<tr class="hover">
-							<td>legolandia</td><td class="text-dull align-right">6/5/14</td>
-						</tr>
-						<tr class="hover">
-							<td>Dad's AFOL</td><td class="text-dull align-right">6/23/14</td>
-						</tr>
-						<tr class="hover">
-							<td>AFOL 4 the Win</td><td class="text-dull align-right">7/27/14</td>
-						</tr>
-						<tr class="hover">
-							<td>Bricktopia</td><td class="text-dull align-right">8/8/14</td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="buttonbar table-footer">
+			<strong>{{ selectedItems }} <ng-pluralize count="selectedItems" when="{'one': 'Seller', 'other': 'Sellers'}"></ng-pluralize> Selected</strong>
+				<a ng-class="{'btn-disabled': !selectedItems}" class="btn btn-danger right pad" href="#">Revoke Seller Privileges</a>
+				<a ng-class="{'btn-disabled': !selectedItems}" class="btn right margin-right-10" href="#">Resend Invoice</a>
 			</div>
-
-			<div class="dashboard_orders">
-				<h2 class="pad-left-10">Order Issues</h2>
-				<table class="table">
-					<tbody>
-						<tr class="hover">
-							<td class="text-dull">NSS</td><td>10035841</td><td>LegoLass</td>
-							<td class="align-right">$28.00</td><td class="text-dull align-right">8/28/14</td>
-						</tr>
-						<tr class="hover">
-							<td class="text-dull">NRS</td><td>10086246</td><td>Bricktopia</td>
-							<td class="align-right">$36.50</td><td class="text-dull align-right">8/21/14</td>
-						</tr>
-						<tr class="hover">
-							<td class="text-dull">NPX</td><td>10035841</td><td>LegoLass</td>
-							<td class="align-right">$18.90</td><td class="text-dull align-right">8/18/14</td>
-						</tr>
-						<tr class="hover">
-							<td class="text-dull">NPB</td><td>10035841</td><td>LegoLass</td>
-							<td class="align-right">$17.00</td><td class="text-dull align-right">8/9/14</td>
-						</tr>
-						<tr class="hover">
-							<td class="text-dull">NPB</td><td>10035841</td><td>LegoLass</td>
-							<td class="align-right">$5.00</td><td class="text-dull align-right">8/8/14</td>
-						</tr>
-						<tr class="hover">
-							<td class="text-dull">NSS</td><td>10035841</td><td>LegoLass</td>
-							<td class="align-right">$31.10</td><td class="text-dull align-right">7/27/14</td>
-						</tr>
-						<tr class="hover">
-							<td class="text-dull">NSX</td><td>10035841</td><td>LegoLass</td>
-							<td class="align-right">$180.00</td><td class="text-dull align-right">7/26/14</td>
-						</tr>
-						<tr class="hover">
-							<td class="text-dull">NPB</td><td>10035841</td><td>LegoLass</td>
-							<td class="align-right">$250.00</td><td class="text-dull align-right">7/23/14</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	
-	</div> <!-- /.container -->
-
-	<div class="pane left"></div>
+		
+		</div> <!-- /.container -->
+	</section>
   
 <!-- @include _footer -->
