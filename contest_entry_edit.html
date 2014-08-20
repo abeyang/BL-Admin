@@ -1,6 +1,6 @@
 <!-- $title - Contest (Edit) -->
 <!-- $isactive-contest class="active" -->
-<!-- $body-meta class="blank" ng-controller="ContestEntryController" -->
+<!-- $body-meta flow-prevent-drop class="blank" ng-controller="ContestEntryController" -->
 <!-- @include _header -->
 
 <!-- @todo show current status of contest -->
@@ -14,12 +14,34 @@
 	<section>
 		<div class="container">
 			<div class="form-group">
+				<label for="contestTitle">Cover Image (900x240)</label>
+				
+				<div flow-init="{singleFile:true}"
+				 flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
+					<div class="thumbnail" flow-drop ng-show="!$flow.files.length">
+					  <img src="http://www.placehold.it/900x240/EFEFEF/666666&text=drag and drop image" />
+					</div>
+					<div class="thumbnail" flow-drop ng-show="$flow.files.length">
+					  <img flow-img="$flow.files[0]" />
+					</div>
+					<div>
+					  <span class="btn btn-primary" ng-show="!$flow.files.length" flow-btn>Select image</span>
+					  <span class="btn btn-info" ng-show="$flow.files.length" flow-btn>Change</span>
+					  <span class="btn btn-danger" ng-show="$flow.files.length"
+					     ng-click="$flow.cancel()">
+					    Remove
+					  </span>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="form-group margin-top">
 				<label for="contestTitle">Contest Title</label>
 				<input type="text" ng-model="title" id="contestTitle">
 			</div>
 			<div class="form-group">
 				<label for="contestDesc">Description</label>
-				<!-- <textarea class="huge" ng-model="desc" id="contestDesc"></textarea>	 -->
 				<div class="text-angular" text-angular ng-model="desc"></div>
 			</div>
 			<div class="form-group">
