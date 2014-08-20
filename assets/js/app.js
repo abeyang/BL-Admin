@@ -143,8 +143,8 @@ app.controller('ContestAllController', function($scope, ui, contestResource, met
 		return ui.findAttrById(metaResource, 'contest', id);
 	};
 
-	$scope.getPrize = function(id) {
-		var prize = ui.findAttrById(contestResource, 'prize', id);
+	$scope.getPrize = function(id, n) {
+		var prize = ui.findAttrById(contestResource, 'prize' + n, id);
 		if (prize) prize *= 10;
 		return prize;
 	};
@@ -152,56 +152,70 @@ app.controller('ContestAllController', function($scope, ui, contestResource, met
 	$scope.selectedContestId = -1;
 
 	$scope.editContest = function(id) {
-		$scope.selectedContestId = id;
+		window.location.href = "contest_entry_edit.html#/" + id;
 
-		if (id >= 0) {
-			$scope.title = $scope.getTitle(id);
-			$scope.desc = ui.lorem;
-			$scope.prize = $scope.getPrize(id);
+		// $scope.selectedContestId = id;
 
-			$scope.acceptStartDate = new Date(ui.findAttrById(contestResource, 'acceptStartDate', id));
-			$scope.acceptEndDate = new Date(ui.findAttrById(contestResource, 'acceptEndDate', id));
-			$scope.voteStartDate = new Date(ui.findAttrById(contestResource, 'voteStartDate', id));
-			$scope.voteEndDate = new Date(ui.findAttrById(contestResource, 'voteEndDate', id));
-			$scope.announceDate = new Date(ui.findAttrById(contestResource, 'announceDate', id));
-		}
-		else {
-			$scope.title = $scope.desc = $scope.prize = '';
-			$scope.acceptStartDate = $scope.acceptEndDate = $scope.voteStartDate = $scope.voteEndDate = $scope.announceDate = '';
-		}
+		// if (id >= 0) {
+		// 	$scope.title = $scope.getTitle(id);
+		// 	$scope.desc = ui.lorem;
+		// 	$scope.prize = $scope.getPrize(id);
+
+		// 	$scope.acceptStartDate = new Date(ui.findAttrById(contestResource, 'acceptStartDate', id));
+		// 	$scope.acceptEndDate = new Date(ui.findAttrById(contestResource, 'acceptEndDate', id));
+		// 	$scope.voteStartDate = new Date(ui.findAttrById(contestResource, 'voteStartDate', id));
+		// 	$scope.voteEndDate = new Date(ui.findAttrById(contestResource, 'voteEndDate', id));
+		// 	$scope.announceDate = new Date(ui.findAttrById(contestResource, 'announceDate', id));
+		// }
+		// else {
+		// 	$scope.title = $scope.desc = $scope.prize = '';
+		// 	$scope.acceptStartDate = $scope.acceptEndDate = $scope.voteStartDate = $scope.voteEndDate = $scope.announceDate = '';
+		// }
 		
 	}
 });
 
 
-app.controller('ContestEntryController', function($scope, $location, ui, mocResource, contestResource, metaResource) {
+app.controller('ContestEntryController', function($scope, $location, ui, contestResource, metaResource) {
 // @todo can delete this whole section
 	$scope.ui = ui;
 
 	var id = getIdFromUrl($location);
-	if (id >= 0) {
-		$scope.entry = ui.findById(contestResource, id);
-		$scope.title = ui.findAttrById(metaResource, 'contest', id);
-		$scope.status = ui.findAttrById(contestResource, 'status', id);
-
-		$scope.mocs = mocResource.filterByContestId(id);
-		$scope.newedit = 'Edit Contest';
-	}
-	else {
-		$scope.entry = {winners: 3};
-		$scope.title = '';
-		$scope.status = 0;
-
-		$scope.mocs = [];
-		$scope.newedit = 'New Contest';
-	}
+	$scope.id = id;
 
 	$scope.getTitle = function(id) {
-		return ui.findAttrById(metaResource, 'title', id);
+		return ui.findAttrById(metaResource, 'contest', id);
 	};
 	$scope.getLink = function(id) {
 		return "contest_item.html#/" + id;
 	};
+	$scope.getPrize = function(id, n) {
+		var prize = ui.findAttrById(contestResource, 'prize' + n, id);
+		if (prize) prize *= 10;
+		return prize;
+	};
+
+	if (id >= 0) {
+		$scope.title = $scope.getTitle(id);
+		$scope.desc = ui.lorem;
+		$scope.prize1 = $scope.getPrize(id, 1);
+		$scope.prize2 = $scope.getPrize(id, 2);
+		$scope.prize3 = $scope.getPrize(id, 3);
+
+		$scope.acceptStartDate = new Date(ui.findAttrById(contestResource, 'acceptStartDate', id));
+		$scope.acceptEndDate = new Date(ui.findAttrById(contestResource, 'acceptEndDate', id));
+		$scope.voteStartDate = new Date(ui.findAttrById(contestResource, 'voteStartDate', id));
+		$scope.voteEndDate = new Date(ui.findAttrById(contestResource, 'voteEndDate', id));
+		$scope.announceDate = new Date(ui.findAttrById(contestResource, 'announceDate', id));
+
+		$scope.newedit = 'Edit Contest';
+	}
+	else {
+		$scope.title = $scope.desc = $scope.prize = '';
+		$scope.acceptStartDate = $scope.acceptEndDate = $scope.voteStartDate = $scope.voteEndDate = $scope.announceDate = '';
+
+		$scope.newedit = 'New Contest';
+	}
 	
 	$scope.getContestLink = "contest_entry.html#/" + id;
 	$scope.getEditLink = "contest_entry_edit.html#/" + id;
@@ -946,7 +960,9 @@ app.factory('contestResource', function() {
 	    {
 	        id: '{{index()}}',
 	        isActive: '{{bool()}}',
-	        prize: '{{integer(5, 30)}}',
+	        prize1: '{{integer(15, 30)}}',
+	        prize2: '{{integer(7, 15)}}',
+	        prize3: '{{integer(1, 7)}}',
 	        entries: '{{integer(1, 200)}}',
 	        votes: '{{integer(1, 100)}}',
 	        views: '{{integer(1, 500)}}',
@@ -962,133 +978,153 @@ app.factory('contestResource', function() {
 	var data = [
 	  {
 	    "id": 0,
-	    "isActive": false,
-	    "prize": 23,
-	    "entries": 136,
-	    "votes": 62,
-	    "views": 362,
-	    "acceptStartDate": "2014-07-11T15:09:07",
-	    "acceptEndDate": "2014-06-11T15:21:06",
-	    "voteStartDate": "2014-03-29T12:17:07",
-	    "voteEndDate": "2014-07-15T04:08:18",
-	    "announceDate": "2014-08-14T04:30:55"
+	    "isActive": true,
+	    "prize1": 21,
+	    "prize2": 14,
+	    "prize3": 5,
+	    "entries": 169,
+	    "votes": 26,
+	    "views": 186,
+	    "acceptStartDate": "2014-04-11T00:25:25",
+	    "acceptEndDate": "2014-05-23T23:28:36",
+	    "voteStartDate": "2014-07-23T16:59:28",
+	    "voteEndDate": "2014-03-31T05:44:31",
+	    "announceDate": "2014-04-20T12:43:41"
 	  },
 	  {
 	    "id": 1,
-	    "isActive": true,
-	    "prize": 13,
-	    "entries": 17,
-	    "votes": 87,
-	    "views": 171,
-	    "acceptStartDate": "2014-04-16T06:43:53",
-	    "acceptEndDate": "2014-08-03T00:33:48",
-	    "voteStartDate": "2014-04-15T21:10:56",
-	    "voteEndDate": "2014-08-02T07:49:21",
-	    "announceDate": "2014-05-23T13:38:26"
+	    "isActive": false,
+	    "prize1": 19,
+	    "prize2": 8,
+	    "prize3": 4,
+	    "entries": 108,
+	    "votes": 8,
+	    "views": 306,
+	    "acceptStartDate": "2014-05-03T13:57:24",
+	    "acceptEndDate": "2014-05-30T01:01:45",
+	    "voteStartDate": "2014-02-16T02:46:23",
+	    "voteEndDate": "2014-05-07T08:32:04",
+	    "announceDate": "2014-07-06T07:33:10"
 	  },
 	  {
 	    "id": 2,
-	    "isActive": true,
-	    "prize": 25,
-	    "entries": 27,
-	    "votes": 45,
-	    "views": 45,
-	    "acceptStartDate": "2014-01-19T02:06:16",
-	    "acceptEndDate": "2014-05-20T02:22:29",
-	    "voteStartDate": "2014-04-19T18:48:33",
-	    "voteEndDate": "2014-04-09T16:34:07",
-	    "announceDate": "2014-08-15T01:27:41"
+	    "isActive": false,
+	    "prize1": 16,
+	    "prize2": 15,
+	    "prize3": 1,
+	    "entries": 128,
+	    "votes": 16,
+	    "views": 316,
+	    "acceptStartDate": "2014-02-20T05:05:13",
+	    "acceptEndDate": "2014-06-03T01:08:00",
+	    "voteStartDate": "2014-08-14T03:27:29",
+	    "voteEndDate": "2014-03-05T00:03:43",
+	    "announceDate": "2014-05-22T01:50:15"
 	  },
 	  {
 	    "id": 3,
 	    "isActive": true,
-	    "prize": 17,
-	    "entries": 69,
-	    "votes": 31,
-	    "views": 333,
-	    "acceptStartDate": "2014-08-02T13:26:17",
-	    "acceptEndDate": "2014-03-18T05:14:21",
-	    "voteStartDate": "2014-07-11T07:20:10",
-	    "voteEndDate": "2014-07-30T18:07:59",
-	    "announceDate": "2014-05-10T14:53:20"
+	    "prize1": 24,
+	    "prize2": 7,
+	    "prize3": 6,
+	    "entries": 119,
+	    "votes": 19,
+	    "views": 306,
+	    "acceptStartDate": "2014-04-16T09:28:03",
+	    "acceptEndDate": "2014-03-27T23:36:21",
+	    "voteStartDate": "2014-04-04T17:05:38",
+	    "voteEndDate": "2014-03-23T06:31:36",
+	    "announceDate": "2014-05-31T11:14:25"
 	  },
 	  {
 	    "id": 4,
 	    "isActive": false,
-	    "prize": 6,
-	    "entries": 122,
-	    "votes": 74,
-	    "views": 453,
-	    "acceptStartDate": "2014-03-11T05:17:43",
-	    "acceptEndDate": "2014-08-07T20:20:59",
-	    "voteStartDate": "2014-07-29T12:26:20",
-	    "voteEndDate": "2014-05-22T10:53:56",
-	    "announceDate": "2014-08-03T10:22:34"
+	    "prize1": 16,
+	    "prize2": 12,
+	    "prize3": 6,
+	    "entries": 73,
+	    "votes": 9,
+	    "views": 97,
+	    "acceptStartDate": "2014-01-05T17:27:20",
+	    "acceptEndDate": "2014-02-25T02:35:43",
+	    "voteStartDate": "2014-03-23T17:25:43",
+	    "voteEndDate": "2014-03-17T16:25:42",
+	    "announceDate": "2014-04-27T17:36:48"
 	  },
 	  {
 	    "id": 5,
-	    "isActive": true,
-	    "prize": 11,
-	    "entries": 10,
-	    "votes": 48,
-	    "views": 47,
-	    "acceptStartDate": "2014-01-26T12:18:25",
-	    "acceptEndDate": "2014-05-03T08:38:09",
-	    "voteStartDate": "2014-05-06T15:11:59",
-	    "voteEndDate": "2014-05-15T19:44:01",
-	    "announceDate": "2014-07-19T10:12:38"
+	    "isActive": false,
+	    "prize1": 28,
+	    "prize2": 10,
+	    "prize3": 3,
+	    "entries": 171,
+	    "votes": 90,
+	    "views": 27,
+	    "acceptStartDate": "2014-05-25T09:34:51",
+	    "acceptEndDate": "2014-05-25T03:49:41",
+	    "voteStartDate": "2014-07-15T08:32:12",
+	    "voteEndDate": "2014-05-14T04:09:34",
+	    "announceDate": "2014-06-24T20:45:31"
 	  },
 	  {
 	    "id": 6,
 	    "isActive": true,
-	    "prize": 6,
-	    "entries": 2,
-	    "votes": 72,
-	    "views": 337,
-	    "acceptStartDate": "2014-07-19T19:50:53",
-	    "acceptEndDate": "2014-06-26T17:27:46",
-	    "voteStartDate": "2014-02-07T07:10:05",
-	    "voteEndDate": "2014-05-28T04:42:44",
-	    "announceDate": "2014-08-02T11:09:27"
+	    "prize1": 18,
+	    "prize2": 15,
+	    "prize3": 3,
+	    "entries": 58,
+	    "votes": 16,
+	    "views": 500,
+	    "acceptStartDate": "2014-02-17T17:50:08",
+	    "acceptEndDate": "2014-07-14T02:28:45",
+	    "voteStartDate": "2014-02-03T11:41:40",
+	    "voteEndDate": "2014-08-05T00:34:42",
+	    "announceDate": "2014-04-07T17:02:33"
 	  },
 	  {
 	    "id": 7,
 	    "isActive": false,
-	    "prize": 25,
-	    "entries": 147,
-	    "votes": 18,
-	    "views": 69,
-	    "acceptStartDate": "2014-01-24T22:25:55",
-	    "acceptEndDate": "2014-02-12T04:13:43",
-	    "voteStartDate": "2014-08-05T01:24:48",
-	    "voteEndDate": "2014-05-10T17:41:23",
-	    "announceDate": "2014-05-18T16:54:08"
+	    "prize1": 15,
+	    "prize2": 7,
+	    "prize3": 5,
+	    "entries": 115,
+	    "votes": 13,
+	    "views": 296,
+	    "acceptStartDate": "2014-02-25T09:43:25",
+	    "acceptEndDate": "2014-06-30T19:08:01",
+	    "voteStartDate": "2014-05-28T07:23:55",
+	    "voteEndDate": "2014-07-10T18:29:40",
+	    "announceDate": "2014-05-01T19:46:07"
 	  },
 	  {
 	    "id": 8,
-	    "isActive": false,
-	    "prize": 12,
-	    "entries": 80,
-	    "votes": 55,
-	    "views": 246,
-	    "acceptStartDate": "2014-02-14T06:07:40",
-	    "acceptEndDate": "2014-02-17T01:48:47",
-	    "voteStartDate": "2014-07-07T11:01:56",
-	    "voteEndDate": "2014-05-17T02:32:11",
-	    "announceDate": "2014-07-27T07:26:52"
+	    "isActive": true,
+	    "prize1": 22,
+	    "prize2": 14,
+	    "prize3": 7,
+	    "entries": 88,
+	    "votes": 70,
+	    "views": 473,
+	    "acceptStartDate": "2014-06-13T11:10:09",
+	    "acceptEndDate": "2014-06-29T11:35:00",
+	    "voteStartDate": "2014-02-20T00:45:59",
+	    "voteEndDate": "2014-06-13T12:55:41",
+	    "announceDate": "2014-05-30T07:09:50"
 	  },
 	  {
 	    "id": 9,
 	    "isActive": false,
-	    "prize": 15,
-	    "entries": 48,
-	    "votes": 82,
-	    "views": 147,
-	    "acceptStartDate": "2014-04-27T01:41:12",
-	    "acceptEndDate": "2014-02-26T16:11:49",
-	    "voteStartDate": "2014-05-26T13:40:04",
-	    "voteEndDate": "2014-07-30T04:41:36",
-	    "announceDate": "2014-04-23T04:23:04"
+	    "prize1": 27,
+	    "prize2": 14,
+	    "prize3": 4,
+	    "entries": 175,
+	    "votes": 24,
+	    "views": 185,
+	    "acceptStartDate": "2014-01-07T03:33:17",
+	    "acceptEndDate": "2014-05-19T06:50:33",
+	    "voteStartDate": "2014-07-02T03:09:38",
+	    "voteEndDate": "2014-05-27T17:34:34",
+	    "announceDate": "2014-08-08T21:55:43"
 	  }
 	];
 

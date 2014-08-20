@@ -5,17 +5,16 @@
 
 	<nav class="subnav">
 		<ul class="container">
-			<li ng-class="{active: filterCards.status === 1 }"><a ng-click="filterCards.status=1" href="#">Awaiting Approval</a></li>
-			<li ng-class="{active: filterCards.status === 2 }"><a ng-click="filterCards.status=2" href="#">Approved</a></li>
-			<li ng-class="{active: filterCards.status === 0 }"><a ng-click="filterCards.status=0" href="#">Rejected</a></li>
-			<li ng-class="{active: filterCards.status === 3 }"><a ng-click="filterCards.status=3" href="#">Receiving Votes</a></li>
-			<!-- <li ng-class="{active: filterCards.status == 0}"><a ng-click="filterCards.status=0" href="#">New</a></li>
-			<li ng-class="{active: filterCards.status == 2}"><a ng-click="filterCards.status=2" href="#">Ongoing</a></li>
-			<li ng-class="{active: filterCards.status == 4}"><a ng-click="filterCards.status=4" href="#">Expired</a></li>
-			<li class="right"><a class="btn" href="{{getNewContestLink}}">New Contest</a></li> -->
-
-			<li class="right"><a href="@path contests_all.html">All Contests</a></li>
-			<li class="right separator">&nbsp;</li>
+			<li class="active"><a href="@path contest.html">Approval Process</a></li>
+			<li><a href="@path contests_all.html">Contests</a></li>
+			
+			<li class="right pad" ng-class="{active: filterCards.status === 3 }"><a ng-click="filterCards.status=3" href="#">Receiving Votes</a></li>
+			<li class="right pad" ng-class="{active: filterCards.status === 0 }"><a ng-click="filterCards.status=0" href="#">Rejected</a></li>
+			<li class="right pad" ng-class="{active: filterCards.status === 2 }"><a ng-click="filterCards.status=2" href="#">Approved</a></li>
+			<li class="right pad" ng-class="{active: filterCards.status === 1 }"><a ng-click="filterCards.status=1" href="#">Awaiting Approval</a></li>
+			
+<!-- 			<li class="right"><a href="@path contests_all.html">All Contests</a></li>
+			<li class="right separator">&nbsp;</li> -->
 		</ul>
 	</nav>
 

@@ -222,6 +222,7 @@ textarea {
     width: 100%;
     height: 100px;
 
+    &.huge { height: 400px; }
     &.tall { height: 200px; }
     &.short { height: 60px; }
 }
@@ -252,6 +253,8 @@ textarea {
 }
 
 .form-group {
+    @include clearfix;
+
     label {
         margin-bottom: $margin;
     }

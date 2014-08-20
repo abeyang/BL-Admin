@@ -5,93 +5,98 @@
 
 	<nav class="subnav">
 		<ul class="container">
-			<li><a href="contest.html#/1">Awaiting Approval</a></li>
-			<li><a href="contest.html#/2">Approved</a></li>
-			<li><a href="contest.html#/0">Rejected</a></li>
-			<li><a href="contest.html#/3">Receiving Votes</a></li>
+			<li><a href="@path contest.html">Approval Process</a></li>
+			<li class="active"><a href="@path contests_all.html">Contests</a></li>
 
-			<li class="right active"><a href="">All Contests</a></li>
-			<li class="right separator">&nbsp;</li>
+			<!-- @todo add link to button -->
+			<li class="right"><a class="btn" href="contest_entry_edit.html#/-1">Add Contest</a></li>
 		</ul>
 	</nav>
 
-	
-	<div class="container">
+	<section>
+		<div class="container">
 
-		<div class="col-twothird margin-top">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Title</th>
-						<th>Announcement Date</th>
-						<th class="align-right">Prize</th>
-					</tr>	
-				</thead>
+			<!-- <div class="col-twothird margin-top"> -->
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Title</th>
+							<th>Announcement Date</th>
+							<th class="align-right">First Prize</th>
+							<th class="align-right">Second Prize</th>
+							<th class="align-right">Third Prize</th>
+						</tr>	
+					</thead>
+					
+					<tbody>
+						<tr class="hover" ng-repeat="entry in entries" ng-class="{active: selectedContestId==entry.id}" ng-click="editContest(entry.id)">
+							<td>{{ getTitle(entry.id) }}</td>
+							<td>{{ ui.getDate(entry.announceDate) }}</td>
+							<td class="align-right">{{ getPrize(entry.id, 1) | currency }}</td>
+							<td class="text-dull align-right">{{ getPrize(entry.id, 2) | currency }}</td>
+							<td class="text-dull align-right">{{ getPrize(entry.id, 3) | currency }}</td>
+						</tr>
+					</tbody>
+				</table>
+
+<!-- 				<div class="pad-top">
+					<a class="btn right" ng-click="editContest(-1)" href="">Create New Contest</a>	
+				</div> -->
+			<!-- </div> -->
+
+	<!-- 
+			<div class="col-third panelet right">
+				<div class="form-group">
+					<label for="contestTitle">Contest Title</label>
+					<input type="text" ng-model="title" id="contestTitle">
+				</div>
+				<div class="form-group">
+					<label for="contestDesc">Description</label>
+					<textarea class="tall" ng-model="desc" id="contestDesc"></textarea>	
+				</div>
+				<div class="form-group">
+					<label for="contestPrize">Prize (in USD)</label>
+					<input type="text" ng-model="prize" id="contestPrize">
+				</div>
+
+				<div class="form-group">
+					<div><label for="acceptStartDate">MOC Acceptance Period</label></div>
+					<div class="form-group col-half">
+						<input type="date" id="acceptStartDate" ng-model="acceptStartDate">
+					</div>
+					<div class="form-group col-half">
+						<input type="date" id="acceptEndDate" ng-model="acceptEndDate">
+					</div>
+				</div>
 				
-				<tbody>
-					<tr class="hover" ng-repeat="entry in entries" ng-class="{active: selectedContestId==entry.id}" ng-click="editContest(entry.id)">
-						<td>{{ getTitle(entry.id) }}</td>
-						<td class="text-dull">{{ ui.getDate(entry.announceDate) }}</td>
-						<td class="text-dull align-right">${{ getPrize(entry.id)}}</td>
-					</tr>
-				</tbody>
-			</table>
-
-			<div class="pad-top">
-				<a class="btn right" ng-click="editContest(-1)" href="">Create New Contest</a>	
-			</div>
-		</div>
-
-		<div class="col-third panelet right">
-			<div class="form-group">
-				<label for="contestTitle">Contest Title</label>
-				<input type="text" ng-model="title" id="contestTitle">
-			</div>
-			<div class="form-group">
-				<label for="contestDesc">Description</label>
-				<textarea class="tall" ng-model="desc" id="contestDesc"></textarea>	
-			</div>
-			<div class="form-group">
-				<label for="contestPrize">Prize (in USD)</label>
-				<input type="text" ng-model="prize" id="contestPrize">
-			</div>
-
-			<div class="form-group">
-				<div><label for="acceptStartDate">MOC Acceptance Period</label></div>
-				<div class="form-group col-half">
-					<input type="date" id="acceptStartDate" ng-model="acceptStartDate">
+				<div class="form-group">
+					<div><label for="voteStartDate">Voting Period</label></div>
+					<div class="form-group col-half">
+						<input type="date" id="voteStartDate" ng-model="voteStartDate">
+					</div>
+					<div class="form-group col-half">
+						<input type="date" id="voteEndDate" ng-model="voteEndDate">
+					</div>
 				</div>
-				<div class="form-group col-half">
-					<input type="date" id="acceptEndDate" ng-model="acceptEndDate">
+				
+				<div class="form-group">
+					<label for="announceDate">Announcement Date</label>
+					<input type="date" id="announceDate" ng-model="announceDate">
+				</div>
+
+				<div class="form-group pad-top">
+					<a class="btn btn-pill btn-primary" href="">
+						<span ng-show="selectedContestId < 0">Add New Contest</span>
+						<span ng-show="selectedContestId >= 0">Update Contest</span>
+					</a>
 				</div>
 			</div>
-			
-			<div class="form-group">
-				<div><label for="voteStartDate">Voting Period</label></div>
-				<div class="form-group col-half">
-					<input type="date" id="voteStartDate" ng-model="voteStartDate">
-				</div>
-				<div class="form-group col-half">
-					<input type="date" id="voteEndDate" ng-model="voteEndDate">
-				</div>
-			</div>
-			
-			<div class="form-group">
-				<label for="announceDate">Announcement Date</label>
-				<input type="date" id="announceDate" ng-model="announceDate">
-			</div>
+	 -->
+		</div> <!-- /.container -->
+	</section>
+	
 
-			<div class="form-group pad-top">
-				<a class="btn btn-pill btn-primary" href="">
-					<span ng-show="selectedContestId < 0">Add New Contest</span>
-					<span ng-show="selectedContestId >= 0">Update Contest</span>
-				</a>
-			</div>
-		</div>
-
-	</div> <!-- /.container -->
-
-	<div class="pane right"></div>
+	<!-- <div class="pane right"></div> -->
 
   
 <!-- @include _footer -->
