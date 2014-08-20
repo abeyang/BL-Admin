@@ -212,9 +212,10 @@ img {
     margin-bottom: $pad;
     border-radius: $radius;
     border: 1px solid $lightergray;
+    background-color: $white;
 }
 
-input, textarea {
+input, textarea, .text-angular {
     @extend .form;
 }
 
@@ -222,9 +223,37 @@ textarea {
     width: 100%;
     height: 100px;
 
-    &.huge { height: 400px; }
     &.tall { height: 200px; }
     &.short { height: 60px; }
+}
+.text-angular {
+    padding: 0;
+
+    .ta-toolbar { 
+        @include clearfix; 
+        padding: $pad;
+        /*background-color: $lightestgray;*/
+    }
+    .btn-group { 
+        float: left; 
+        margin-right: $pad;
+
+        .btn {
+            margin-bottom: 0;
+            border-radius: 0;
+            border-right: none;
+            border-color: $lightestgray;
+            color: $lightgray;
+            font-size: $small;
+
+            &.active, &:hover { 
+                background-color: $lighterorange; 
+                color: $darkgray; 
+            }
+            &:nth-last-child(1) { border-right: 1px solid $lightestgray; }
+            /*background-color: $lightestgray;*/
+        }
+    }
 }
 
 .buttonbar {

@@ -1,6 +1,6 @@
 <!-- $title - Contest (Edit) -->
 <!-- $isactive-contest class="active" -->
-<!-- $body-meta ng-controller="ContestEntryController" -->
+<!-- $body-meta class="blank" ng-controller="ContestEntryController" -->
 <!-- @include _header -->
 
 <!-- @todo show current status of contest -->
@@ -19,7 +19,8 @@
 			</div>
 			<div class="form-group">
 				<label for="contestDesc">Description</label>
-				<textarea class="huge" ng-model="desc" id="contestDesc"></textarea>	
+				<!-- <textarea class="huge" ng-model="desc" id="contestDesc"></textarea>	 -->
+				<div class="text-angular" text-angular ng-model="desc"></div>
 			</div>
 			<div class="form-group">
 				<div class="form-group col-third">
@@ -70,7 +71,7 @@
 					<span ng-show="id < 0">Add New Contest</span>
 					<span ng-show="id >= 0">Update Contest</span>
 				</a>
-				<a class="btn right margin-right-10" href="">Preview</a>
+				<!-- <a class="btn right margin-right-10" href="">Preview</a> -->
 			</div>
 
 		</div>
