@@ -322,11 +322,7 @@ app.controller('BackOfficeInvoiceController', function($scope, ui, backOfficeRes
 	// cards (in sidebar)
 	$scope.cards = {
 		2014: true,
-		2013: false,
-		m08: true,
-		m07: false,
-		m06: false,
-		m05: false
+		2013: false
 	};
 });
 
