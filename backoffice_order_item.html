@@ -1,0 +1,144 @@
+<!-- $title - Back Office - Order - Item -->
+<!-- $isactive-backoffice class="active" -->
+<!-- $body-meta class="blank" ng-controller="BackOfficeOrdersController" -->
+<!-- @include _header -->
+
+	<nav class="subnav">
+		<ul class="container">
+			<li class="separator">&nbsp;</li>
+			<li class="active"><a href="@path backoffice_user_profile.html"><i class="fa fa-search"></i></a></li>
+			<li class="separator">&nbsp;</li>
+			<li class="active">
+				<ul class="menu">
+					<li>
+						<a href="">Orders <i class="fa fa-angle-down pad-left"></i></a>
+						<ul>
+							<li><a href="@path backoffice_dashboard.html">Dashboard</a></li>
+							<li><a href="@path backoffice_orders.html">Orders</a></li>
+							<li><a href="@path backoffice_outbalance.html">Outstanding Balance</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li class="separator">&nbsp;</li>
+			<li class="active"><a href="#">{{ id }}</a></li>
+
+			<!-- @todo link these items -->
+			<li class="right pad"><a href="#">Items</a></li>
+			<li class="right pad active"><a href="#">Activity</a></li>
+		</ul>
+	</nav>
+	
+	<div class="container">
+		<div class="col-third panelet left">
+			<div class="info">
+				<small>Status</small>
+				<p class="text-warning">NSS</p>
+			</div>
+			<div class="info">
+				<small>Order Date</small>
+				<p>Jun 23, 2014</p>
+			</div>
+			<div class="info">
+				<small>Buyer</small>
+				<p><a href="@path backoffice_user_profile.html">LegoLass</a></p>
+			</div>
+			<div class="info">
+				<small>Seller</small>
+				<p><a href="@path backoffice_user_profile.html">BrickBro</a></p>
+			</div>
+			<div class="info">
+				<small>Items</small>
+				<p>137</p>
+			</div>
+			<div class="info">
+				<small>Lots</small>
+				<p>24</p>
+			</div>
+
+			<hr />
+
+			<div class="info">
+				<small>Sub-total</small>
+				<p class="align-right">$72.20</p>
+			</div>
+			<div class="info">
+				<small>Shipping</small>
+				<p class="align-right">$8.00</p>
+			</div>
+			<div class="info">
+				<small>Insurance</small>
+				<p class="align-right">$0.00</p>
+			</div>
+			<div class="info">
+				<small>Extra Charges</small>
+				<p class="align-right">$0.00</p>
+			</div>
+			<div class="info">
+				<small>Total</small>
+				<p class="align-right"><strong>$80.20</strong></p>
+			</div>
+		</div>
+
+		<div class="col-twothird margin-top">
+			<textarea placeholder="Write a comment to the buyer and seller"></textarea>
+			<!-- <div class="buttonbar"> -->
+				<select>
+					<option>Pending</option>
+					<option>Updated</option>
+					<option>Processing</option>
+					<option>Ready</option>
+					<option>Paid</option>
+					<option>Packed</option>
+					<option>Shipped</option>
+					<option>Received</option>
+					<option>Completed</option>
+					<option>OCR</option>
+					<option>NPB</option>
+					<option>NPX</option>
+					<option>NRS</option>
+					<option selected>NSS</option>
+					<option>Cancelled</option>
+					<option>Purged</option>
+				</select>
+				<a class="btn btn-primary right" href="">Submit</a>
+			<!-- </div> -->
+			<table class="table">
+				<tbody>
+					<tr >
+						<td class="date">Aug 1, 2014</td>
+						<td class="text-danger">Missed July 2014 Invoice ($9.90)</td>
+					</tr>
+					<tr >
+						<td class="date">Jul 17, 2014</td>
+						<td class="text-warning">NSS complaint from LegoLass</td>
+					</tr>
+					<tr>
+						<td class="cell-content">&nbsp;</td>
+						<td class="cell-content">User promised to sell 200 bricks to me by last Tuesday. However, I found out that not only ...</td>
+					</tr>
+					<tr >
+						<td class="date">Jul 8, 2014</td>
+						<td><small class="right all-caps">Seller</small>BrickBro said:</td>
+					</tr>
+					<tr>
+						<td class="cell-content">&nbsp;</td>
+						<td class="cell-content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
+					</tr>
+					<tr >
+						<td class="date">Jul 8, 2014</td>
+						<td><small class="right all-caps">Buyer</small>LegoLass said:</td>
+					</tr>
+					<tr>
+						<td class="cell-content">&nbsp;</td>
+						<td class="cell-content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+	</div> <!-- /.container -->
+	
+  	<div class="pane left"></div>
+
+<!-- @include _footer -->

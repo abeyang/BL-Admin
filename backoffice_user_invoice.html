@@ -50,8 +50,7 @@
 						</tr>	
 					</thead>
 					<tbody>
-					<!-- @todo link to order page -->
-						<tr class="hover" ng-repeat="item in bo | orderBy:'-date2' | limitTo: 6">
+						<tr class="hover" ng-repeat="item in bo | orderBy:'-date2' | limitTo: 6" ng-click="gotoOrderPage(item.order)">
 							<td>{{ item.date2 }}</td>
 							<td>{{ item.order }}</td>
 							<td class="align-right">{{ item.amount * 0.05 | currency }}</td>
@@ -93,8 +92,7 @@
 						</tr>	
 					</thead>
 					<tbody>
-					<!-- @todo link to order page -->
-						<tr class="hover" ng-repeat="item in bo | orderBy:'date2' | limitTo: 4">
+						<tr class="hover" ng-repeat="item in bo | orderBy:'date2' | limitTo: 4" ng-click="gotoOrderPage(item.order)">
 							<td>7/20/14</td>
 							<td>{{ item.order }}</td>
 							<td class="align-right">{{ item.amount * 0.05 | currency }}</td>
@@ -131,8 +129,7 @@
 						</tr>	
 					</thead>
 					<tbody>
-					<!-- @todo link to order page -->
-						<tr class="hover" ng-repeat="item in bo | orderBy:'date1' | limitTo: 4">
+						<tr class="hover" ng-repeat="item in bo | orderBy:'date1' | limitTo: 4" ng-click="gotoOrderPage(item.order)">
 							<td>6/1/14</td>
 							<td>{{ item.order }}</td>
 							<td class="align-right">{{ item.amount * 0.05 | currency }}</td>

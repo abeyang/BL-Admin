@@ -173,6 +173,10 @@ img {
     max-width: 100%;
 }
 
+hr {
+    border-top: 1px solid $lighterblue;
+}
+
 .right {
     float: right;
 }
@@ -539,7 +543,14 @@ nav {
         &.cell-content {
             padding-top: 0;
             border: none;
-            color: $gray;
+            /*color: $gray;*/
+        }
+        &.date {
+            width: 100px;
+            padding-top: 12px;
+            font-size: $small;
+            text-align: right;
+            color: $lightgray;
         }
     }
     th {
@@ -980,12 +991,22 @@ a.metric {
     }
 }
 
-a.invoice {
-    display: block;
-    color: $black;
-
-    &.active { font-weight: 700; }
-    
+div.info {
+    small { 
+        width: 110px;
+        margin-top: 3px;
+        float: left;
+        text-transform: uppercase; 
+        /*text-align: right;*/
+    }
+    p {
+        margin-left: 110px + $pad;
+        text-align: right;
+    }
+    a {
+        color: $black;
+        text-decoration: underline;
+    }
 }
 
 .card {

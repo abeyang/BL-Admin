@@ -61,8 +61,7 @@
 				<h2 class="pad-left-10">Fee Issues</h2>
 				<table class="table">
 					<tbody>
-					<!-- @todo link to user page -->
-						<tr class="hover" ng-repeat="item in bo | orderBy:'date1'">
+						<tr class="hover" ng-repeat="item in bo | orderBy:'date1'" ng-click="gotoUserPage()">
 							<td>{{ item.user }}</td><td class="text-dull align-right">{{ item.date1 }}</td>
 						</tr>
 					</tbody>
@@ -73,8 +72,7 @@
 				<h2 class="pad-left-10">Order Issues</h2>
 				<table class="table">
 					<tbody>
-					<!-- @todo link to user's specific order page -->
-						<tr class="hover" ng-repeat="item in bo | orderBy:'-date2'">
+						<tr class="hover" ng-repeat="item in bo | orderBy:'-date2'" ng-click="gotoOrderPage(item.order)">
 							<td class="text-dull">{{ item.issue }}</td>
 							<td>{{ item.order }}</td>
 							<td>{{ item.user }}</td>

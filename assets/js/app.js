@@ -291,6 +291,13 @@ app.controller('BackOfficeController', function($scope, ui, backOfficeResource) 
 		status: false,
 		refund: false
 	};
+
+	$scope.gotoOrderPage = function(id) {
+		window.location.href = "backoffice_order_item.html#/" + id;
+	}
+	$scope.gotoUserPage = function() {
+		window.location.href = "backoffice_user_profile.html";
+	}
 });
 
 app.controller('BackOfficeInvoiceController', function($scope, ui, backOfficeResource) {
@@ -305,6 +312,10 @@ app.controller('BackOfficeInvoiceController', function($scope, ui, backOfficeRes
 		2014: true,
 		2013: false
 	};
+
+	$scope.gotoOrderPage = function(id) {
+		window.location.href = "backoffice_order_item.html#/" + id;
+	}
 });
 
 app.controller('BackOfficeOrdersController', function($scope, $location, ui, backOfficeResource) {
@@ -313,6 +324,7 @@ app.controller('BackOfficeOrdersController', function($scope, $location, ui, bac
 	$scope.bo = backOfficeResource.list();
 
 	// P = placed orders; R = received orders
+	// order_num = specific order
 	var id = getIdFromUrl($location);
 	$scope.id = id;
 });
