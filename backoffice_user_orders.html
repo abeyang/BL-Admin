@@ -1,0 +1,70 @@
+<!-- $title - Back Office - User - Orders -->
+<!-- $isactive-backoffice class="active" -->
+<!-- $body-meta class="blank" ng-controller="BackOfficeOrdersController" -->
+<!-- @include _header -->
+
+	<nav class="subnav">
+		<ul class="container">
+			<li class="separator">&nbsp;</li>
+			<li class="active"><a href="@path backoffice_user_profile.html"><i class="fa fa-search"></i></a></li>
+			<li class="separator">&nbsp;</li>
+			<li class="active">
+				<ul class="menu">
+					<li>
+						<a href=""><i class="fa fa-user pad-right"></i> LegoLass <i class="fa fa-angle-down pad-left"></i></a>
+						<ul>
+							<li><a href="@path backoffice_dashboard.html">Dashboard</a></li>
+							<li><a href="@path backoffice_outbalance.html">Outstanding Balance</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li class="separator">&nbsp;</li>
+
+			<li class="right pad"><a href="@path backoffice_user_invoice.html">Invoice</a></li>
+			<!-- @todo need ng-click instead of href -->
+			<li class="right pad" ng-class="{active: id=='P'}"><a href="" ng-click="id='P'">Placed Orders</a></li>
+			<li class="right pad" ng-class="{active: id=='R'}"><a href="" ng-click="id='R'">Received Orders</a></li>
+			<li class="right pad"><a href="@path backoffice_user_profile.html">Profile</a></li>
+		</ul>
+	</nav>
+	
+
+	<section>
+		<div class="container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Status</th>
+						<th>Order</th>
+						<th ng-show="id=='R'">Buyer</th>
+						<th ng-show="id=='P'">Seller</th>
+						<th class="align-right">Date</th>
+						<th class="align-right">Fee</th>
+					</tr>	
+				</thead>
+				<tbody>
+				<!-- @todo link to order page -->
+					<tr class="hover text-warning" ng-repeat="item in bo | orderBy:'-date1' ">
+						<td>{{ item.issue }}</td>
+						<td>{{ item.order }}</td>
+						<td ng-show="id=='R'">{{ item.user }}</td>
+						<td ng-show="id=='P'">{{ item.store }}</td>
+						<td class="align-right">{{ item.date1 }}</td>
+						<td class="align-right">{{ item.amount | currency }}</td>
+					</tr>
+					<tr class="hover" ng-repeat="item in bo | orderBy:'date2' ">
+						<td>Pending</td>
+						<td>{{ item.order }}</td>
+						<td ng-show="id=='R'">{{ item.user }}</td>
+						<td ng-show="id=='P'">{{ item.store }}</td>
+						<td class="align-right">2/23/14</td>
+						<td class="align-right">{{ item.amount | currency }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div> <!-- /.container -->
+	</section>
+
+
+<!-- @include _footer -->

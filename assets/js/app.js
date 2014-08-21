@@ -153,25 +153,6 @@ app.controller('ContestAllController', function($scope, ui, contestResource, met
 
 	$scope.editContest = function(id) {
 		window.location.href = "contest_entry_edit.html#/" + id;
-
-		// $scope.selectedContestId = id;
-
-		// if (id >= 0) {
-		// 	$scope.title = $scope.getTitle(id);
-		// 	$scope.desc = ui.lorem;
-		// 	$scope.prize = $scope.getPrize(id);
-
-		// 	$scope.acceptStartDate = new Date(ui.findAttrById(contestResource, 'acceptStartDate', id));
-		// 	$scope.acceptEndDate = new Date(ui.findAttrById(contestResource, 'acceptEndDate', id));
-		// 	$scope.voteStartDate = new Date(ui.findAttrById(contestResource, 'voteStartDate', id));
-		// 	$scope.voteEndDate = new Date(ui.findAttrById(contestResource, 'voteEndDate', id));
-		// 	$scope.announceDate = new Date(ui.findAttrById(contestResource, 'announceDate', id));
-		// }
-		// else {
-		// 	$scope.title = $scope.desc = $scope.prize = '';
-		// 	$scope.acceptStartDate = $scope.acceptEndDate = $scope.voteStartDate = $scope.voteEndDate = $scope.announceDate = '';
-		// }
-		
 	}
 });
 
@@ -324,6 +305,16 @@ app.controller('BackOfficeInvoiceController', function($scope, ui, backOfficeRes
 		2014: true,
 		2013: false
 	};
+});
+
+app.controller('BackOfficeOrdersController', function($scope, $location, ui, backOfficeResource) {
+
+	$scope.ui = ui;
+	$scope.bo = backOfficeResource.list();
+
+	// P = placed orders; R = received orders
+	var id = getIdFromUrl($location);
+	$scope.id = id;
 });
 
 // HELPERS
@@ -1737,7 +1728,7 @@ app.factory('backOfficeResource', function () {
 		{id:1,	issue:"NRS", order: 10086263, date1:"4/16/14", date2:"8/17/14",	amount:"36.50",	user:"Captain Brick",	store:"Captain AmeriBrick"},
 		{id:2,	issue:"NPX", order: 10012563, date1:"5/20/14", date2:"8/11/14",	amount:"18.90",	user:"LegoLass",		store:"Lord of the Bricks"},
 		{id:3,	issue:"NSB", order: 10023463, date1:"6/05/14", date2:"8/08/14",	amount:"17.00",	user:"legolandia",		store:"Lego Landia"},
-		{id:4,	issue:"NSS", order: 10089242, date1:"6/23/14", date2:"8/06/14",	amount:"5.00",	user:"Dad's AFOL",		store:"Dad's AFOL"},
+		{id:4,	issue:"NSS", order: 10089242, date1:"6/23/14", date2:"8/06/14",	amount:"5.00",	user:"Big Poppa",		store:"Dad's AFOL"},
 		{id:5,	issue:"NRS", order: 10082352, date1:"6/23/14", date2:"8/05/14",	amount:"31.10",	user:"AFOL 4 the Win",	store:"AFOL 4 Life"},
 		{id:6,	issue:"NPX", order: 10046831, date1:"7/27/14", date2:"7/27/14",	amount:"7.50",	user:"Bricktopia",		store:"Brick Utopia"},
 		{id:7,	issue:"NSB", order: 10092948, date1:"8/08/14", date2:"7/25/14",	amount:"180.00",user:"Free 4 All",		store:"Brick 4 Less"},
