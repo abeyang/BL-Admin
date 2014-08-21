@@ -131,6 +131,7 @@ small {
     font-size: $small;
     color: $lightgray;
 }
+.all-caps { text-transform: uppercase; }
 
 a {
     color: $color_link;
@@ -292,7 +293,6 @@ textarea {
         width: 100%;
     }
 }
-
 
 .subnav {
 	.btn {
@@ -541,6 +541,11 @@ nav {
         border-top: 1px solid $lighterblue;
 
         &.no-border { border: none; }
+        &.cell-content {
+            padding-top: 0;
+            border: none;
+            color: $gray;
+        }
     }
     th {
         text-align: left;
@@ -652,12 +657,12 @@ nav {
     &.status_rejected { @include status($color_rejected); }
 }
 
-.card {
+/*.card {
     border: 1px solid $lightergray;
     border-radius: $radius;
     background-color: $white;
     overflow: hidden;
-}
+}*/
 
 .mark { 
     position: absolute; 
@@ -987,6 +992,33 @@ a.invoice {
     &.active { font-weight: 700; }
     &.text-warning { color: $color-warning; }
     &.text-danger { color: $color-danger; }
+}
+
+.card {
+    padding: 0 $pad*2;
+    .background-color: none;
+    
+    p { display: none;}
+    p.header {
+        display: block;
+        opacity: 0.4;
+    }
+    i { @include transform(rotate(0deg)); }
+
+    &.active {
+        padding-top: $pad;
+        padding-bottom: $pad;
+        margin-bottom: $pad*2;
+        background-color: rgba($white, 0.5); 
+
+        p { 
+            display: block;
+            font-size: $small; 
+        } 
+        p.header { opacity: 1.0; }
+        i { @include transform(rotate(45deg)); }
+    }
+    
 }
 
 // MEDIA QUERIES

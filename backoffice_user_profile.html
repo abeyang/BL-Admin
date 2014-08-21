@@ -31,61 +31,111 @@
 	<div class="container">
 		<div class="col-twothird">
 			<h2>Member Profile</h2>
-			<div class="col-half">
-				<p>
-					<small>ID</small>
-					<br />145360
-				</p>
-				<p>
-					<small>Name</small>
-					<br />Alice Park
-				</p>
-				<p>
-					<small>Email</small>
-					<br />legolass@lordofthebricks.org
-				</p>
-				<p>
-					<small>Paypal</small>
-					<br />legolass@lordofthebricks.org
-				</p>
-				<p>
-					<small>Store Name</small>
-					<br />Lord of the Bricks
-				</p>
-				<p>
-					<small>Address</small>
-					<br />38 Executive Park
-					<br />Irvine, CA 92416
-				</p>
-			</div>
-			<div class="col-half">
-				<p>
-					<small>Member Since</small>
-					<br />January 30, 2005
-				</p>
-				<p>
-					<small>Last Log-in</small>
-					<br />August 18, 2014, 12:30pm PST
-				</p>
-				<p>
-					<small>IP Address</small>
-					<br />189.24.235.124
-				</p>
-				<p>
-					<small>Security Question</small>
-					<br />Has something to do with a brick...
-				</p>
-				<p>
-					<small>Security Answer</small>
-					<br />One brick to rule them all
-				</p>
+
+			<div class="form-group">
+				<div class="col-half">
+					<p>
+						<small>ID</small>
+						<br />145360
+					</p>
+					<p>
+						<small>Name</small>
+						<br />Alice Park
+					</p>
+					<p>
+						<small>Email</small>
+						<br />legolass@lordofthebricks.org
+					</p>
+					<p>
+						<small>Paypal</small>
+						<br />legolass@lordofthebricks.org
+					</p>
+					<p>
+						<small>Store Name</small>
+						<br />Lord of the Bricks
+					</p>
+					<p>
+						<small>Address</small>
+						<br />38 Executive Park
+						<br />Irvine, CA 92416
+					</p>
+				</div>
+				<div class="col-half">
+					<p>
+						<small>Member Since</small>
+						<br />January 30, 2005
+					</p>
+					<p>
+						<small>Last Log-in</small>
+						<br />August 18, 2014, 12:30pm PST
+					</p>
+					<p>
+						<small>IP Address</small>
+						<br />189.24.235.124
+					</p>
+					<p>
+						<small>Security Question</small>
+						<br />Has something to do with a brick...
+					</p>
+					<p>
+						<small>Security Answer</small>
+						<br />One brick to rule them all
+					</p>
+				</div>
 			</div>
 			
 			<h2>Activity History</h2>
+			<textarea placeholder="Write an internal note"></textarea>
+			<!-- <div class="buttonbar"> -->
+				<a class="btn btn-primary right" href="">Submit</a>
+			<!-- </div> -->
+			<table class="table">
+				<tbody>
+					<tr >
+						<td class="text-danger">Missed July 2014 Invoice ($9.90)</td>
+						<td class="text-dull align-right small">Aug 1, 2014</td>
+					</tr>
+					<tr >
+						<td class="text-warning">NSS (10035841) complaint from Grim Bricker</td>
+						<td class="text-dull align-right small">Jul 17, 2014</td>
+					</tr>
+					<tr>
+						<td class="cell-content" colspan="2">User promised to sell 200 bricks to me by last Tuesday. However, I found out that not only ...</td>
+					</tr>
+					<tr >
+						<td>Note from Jaclyn</td>
+						<td class="text-dull align-right small">Jul 8, 2014</td>
+					</tr>
+					<tr>
+						<td class="cell-content" colspan="2">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 
 		<div class="col-third panelet right">
-			asdfadfs
+			<div class="card" ng-class="{active: cards.alert}">
+				<p class="header all-caps"><i ng-click="cards.alert = (cards.alert) ? false : true" class="fa fa-plus hover right"></i>Alerts</p>
+				<p><span class="right text-danger">$18.90</span><a href="#" class="text-danger">Outstanding Balance</a></p>
+				<p><span class="right text-warning">$18.90</span><a href="#" class="text-warning">NSS (10035841) From Grim Bricker</a></p>
+				<p><span class="right text-danger">7/12/14</span><a href="#" class="text-danger">Seller Privileges Revoked</a></p>
+				<p><span class="right text-danger">7/19/14</span><a href="#" class="text-danger">Banned</a></p>
+			</div>
+
+			<div class="card" ng-class="{active: cards.credit}">
+				<p class="header all-caps"><i ng-click="cards.credit = (cards.credit) ? false : true" class="fa fa-plus hover right"></i>Credit</p>
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+			</div>
+
+			<div class="card" ng-class="{active: cards.status}">
+				<p class="header all-caps"><i ng-click="cards.status = (cards.status) ? false : true" class="fa fa-plus hover right"></i>Status Change</p>
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+			</div>
+
+			<div class="card" ng-class="{active: cards.refund}">
+				<p class="header all-caps"><i ng-click="cards.refund = (cards.refund) ? false : true" class="fa fa-plus hover right"></i>Refund</p>
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+			</div>
 		</div>
 	</div> <!-- /.container -->
 	

@@ -294,6 +294,8 @@ app.controller('BackOfficeController', function($scope, ui, backOfficeResource) 
 	$scope.mastercheckbox = false;
 	
 	$scope.selectedItems = 0;
+
+	// Outstanding Balance
 	$scope.$watch('bo', function(bo){
 		var selectedItems = 0;
 		angular.forEach(bo, function(item){
@@ -301,6 +303,14 @@ app.controller('BackOfficeController', function($scope, ui, backOfficeResource) 
 		})
 		$scope.selectedItems = selectedItems;
 	}, true);
+
+	// User Profile cards (in sidebar)
+	$scope.cards = {
+		alert: true,
+		credit: false,
+		status: false,
+		refund: false
+	};
 });
 
 // HELPERS
