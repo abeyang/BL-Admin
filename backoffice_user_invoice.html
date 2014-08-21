@@ -73,40 +73,33 @@
 		</div>
 
 		<div class="col-third panelet right">
-			2014  <i class="fa fa-angle-down pad-left"></i>
+			<div class="card" ng-class="{active: cards.alert}">
+				<p class="header all-caps"><i ng-click="cards.alert = (cards.alert) ? false : true" class="fa fa-plus hover right"></i>2014</p>
+				<p class="active"><span class="right text-warning">$5.34</span><a href="#" class="text-warning">August</a></p>
+				<p><span class="right text-danger">$450.00</span><a href="#" class="text-danger">July</a></p>
+				<p><span class="right">$320.00</span><a href="#">June</a></p>
+				<p><span class="right">$375.50</span><a href="#">May</a></p>
+				<p><span class="right">$$220.00</span><a href="#">April</a></p>
+				<p><span class="right">$100.25</span><a href="#">March</a></p>
+				<p><span class="right">$45.00</span><a href="#">February</a></p>
+				<p><span class="right">$133.50</span><a href="#">January</a></p>
+			</div>
 
-			<a class="invoice active text-warning" href="#">
-				<span class="right">$500.00</span>
-				August
-			</a>
-			<a class="invoice text-danger" href="#">
-				<span class="right">$450.00</span>
-				July
-			</a>
-			<a class="invoice" href="#">
-				<span class="right">$320.00</span>
-				June
-			</a>
-			<a class="invoice" href="#">
-				<span class="right">$375.50</span>
-				May
-			</a>
-			<a class="invoice" href="#">
-				<span class="right">$220.00</span>
-				April
-			</a>
-			<a class="invoice" href="#">
-				<span class="right">$100.25</span>
-				March
-			</a>
-			<a class="invoice" href="#">
-				<span class="right">$45.00</span>
-				February
-			</a>
-			<a class="invoice" href="#">
-				<span class="right">$133.50</span>
-				January
-			</a>
+			<div class="card" ng-class="{active: cards.credit}">
+				<p class="header all-caps"><i ng-click="cards.credit = (cards.credit) ? false : true" class="fa fa-plus hover right"></i>2013</p>
+				<p><span class="right">$$220.00</span><a href="#">December</a></p>
+				<p><span class="right">$100.25</span><a href="#">November</a></p>
+				<p><span class="right">$45.00</span><a href="#">October</a></p>
+				<p><span class="right">$133.50</span><a href="#">September</a></p>
+				<p><span class="right">$500.00</span><a href="#">August</a></p>
+				<p><span class="right">$450.00</span><a href="#">July</a></p>
+				<p><span class="right">$320.00</span><a href="#">June</a></p>
+				<p><span class="right">$375.50</span><a href="#">May</a></p>
+				<p><span class="right">$$220.00</span><a href="#">April</a></p>
+				<p><span class="right">$100.25</span><a href="#">March</a></p>
+				<p><span class="right">$45.00</span><a href="#">February</a></p>
+				<p><span class="right">$133.50</span><a href="#">January</a></p>
+			</div>
 
 		</div>
 	</div> <!-- /.container -->

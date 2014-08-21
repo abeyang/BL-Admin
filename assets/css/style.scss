@@ -495,34 +495,27 @@ nav {
     position: fixed;
     top: 0;
     bottom: 0;
-    width: 33%;
+    width: calc((100% - 68em)/2 + (0.317 * 68em));  // container ~= 68em; 3 columns ~= 31.7% of container
     background-color: $lightestblue;
+    border-width: 0;
+    border-style: solid;
+    border-color: $lightestgray;
     z-index: -1;
 
     &.right {
         right: 0;
+        border-left-width: 1px;
     }
     &.left {
         left: 0;
+        border-right-width: 1px;
     }
 }
 .panelet {
     padding-top: $margin;
-    padding-bottom: calc(100% - 580px);
-    
-    background-color: $lightestblue;
-    border-style: solid;
-    border-color: $lightestgray;
-    border-width: 0;
 
-    &.right {
-        padding-left: $margin;
-        border-left-width: 1px;
-    }
-    &.left {
-        padding-right: $margin;
-        border-right-width: 1px;
-    }
+    &.right { padding-left: $margin; }
+    &.left { padding-right: $margin; }
 }
 
 .table {
@@ -990,20 +983,29 @@ a.invoice {
     color: $black;
 
     &.active { font-weight: 700; }
-    &.text-warning { color: $color-warning; }
-    &.text-danger { color: $color-danger; }
+    
 }
 
 .card {
     padding: 0 $pad*2;
     .background-color: none;
     
-    p { display: none;}
+    p { 
+        display: none;
+        margin: 0.5em 0;
+    }
     p.header {
         display: block;
         opacity: 0.4;
     }
+    p.active { font-weight: 700; }
+
     i { @include transform(rotate(0deg)); }
+    a { 
+        color: $black; 
+        &.text-warning { color: $color-warning; }
+        &.text-danger { color: $color-danger; }
+    }
 
     &.active {
         padding-top: $pad;
@@ -1011,10 +1013,7 @@ a.invoice {
         margin-bottom: $pad*2;
         background-color: rgba($white, 0.5); 
 
-        p { 
-            display: block;
-            font-size: $small; 
-        } 
+        p { display: block; } 
         p.header { opacity: 1.0; }
         i { @include transform(rotate(45deg)); }
     }
