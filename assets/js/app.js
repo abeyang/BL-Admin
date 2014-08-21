@@ -291,11 +291,10 @@ app.controller('BackOfficeController', function($scope, ui, backOfficeResource) 
 	$scope.ui = ui;
 	$scope.bo = backOfficeResource.list();
 
+	// Outstanding Balance
 	$scope.mastercheckbox = false;
-	
 	$scope.selectedItems = 0;
 
-	// Outstanding Balance
 	$scope.$watch('bo', function(bo){
 		var selectedItems = 0;
 		angular.forEach(bo, function(item){
@@ -310,6 +309,24 @@ app.controller('BackOfficeController', function($scope, ui, backOfficeResource) 
 		credit: false,
 		status: false,
 		refund: false
+	};
+});
+
+app.controller('BackOfficeInvoiceController', function($scope, ui, backOfficeResource) {
+
+	$scope.ui = ui;
+	$scope.bo = backOfficeResource.list();
+
+	$scope.month = 'August';
+
+	// cards (in sidebar)
+	$scope.cards = {
+		2014: true,
+		2013: false,
+		m08: true,
+		m07: false,
+		m06: false,
+		m05: false
 	};
 });
 

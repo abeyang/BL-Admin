@@ -1,6 +1,6 @@
 <!-- $title - Back Office - User - Invoice -->
 <!-- $isactive-backoffice class="active" -->
-<!-- $body-meta class="blank" ng-controller="BackOfficeController" -->
+<!-- $body-meta class="blank" ng-controller="BackOfficeInvoiceController" -->
 <!-- @include _header -->
 
 	<nav class="subnav">
@@ -30,63 +30,147 @@
 	
 	<div class="container">
 		<div class="col-twothird margin-top">
-			<div class="alert alert-warning">
-				Invoice is currently ongoing and will be automatically sent at the end of this month
+
+			<div ng-show="month=='August'">
+				<div class="alert alert-warning">
+					Invoice is currently ongoing and will be automatically sent at the end of this month
+				</div>
+
+				<div class="buttonbar">
+					<strong class="pad-left-10">{{ month }} 2014 Invoice</strong>
+				</div>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Order</th>
+							<th class="align-right">Fee</th>
+						</tr>	
+					</thead>
+					<tbody>
+					<!-- @todo link to order page -->
+						<tr class="hover" ng-repeat="item in bo | orderBy:'-date2' | limitTo: 6">
+							<td>{{ item.date2 }}</td>
+							<td>{{ item.order }}</td>
+							<td class="align-right">{{ item.amount * 0.05 | currency }}</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="table table-footer">
+					<tbody>
+						<tr>
+							<td class="no-border" width="66%">&nbsp;</td><td>Subtotal:</td><td class="align-right">$5.34</td>
+						</tr>
+						<tr>
+							<td class="no-border" width="66%">&nbsp;</td><td>Credit:</td><td class="align-right">$0.00</td>
+						</tr>
+						<tr>
+							<td class="no-border" width="66%">&nbsp;</td><td><strong>Total:</strong></td><td class="align-right"><strong>$5.34</strong></td>
+						</tr>
+					</tbody>
+				</table>	
 			</div>
 
-			<h2 class="pad-left-10">August 2014 Invoice</h2>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Date</th>
-						<th>Order</th>
-						<th class="align-right">Fee</th>
-					</tr>	
-				</thead>
-				<tbody>
-				<!-- @todo link to user page -->
-					<tr class="hover" ng-repeat="item in bo | orderBy:'-date2' | limitTo: 6">
-						<td>{{ item.date2 }}</td>
-						<td>{{ item.order }}</td>
-						<td class="align-right">{{ item.amount * 0.05 | currency }}</td>
-					</tr>
-				</tbody>
-			</table>
+			<div ng-show="month=='July'">
+				<div class="alert alert-danger">
+					There's an outstanding balance of $450.00 for this month.
+				</div>
 
-			
-			<table class="table table-footer">
-				<tbody>
-					<tr>
-						<td class="no-border" width="66%">&nbsp;</td><td>Subtotal:</td><td class="align-right">$5.34</td>
-					</tr>
-					<tr>
-						<td class="no-border" width="66%">&nbsp;</td><td>Credit:</td><td class="align-right">$0.00</td>
-					</tr>
-					<tr>
-						<td class="no-border" width="66%">&nbsp;</td><td><strong>Total:</strong></td><td class="align-right"><strong>$5.34</strong></td>
-					</tr>
-				</tbody>
-			</table>	
-		
-			
-			
+				<div class="buttonbar">
+					<a href="#" class="btn btn-primary right">Resend Invoice</a> 
+					<strong class="pad-left-10">{{ month }} 2014 Invoice</strong>
+				</div>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Order</th>
+							<th class="align-right">Fee</th>
+						</tr>	
+					</thead>
+					<tbody>
+					<!-- @todo link to order page -->
+						<tr class="hover" ng-repeat="item in bo | orderBy:'date2' | limitTo: 4">
+							<td>7/20/14</td>
+							<td>{{ item.order }}</td>
+							<td class="align-right">{{ item.amount * 0.05 | currency }}</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="table table-footer">
+					<tbody>
+						<tr>
+							<td class="no-border" width="66%">&nbsp;</td><td>Subtotal:</td><td class="align-right">$450.00</td>
+						</tr>
+						<tr>
+							<td class="no-border" width="66%">&nbsp;</td><td>Credit:</td><td class="align-right">$0.00</td>
+						</tr>
+						<tr class="text-danger">
+							<td class="no-border" width="66%">&nbsp;</td><td><strong>Total:</strong></td><td class="align-right"><strong>$450.00</strong></td>
+						</tr>
+					</tbody>
+				</table>	
+			</div>
+
+			<div ng-show="month!='July' && month!='August'">
+				<div class="buttonbar">
+					<strong class="pad-left-10">{{ month }} 2014 Invoice</strong>
+				</div>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Order</th>
+							<th class="align-right">Fee</th>
+						</tr>	
+					</thead>
+					<tbody>
+					<!-- @todo link to order page -->
+						<tr class="hover" ng-repeat="item in bo | orderBy:'date1' | limitTo: 4">
+							<td>6/1/14</td>
+							<td>{{ item.order }}</td>
+							<td class="align-right">{{ item.amount * 0.05 | currency }}</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="table table-footer">
+					<tbody>
+						<tr>
+							<td class="no-border" width="66%">&nbsp;</td><td>Subtotal:</td><td class="align-right">$450.00</td>
+						</tr>
+						<tr>
+							<td class="no-border" width="66%">&nbsp;</td><td>Credit:</td><td class="align-right">$0.00</td>
+						</tr>
+						<tr>
+							<td class="no-border" width="66%">&nbsp;</td><td><strong>Total:</strong></td><td class="align-right"><strong>$300.00</strong></td>
+						</tr>
+					</tbody>
+				</table>	
+			</div>
+
 		</div>
 
 		<div class="col-third panelet right">
-			<div class="card" ng-class="{active: cards.alert}">
-				<p class="header all-caps"><i ng-click="cards.alert = (cards.alert) ? false : true" class="fa fa-plus hover right"></i>2014</p>
-				<p class="active"><span class="right text-warning">$5.34</span><a href="#" class="text-warning">August</a></p>
-				<p><span class="right text-danger">$450.00</span><a href="#" class="text-danger">July</a></p>
-				<p><span class="right">$320.00</span><a href="#">June</a></p>
-				<p><span class="right">$375.50</span><a href="#">May</a></p>
-				<p><span class="right">$$220.00</span><a href="#">April</a></p>
-				<p><span class="right">$100.25</span><a href="#">March</a></p>
-				<p><span class="right">$45.00</span><a href="#">February</a></p>
-				<p><span class="right">$133.50</span><a href="#">January</a></p>
+			<div class="card" ng-class="{active: cards.2014}">
+				<p class="header all-caps"><i ng-click="cards.2014 = (cards.2014) ? false : true" class="fa fa-plus hover right"></i>2014</p>
+				<p ng-class="{active: month=='August'}"><span class="right text-warning">$5.34</span><a ng-click="month='August'" href="#" class="text-warning">August</a></p>
+				<p ng-class="{active: month=='July'}"><span class="right text-danger">$450.00</span><a ng-click="month='July'" href="#" class="text-danger">July</a></p>
+				<p ng-class="{active: month=='June'}"><span class="right">$320.00</span><a ng-click="month='June'" href="#">June</a></p>
+				<p ng-class="{active: month=='May'}"><span class="right">$375.50</span><a ng-click="month='May'" href="#">May</a></p>
+				<p ng-class="{active: month=='April'}"><span class="right">$$220.00</span><a ng-click="month='April'" href="#">April</a></p>
+				<p ng-class="{active: month=='March'}"><span class="right">$100.25</span><a ng-click="month='March'" href="#">March</a></p>
+				<p ng-class="{active: month=='February'}"><span class="right">$45.00</span><a ng-click="month='February'" href="#">February</a></p>
+				<p ng-class="{active: month=='January'}"><span class="right">$133.50</span><a ng-click="month='January'" href="#">January</a></p>
 			</div>
 
-			<div class="card" ng-class="{active: cards.credit}">
-				<p class="header all-caps"><i ng-click="cards.credit = (cards.credit) ? false : true" class="fa fa-plus hover right"></i>2013</p>
+			<div class="card" ng-class="{active: cards.2013}">
+				<p class="header all-caps"><i ng-click="cards.2013 = (cards.2013) ? false : true" class="fa fa-plus hover right"></i>2013</p>
 				<p><span class="right">$$220.00</span><a href="#">December</a></p>
 				<p><span class="right">$100.25</span><a href="#">November</a></p>
 				<p><span class="right">$45.00</span><a href="#">October</a></p>
@@ -95,7 +179,7 @@
 				<p><span class="right">$450.00</span><a href="#">July</a></p>
 				<p><span class="right">$320.00</span><a href="#">June</a></p>
 				<p><span class="right">$375.50</span><a href="#">May</a></p>
-				<p><span class="right">$$220.00</span><a href="#">April</a></p>
+				<p><span class="right">$220.00</span><a href="#">April</a></p>
 				<p><span class="right">$100.25</span><a href="#">March</a></p>
 				<p><span class="right">$45.00</span><a href="#">February</a></p>
 				<p><span class="right">$133.50</span><a href="#">January</a></p>

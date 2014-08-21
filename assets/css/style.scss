@@ -260,6 +260,8 @@ textarea {
 .buttonbar {
     @include clearfix;
     padding-top: $pad*2;
+
+    strong { line-height: 2; }
 }
 
 .btn {
