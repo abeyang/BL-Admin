@@ -45,7 +45,7 @@
 				<tbody>
 					<tr class="hover" ng-repeat="item in bo">
 						<td><input type="checkbox" ng-model="item.selected" ng-checked="mastercheckbox"></td>
-						<td>{{ item.user }}</td>
+						<td ng-click="gotoUserPage()">{{ item.user }}</td>
 						<td>{{ item.store }}</td>
 						<td>July 2014 <span class="text-dull">7/27/14</span></td>
 						<td>August 2014 <span class="text-dull">8/22/14</span></td>

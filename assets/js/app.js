@@ -327,6 +327,12 @@ app.controller('BackOfficeOrdersController', function($scope, $location, ui, bac
 	// order_num = specific order
 	var id = getIdFromUrl($location);
 	$scope.id = id;
+
+	$scope.showStatusUpdate = false;
+
+	$scope.gotoOrderPage = function(id) {
+		window.location.href = "backoffice_order_item.html#/" + id;
+	}
 });
 
 // HELPERS

@@ -39,8 +39,7 @@
 					</tr>	
 				</thead>
 				<tbody>
-				<!-- @todo link to order page -->
-					<tr class="hover text-warning" ng-repeat="item in bo | orderBy:'-date1' ">
+					<tr class="hover text-warning" ng-repeat="item in bo | orderBy:'-date1'" ng-click="gotoOrderPage(item.order)">
 						<td>{{ item.issue }}</td>
 						<td>{{ item.order }}</td>
 						<td>{{ item.user }}</td>
@@ -48,7 +47,7 @@
 						<td class="align-right">{{ item.date1 }}</td>
 						<td class="align-right">{{ item.amount | currency }}</td>
 					</tr>
-					<tr class="hover" ng-repeat="item in bo | orderBy:'date2' ">
+					<tr class="hover" ng-repeat="item in bo | orderBy:'date2'" ng-click="gotoOrderPage(item.order)">
 						<td>Pending</td>
 						<td>{{ item.order }}</td>
 						<td>{{ item.user }}</td>
