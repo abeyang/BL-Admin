@@ -284,6 +284,8 @@ app.controller('BackOfficeController', function($scope, ui, backOfficeResource) 
 		$scope.selectedItems = selectedItems;
 	}, true);
 
+	$scope.searchtext = '';
+
 	// User Profile cards (in sidebar)
 	$scope.cards = {
 		alert: true,
