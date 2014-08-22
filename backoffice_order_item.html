@@ -23,9 +23,8 @@
 			<li class="separator">&nbsp;</li>
 			<li class="active"><a href="#">{{ id }}</a></li>
 
-			<!-- @todo link these items -->
-			<li class="right pad"><a href="#">Items</a></li>
-			<li class="right pad active"><a href="#">Activity</a></li>
+			<li class="right pad" ng-class="{active: !show.activity}"><a ng-click="show.activity = false" href="#">Items</a></li>
+			<li class="right pad" ng-class="{active: show.activity}"><a ng-click="show.activity = true" href="#">Activity</a></li>
 		</ul>
 	</nav>
 	
@@ -81,89 +80,117 @@
 		</div>
 
 		<div class="col-twothird margin-top">
-			<textarea placeholder="Write a comment to the buyer and seller"></textarea>
+			<div ng-show="show.activity">
+				<textarea placeholder="Write a comment to the buyer and seller"></textarea>
 
-			<a ng-show="!showStatusUpdate" ng-click="showStatusUpdate=true" href="#">Update status</a>
-			<select ng-show="showStatusUpdate">
-				<option>Pending</option>
-				<option>Updated</option>
-				<option>Processing</option>
-				<option>Ready</option>
-				<option>Paid</option>
-				<option>Packed</option>
-				<option>Shipped</option>
-				<option>Received</option>
-				<option>Completed</option>
-				<option>OCR</option>
-				<option>NPB</option>
-				<option>NPX</option>
-				<option>NRS</option>
-				<option>NSS</option>
-				<option selected>Cancelled</option>
-				<option>Purged</option>
-			</select>
-			<a class="btn btn-primary right" href="">Submit</a>
+				<a ng-show="!show.statusUpdate" ng-click="show.statusUpdate=true" href="#">Update status</a>
+				<select ng-show="show.statusUpdate">
+					<option>Pending</option>
+					<option>Updated</option>
+					<option>Processing</option>
+					<option>Ready</option>
+					<option>Paid</option>
+					<option>Packed</option>
+					<option>Shipped</option>
+					<option>Received</option>
+					<option>Completed</option>
+					<option>OCR</option>
+					<option>NPB</option>
+					<option>NPX</option>
+					<option>NRS</option>
+					<option>NSS</option>
+					<option selected>Cancelled</option>
+					<option>Purged</option>
+				</select>
+				<a class="btn btn-primary right" href="">Submit</a>
+				
+				<table class="table">
+					<tbody>
+						<tr>
+							<td class="date">Jul 10, 2014</td>
+							<td class="text-danger"><small class="right all-caps text-info">Admin</small>Jaclyn cancelled the order:</td>
+						</tr>
+						<tr>
+							<td class="cell-content">&nbsp;</td>
+							<td class="cell-content">Cancelling order due to buyer's request.</td>
+						</tr>
+						<tr>
+							<td class="date">Jul 10, 2014</td>
+							<td><small class="right all-caps">Buyer</small>LegoLass said:</td>
+						</tr>
+						<tr>
+							<td class="cell-content">&nbsp;</td>
+							<td class="cell-content">This is getting lame. Can I cancel my order? I'm fed up with this!</td>
+						</tr>
+						<tr>
+							<td class="date">Jul 9, 2014</td>
+							<td><small class="right all-caps text-info">Admin</small>Jaclyn said:</td>
+						</tr>
+						<tr>
+							<td class="cell-content">&nbsp;</td>
+							<td class="cell-content">At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
+						</tr>
+						<tr>
+							<td class="date">Jul 9, 2014</td>
+							<td><small class="right all-caps">Seller</small>BrickBro said:</td>
+						</tr>
+						<tr>
+							<td class="cell-content">&nbsp;</td>
+							<td class="cell-content">What!? How dare you give me an NSS?</td>
+						</tr>
+						<tr>
+							<td class="date">Jul 9, 2014</td>
+							<td class="text-warning"><small class="right all-caps">Buyer</small>LegoLass filed an NSS complaint:</td>
+						</tr>
+						<tr>
+							<td class="cell-content">&nbsp;</td>
+							<td class="cell-content">User promised to sell 200 bricks to me by last Tuesday. However, I found out that not only blah blah yada yada.</td>
+						</tr>
+						<tr>
+							<td class="date">Jul 8, 2014</td>
+							<td><small class="right all-caps">Seller</small>BrickBro said:</td>
+						</tr>
+						<tr>
+							<td class="cell-content">&nbsp;</td>
+							<td class="cell-content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
+						</tr>
+						<tr>
+							<td class="date">Jul 8, 2014</td>
+							<td><small class="right all-caps">Buyer</small>LegoLass said:</td>
+						</tr>
+						<tr>
+							<td class="cell-content">&nbsp;</td>
+							<td class="cell-content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div> <!-- /.$show.activity -->
+
+			<div ng-show="!show.activity">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Image</th>
+							<th>Condition</th>
+							<th>Description</th>
+							<th>Qty</th>
+							<th>Unit Price</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in bo | orderBy:'date1'">
+							<td><img src="http://placehold.it/75x60"></td>
+							<td>Used</td>
+							<td>Imperial Officer</td>
+							<td>1</td>
+							<td>$0.25</td>
+							<td>$0.25</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 			
-			<table class="table">
-				<tbody>
-					<tr>
-						<td class="date">Jul 10, 2014</td>
-						<td class="text-danger"><small class="right all-caps text-info">Admin</small>Jaclyn cancelled the order:</td>
-					</tr>
-					<tr>
-						<td class="cell-content">&nbsp;</td>
-						<td class="cell-content">Cancelling order due to buyer's request.</td>
-					</tr>
-					<tr>
-						<td class="date">Jul 10, 2014</td>
-						<td><small class="right all-caps">Buyer</small>LegoLass said:</td>
-					</tr>
-					<tr>
-						<td class="cell-content">&nbsp;</td>
-						<td class="cell-content">This is getting lame. Can I cancel my order? I'm fed up with this!</td>
-					</tr>
-					<tr>
-						<td class="date">Jul 9, 2014</td>
-						<td><small class="right all-caps text-info">Admin</small>Jaclyn said:</td>
-					</tr>
-					<tr>
-						<td class="cell-content">&nbsp;</td>
-						<td class="cell-content">At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
-					</tr>
-					<tr>
-						<td class="date">Jul 9, 2014</td>
-						<td><small class="right all-caps">Seller</small>BrickBro said:</td>
-					</tr>
-					<tr>
-						<td class="cell-content">&nbsp;</td>
-						<td class="cell-content">What!? How dare you give me an NSS?</td>
-					</tr>
-					<tr>
-						<td class="date">Jul 9, 2014</td>
-						<td class="text-warning"><small class="right all-caps">Buyer</small>LegoLass filed an NSS complaint:</td>
-					</tr>
-					<tr>
-						<td class="cell-content">&nbsp;</td>
-						<td class="cell-content">User promised to sell 200 bricks to me by last Tuesday. However, I found out that not only blah blah yada yada.</td>
-					</tr>
-					<tr>
-						<td class="date">Jul 8, 2014</td>
-						<td><small class="right all-caps">Seller</small>BrickBro said:</td>
-					</tr>
-					<tr>
-						<td class="cell-content">&nbsp;</td>
-						<td class="cell-content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
-					</tr>
-					<tr>
-						<td class="date">Jul 8, 2014</td>
-						<td><small class="right all-caps">Buyer</small>LegoLass said:</td>
-					</tr>
-					<tr>
-						<td class="cell-content">&nbsp;</td>
-						<td class="cell-content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
-					</tr>
-				</tbody>
-			</table>
 		</div>
 		
 	</div> <!-- /.container -->

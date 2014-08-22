@@ -328,7 +328,10 @@ app.controller('BackOfficeOrdersController', function($scope, $location, ui, bac
 	var id = getIdFromUrl($location);
 	$scope.id = id;
 
-	$scope.showStatusUpdate = false;
+	$scope.show = {
+		statusUpdate: false,
+		activity: true
+	};
 
 	$scope.gotoOrderPage = function(id) {
 		window.location.href = "backoffice_order_item.html#/" + id;
