@@ -24,9 +24,13 @@
 		</ul>
 	</nav>
 	
-
 	<section>
 		<div class="container">
+
+			<div class="searchbar">
+				<i class="fa fa-search"></i> <input ng-model="searchtext" type="text" placeholder="Search by Order ID" />
+			</div>
+
 			<table class="table">
 				<thead>
 					<tr>
@@ -39,7 +43,7 @@
 					</tr>	
 				</thead>
 				<tbody>
-					<tr class="hover text-warning" ng-repeat="item in bo | orderBy:'-date1'" ng-click="gotoOrderPage(item.order)">
+					<tr class="hover text-warning" ng-repeat="item in bo | orderBy:'-date1' | filter:searchtext" ng-click="gotoOrderPage(item.order)">
 						<td>{{ item.issue }}</td>
 						<td>{{ item.order }}</td>
 						<td>{{ item.user }}</td>
@@ -47,7 +51,7 @@
 						<td class="align-right">{{ item.date1 }}</td>
 						<td class="align-right">{{ item.amount | currency }}</td>
 					</tr>
-					<tr class="hover" ng-repeat="item in bo | orderBy:'date2'" ng-click="gotoOrderPage(item.order)">
+					<tr class="hover" ng-show="searchtext.length<1" ng-repeat="item in bo | orderBy:'date2'" ng-click="gotoOrderPage(item.order)">
 						<td>Pending</td>
 						<td>{{ item.order }}</td>
 						<td>{{ item.user }}</td>
@@ -59,6 +63,5 @@
 			</table>
 		</div> <!-- /.container -->
 	</section>
-
 
 <!-- @include _footer -->

@@ -260,6 +260,28 @@ textarea {
         }
     }
 }
+.searchbar {
+    position: relative;
+
+    i {
+        position: absolute;
+        top: $pad;
+    }
+
+    input {
+        width: 100%;
+        padding-top: 0;
+        padding-left: $pad*2;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid $lightergray;
+        overflow: auto;
+        outline: none;
+        box-shadow: none;
+        
+    }
+}
+
 
 .buttonbar {
     @include clearfix;

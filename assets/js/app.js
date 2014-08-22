@@ -328,6 +328,8 @@ app.controller('BackOfficeOrdersController', function($scope, $location, ui, bac
 	var id = getIdFromUrl($location);
 	$scope.id = id;
 
+	$scope.searchtext = '';
+
 	$scope.show = {
 		statusUpdate: false,
 		activity: true
