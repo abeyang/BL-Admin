@@ -1,13 +1,13 @@
 <!-- $title - MOCs -->
 <!-- $isactive-mocs class="active" -->
-<!-- $body-meta ng-controller="MocController" -->
+<!-- $body-meta ng-controller="MocsController" -->
 <!-- @include _header -->
-
-<!-- @todo zero states: what does it look like? -->
 
 	<nav class="subnav mocs-nav">
 		<ul class="container">
 			<li ng-repeat="stat in statii | limitTo: 5" ng-class="{active: filterCards.status === stat.id }"><a ng-click="filterCards.status=stat.id" href="#">{{ getStatus(stat.id) }}</a></li>
+
+			<!-- @todo include "all" -->
 			<!-- <li ng-class="{active: filterCards.status === ''}"><a ng-click="filterCards.status=''" href="#">(All)</a></li> -->
 
 			<li class="right active" ng-show="filterCards.isFeatured === true"><a ng-click="filterCards.isFeatured=''" href="#">Featured</a></li>
@@ -22,10 +22,10 @@
 
 	<section>
 		<div class="container unmargin-top" ng-switch="filterCards.status">
-			<p ng-switch-when="0">These MOCs cannot be sold, because they either did not include the required building materials (LDD files), or were rejected by admins.</p>
+			<p ng-switch-when="0">These MOCs cannot be sold, because they either did not include the required building materials (LDD files), or were banned by admins.</p>
 
 			<p ng-switch-when="1">If <strong>approved</strong> — if MOCs don't violate our infringement policy, or have too many "moc-ability" issues — they will be ready "for sale".
-			Otherwise, <strong>rejected</strong> ones will be "display only."</p>
+			Otherwise, <strong>banned</strong> ones will be "display only."</p>
 
 			<p ng-switch-when="2">Once a seller decides to sell an item listed here, it will automatically be upgraded to "in stores." (Admins have no power to upgrade a MOC's status in this stage.)</p>
 

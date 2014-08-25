@@ -1,7 +1,7 @@
 
 <!-- $title - MOC Page -->
 <!-- $isactive-mocs class="active" -->
-<!-- $body-meta class="blank" ng-controller="MocController" -->
+<!-- $body-meta class="blank" ng-controller="MocSingleController" -->
 <!-- @include _header -->
 
 	<nav class="subnav">
@@ -94,7 +94,6 @@
 				<div class="moc-info">
 					<div class="clearfix">
 						<a class="btn btn-featured" ng-class="{active: single.isFeatured}" ng-click="single.isFeatured=!single.isFeatured" href="">Featured</a>
-						<!-- @todo use status, not "isRejected" for banned mocs -->
 						<a class="btn btn-rejected" ng-class="{active: single.status == 4}" href="">Ban</a>
 					</div>	
 
@@ -114,18 +113,14 @@
 					</div>
 					<!-- @todo show dollar amount and stores for those "in stores" -->
 					<div>
-						<span class="right"><a href="#">Live Site</a></span>
+						<span class="right"><a href="{{ getLiveLink() }}">Live Site</a></span>
 						<i class="fa fa-user"></i> <a href="#">{{ single.name }}</a>
 					</div>	
 					<div>
 						<span class="right">{{ ui.getTime(single.submitTime) }}</span>
 						<i class="fa fa-calendar"></i> {{ ui.getDate(single.submitTime) }}
 					</div>
-<!-- 					<div>
-						<i class="fa fa-credit-card"></i> {{ single.fee }}%
-					</div> -->
 					
-					<!-- @todo tags need to be editable -->
 					<div ng-bind-html="getTagNames(single.tags)"></div>
 				</div> <!-- /.moc-info -->
 				

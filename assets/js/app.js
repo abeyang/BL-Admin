@@ -20,22 +20,10 @@ var app = angular.module('app', ['ngSanitize', 'textAngular', 'flow']);
 
 /* MOC controller */
 
-app.controller('MocController', function($scope, $location, ui, mocResource, tagResource, statusResource, metaResource) {
+app.controller('MocsController', function($scope, $location, ui, mocResource, tagResource, statusResource, metaResource) {
 
 	$scope.mocs = mocResource.list();
 	$scope.statii = statusResource.list();
-	
-	var id = getIdFromUrl($location);
-	$scope.single = ui.findById(mocResource, id);
-
-	$scope.myComment = {
-		isPublic: false,
-		content1: '',
-		content2: '',
-		content3: ''
-	};
-
-	$scope.showTags = true;
 
 	$scope.ui = ui;
 
@@ -58,9 +46,6 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 		return "moc.html#/" + id;
 	};
 
-	$scope.getTagNames = function(tags) {
-		return tagResource.getTagNames(tags);
-	};
 
 	$scope.numIssues = function() {
 		var issues = 0;
@@ -75,6 +60,53 @@ app.controller('MocController', function($scope, $location, ui, mocResource, tag
 		isFeatured: ''
 	};
 	$scope.entryOrder = '-submitTime';
+
+});
+app.controller('MocSingleController', function($scope, $location, ui, mocResource, tagResource, statusResource, metaResource) {
+
+	$scope.mocs = mocResource.list();
+	
+	var id = getIdFromUrl($location);
+	$scope.single = ui.findById(mocResource, id);
+
+	$scope.myComment = {
+		content1: '',
+		content2: '',
+		content3: ''
+	};
+
+	$scope.ui = ui;
+
+	$scope.getRatings = function(id, includeRaters) {
+		return mocResource.ratingsById(id, includeRaters);
+	};
+
+	$scope.getStatus = function(status) {
+		return ui.findAttrById(statusResource, 'name', status);
+	};
+	$scope.getStatusClass = function(status) {
+		return ui.findAttrById(statusResource, 'classname', status);
+	};
+
+	$scope.getTitle = function(id) {
+		return ui.findAttrById(metaResource, 'title', id);
+	};
+
+	$scope.getLiveLink = function() {
+		return "http://moc.bricklink.com/pages/moc/mocitem.page?idmocitem=" + id;
+	};
+
+	$scope.getTagNames = function(tags) {
+		return tagResource.getTagNames(tags);
+	};
+
+	$scope.numIssues = function() {
+		var issues = 0;
+		if ($scope.myComment.content1) issues++;
+		if ($scope.myComment.content2) issues++;
+		if ($scope.myComment.content3) issues++;
+		return issues;
+	};
 
 });
 
