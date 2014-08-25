@@ -27,6 +27,8 @@ app.controller('MocsController', function($scope, $location, ui, mocResource, ta
 
 	$scope.ui = ui;
 
+	var status_id = getIdFromUrl($location, 1);
+
 	$scope.getRatings = function(id, includeRaters) {
 		return mocResource.ratingsById(id, includeRaters);
 	};
@@ -46,7 +48,6 @@ app.controller('MocsController', function($scope, $location, ui, mocResource, ta
 		return "moc.html#/" + id;
 	};
 
-
 	$scope.numIssues = function() {
 		var issues = 0;
 		if ($scope.myComment.content1) issues++;
@@ -56,7 +57,7 @@ app.controller('MocsController', function($scope, $location, ui, mocResource, ta
 	};
 
 	$scope.filterCards = {
-		status: 1,
+		status: status_id,
 		isFeatured: ''
 	};
 	$scope.entryOrder = '-submitTime';
@@ -376,8 +377,8 @@ app.controller('BackOfficeOrdersController', function($scope, $location, ui, bac
 
 // HELPERS
 
-function getIdFromUrl(location) {
-	var id = 0;
+function getIdFromUrl(location, backup) {
+	var id = (backup) ? backup : 0;
 	if (location.path()) id = location.path().substr(1);		// remove the first character, '/'
 	return id;
 }
