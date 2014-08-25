@@ -734,6 +734,24 @@ nav {
     overflow: hidden;
 }
 
+.cleancard {
+    height: $thumb_height * 1.85;
+    background-color: $white;
+
+    .thumb {
+        height: $thumb_height;
+        overflow: hidden;
+    }
+    p, h4 {
+        margin: 0;
+        padding: $pad;
+    }
+    p { 
+        color: $lightgray; 
+        border-top: 1px solid $lightestgray;
+    }
+}
+
 .moc-item {
     @include span-columns(4);
     @include omega(3n);
@@ -777,7 +795,6 @@ nav {
     	@extend .truncate;
     }
 
-    // @todo add on-hover states (maybe?)
     .simple {
         position: relative;
 

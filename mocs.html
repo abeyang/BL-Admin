@@ -53,6 +53,8 @@
 						<th class="align-center">Likes</th>
 						<th>Reviews</th>
 						<th class="align-center">Issues</th>
+						<th class="align-center">Stores</th>
+						<th class="align-right">Avg. Price</th>
 						<th class="align-right">Last Updated</th>
 					</tr>	
 				</thead>
@@ -65,7 +67,9 @@
 						<td><a href="{{ getLink(moc.id) }}">{{ getTitle(moc.id) }}</a></td>
 						<td class="align-center">{{ moc.votes }} </td>
 						<td class="color"><span ng-bind-html="getRatings(moc.id)"></span></td>
-						<td class="align-center">{{ moc.issues }} </td>
+						<td class="align-center" ng-class="{'text-danger':moc.issues>0}">{{ moc.issues }} </td>
+						<td class="align-center">{{ moc.stores }} </td>
+						<td class="align-right">{{ moc.fee | currency }}</td>
 						<td class="align-right">{{ ui.getDate(moc.submitTime) }}</td>
 					</tr>
 				</tbody>

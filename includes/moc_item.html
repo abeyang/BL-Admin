@@ -1,6 +1,6 @@
 <!-- @todo redesign to fit more info in -->
 <!-- @todo need on-hover effects -->
-<a class="simple" href="{{ getLink(moc.id) }}">
+<!-- <a class="simple" href="{{ getLink(moc.id) }}">
 	<div class="mark staff-mark" ng-if="moc.isFeatured && moc.status!=4"></div>
 
 	<div class="info">
@@ -8,10 +8,26 @@
 			<i class="fa fa-heart-o"></i> {{ moc.votes }}
 			<span class="pad-left" ng-bind-html="getRatings(moc.id)"></span></div>
 		
-		<!-- <span ng-if="filterCards.status===0 && moc.isRejected" class="text-danger">Rejected</span> -->
 		<span ng-if="filterCards.status <= 1 && moc.issues" class="text-danger">{{ moc.issues }} <ng-pluralize count="moc.issues" when="{'one': 'issue', 'other': 'issues'}"></ng-pluralize> </span>
 		<span ng-if="filterCards.status===3">{{ moc.stores }} stores</span>
 	</div>
 
 	<img src="{{ui.imageLink(moc.id)}}">
-</a> <!-- /.simple -->
+</a> -->
+
+<div class="cleancard">
+	<div class="thumb"><a href="{{ getLink(moc.id) }}"><img src="{{ui.imageLink(moc.id)}}"></a></div>
+	<h4><a href="{{ getLink(moc.id) }}">{{ getTitle(moc.id) }}</a></h4>
+	<p class="color">
+		<span class="right"><i class="fa fa-heart-o"></i> {{ moc.votes }}</span>
+		<span ng-bind-html="getRatings(moc.id)"></span>
+	</p>
+	<p>
+		<span class="right">{{ moc.fee | currency }}</span>
+		{{ moc.stores }} <ng-pluralize count="moc.stores" when="{'one': 'store', 'other': 'stores'}">
+	</p>
+	<p>
+		<span class="right" ng-click="toggleFeatured(moc.id)" ng-class="{color: moc.isFeatured}" class="hover"><i class="fa fa-thumb-tack"></i></span>
+		<span ng-class="{'text-danger':moc.issues>0}">{{ moc.issues }} <ng-pluralize count="moc.issues" when="{'one': 'issue', 'other': 'issues'}"></span>
+	</p>
+</div>
