@@ -5,7 +5,9 @@
 
 	<nav class="subnav">
 		<ul class="container">
-
+		<li class="active"><a href="">
+			{{ filtered.length }} <span ng-show="filterStores.isFeatured === true">Featured</span> <ng-pluralize count="filtered.length" when="{'one': 'Store', 'other': 'Stores'}"></ng-pluralize>
+		</a></li>
 
 			<li class="right active color" ng-show="filterStores.isFeatured === true"><a ng-click="filterStores.isFeatured=''" href="#"><i class="fa fa-thumb-tack"></i></a></li>
 			<li class="right" ng-show="filterStores.isFeatured === ''"><a ng-click="filterStores.isFeatured=true" href="#"><i class="fa fa-thumb-tack"></i></a></li>
@@ -20,8 +22,6 @@
 
 	<section>
 		<div class="container">
-		<h2>{{ filtered.length }} <span ng-show="filterStores.isFeatured === true">Featured</span> <ng-pluralize count="filtered.length" when="{'one': 'Store', 'other': 'Stores'}"></ng-pluralize></h2>
-
 			<table class="table">
 				<thead>
 					<tr>
