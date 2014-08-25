@@ -5,41 +5,78 @@
 
 	<nav class="subnav mocs-nav">
 		<ul class="container">
+			<li ng-class="{active: filterCards.status === ''}"><a ng-click="filterCards.status=''" href="#-1">All</a></li>
+			<li class="separator">&nbsp;</li>
 			<li ng-repeat="stat in statii | limitTo: 5" ng-class="{active: filterCards.status === stat.id }"><a ng-click="filterCards.status=stat.id" href="#{{stat.id}}">{{ getStatus(stat.id) }}</a></li>
 
-			<!-- @todo include "all" -->
-			<!-- <li ng-class="{active: filterCards.status === ''}"><a ng-click="filterCards.status=''" href="#">(All)</a></li> -->
-
-			<li class="right active" ng-show="filterCards.isFeatured === true"><a ng-click="filterCards.isFeatured=''" href="#">Featured</a></li>
-			<li class="right" ng-show="filterCards.isFeatured === ''"><a ng-click="filterCards.isFeatured=true" href="#">Featured</a></li>
+			<li class="right active color" ng-show="filterCards.isFeatured === true"><a ng-click="filterCards.isFeatured=''" href="#"><i class="fa fa-thumb-tack"></i></a></li>
+			<li class="right" ng-show="filterCards.isFeatured === ''"><a ng-click="filterCards.isFeatured=true" href="#"><i class="fa fa-thumb-tack"></i></a></li>
 			<li class="right separator">&nbsp;</li>
 
-			<li ng-class="{active: entryOrder == '-ratings'}" class="right pad"><a ng-click="entryOrder='-ratings'" href="#">Most Popular</a></li>
+			<li ng-class="{active: !displayByList}" class="right pad"><a ng-click="displayByList = false" href="#"><i class="fa fa-th-large"></i></a></li>
+			<li ng-class="{active: displayByList}" class="right pad"><a ng-click="displayByList = true" href="#"><i class="fa fa-th-list"></i></a></li>
+			<li class="right separator">&nbsp;</li>
+
+<!-- 			<li ng-class="{active: entryOrder == '-ratings'}" class="right pad"><a ng-click="entryOrder='-ratings'" href="#">Popularity</a></li>
 			<li ng-class="{active: entryOrder == '-submitTime'}" class="right pad"><a ng-click="entryOrder='-submitTime'" href="#">Recent</a></li>
-			<li class="right separator">&nbsp;</li>
+			<li class="right separator">&nbsp;</li> -->
 		</ul>
 	</nav>
 
 	<section>
 		<div class="container unmargin-top" ng-switch="filterCards.status">
-			<p ng-switch-when="0">These MOCs cannot be sold, because they either did not include the required building materials (LDD files), or were banned by admins.</p>
+			<h1 class="col-third">{{ filtered.length }} <span ng-show="filterCards.isFeatured === true">Featured</span> <ng-pluralize count="filtered.length" when="{'one': 'MOC', 'other': 'MOCs'}"></ng-pluralize></h1> 
 
-			<p ng-switch-when="1">If <strong>approved</strong> — if MOCs don't violate our infringement policy, or have too many "moc-ability" issues — they will be ready "for sale".
-			Otherwise, <strong>banned</strong> ones will be "display only."</p>
+			<div class="col-twothird text-dull">
+				<span ng-switch-when="0">These MOCs cannot be sold, because they either did not include the required building materials (LDD files), or were banned by admins.</span>
 
-			<p ng-switch-when="2">Once a seller decides to sell an item listed here, it will automatically be upgraded to "in stores." (Admins have no power to upgrade a MOC's status in this stage.)</p>
+				<span ng-switch-when="1">If <strong>approved</strong> — if MOCs don't violate our infringement policy, or have too many "moc-ability" issues — they will be ready "for sale".
+				Otherwise, <strong>banned</strong> ones will be "display only."</span>
 
-			<p ng-switch-when="3">These MOCs are ready to be sold! <strong>Featured MOCs</strong> will be displayed on the home page; <strong>pinned MOCs</strong> will remain on top.</p>
+				<span ng-switch-when="2">Once a seller decides to sell an item listed here, it will automatically be upgraded to "in stores." <br />(Admins have no power to upgrade a MOC's status in this stage.)</span>
 
-			<p ng-switch-when="4">Vulgar, inflammatory, or inappropriate photos/descriptions ought to be banned.</p>
+				<span ng-switch-when="3">These MOCs are ready to be sold! <strong>Featured MOCs</strong> will be displayed on the home page.</span>
+
+				<span ng-switch-when="4">Vulgar, inflammatory, or inappropriate photos/descriptions ought to be banned.</span>
+			</div>
 		</div>
 
 		<div class="container">
 
-			<div class="moc-item" ng-repeat="moc in mocs | filter:filterCards | orderBy:['-isPinned', entryOrder]">
-				<ng-include src="'includes/moc_item.html'"></ng-include>
-			</div> <!-- /.moc-item -->
+			<table class="table" ng-show="displayByList">
+				<thead>
+					<tr>
+						<th>&nbsp;</th>
+						<th class="align-center">Thumbnail</th>
+						<th class="align-center">ID</th>
+						<th>Title</th>
+						<th class="align-center">Likes</th>
+						<th>Reviews</th>
+						<th class="align-center">Issues</th>
+						<th class="align-right">Last Updated</th>
+					</tr>	
+				</thead>
+				
+				<tbody>
+					<tr ng-repeat="moc in filtered = (mocs | filter:filterCards) | orderBy:entryOrder">
+						<td ng-click="toggleFeatured(moc.id)" ng-class="{color: moc.isFeatured}" class="hover"><i class="fa fa-thumb-tack"></i></td>
+						<td class="align-center"><img src="{{ui.imageLink(moc.id)}}"></td>
+						<td class="align-center">{{ moc.id }}</td>
+						<td><a href="{{ getLink(moc.id) }}">{{ getTitle(moc.id) }}</a></td>
+						<td class="align-center">{{ moc.votes }} </td>
+						<td class="color"><span ng-bind-html="getRatings(moc.id)"></span></td>
+						<td class="align-center">{{ moc.issues }} </td>
+						<td class="align-right">{{ ui.getDate(moc.submitTime) }}</td>
+					</tr>
+				</tbody>
+			</table>
 
+			<div ng-show="!displayByList">
+				<div class="moc-item" ng-repeat="moc in filtered = (mocs | filter:filterCards) | orderBy:entryOrder">
+					<ng-include src="'includes/moc_item.html'"></ng-include>
+				</div> <!-- /.moc-item -->
+			</div>
+			
 		</div> <!-- /.container -->
 	</section>
 

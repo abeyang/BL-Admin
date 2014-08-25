@@ -27,8 +27,6 @@ app.controller('MocsController', function($scope, $location, ui, mocResource, st
 
 	$scope.ui = ui;
 
-	var status_id = getIdFromUrl($location, 1);
-
 	$scope.getRatings = function(id, includeRaters) {
 		return mocResource.ratingsById(id, includeRaters);
 	};
@@ -45,19 +43,20 @@ app.controller('MocsController', function($scope, $location, ui, mocResource, st
 		return "moc.html#/" + id;
 	};
 
-	$scope.numIssues = function() {
-		var issues = 0;
-		if ($scope.myComment.content1) issues++;
-		if ($scope.myComment.content2) issues++;
-		if ($scope.myComment.content3) issues++;
-		return issues;
-	};
+	$scope.toggleFeatured = function(id) {
+		var store = ui.findById(mocResource, id);
+		store.isFeatured = (store.isFeatured) ? false : true; 
+	}
 
+	var status_id = getIdFromUrl($location, 1);
+	if (status_id < 0) status_id = '';
 	$scope.filterCards = {
 		status: status_id,
 		isFeatured: ''
 	};
+	
 	$scope.entryOrder = '-submitTime';
+	$scope.displayByList = true;
 
 });
 

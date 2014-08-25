@@ -111,10 +111,12 @@ html, body, div, p, input, textarea {
 }
 
 h1, h2 {
-    font-weight: 700;
-    font-size: 1em;
+    font-weight: 200;
+    font-size: 2em;
 }
 h2 {
+    font-weight: 700;
+    font-size: 1em;
     margin-top: $margin;
     padding-bottom: $pad;
     &.line {
@@ -147,6 +149,8 @@ a {
 .text-danger { color: $color_danger; }
 .text-dull { color: $lightgray; }
 
+.align-left { text-align: left; }
+.align-center { text-align: center; }
 .align-right { text-align: right; }
 
 .pad-left { padding-left: 3px; }
@@ -177,9 +181,8 @@ hr {
     border-top: 1px solid $lighterblue;
 }
 
-.right {
-    float: right;
-}
+.left { float: left; }
+.right { float: right; }
 
 // HELPER ASSETS
 
@@ -579,10 +582,12 @@ nav {
         text-align: left;
         border-bottom: 2px solid $lighterblue;
 
+        &.align-center { text-align: center; }
         &.align-right { text-align: right; }
     }
 
     i { color: $lightergray; }
+    img { max-height: 60px; }
 
 }
 .table-footer {
