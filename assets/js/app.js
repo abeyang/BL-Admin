@@ -20,7 +20,7 @@ var app = angular.module('app', ['ngSanitize', 'textAngular', 'flow']);
 
 /* MOC controller */
 
-app.controller('MocsController', function($scope, $location, ui, mocResource, tagResource, statusResource, metaResource) {
+app.controller('MocsController', function($scope, $location, ui, mocResource, statusResource, metaResource) {
 
 	$scope.mocs = mocResource.list();
 	$scope.statii = statusResource.list();
@@ -35,9 +35,6 @@ app.controller('MocsController', function($scope, $location, ui, mocResource, ta
 
 	$scope.getStatus = function(status) {
 		return ui.findAttrById(statusResource, 'name', status);
-	};
-	$scope.getStatusClass = function(status) {
-		return ui.findAttrById(statusResource, 'classname', status);
 	};
 
 	$scope.getTitle = function(id) {
@@ -63,6 +60,7 @@ app.controller('MocsController', function($scope, $location, ui, mocResource, ta
 	$scope.entryOrder = '-submitTime';
 
 });
+
 app.controller('MocSingleController', function($scope, $location, ui, mocResource, tagResource, statusResource, metaResource) {
 
 	$scope.mocs = mocResource.list();
@@ -235,7 +233,6 @@ app.controller('ContestEntryController', function($scope, $location, ui, contest
 	$scope.getEditLink = "contest_entry_edit.html#/" + id;
 });
 
-
 app.controller('ContestItemController', function($scope, $location, ui, mocResource, tagResource, statusResource, contestResource, metaResource) {
 
 	$scope.ui = ui;
@@ -269,6 +266,38 @@ app.controller('ContestItemController', function($scope, $location, ui, mocResou
 		if ($scope.myComment.content3) issues++;
 		return issues;
 	};
+
+});
+
+/* Store Controller */
+
+app.controller('StoreController', function($scope, ui, mocResource, metaResource) {
+
+	$scope.stores = mocResource.list();
+
+	$scope.ui = ui;
+
+	$scope.getRatings = function(id, includeRaters) {
+		return mocResource.ratingsById(id, includeRaters);
+	};
+
+	$scope.getTitle = function(id) {
+		return ui.findAttrById(metaResource, 'store', id);
+	};
+
+	$scope.getLink = function(id) {
+		return "moc.html#/" + id;
+	};
+
+	$scope.toggleFeatured = function(id) {
+		var store = ui.findById(mocResource, id);
+		store.isFeatured = (store.isFeatured) ? false : true; 
+	}
+
+	$scope.filterStores = {
+		isFeatured: ''
+	};
+	$scope.entryOrder = '-submitTime';
 
 });
 
@@ -1806,26 +1835,26 @@ app.factory('backOfficeResource', function () {
 app.factory('metaResource', function () {
 
 	var data = [
-		{id:0,	contest: "All Black Pieces", title:"The Fail Whale"},
-		{id:1,	contest: "25 Piece or Under Club", title:"Hogwarts Castle"},
-		{id:2,	contest: "Awesome Contest", title:"This is the Captain Speaking"},
-		{id:3,	contest: "Lord of the Rings Theme", title:"The Kingdom of Super Bite-Sized Tiny Little Lego People of Hobbitton"},
-		{id:4,	contest: "The Contest to End All Contests", title:"My Little Typewriter"},
-		{id:5,	contest: "Designer's Paradise", title:"Tank in Snow"},
-		{id:6,	contest: "50 Brick Challenge", title:"The Gray Battalion"},
-		{id:7,	contest: "Sweet 16", title:"Shelob"},
-		{id:8,	contest: "Europe Challenge", title:"USS Enterprise"},
-		{id:9,	contest: "Space Theme", title:"The White Crane"},
-		{id:10,	contest: "temp", title:"Mecha of Doom"},
-		{id:11,	contest: "temp", title:"R2D2, where are you?"},
-		{id:12,	contest: "temp", title:"Crows Landing"},
-		{id:13,	contest: "temp", title:"Blockheads"},
-		{id:14,	contest: "temp", title:"2001: Space Odyssey"},
-		{id:15,	contest: "temp", title:"Bomber Plane"},
-		{id:16,	contest: "temp", title:"Assimilation is Inevitable"},
-		{id:17,	contest: "temp", title:"Cancer is in my DNA"},
-		{id:18,	contest: "temp", title:"Polly wants a cracker!"},
-		{id:19,	contest: "temp", title:"Alice in Wonderland"},
+		{id:0,	store:"Dad's AFOL",	contest: "All Black Pieces", title:"The Fail Whale"},
+		{id:1,	store:"Brick Story",	contest: "25 Piece or Under Club", title:"Hogwarts Castle"},
+		{id:2,	store:"Lego4Ever",	contest: "Awesome Contest", title:"This is the Captain Speaking"},
+		{id:3,	store:"BrickCity",	contest: "Lord of the Rings Theme", title:"The Kingdom of Super Bite-Sized Tiny Little Lego People of Hobbitton"},
+		{id:4,	store:"Bag O'Bricks",	contest: "The Contest to End All Contests", title:"My Little Typewriter"},
+		{id:5,	store:"LegoWorld",	contest: "Designer's Paradise", title:"Tank in Snow"},
+		{id:6,	store:"The Biggest Store",	contest: "50 Brick Challenge", title:"The Gray Battalion"},
+		{id:7,	store:"LegoLandia",	contest: "Sweet 16", title:"Shelob"},
+		{id:8,	store:"Ego My Lego",	contest: "Europe Challenge", title:"USS Enterprise"},
+		{id:9,	store:"Bricktopia",	contest: "Space Theme", title:"The White Crane"},
+		{id:10,	store:"Fantom Bricks",	contest: "temp", title:"Mecha of Doom"},
+		{id:11,	store:"BrickBrack",	contest: "temp", title:"R2D2, where are you?"},
+		{id:12,	store:"Legolopolis",	contest: "temp", title:"Crows Landing"},
+		{id:13,	store:"Boston Red Blocks",	contest: "temp", title:"Blockheads"},
+		{id:14,	store:"Constructibles LLC",	contest: "temp", title:"2001: Space Odyssey"},
+		{id:15,	store:"Partes Res",	contest: "temp", title:"Bomber Plane"},
+		{id:16,	store:"ND Toys",	contest: "temp", title:"Assimilation is Inevitable"},
+		{id:17,	store:"Minifigforlife",	contest: "temp", title:"Cancer is in my DNA"},
+		{id:18,	store:"May Canady's Toys",	contest: "temp", title:"Polly wants a cracker!"},
+		{id:19,	store:"MassBricks",	contest: "temp", title:"Alice in Wonderland"},
 	];
 	
 	return {

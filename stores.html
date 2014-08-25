@@ -1,0 +1,52 @@
+<!-- $title - Stores -->
+<!-- $isactive-stores class="active" -->
+<!-- $body-meta class="blank" ng-controller="StoreController" -->
+<!-- @include _header -->
+
+	<nav class="subnav">
+		<ul class="container">
+
+
+			<li class="right active color" ng-show="filterStores.isFeatured === true"><a ng-click="filterStores.isFeatured=''" href="#"><i class="fa fa-thumb-tack"></i></a></li>
+			<li class="right" ng-show="filterStores.isFeatured === ''"><a ng-click="filterStores.isFeatured=true" href="#"><i class="fa fa-thumb-tack"></i></a></li>
+			<li class="right separator">&nbsp;</li>
+
+			<li ng-class="{active: entryOrder == '-ratings'}" class="right pad"><a ng-click="entryOrder='-ratings'" href="#">Popularity</a></li>
+			<li ng-class="{active: entryOrder == '-votes'}" class="right pad"><a ng-click="entryOrder='-votes'" href="#">Items</a></li>
+			<li ng-class="{active: entryOrder == '-submitTime'}" class="right pad"><a ng-click="entryOrder='-submitTime'" href="#">Recent</a></li>
+			<li class="right separator">&nbsp;</li>
+		</ul>
+	</nav>
+
+	<section>
+		<div class="container">
+		<h2>{{ filtered.length }} <span ng-show="filterStores.isFeatured === true">Featured</span> <ng-pluralize count="filtered.length" when="{'one': 'Store', 'other': 'Stores'}"></ng-pluralize></h2>
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th>&nbsp;</th>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Reviews</th>
+						<th>Items</th>
+						<th class="align-right">Created On</th>
+					</tr>	
+				</thead>
+				
+				<tbody>
+					<tr class="hover" ng-repeat="store in filtered = (stores | filter:filterStores) | orderBy:entryOrder">
+						<td ng-click="toggleFeatured(store.id)" ng-class="{color: store.isFeatured}"><i class="fa fa-thumb-tack"></i></td>
+						<td>{{ store.id }}</td>
+						<td>{{ getTitle(store.id) }}</td>
+						<td class="color"><span ng-bind-html="getRatings(store.id)"></span></td>
+						<td>{{ store.votes }} </td>
+						<td class="align-right">{{ ui.getDate(store.submitTime) }}</td>
+					</tr>
+				</tbody>
+			</table>
+		
+		</div> <!-- /.container -->
+	</section>
+  
+<!-- @include _footer -->

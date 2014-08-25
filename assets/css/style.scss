@@ -582,6 +582,8 @@ nav {
         &.align-right { text-align: right; }
     }
 
+    i { color: $lightergray; }
+
 }
 .table-footer {
     border-top: 2px solid $lighterblue;
@@ -819,6 +821,11 @@ nav {
     color: $lightgray;
 }
 
+.color {
+    .fa-star, .fa-thumb-tack { color: $lightorange; }
+    .fa-heart-o { color: $red; }
+}
+
 .moc-info {
     font-size: $small;
 
@@ -837,10 +844,7 @@ nav {
         padding-left: 0;
         list-style-type: none;
     }
-    .color {
-        .fa-star { color: $lightorange; }
-        .fa-heart-o { color: $red; }
-    }
+    
 
     font-size: $small;
 
