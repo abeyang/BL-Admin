@@ -8,13 +8,13 @@
 		<ul class="container">
 			<li class="active"><a class="title" href="#">{{ getTitle(single.id) }}</a></li>	
 
-			<li class="right"><a class="title" href="#">{{ getStatus(single.status) }}</a></li>
+			<li class="right"><a class="title" href="{{ getStatusLink(single.status) }}">{{ getStatus(single.status) }}</a></li>
 		</ul>
 	</nav>
 
 	<section>
 		<div class="container">	
-			<main>
+			<div class="col-twothird">
 				
 				<img src="{{ui.imageLink(single.id)}}">
 
@@ -87,46 +87,52 @@
 						</div>
 					</div>
 				</div>
-			</main>
+			</div>
 			
 			<!-- @todo show next/prev -->
-			<aside>
-				<div class="moc-info">
-					<div class="clearfix">
-						<a class="btn btn-featured" ng-class="{active: single.isFeatured}" ng-click="single.isFeatured=!single.isFeatured" href="">Featured</a>
+			<div class="col-third panelet right">
+				<div class="card" ng-class="{active: cards.actions}">
+					<p class="header all-caps"><i ng-click="cards.actions = (cards.actions) ? false : true" class="fa fa-plus hover right"></i>Actions</p>
+					<p class="clearfix">
+						<a class="btn btn-featured" ng-class="{active: single.isFeatured}" ng-click="single.isFeatured=!single.isFeatured" href=""><i class="fa fa-thumb-tack pad-right"></i> Featured</a>
 						<a class="btn btn-rejected" ng-class="{active: single.status == 4}" href="">Ban</a>
-					</div>	
+					</p>
+				</div>
 
-					<div class="color">
+				<div class="card" ng-class="{active: cards.info}">
+					<p class="header all-caps"><i ng-click="cards.info = (cards.info) ? false : true" class="fa fa-plus hover right"></i>Info</p>
+					<p class="color">
 						<span class="right">{{ single.raters }} reviews</span>
 						<span ng-bind-html="getRatings(single.id, false)"></span>
-					</div>
-					<div class="color">
-						<i class="fa fa-heart-o"></i> {{ single.votes }} requests
-					</div>
-					<div class="color">
+					</p>
+					<p class="color"><i class="icon fa fa-heart-o"></i> {{ single.votes }} requests</p>
+					<p class="color">
 						<span class="right">{{ single.parts }} parts</span>
-						<i class="fa fa-smile-o" ng-if="single.issues<3"></i> 
-						<i class="fa fa-meh-o" ng-if="single.issues>=3 && single.issues<6"></i> 
-						<i class="fa fa-frown-o" ng-if="single.issues>=6"></i> 
+						<i class="icon fa fa-smile-o" ng-if="single.issues<3"></i> 
+						<i class="icon fa fa-meh-o" ng-if="single.issues>=3 && single.issues<6"></i> 
+						<i class="icon fa fa-frown-o" ng-if="single.issues>=6"></i> 
 						{{ single.issues }} issues
-					</div>
-					<!-- @todo show dollar amount and stores for those "in stores" -->
-					<div>
+					</p>
+					<p>
 						<span class="right"><a href="{{ getLiveLink() }}">Live Site</a></span>
-						<i class="fa fa-user"></i> <a href="#">{{ single.name }}</a>
-					</div>	
-					<div>
+						<i class="icon fa fa-user"></i> <a href="#">{{ single.name }}</a>
+					</p>
+					<p>
 						<span class="right">{{ ui.getTime(single.submitTime) }}</span>
-						<i class="fa fa-calendar"></i> {{ ui.getDate(single.submitTime) }}
-					</div>
-					
-					<div ng-bind-html="getTagNames(single.tags)"></div>
-				</div> <!-- /.moc-info -->
+						<i class="icon fa fa-calendar"></i> {{ ui.getDate(single.submitTime) }}
+					</p>
+				</div>
+
+				<div class="card" ng-class="{active: cards.tags}">
+					<p class="header all-caps"><i ng-click="cards.tags = (cards.tags) ? false : true" class="fa fa-plus hover right"></i>Tags</p>
+					<p ng-bind-html="getTagNames(single.tags)"></p>
+				</div>
 				
-			</aside>
+			</div>
 
 		</div>
+
+		<div class="pane right"></div>
 	</section>
   
 <!-- @include _footer -->

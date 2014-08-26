@@ -27,6 +27,13 @@ app.controller('MocsController', function($scope, $location, ui, mocResource, st
 
 	$scope.ui = ui;
 
+	var status_id = getIdFromUrl($location, 1);
+	if (status_id < 0) status_id = '';
+	$scope.filterCards = {
+		status: status_id,
+		isFeatured: ''
+	};
+
 	$scope.getRatings = function(id, includeRaters) {
 		return mocResource.ratingsById(id, includeRaters);
 	};
@@ -47,13 +54,6 @@ app.controller('MocsController', function($scope, $location, ui, mocResource, st
 		var store = ui.findById(mocResource, id);
 		store.isFeatured = (store.isFeatured) ? false : true; 
 	}
-
-	var status_id = getIdFromUrl($location, 1);
-	if (status_id < 0) status_id = '';
-	$scope.filterCards = {
-		status: status_id,
-		isFeatured: ''
-	};
 	
 	$scope.entryOrder = '-submitTime';
 	$scope.displayByList = true;
@@ -82,8 +82,8 @@ app.controller('MocSingleController', function($scope, $location, ui, mocResourc
 	$scope.getStatus = function(status) {
 		return ui.findAttrById(statusResource, 'name', status);
 	};
-	$scope.getStatusClass = function(status) {
-		return ui.findAttrById(statusResource, 'classname', status);
+	$scope.getStatusLink = function(status) {
+		return "mocs.html#/" + status;
 	};
 
 	$scope.getTitle = function(id) {
@@ -104,6 +104,14 @@ app.controller('MocSingleController', function($scope, $location, ui, mocResourc
 		if ($scope.myComment.content2) issues++;
 		if ($scope.myComment.content3) issues++;
 		return issues;
+	};
+
+	// User Profile cards (in sidebar)
+	$scope.cards = {
+		actions: true,
+		info: true,
+		tags: false, 
+		stores: true
 	};
 
 });
@@ -186,52 +194,6 @@ app.controller('ContestAllController', function($scope, ui, contestResource, met
 	}
 });
 
-
-app.controller('ContestEntryController', function($scope, $location, ui, contestResource, metaResource) {
-// @todo can delete this whole section
-	$scope.ui = ui;
-
-	var id = getIdFromUrl($location);
-	$scope.id = id;
-
-	$scope.getTitle = function(id) {
-		return ui.findAttrById(metaResource, 'contest', id);
-	};
-	$scope.getLink = function(id) {
-		return "contest_item.html#/" + id;
-	};
-	$scope.getPrize = function(id, n) {
-		var prize = ui.findAttrById(contestResource, 'prize' + n, id);
-		if (prize) prize *= 10;
-		return prize;
-	};
-
-	if (id >= 0) {
-		$scope.title = $scope.getTitle(id);
-		$scope.desc = ui.lorem;
-		$scope.prize1 = $scope.getPrize(id, 1);
-		$scope.prize2 = $scope.getPrize(id, 2);
-		$scope.prize3 = $scope.getPrize(id, 3);
-
-		$scope.acceptStartDate = new Date(ui.findAttrById(contestResource, 'acceptStartDate', id));
-		$scope.acceptEndDate = new Date(ui.findAttrById(contestResource, 'acceptEndDate', id));
-		$scope.voteStartDate = new Date(ui.findAttrById(contestResource, 'voteStartDate', id));
-		$scope.voteEndDate = new Date(ui.findAttrById(contestResource, 'voteEndDate', id));
-		$scope.announceDate = new Date(ui.findAttrById(contestResource, 'announceDate', id));
-
-		$scope.newedit = 'Edit Contest';
-	}
-	else {
-		$scope.title = $scope.desc = $scope.prize = '';
-		$scope.acceptStartDate = $scope.acceptEndDate = $scope.voteStartDate = $scope.voteEndDate = $scope.announceDate = '';
-
-		$scope.newedit = 'New Contest';
-	}
-	
-	$scope.getContestLink = "contest_entry.html#/" + id;
-	$scope.getEditLink = "contest_entry_edit.html#/" + id;
-});
-
 app.controller('ContestItemController', function($scope, $location, ui, mocResource, tagResource, statusResource, contestResource, metaResource) {
 
 	$scope.ui = ui;
@@ -264,6 +226,13 @@ app.controller('ContestItemController', function($scope, $location, ui, mocResou
 		if ($scope.myComment.content2) issues++;
 		if ($scope.myComment.content3) issues++;
 		return issues;
+	};
+
+	// User Profile cards (in sidebar)
+	$scope.cards = {
+		actions: true,
+		info: true,
+		tags: false
 	};
 
 });
@@ -1037,8 +1006,7 @@ app.factory('tagResource', function () {
 
         	if (!tags.length) return;	// if tag is empty, return nothing
 
-        	var html = '<ul>Tag';
-        	if (tags.length > 1) html += 's';	// pluralize 'tag'
+        	var html = '<ul>';
 
         	_.each(tags, function(id) {
         		var count = this.findCountById(id);

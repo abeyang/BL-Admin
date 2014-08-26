@@ -849,55 +849,6 @@ nav {
     .fa-heart-o { color: $red; }
 }
 
-.moc-info {
-    font-size: $small;
-
-    > div {
-        @extend .moc-info-section;
-    }
-    a { 
-        color: $lightgray; 
-        border-bottom: 1px solid $lightestgray;
-    }
-    i, input {
-        margin-right: $pad;
-    }
-    ul {
-        margin: 0;
-        padding-left: 0;
-        list-style-type: none;
-    }
-    
-
-    font-size: $small;
-
-    .btn {
-        @include span-columns(2 of 4);
-        border-color: $black;
-        background-color: transparent;
-        text-align: center;
-    }
-    .btn.active {
-        &.btn-display { @include filledbutton($color_display); }
-        &.btn-pending { @include filledbutton($color_pending); }
-        &.btn-approved { @include filledbutton($color_approved); }
-        &.btn-rejected { @include filledbutton($color_rejected); }
-        &.btn-featured { @include filledbutton($orange); }
-    }
-
-    .btn.btn-disabled, .btn.btn-disabled.active { 
-        border-color: $gray;
-        color: $black;
-        background-color: transparent;
-    }
-
-    .badge {
-        text-align: center;
-        padding-top: $pad;
-        padding-bottom: $pad;
-    }
-}
-
 .tag-item {
 	@include span-columns(4);
     @include omega(3n);
@@ -1065,16 +1016,19 @@ div.info {
     p { 
         display: none;
         margin: 0.5em 0;
-    }
-    p.header {
-        display: block;
-        opacity: 0.4;
-    }
-    p.active { font-weight: 700; }
 
-    i { @include transform(rotate(0deg)); }
+        &.header {
+            display: block;
+            opacity: 0.4;
+
+            i { @include transform(rotate(0deg)); }
+        }
+        &.active { font-weight: 700; }
+    }
+
     a { 
         color: $black; 
+        border-bottom: 1px solid $lightergray;
         &.text-warning { color: $color-warning; }
         &.text-danger { color: $color-danger; }
     }
@@ -1087,7 +1041,36 @@ div.info {
 
         p { display: block; } 
         p.header { opacity: 1.0; }
-        i { @include transform(rotate(45deg)); }
+        p.header i { @include transform(rotate(45deg)); }
+    }
+
+    .btn {
+        @include span-columns(2 of 4);
+        border-color: $black;
+        background-color: transparent;
+        text-align: center;
+    }
+    .btn.active {
+        &.btn-display { @include filledbutton($color_display); }
+        &.btn-pending { @include filledbutton($color_pending); }
+        &.btn-approved { @include filledbutton($color_approved); }
+        &.btn-rejected { @include filledbutton($color_rejected); }
+        &.btn-featured { @include filledbutton($orange); }
+    }
+
+    .btn.btn-disabled, .btn.btn-disabled.active { 
+        border-color: $gray;
+        color: $black;
+        background-color: transparent;
+    }
+
+    .icon {
+        margin-right: $pad;
+    }
+    ul {
+        margin: 0;
+        padding-left: 0;
+        list-style-type: none;
     }
     
 }

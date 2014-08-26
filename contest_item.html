@@ -15,7 +15,7 @@
 
 	<section>
 		<div class="container">	
-			<main>
+			<div class="col-twothird">
 				
 				<img src="{{ui.imageLink(single.id)}}">
 
@@ -86,48 +86,47 @@
 						</div>
 					</div>
 				</div>
-			</main>
+			</div>
 			
 			<!-- @todo show next/prev -->
 			
-			<aside>
-				<div class="moc-info">
-					<div class="clearfix">
-						<a class="btn btn-featured" ng-class="{active: single.isFeatured}" ng-click="single.isFeatured=!single.isFeatured" href="">Featured</a>
-						<!-- @todo use status, not "isRejected" for banned mocs -->
+			<div class="col-third panelet right">
+				<div class="card" ng-class="{active: cards.actions}">
+					<p class="header all-caps"><i ng-click="cards.actions = (cards.actions) ? false : true" class="fa fa-plus hover right"></i>Actions</p>
+					<p class="clearfix">
+						<a class="btn btn-featured" ng-class="{active: single.isFeatured}" ng-click="single.isFeatured=!single.isFeatured" href=""><i class="fa fa-thumb-tack pad-right"></i> Featured</a>
 						<a class="btn btn-rejected" ng-class="{active: single.status == 4}" href="">Ban</a>
-					</div>	
+					</p>
+				</div>
 
-					<div class="color">
-						<i class="fa fa-heart-o"></i> {{ single.votes }} likes
-					</div>
-					<div class="color">
+				<div class="card" ng-class="{active: cards.info}">
+					<p class="header all-caps"><i ng-click="cards.info = (cards.info) ? false : true" class="fa fa-plus hover right"></i>Info</p>
+					<p class="color"><i class="icon fa fa-heart-o"></i> {{ single.votes }} likes</p>
+					<p class="color">
 						<span class="right">{{ single.parts }} parts</span>
-						<i class="fa fa-smile-o" ng-if="single.issues<3"></i> 
-						<i class="fa fa-meh-o" ng-if="single.issues>=3 && single.issues<6"></i> 
-						<i class="fa fa-frown-o" ng-if="single.issues>=6"></i> 
+						<i class="icon fa fa-smile-o" ng-if="single.issues<1"></i> 
+						<i class="icon fa fa-meh-o" ng-if="single.issues>=1"></i> 
 						{{ single.issues }} issues
-					</div>
-					<!-- @todo show dollar amount and stores for those "in stores" -->
-					<div>
-						<span class="right"><a href="#">Live Site</a></span>
-						<i class="fa fa-user"></i> <a href="#">{{ single.name }}</a>
-					</div>	
-					<div>
+					</p>
+					<p>
+						<span class="right"><a href="{{ getLiveLink() }}">Live Site</a></span>
+						<i class="icon fa fa-user"></i> <a href="#">{{ single.name }}</a>
+					</p>
+					<p>
 						<span class="right">{{ ui.getTime(single.submitTime) }}</span>
-						<i class="fa fa-calendar"></i> {{ ui.getDate(single.submitTime) }}
-					</div>
-<!-- 					<div>
-						<i class="fa fa-credit-card"></i> {{ single.fee }}%
-					</div> -->
-					
-					<!-- @todo tags need to be editable -->
-					<div ng-bind-html="getTagNames(single.tags)"></div>
-				</div> <!-- /.moc-info -->
-				
-			</aside>
+						<i class="icon fa fa-calendar"></i> {{ ui.getDate(single.submitTime) }}
+					</p>
+				</div>
 
+				<div class="card" ng-class="{active: cards.tags}">
+					<p class="header all-caps"><i ng-click="cards.tags = (cards.tags) ? false : true" class="fa fa-plus hover right"></i>Tags</p>
+					<p ng-bind-html="getTagNames(single.tags)"></p>
+				</div>
+				
+			</div>
 		</div>
+
+		<div class="pane right"></div>
 	</section>
   
 <!-- @include _footer -->
