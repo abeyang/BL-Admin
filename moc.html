@@ -128,6 +128,43 @@
 					<p ng-bind-html="getTagNames(single.tags)"></p>
 				</div>
 				
+				<div class="card" ng-class="{active: cards.stores}">
+					<p class="header all-caps"><i ng-click="cards.stores = (cards.stores) ? false : true" class="fa fa-plus hover right"></i>Stores</p>
+					
+					<!-- Store 1 -->
+					<p class="line">
+						<div>
+							<strong class="right text-success">63/63</strong>
+							<strong><a class="text-success" href="#">BrickStory</a></strong>	
+						</div>
+					</p>
+
+					<!-- Store 2 -->
+					<p class="line">
+						<div>
+							<strong class="right">62/63</strong>
+							<strong><a href="#">Dad's AFOL</a></strong>	
+						</div>
+						<div>
+							Missing: <a href="#">16082</a>
+						</div>
+					</p>
+
+					<!-- Store 3 -->
+					<p class="line">
+						<div>
+							<strong class="right">59/63</strong>
+							<strong><a href="#">Lord of the Brick</a></strong>	
+						</div>
+						<div>
+							Missing: <a href="#">16082</a>, <a href="#">5008</a>, <a href="#">28099</a>, <a href="#">35106</a>
+						</div>
+						<div>
+							<span class="badge badge-danger">Not in MOC Shop</span>
+						</div>
+					</p>
+				</div>
+
 			</div>
 
 		</div>

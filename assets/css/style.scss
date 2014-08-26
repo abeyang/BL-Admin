@@ -1024,14 +1024,22 @@ div.info {
             i { @include transform(rotate(0deg)); }
         }
         &.active { font-weight: 700; }
+        &.line { 
+            padding-top: $pad/2;
+            margin-top: $pad; 
+            border-top: 1px solid $lighterblue; 
+        }
     }
 
     a { 
         color: $black; 
         border-bottom: 1px solid $lightergray;
+        &.text-success { color: $color-success; }
         &.text-warning { color: $color-warning; }
         &.text-danger { color: $color-danger; }
     }
+
+    div { margin-top: 3px; }
 
     &.active {
         padding-top: $pad;
