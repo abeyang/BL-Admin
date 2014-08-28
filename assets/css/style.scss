@@ -748,13 +748,6 @@ nav {
     }
 }
 
-.simple {
-    display: block;
-    height: $thumb_height;
-    background-color: $darkgray;
-    overflow: hidden;
-}
-
 .cleancard {
     height: $thumb_height * 1.85;
     background-color: $white;
@@ -780,83 +773,6 @@ nav {
     @include span-columns(4);
     @include omega(3n);
     margin-bottom: $margin;
-
-    .moc-image {
-        @extend .simple;
-        margin-top: $margin;
-    }
-    .title {
-        //@extend .truncate;
-        margin-top: $pad;
-        color: $black;
-        &:hover {
-            color: $color_link;
-        }
-        input {margin-right: $pad/2; }
-    }
-    .line {
-        width: 100%;
-        padding: $pad;
-        color: $lightergray;
-        border-top: 1px solid $lightestgray;
-
-        &.top {
-        	padding-top: 0;
-        	padding-bottom: 0;
-        	border-top: none;
-        }
-    }
-    .moc-tags {
-    	// @extend .truncate;
-    }
-
-    .simple {
-        position: relative;
-
-        h4 { display: none; }
-        .info {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            padding: $pad $pad $pad/2;
-            color: $white;
-            @include background-image(linear-gradient(transparent 0, rgba($black, 0.35) 100%));
-
-        }
-        .misc { 
-            float: right;
-            color: $white; 
-        }
-        .extra {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            width: 100%;
-            padding-top: $thumb_height/3;
-            
-            &.winner { background-color: rgba($color_success, 0.5); }
-            &.pending { background-color: rgba($color_pending, 0.6); }
-            &.rejected { background-color: rgba($color_rejected, 0.75); }
-
-            h4 { 
-                display: block;
-                text-align: center;
-                font-size: 2em;
-                color: $white; 
-            }
-            .info {
-                background-image: none;
-                /*background-color: rgba($lightorange, 0.5);*/
-            }
-        }
-    }
-
-}
-
-.moc-info-section {
-    padding: $pad 0;
-    border-top: 1px solid $lightestgray;
-    color: $lightgray;
 }
 
 .color {
