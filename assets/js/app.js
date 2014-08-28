@@ -28,11 +28,30 @@ app.controller('MocsController', function($scope, $location, ui, mocResource, st
 	$scope.ui = ui;
 
 	var status_id = getIdFromUrl($location, 1);
-	if (status_id < 0) status_id = '';
-	$scope.filterCards = {
+	
+	$scope.filterMocs = {
 		status: status_id,
-		isFeatured: ''
+		rank: [true, true, true, false]
 	};
+
+	// http://stackoverflow.com/questions/21411686/how-to-filter-multiple-values-or-operation-in-angularjs-with-checkbox
+	$scope.showFilterMocs = function(moc) {
+
+		// if $scope.filterMocs.status < 0, automatically passes test. Otherwise, compare with moc.status
+		var passStatus = ($scope.filterMocs.status < 0) ? true : ($scope.filterMocs.status == moc.status);
+
+		// big OR statement
+		var passRank = ($scope.filterMocs.rank[0] && (moc.rank===0)) ||
+			($scope.filterMocs.rank[1] && (moc.rank===1)) ||
+			($scope.filterMocs.rank[2] && (moc.rank===2)) ||
+			($scope.filterMocs.rank[3] && (moc.rank===3));
+
+		return passStatus && passRank;
+	}
+
+	$scope.toggleRank = function(rank_id) {
+		$scope.filterMocs.rank[rank_id] = ui.toggle($scope.filterMocs.rank[rank_id]);
+	}
 
 	$scope.getRatings = function(id, includeRaters) {
 		return mocResource.ratingsById(id, includeRaters);
@@ -49,11 +68,6 @@ app.controller('MocsController', function($scope, $location, ui, mocResource, st
 	$scope.getLink = function(id) {
 		return "moc.html#/" + id;
 	};
-
-	$scope.toggleFeatured = function(id) {
-		var store = ui.findById(mocResource, id);
-		store.isFeatured = (store.isFeatured) ? false : true; 
-	}
 	
 	$scope.entryOrder = '-submitTime';
 	$scope.displayByList = true;
@@ -385,10 +399,11 @@ function getIdFromUrl(location, backup) {
 
 app.factory('ui', function() {
 	// var isProduction = true;
-	var context = 'dashboard';
+	var version = '1.09';
 	var name = 'Abe Yang';
 
 	return {
+        lorem: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna. Nulla vitae elit libero, a pharetra augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Curabitur blandit tempus porttitor.',
         findById: function(resource, id) {
         	return _.find(resource.list(), function(obj) {
                 return obj.id == id;
@@ -417,7 +432,10 @@ app.factory('ui', function() {
         getMyName: function() {
         	return name;
         },
-        lorem: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna. Nulla vitae elit libero, a pharetra augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Curabitur blandit tempus porttitor.'
+        toggle: function(item) {
+        	// toggles between true and false
+        	return (item) ? false : true;
+        }
 	}
 });
 
@@ -439,8 +457,7 @@ app.factory('mocResource', function () {
 		        parts: '{{integer(1, 100)}}',
 		        submitTime: '{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss")}}',
 		        status: '{{integer(0, 4)}}',
-		        isRejected: '{{bool()}}',
-		        isFeatured: '{{bool()}}',
+		        rank: '{{integer(0, 3)}}',
 		        tags: [
 		            '{{repeat(1,5)}}',
 		            '{{integer(0, 20)}}'
@@ -455,455 +472,424 @@ app.factory('mocResource', function () {
 	var data = [
 	  {
 	    "id": 0,
-	    "name": "Geneva Powers",
+	    "name": "Ora Hudson",
 	    "ratings": 4,
-	    "raters": 39,
-	    "issues": 3,
-	    "comments": 2,
-	    "fee": 5,
-	    "parts": 17,
-	    "submitTime": "2014-01-20T03:38:53",
-	    "status": 2,
-	    "isRejected": false,
-	    "isFeatured": false,
-	    "tags": [
-	      5,
-	      20,
-	      3,
-	      4,
-	      5
-	    ],
-	    "contest": 5,
-	    "votes": 20,
-	    "stores": 10
-	  },
-	  {
-	    "id": 1,
-	    "name": "Christa Larsen",
-	    "ratings": 3,
-	    "raters": 146,
+	    "raters": 188,
 	    "issues": 2,
-	    "comments": 2,
-	    "fee": 1,
-	    "parts": 63,
-	    "submitTime": "2014-07-12T14:14:05",
-	    "status": 1,
-	    "isRejected": true,
-	    "isFeatured": false,
-	    "tags": [
-	      5
-	    ],
-	    "contest": 3,
-	    "votes": 13,
-	    "stores": 12
-	  },
-	  {
-	    "id": 2,
-	    "name": "Faulkner Levy",
-	    "ratings": 3,
-	    "raters": 47,
-	    "issues": 1,
 	    "comments": 7,
-	    "fee": 5,
-	    "parts": 3,
-	    "submitTime": "2014-06-10T15:51:46",
-	    "status": 0,
-	    "isRejected": false,
-	    "isFeatured": false,
+	    "fee": 2,
+	    "parts": 14,
+	    "submitTime": "2014-02-16T02:52:07",
+	    "status": 3,
+	    "rank": 2,
 	    "tags": [
-	      11,
-	      17,
-	      4,
-	      2,
-	      6
-	    ],
-	    "contest": 3,
-	    "votes": 27,
-	    "stores": 6
-	  },
-	  {
-	    "id": 3,
-	    "name": "Daphne Perry",
-	    "ratings": 0,
-	    "raters": 71,
-	    "issues": 3,
-	    "comments": 7,
-	    "fee": 1,
-	    "parts": 10,
-	    "submitTime": "2014-02-16T16:55:33",
-	    "status": 2,
-	    "isRejected": false,
-	    "isFeatured": true,
-	    "tags": [
-	      15,
-	      9,
-	      4,
-	      20
-	    ],
-	    "contest": 1,
-	    "votes": 14,
-	    "stores": 6
-	  },
-	  {
-	    "id": 4,
-	    "name": "Bishop Bender",
-	    "ratings": 1,
-	    "raters": 76,
-	    "issues": 3,
-	    "comments": 4,
-	    "fee": 4,
-	    "parts": 93,
-	    "submitTime": "2014-07-30T14:19:37",
-	    "status": 1,
-	    "isRejected": false,
-	    "isFeatured": true,
-	    "tags": [
-	      2,
-	      16,
 	      20
 	    ],
 	    "contest": 2,
-	    "votes": 18,
-	    "stores": 4
+	    "votes": 17,
+	    "stores": 13
 	  },
 	  {
-	    "id": 5,
-	    "name": "Douglas Carey",
-	    "ratings": 3,
-	    "raters": 90,
-	    "issues": 3,
-	    "comments": 9,
-	    "fee": 5,
-	    "parts": 90,
-	    "submitTime": "2014-01-22T22:33:40",
+	    "id": 1,
+	    "name": "Becky Montoya",
+	    "ratings": 1,
+	    "raters": 146,
+	    "issues": 1,
+	    "comments": 6,
+	    "fee": 1,
+	    "parts": 85,
+	    "submitTime": "2014-04-29T08:34:53",
 	    "status": 3,
-	    "isRejected": true,
-	    "isFeatured": true,
+	    "rank": 0,
 	    "tags": [
-	      9,
-	      4,
-	      5,
-	      13
-	    ],
-	    "contest": 6,
-	    "votes": 28,
-	    "stores": 4
-	  },
-	  {
-	    "id": 6,
-	    "name": "Odessa Rodriquez",
-	    "ratings": 3,
-	    "raters": 26,
-	    "issues": 2,
-	    "comments": 0,
-	    "fee": 0,
-	    "parts": 79,
-	    "submitTime": "2014-05-05T05:31:12",
-	    "status": 2,
-	    "isRejected": true,
-	    "isFeatured": false,
-	    "tags": [
-	      11,
-	      7,
+	      17,
 	      14,
 	      0,
-	      15
+	      19,
+	      18
 	    ],
-	    "contest": 7,
-	    "votes": 29,
-	    "stores": 1
+	    "contest": 2,
+	    "votes": 12,
+	    "stores": 2
 	  },
 	  {
-	    "id": 7,
-	    "name": "Sofia Hubbard",
-	    "ratings": 0,
-	    "raters": 31,
-	    "issues": 1,
-	    "comments": 0,
+	    "id": 2,
+	    "name": "Christi Morton",
+	    "ratings": 4,
+	    "raters": 190,
+	    "issues": 3,
+	    "comments": 9,
 	    "fee": 2,
-	    "parts": 29,
-	    "submitTime": "2014-03-11T18:06:51",
-	    "status": 0,
-	    "isRejected": false,
-	    "isFeatured": true,
+	    "parts": 66,
+	    "submitTime": "2014-04-01T03:21:20",
+	    "status": 2,
+	    "rank": 0,
 	    "tags": [
-	      12
+	      20,
+	      0,
+	      2,
+	      5
 	    ],
-	    "contest": 5,
-	    "votes": 30,
+	    "contest": 9,
+	    "votes": 3,
+	    "stores": 7
+	  },
+	  {
+	    "id": 3,
+	    "name": "Long Tillman",
+	    "ratings": 1,
+	    "raters": 39,
+	    "issues": 1,
+	    "comments": 5,
+	    "fee": 5,
+	    "parts": 45,
+	    "submitTime": "2014-02-12T05:30:22",
+	    "status": 1,
+	    "rank": 2,
+	    "tags": [
+	      12,
+	      13,
+	      6,
+	      11
+	    ],
+	    "contest": 7,
+	    "votes": 17,
 	    "stores": 8
 	  },
 	  {
-	    "id": 8,
-	    "name": "Sonja Head",
+	    "id": 4,
+	    "name": "Tanya Booth",
 	    "ratings": 1,
-	    "raters": 128,
+	    "raters": 78,
 	    "issues": 0,
-	    "comments": 2,
-	    "fee": 5,
-	    "parts": 60,
-	    "submitTime": "2014-04-10T11:04:34",
+	    "comments": 8,
+	    "fee": 2,
+	    "parts": 27,
+	    "submitTime": "2014-02-05T10:47:44",
 	    "status": 0,
-	    "isRejected": true,
-	    "isFeatured": true,
+	    "rank": 2,
 	    "tags": [
-	      6,
-	      4,
-	      18,
-	      16,
-	      16
+	      12,
+	      10,
+	      11,
+	      15,
+	      11
 	    ],
-	    "contest": 9,
-	    "votes": 28,
+	    "contest": 6,
+	    "votes": 27,
+	    "stores": 8
+	  },
+	  {
+	    "id": 5,
+	    "name": "Snider Fleming",
+	    "ratings": 4,
+	    "raters": 17,
+	    "issues": 3,
+	    "comments": 8,
+	    "fee": 0,
+	    "parts": 77,
+	    "submitTime": "2014-07-20T03:23:28",
+	    "status": 2,
+	    "rank": 3,
+	    "tags": [
+	      13,
+	      8,
+	      8,
+	      14
+	    ],
+	    "contest": 1,
+	    "votes": 12,
 	    "stores": 15
 	  },
 	  {
-	    "id": 9,
-	    "name": "Clare Farley",
-	    "ratings": 4,
-	    "raters": 160,
+	    "id": 6,
+	    "name": "Angel Hatfield",
+	    "ratings": 1,
+	    "raters": 122,
 	    "issues": 0,
-	    "comments": 3,
-	    "fee": 3,
-	    "parts": 74,
-	    "submitTime": "2014-07-16T19:55:48",
-	    "status": 0,
-	    "isRejected": true,
-	    "isFeatured": true,
+	    "comments": 2,
+	    "fee": 5,
+	    "parts": 37,
+	    "submitTime": "2014-06-30T01:02:05",
+	    "status": 2,
+	    "rank": 2,
 	    "tags": [
-	      2,
-	      7,
-	      20,
-	      2,
+	      0,
+	      9,
 	      16
 	    ],
-	    "contest": 6,
-	    "votes": 1,
+	    "contest": 4,
+	    "votes": 24,
+	    "stores": 13
+	  },
+	  {
+	    "id": 7,
+	    "name": "Tanner Garza",
+	    "ratings": 4,
+	    "raters": 60,
+	    "issues": 3,
+	    "comments": 1,
+	    "fee": 2,
+	    "parts": 98,
+	    "submitTime": "2014-04-06T02:36:13",
+	    "status": 1,
+	    "rank": 0,
+	    "tags": [
+	      4,
+	      13,
+	      2
+	    ],
+	    "contest": 7,
+	    "votes": 29,
+	    "stores": 11
+	  },
+	  {
+	    "id": 8,
+	    "name": "Myrna Davenport",
+	    "ratings": 1,
+	    "raters": 104,
+	    "issues": 0,
+	    "comments": 5,
+	    "fee": 3,
+	    "parts": 97,
+	    "submitTime": "2014-01-01T06:35:24",
+	    "status": 3,
+	    "rank": 3,
+	    "tags": [
+	      12,
+	      12,
+	      14
+	    ],
+	    "contest": 0,
+	    "votes": 29,
+	    "stores": 10
+	  },
+	  {
+	    "id": 9,
+	    "name": "Janis Lara",
+	    "ratings": 4,
+	    "raters": 116,
+	    "issues": 1,
+	    "comments": 5,
+	    "fee": 2,
+	    "parts": 25,
+	    "submitTime": "2014-02-19T08:04:18",
+	    "status": 1,
+	    "rank": 1,
+	    "tags": [
+	      5,
+	      16
+	    ],
+	    "contest": 8,
+	    "votes": 28,
 	    "stores": 7
 	  },
 	  {
 	    "id": 10,
-	    "name": "Marguerite Smith",
-	    "ratings": 3,
-	    "raters": 110,
-	    "issues": 2,
-	    "comments": 5,
-	    "fee": 3,
-	    "parts": 28,
-	    "submitTime": "2014-02-27T01:36:20",
-	    "status": 0,
-	    "isRejected": false,
-	    "isFeatured": true,
+	    "name": "Isabelle Jefferson",
+	    "ratings": 4,
+	    "raters": 139,
+	    "issues": 1,
+	    "comments": 3,
+	    "fee": 4,
+	    "parts": 10,
+	    "submitTime": "2014-01-31T04:19:40",
+	    "status": 2,
+	    "rank": 2,
 	    "tags": [
 	      2
 	    ],
-	    "contest": 0,
-	    "votes": 4,
-	    "stores": 10
+	    "contest": 6,
+	    "votes": 12,
+	    "stores": 11
 	  },
 	  {
 	    "id": 11,
-	    "name": "Aimee Moses",
-	    "ratings": 4,
-	    "raters": 69,
+	    "name": "Rowe Harrison",
+	    "ratings": 1,
+	    "raters": 77,
 	    "issues": 2,
-	    "comments": 6,
-	    "fee": 4,
-	    "parts": 70,
-	    "submitTime": "2014-07-27T14:55:12",
+	    "comments": 3,
+	    "fee": 0,
+	    "parts": 98,
+	    "submitTime": "2014-05-30T09:50:25",
 	    "status": 2,
-	    "isRejected": false,
-	    "isFeatured": true,
+	    "rank": 2,
 	    "tags": [
-	      5,
-	      0,
-	      20,
 	      11
 	    ],
-	    "contest": 9,
-	    "votes": 21,
-	    "stores": 14
+	    "contest": 0,
+	    "votes": 16,
+	    "stores": 13
 	  },
 	  {
 	    "id": 12,
-	    "name": "Rose Holloway",
-	    "ratings": 2,
-	    "raters": 24,
-	    "issues": 1,
-	    "comments": 2,
-	    "fee": 2,
-	    "parts": 11,
-	    "submitTime": "2014-01-02T23:07:32",
-	    "status": 4,
-	    "isRejected": true,
-	    "isFeatured": true,
+	    "name": "Garrison Burke",
+	    "ratings": 0,
+	    "raters": 38,
+	    "issues": 2,
+	    "comments": 4,
+	    "fee": 0,
+	    "parts": 85,
+	    "submitTime": "2014-01-05T02:19:21",
+	    "status": 0,
+	    "rank": 1,
 	    "tags": [
-	      9,
-	      7
+	      10
 	    ],
-	    "contest": 0,
-	    "votes": 6,
+	    "contest": 8,
+	    "votes": 19,
 	    "stores": 4
 	  },
 	  {
 	    "id": 13,
-	    "name": "Booker Guerra",
+	    "name": "Judy Anderson",
 	    "ratings": 4,
-	    "raters": 55,
+	    "raters": 32,
 	    "issues": 2,
-	    "comments": 1,
-	    "fee": 1,
-	    "parts": 35,
-	    "submitTime": "2014-02-06T20:58:49",
-	    "status": 4,
-	    "isRejected": false,
-	    "isFeatured": false,
+	    "comments": 5,
+	    "fee": 0,
+	    "parts": 26,
+	    "submitTime": "2014-05-17T09:40:36",
+	    "status": 2,
+	    "rank": 1,
 	    "tags": [
-	      4,
-	      14,
-	      2,
-	      10
+	      11,
+	      3,
+	      17,
+	      3
 	    ],
-	    "contest": 6,
-	    "votes": 24,
-	    "stores": 7
+	    "contest": 5,
+	    "votes": 3,
+	    "stores": 4
 	  },
 	  {
 	    "id": 14,
-	    "name": "Ina Mcneil",
+	    "name": "Mccoy Gentry",
 	    "ratings": 0,
-	    "raters": 94,
-	    "issues": 2,
+	    "raters": 186,
+	    "issues": 0,
 	    "comments": 7,
-	    "fee": 1,
-	    "parts": 50,
-	    "submitTime": "2014-04-09T01:32:59",
-	    "status": 3,
-	    "isRejected": false,
-	    "isFeatured": true,
+	    "fee": 2,
+	    "parts": 83,
+	    "submitTime": "2014-03-20T09:36:53",
+	    "status": 2,
+	    "rank": 3,
 	    "tags": [
-	      13
+	      20,
+	      6,
+	      8,
+	      11
 	    ],
-	    "contest": 2,
-	    "votes": 1,
-	    "stores": 5
+	    "contest": 9,
+	    "votes": 22,
+	    "stores": 8
 	  },
 	  {
 	    "id": 15,
-	    "name": "Patrica Ramos",
-	    "ratings": 3,
-	    "raters": 75,
-	    "issues": 3,
-	    "comments": 9,
-	    "fee": 3,
-	    "parts": 48,
-	    "submitTime": "2014-07-01T22:21:32",
-	    "status": 3,
-	    "isRejected": true,
-	    "isFeatured": false,
-	    "tags": [
-	      5,
-	      5
-	    ],
-	    "contest": 4,
-	    "votes": 29,
-	    "stores": 6
-	  },
-	  {
-	    "id": 16,
-	    "name": "Buckley Newman",
-	    "ratings": 5,
-	    "raters": 30,
-	    "issues": 3,
-	    "comments": 7,
-	    "fee": 5,
-	    "parts": 57,
-	    "submitTime": "2014-05-30T16:53:54",
-	    "status": 0,
-	    "isRejected": false,
-	    "isFeatured": true,
-	    "tags": [
-	      19,
-	      15,
-	      6,
-	      19,
-	      4
-	    ],
-	    "contest": 7,
-	    "votes": 15,
-	    "stores": 6
-	  },
-	  {
-	    "id": 17,
-	    "name": "Moss Bates",
-	    "ratings": 4,
-	    "raters": 125,
-	    "issues": 2,
-	    "comments": 0,
-	    "fee": 4,
-	    "parts": 71,
-	    "submitTime": "2014-07-21T15:34:56",
-	    "status": 4,
-	    "isRejected": true,
-	    "isFeatured": true,
-	    "tags": [
-	      16,
-	      3,
-	      10,
-	      10,
-	      12
-	    ],
-	    "contest": 6,
-	    "votes": 6,
-	    "stores": 12
-	  },
-	  {
-	    "id": 18,
-	    "name": "Marisol Hale",
+	    "name": "Louise Norton",
 	    "ratings": 2,
-	    "raters": 41,
-	    "issues": 3,
-	    "comments": 1,
-	    "fee": 4,
-	    "parts": 54,
-	    "submitTime": "2014-08-06T13:28:38",
-	    "status": 1,
-	    "isRejected": true,
-	    "isFeatured": true,
+	    "raters": 150,
+	    "issues": 0,
+	    "comments": 10,
+	    "fee": 5,
+	    "parts": 83,
+	    "submitTime": "2014-04-29T08:16:11",
+	    "status": 0,
+	    "rank": 3,
 	    "tags": [
-	      16,
-	      10,
-	      8,
-	      0
+	      17
 	    ],
 	    "contest": 8,
-	    "votes": 21,
+	    "votes": 2,
 	    "stores": 13
 	  },
 	  {
-	    "id": 19,
-	    "name": "Donaldson Miranda",
-	    "ratings": 2,
-	    "raters": 97,
+	    "id": 16,
+	    "name": "Nieves Hopper",
+	    "ratings": 3,
+	    "raters": 67,
 	    "issues": 1,
-	    "comments": 8,
-	    "fee": 5,
-	    "parts": 79,
-	    "submitTime": "2014-01-18T02:18:43",
-	    "status": 4,
-	    "isRejected": false,
-	    "isFeatured": false,
+	    "comments": 4,
+	    "fee": 4,
+	    "parts": 77,
+	    "submitTime": "2014-06-20T05:25:01",
+	    "status": 0,
+	    "rank": 2,
+	    "tags": [
+	      6,
+	      2,
+	      18,
+	      5
+	    ],
+	    "contest": 5,
+	    "votes": 28,
+	    "stores": 3
+	  },
+	  {
+	    "id": 17,
+	    "name": "Maura Calhoun",
+	    "ratings": 2,
+	    "raters": 196,
+	    "issues": 0,
+	    "comments": 2,
+	    "fee": 3,
+	    "parts": 62,
+	    "submitTime": "2014-03-25T03:16:14",
+	    "status": 0,
+	    "rank": 1,
 	    "tags": [
 	      20,
-	      20,
-	      15,
-	      13
+	      3,
+	      15
 	    ],
-	    "contest": 4,
+	    "contest": 8,
+	    "votes": 3,
+	    "stores": 1
+	  },
+	  {
+	    "id": 18,
+	    "name": "Bridges Saunders",
+	    "ratings": 2,
+	    "raters": 182,
+	    "issues": 1,
+	    "comments": 3,
+	    "fee": 4,
+	    "parts": 86,
+	    "submitTime": "2014-03-23T04:54:22",
+	    "status": 4,
+	    "rank": 0,
+	    "tags": [
+	      1,
+	      9,
+	      9,
+	      12,
+	      17
+	    ],
+	    "contest": 5,
 	    "votes": 8,
-	    "stores": 3
+	    "stores": 14
+	  },
+	  {
+	    "id": 19,
+	    "name": "Cecilia Bishop",
+	    "ratings": 1,
+	    "raters": 99,
+	    "issues": 1,
+	    "comments": 6,
+	    "fee": 0,
+	    "parts": 68,
+	    "submitTime": "2014-03-26T07:32:59",
+	    "status": 4,
+	    "rank": 0,
+	    "tags": [
+	      20
+	    ],
+	    "contest": 7,
+	    "votes": 8,
+	    "stores": 7
 	  }
-	];	
+	];
 
 	return {
 		list: function() {
@@ -1760,11 +1746,11 @@ app.factory('helpCategoriesResource', function() {
 app.factory('statusResource', function () {
 
 	var data = [
-		{id:0,	name:"Display Only",		rank:"Pin"},
-		{id:1,	name:"Awaiting Approval",	rank:"Favorite"},
-		{id:2,	name:"Pending Instructions",rank:"Normal"},
-		{id:3,	name:"Ready For Sale",		rank:"Normal"},
-		{id:4,	name:"In Stores",			rank:"Ban"}
+		{id:0,	name:"Display Only",		rank:"Pin",		rankIcon:"fa-thumb-tack"},
+		{id:1,	name:"Awaiting Approval",	rank:"Favorite",rankIcon:"fa-bookmark-o"},
+		{id:2,	name:"Pending Instructions",rank:"Normal",	rankIcon:"fa-meh-o"},
+		{id:3,	name:"Ready For Sale",		rank:"Ban",		rankIcon:"fa-ban"},
+		{id:4,	name:"In Stores"}
 	];
 	
 	return {

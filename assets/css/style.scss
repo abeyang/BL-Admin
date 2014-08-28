@@ -388,6 +388,10 @@ nav {
                     padding-right: $pad*2;
                     padding-left: $pad*2;
                 }
+                &.pad-less {
+                    padding-right: $pad;
+                    padding-left: $pad;
+                }
             }
             &.small {
                 font-size: $small;
@@ -845,8 +849,9 @@ nav {
 }
 
 .color {
-    .fa-star, .fa-thumb-tack { color: $lightorange; }
-    .fa-heart-o { color: $red; }
+    .fa-star, .fa-thumb-tack, .fa-bookmark-o { color: $lightorange; }
+    .fa-meh-o { color: $lightblue; }
+    .fa-heart-o, .fa-ban { color: $red; }
 }
 
 .tag-item {
