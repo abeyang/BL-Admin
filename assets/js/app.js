@@ -100,6 +100,10 @@ app.controller('MocSingleController', function($scope, $location, ui, mocResourc
 		return "mocs.html#/" + status;
 	};
 
+	$scope.getRankName = function(rank_id) {
+		return ui.findAttrById(statusResource, 'rank', rank_id);
+	};	
+
 	$scope.getTitle = function(id) {
 		return ui.findAttrById(metaResource, 'title', id);
 	};

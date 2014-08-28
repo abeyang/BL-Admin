@@ -251,14 +251,13 @@ textarea {
         padding: $pad;
         /*background-color: $lightestgray;*/
     }
+
     .btn-group { 
         float: left; 
         margin-right: $pad;
 
         .btn {
             margin-bottom: 0;
-            border-radius: 0;
-            border-right: none;
             border-color: $lightestgray;
             color: $lightgray;
             font-size: $small;
@@ -267,11 +266,22 @@ textarea {
                 background-color: $lighterorange; 
                 color: $darkgray; 
             }
-            &:nth-last-child(1) { border-right: 1px solid $lightestgray; }
-            /*background-color: $lightestgray;*/
         }
     }
 }
+
+.btn-group .btn {
+    padding-top: 7px;
+    border-right-width: 0;
+    border-radius: 0;
+    background-color: transparent;
+
+    &:nth-last-child(1) { 
+        border-right-width: 1px;
+    }
+}
+
+
 .searchbar {
     position: relative;
 
@@ -307,6 +317,7 @@ textarea {
     padding-top: $pad/2;
     padding-bottom: 7px;
     @include navbutton($darkergray);
+    outline: none;
 }
 
 .btn-pill {
@@ -705,13 +716,6 @@ nav {
     &.status_rejected { @include status($color_rejected); }
 }
 
-/*.card {
-    border: 1px solid $lightergray;
-    border-radius: $radius;
-    background-color: $white;
-    overflow: hidden;
-}*/
-
 .mark { 
     position: absolute; 
 
@@ -769,14 +773,6 @@ nav {
     @include span-columns(4);
     @include omega(3n);
     margin-bottom: $margin;
-    
-    .card {
-        position: relative;
-
-        &.selected {
-        	border-color: $lightorange;
-        }
-    }
 
     .moc-image {
         @extend .simple;
@@ -801,7 +797,6 @@ nav {
         	padding-top: 0;
         	padding-bottom: 0;
         	border-top: none;
-        	/*border-bottom: 1px solid $lightestgray;*/
         }
     }
     .moc-tags {
@@ -1069,11 +1064,21 @@ div.info {
         p.header i { @include transform(rotate(45deg)); }
     }
 
-    .btn {
+/*    .btn {
         @include span-columns(2 of 4);
         border-color: $black;
         background-color: transparent;
         text-align: center;
+    }*/
+    
+    .btn-group {
+        /*width: 100%;*/
+
+        .btn {
+            width: 25%;
+
+            &.active { background-color: $white; }
+        }
     }
     .btn.active {
         &.btn-display { @include filledbutton($color_display); }
