@@ -95,13 +95,13 @@
 					<p class="header all-caps"><i ng-click="cards.actions = (cards.actions) ? false : true" class="fa fa-plus hover right"></i>Actions</p>
 					<p class="clearfix">
 						<a class="btn btn-featured" ng-class="{active: single.isFeatured}" ng-click="single.isFeatured=!single.isFeatured" href=""><i class="fa fa-thumb-tack pad-right"></i> Featured</a>
-						<a class="btn btn-rejected" ng-class="{active: single.status == 4}" href="">Ban</a>
+						<a class="btn btn-rejected" ng-class="{active: single.status == 4}" ng-click="single.status = 4" href="">Ban</a>
 					</p>
 				</div>
 
 				<div class="card" ng-class="{active: cards.info}">
 					<p class="header all-caps"><i ng-click="cards.info = (cards.info) ? false : true" class="fa fa-plus hover right"></i>Info</p>
-					<p class="color"><i class="icon fa fa-heart-o"></i> {{ single.votes }} likes</p>
+					<p class="color"><i class="icon fa fa-heart-o"></i> {{ single.votes }} votes</p>
 					<p class="color">
 						<span class="right">{{ single.parts }} parts</span>
 						<i class="icon fa fa-smile-o" ng-if="single.issues<1"></i> 

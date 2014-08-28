@@ -1031,6 +1031,11 @@ div.info {
         }
     }
 
+    div { 
+        display: none;
+        margin-top: 3px; 
+    }
+
     a { 
         color: $black; 
         border-bottom: 1px solid $lightergray;
@@ -1039,15 +1044,13 @@ div.info {
         &.text-danger { color: $color-danger; }
     }
 
-    div { margin-top: 3px; }
-
     &.active {
         padding-top: $pad;
         padding-bottom: $pad;
         margin-bottom: $pad*2;
         background-color: rgba($white, 0.5); 
 
-        p { display: block; } 
+        p, div { display: block; } 
         p.header { opacity: 1.0; }
         p.header i { @include transform(rotate(45deg)); }
     }

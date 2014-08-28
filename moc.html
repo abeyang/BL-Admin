@@ -95,9 +95,9 @@
 					<p class="header all-caps"><i ng-click="cards.actions = (cards.actions) ? false : true" class="fa fa-plus hover right"></i>Actions</p>
 					<p class="clearfix">
 						<a class="btn btn-featured" ng-class="{active: single.isFeatured}" ng-click="single.isFeatured=!single.isFeatured" href=""><i class="fa fa-thumb-tack pad-right"></i> Featured</a>
-						<a class="btn btn-rejected" ng-class="{active: single.status == 4}" href="">Ban</a>
+						<a class="btn btn-rejected" ng-class="{active: single.status == 4}" ng-click="single.status = 4" href="">Ban</a>
 					</p>
-				</div>
+				</div> <!-- /.card -->
 
 				<div class="card" ng-class="{active: cards.info}">
 					<p class="header all-caps"><i ng-click="cards.info = (cards.info) ? false : true" class="fa fa-plus hover right"></i>Info</p>
@@ -108,9 +108,8 @@
 					<p class="color"><i class="icon fa fa-heart-o"></i> {{ single.votes }} requests</p>
 					<p class="color">
 						<span class="right">{{ single.parts }} parts</span>
-						<i class="icon fa fa-smile-o" ng-if="single.issues<3"></i> 
-						<i class="icon fa fa-meh-o" ng-if="single.issues>=3 && single.issues<6"></i> 
-						<i class="icon fa fa-frown-o" ng-if="single.issues>=6"></i> 
+						<i class="icon fa fa-smile-o" ng-if="single.issues<1"></i> 
+						<i class="icon fa fa-meh-o" ng-if="single.issues>=1"></i> 
 						{{ single.issues }} issues
 					</p>
 					<p>
@@ -121,20 +120,40 @@
 						<span class="right">{{ ui.getTime(single.submitTime) }}</span>
 						<i class="icon fa fa-calendar"></i> {{ ui.getDate(single.submitTime) }}
 					</p>
-				</div>
+				</div> <!-- /.card -->
 
 				<div class="card" ng-class="{active: cards.tags}">
 					<p class="header all-caps"><i ng-click="cards.tags = (cards.tags) ? false : true" class="fa fa-plus hover right"></i>Tags</p>
 					<p ng-bind-html="getTagNames(single.tags)"></p>
-				</div>
-				
-				<div class="card" ng-class="{active: cards.stores}">
-					<p class="header all-caps"><i ng-click="cards.stores = (cards.stores) ? false : true" class="fa fa-plus hover right"></i>Stores</p>
+				</div> <!-- /.card -->
+
+				<div class="card" ng-class="{active: cards.avail}">
+					<p class="header all-caps"><i ng-click="cards.avail = (cards.avail) ? false : true" class="fa fa-plus hover right"></i>Available in Stores</p>
 					
 					<!-- Store 1 -->
 					<p class="line">
 						<div>
-							<strong class="right text-success">63/63</strong>
+							<strong class="right">$15.00</strong>
+							<strong><a href="#">Legolopolis</a></strong>	
+						</div>
+					</p>
+
+					<!-- Store 2 -->
+					<p class="line">
+						<div>
+							<strong class="right">$18.00</strong>
+							<strong><a href="#">Minifigforlife</a></strong>	
+						</div>
+					</p>
+				</div> <!-- /.card -->
+				
+				<div class="card" ng-class="{active: cards.stores}">
+					<p class="header all-caps"><i ng-click="cards.stores = (cards.stores) ? false : true" class="fa fa-plus hover right"></i>Stores Able to Part In</p>
+					
+					<!-- Store 1 -->
+					<p class="line">
+						<div>
+							<strong class="right text-success">{{ single.parts }}/{{ single.parts }}</strong>
 							<strong><a class="text-success" href="#">BrickStory</a></strong>	
 						</div>
 					</p>
@@ -142,7 +161,7 @@
 					<!-- Store 2 -->
 					<p class="line">
 						<div>
-							<strong class="right">62/63</strong>
+							<strong class="right">{{ single.parts - 1 }}/{{ single.parts }}</strong>
 							<strong><a href="#">Dad's AFOL</a></strong>	
 						</div>
 						<div>
@@ -153,7 +172,7 @@
 					<!-- Store 3 -->
 					<p class="line">
 						<div>
-							<strong class="right">59/63</strong>
+							<strong class="right">{{ single.parts - 4 }}/{{ single.parts }}</strong>
 							<strong><a href="#">Lord of the Brick</a></strong>	
 						</div>
 						<div>
@@ -163,7 +182,7 @@
 							<span class="badge badge-danger">Not in MOC Shop</span>
 						</div>
 					</p>
-				</div>
+				</div> <!-- /.card -->
 
 			</div>
 
