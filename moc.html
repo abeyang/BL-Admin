@@ -22,6 +22,16 @@
 
 				<p>{{ ui.lorem }}</p>
 
+				<h2>Building Instruction</h2>
+				<div class="alert alert-warning clearfix" ng-if="!single.hasInstructions">
+					<a href="" class="btn btn-inverse right">Upload</a>
+					<p>Building Instruction missing!</p>
+				</div>
+				<div class="alert" ng-if="single.hasInstructions">
+					<a href="" class="btn right">Change</a>
+					<p><a href="#">instructions.pdf</a></p>
+				</div>
+
 				<h2>Activity Stream</h2>
 
 				<div class="thincomment">
@@ -53,12 +63,7 @@
 					<p>Dad's AFOL picked up this MOC! </p>
 				</div>
 
-				<div class="thincomment danger" ng-if="single.status==4">
-					<div class="date">Aug 19 2014, 11:42 am</div>
-					<p>This MOC has been banned.</p>
-				</div>
-
-				<div class="comment" ng-if="single.status<=1">
+				<div class="comment">
 					<div class="comment_wrapper">
 						<div class="feedback">
 							<strong ng-class="{'text-danger': myComment.content1}">Photo Quality</strong>
@@ -115,6 +120,9 @@
 					<p>
 						<span class="right"><a href="{{ getLiveLink() }}">Live Site</a></span>
 						<i class="icon fa fa-user"></i> <a href="#">{{ single.name }}</a>
+					</p>
+					<p>
+						<i class="icon fa fa-envelope-o"></i> <a href="mailto:lordofthebrick@gmail.com">lordofthebrick@gmail.com</a>
 					</p>
 					<p>
 						<span class="right">{{ ui.getTime(single.submitTime) }}</span>
