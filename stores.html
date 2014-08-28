@@ -6,11 +6,11 @@
 	<nav class="subnav">
 		<ul class="container">
 		<li class="active"><a href="">
-			{{ filtered.length }} <span ng-show="filterStores.isFeatured === true">Featured</span> <ng-pluralize count="filtered.length" when="{'one': 'Store', 'other': 'Stores'}"></ng-pluralize>
+			{{ filtered.length }} <span ng-show="filterStores.rank === 1">Featured</span> <ng-pluralize count="filtered.length" when="{'one': 'Store', 'other': 'Stores'}"></ng-pluralize>
 		</a></li>
 
-			<li class="right active color" ng-show="filterStores.isFeatured === true"><a ng-click="filterStores.isFeatured=''" href="#"><i class="fa fa-thumb-tack"></i></a></li>
-			<li class="right" ng-show="filterStores.isFeatured === ''"><a ng-click="filterStores.isFeatured=true" href="#"><i class="fa fa-thumb-tack"></i></a></li>
+			<li class="right active color" ng-show="filterStores.rank === 1"><a ng-click="filterStores.rank=''" href="#"><i class="fa fa-bookmark-o"></i></a></li>
+			<li class="right" ng-show="filterStores.rank === ''"><a ng-click="filterStores.rank=1" href="#"><i class="fa fa-bookmark-o"></i></a></li>
 			<li class="right separator">&nbsp;</li>
 
 			<li ng-class="{active: entryOrder == '-ratings'}" class="right pad"><a ng-click="entryOrder='-ratings'" href="#">Popularity</a></li>
@@ -37,7 +37,7 @@
 				
 				<tbody>
 					<tr class="hover" ng-repeat="store in filtered = (stores | filter:filterStores) | orderBy:entryOrder">
-						<td ng-click="toggleFeatured(store.id)" ng-class="{color: store.isFeatured}"><i class="fa fa-thumb-tack"></i></td>
+						<td ng-click="toggleFeatured(store.id)" ng-class="{color: store.rank===1}"><i class="fa fa-bookmark-o"></i></td>
 						<td>{{ store.id }}</td>
 						<td>{{ getTitle(store.id) }}</td>
 						<td class="color"><span ng-bind-html="getRatings(store.id)"></span></td>

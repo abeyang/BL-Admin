@@ -322,11 +322,11 @@ app.controller('StoreController', function($scope, ui, mocResource, metaResource
 
 	$scope.toggleFeatured = function(id) {
 		var store = ui.findById(mocResource, id);
-		store.isFeatured = (store.isFeatured) ? false : true; 
+		store.rank = (store.rank == 1) ? 0 : 1; 
 	}
 
 	$scope.filterStores = {
-		isFeatured: ''
+		rank: ''
 	};
 	$scope.entryOrder = '-submitTime';
 
