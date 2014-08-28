@@ -759,6 +759,8 @@ nav {
     height: $thumb_height * 1.85;
     background-color: $white;
 
+    &.mini { height: $thumb_height * 1.5; }
+
     .thumb {
         height: $thumb_height;
         overflow: hidden;

@@ -1,11 +1,19 @@
-<a class="simple" href="{{ getLink(moc.id) }}">
+<!-- <a class="simple" href="{{ getLink(moc.id) }}">
 	<div>
 		<div class="info">
-			<!-- @todo hearts should show only when receiving votes -->
 			<div class="misc" ng-show="filterCards.status === 3"><i class="fa fa-heart-o"></i> {{ moc.votes }}</div>
-			<!-- @todo need to truncate titles -->
 			<span class="">{{ getTitle(moc.id) }}</span>
 		</div>
 	</div>
 	<img src="{{ui.imageLink(moc.id)}}">
-</a> <!-- /.simple -->
+</a>  -->
+
+<div class="cleancard mini">
+	<div class="thumb"><a href="{{ getLink(moc.id) }}"><img src="{{ui.imageLink(moc.id)}}"></a></div>
+	<h4><a href="{{ getLink(moc.id) }}">{{ getTitle(moc.id) }}</a></h4>
+	<p class="color">
+		<span ng-if="filterCards.status !== 3"  ng-class="{'text-danger':moc.issues>0}">{{ moc.issues }} <ng-pluralize count="moc.issues" when="{'one': 'issue', 'other': 'issues'}"></span>
+		<span ng-if="filterCards.status === 3"><i class="fa fa-heart-o"></i> {{ moc.votes }}</span>
+	</p>
+</div>
+
