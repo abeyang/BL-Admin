@@ -209,6 +209,50 @@ app.controller('ContestAllController', function($scope, ui, contestResource, met
 	}
 });
 
+app.controller('ContestEntryController', function($scope, $location, ui, contestResource, metaResource) {
+	$scope.ui = ui;
+
+	var id = getIdFromUrl($location);
+	$scope.id = id;
+
+	$scope.getTitle = function(id) {
+		return ui.findAttrById(metaResource, 'contest', id);
+	};
+	$scope.getLink = function(id) {
+		return "contest_item.html#/" + id;
+	};
+	$scope.getPrize = function(id, n) {
+		var prize = ui.findAttrById(contestResource, 'prize' + n, id);
+		if (prize) prize *= 10;
+		return prize;
+	};
+
+	if (id >= 0) {
+		$scope.title = $scope.getTitle(id);
+		$scope.desc = ui.lorem;
+		$scope.prize1 = $scope.getPrize(id, 1);
+		$scope.prize2 = $scope.getPrize(id, 2);
+		$scope.prize3 = $scope.getPrize(id, 3);
+
+		$scope.acceptStartDate = new Date(ui.findAttrById(contestResource, 'acceptStartDate', id));
+		$scope.acceptEndDate = new Date(ui.findAttrById(contestResource, 'acceptEndDate', id));
+		$scope.voteStartDate = new Date(ui.findAttrById(contestResource, 'voteStartDate', id));
+		$scope.voteEndDate = new Date(ui.findAttrById(contestResource, 'voteEndDate', id));
+		$scope.announceDate = new Date(ui.findAttrById(contestResource, 'announceDate', id));
+
+		$scope.newedit = 'Edit Contest';
+	}
+	else {
+		$scope.title = $scope.desc = $scope.prize = '';
+		$scope.acceptStartDate = $scope.acceptEndDate = $scope.voteStartDate = $scope.voteEndDate = $scope.announceDate = '';
+
+		$scope.newedit = 'New Contest';
+	}
+	
+	$scope.getContestLink = "contest_entry.html#/" + id;
+	$scope.getEditLink = "contest_entry_edit.html#/" + id;
+});
+
 app.controller('ContestItemController', function($scope, $location, ui, mocResource, tagResource, statusResource, contestResource, metaResource) {
 
 	$scope.ui = ui;
