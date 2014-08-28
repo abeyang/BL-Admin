@@ -86,6 +86,14 @@ $small: 0.85em;
     p { color: $color; }
 }
 
+@mixin ellipsis($width: 100%) {
+  display: inline-block;
+  max-width: $width;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 
 // LAYOUT
 
@@ -203,12 +211,12 @@ hr {
 	&.badge-danger { @include badge($color_danger); }
 }
 
-.truncate {
+/*.truncate {
     @include span-columns(4 of 4);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
+}*/
 
 .hover {
     cursor: pointer;
@@ -754,6 +762,7 @@ nav {
         color: $lightgray; 
         border-top: 1px solid $lightestgray;
     }
+    h4 { @include ellipsis(); }
 }
 
 .moc-item {
@@ -774,7 +783,7 @@ nav {
         margin-top: $margin;
     }
     .title {
-        @extend .truncate;
+        //@extend .truncate;
         margin-top: $pad;
         color: $black;
         &:hover {
@@ -796,7 +805,7 @@ nav {
         }
     }
     .moc-tags {
-    	@extend .truncate;
+    	// @extend .truncate;
     }
 
     .simple {

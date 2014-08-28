@@ -49,7 +49,7 @@ app.controller('MocsController', function($scope, $location, ui, mocResource, st
 		return passStatus && passRank;
 	}
 
-	$scope.toggleRank = function(rank_id) {
+	$scope.toggleFilterRank = function(rank_id) {
 		$scope.filterMocs.rank[rank_id] = ui.toggle($scope.filterMocs.rank[rank_id]);
 	}
 

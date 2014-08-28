@@ -12,7 +12,7 @@
 			</li>
 
 			<li ng-repeat="stat in statii | limitTo: 4 | orderBy:'-id'" class="right pad-less" ng-class="{'active color': filterMocs.rank[stat.id]==true}">
-				<a ng-click="toggleRank(stat.id)" href=""><i class="fa {{stat.rankIcon}}"></i></a>
+				<a ng-click="toggleFilterRank(stat.id)" href=""><i class="fa {{stat.rankIcon}}"></i></a>
 			</li>
 
 			<li class="right separator">&nbsp;</li>
@@ -47,7 +47,7 @@
 			<table class="table" ng-show="displayByList">
 				<thead>
 					<tr>
-						<th>&nbsp;</th>
+						<th>Ranking</th>
 						<th class="align-center">Thumbnail</th>
 						<th class="align-center">ID</th>
 						<th>Title</th>
@@ -62,7 +62,12 @@
 				
 				<tbody>
 					<tr ng-repeat="moc in filtered = (mocs | filter:showFilterMocs) | orderBy:entryOrder">
-						<!-- <td ng-click="toggleFeatured(moc.id)" ng-class="{color: moc.isFeatured}" class="hover"><i class="fa fa-thumb-tack"></i></td> -->
+						<td class="hover">
+							<span ng-class="{color: moc.rank==0}"><i class="fa fa-thumb-tack" ng-click="moc.rank=0"></i></span>
+							<span ng-class="{color: moc.rank==1}"><i class="fa fa-bookmark-o" ng-click="moc.rank=1"></i></span>
+							<span ng-class="{color: moc.rank==2}"><i class="fa fa-meh-o" ng-click="moc.rank=2"></i></span>
+							<span ng-class="{color: moc.rank==3}"><i class="fa fa-ban" ng-click="moc.rank=3"></i></span>
+						</td>
 						<td class="align-center"><img src="{{ui.imageLink(moc.id)}}"></td>
 						<td class="align-center">{{ moc.id }}</td>
 						<td><a href="{{ getLink(moc.id) }}">{{ getTitle(moc.id) }}</a></td>
