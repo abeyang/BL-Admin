@@ -29,7 +29,8 @@
 						<th>ID</th>
 						<th>Name</th>
 						<th>Reviews</th>
-						<th>Items</th>
+						<th>Items for Sale</th>
+						<th>Items to Part-in</th>
 						<th class="align-right">Created Date</th>
 					</tr>	
 				</thead>
@@ -41,6 +42,7 @@
 						<td>{{ getTitle(store.id) }}</td>
 						<td class="color"><span ng-bind-html="getRatings(store.id)"></span></td>
 						<td>{{ store.votes }} </td>
+						<td>{{ store.stores }} </td>
 						<td class="align-right">{{ ui.getDate(store.submitTime) }}</td>
 					</tr>
 				</tbody>
