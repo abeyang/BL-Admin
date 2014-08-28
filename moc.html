@@ -101,14 +101,16 @@
 				<div class="card" ng-class="{active: cards.info}">
 					<p class="header all-caps"><i ng-click="cards.info = (cards.info) ? false : true" class="fa fa-plus hover right"></i>Info</p>
 					<p class="color">
-						<span class="right">{{ single.raters }} reviews</span>
+						<span class="right">{{ single.raters }} <ng-pluralize count="single.raters" when="{'one': 'review', 'other': 'reviews'}"></ng-pluralize></span>
 						<span ng-bind-html="getRatings(single.id, false)"></span>
 					</p>
-					<p class="color"><i class="icon fa fa-heart-o"></i> {{ single.votes }} requests</p>
+					<p class="color"><i class="icon fa fa-heart-o"></i> {{ single.votes }} <ng-pluralize count="single.votes" when="{'one': 'request', 'other': 'requests'}"></ng-pluralize></p>
 					<p class="color">
-						<span class="right">{{ single.parts }} parts</span>
+						<span class="right">
+							<a href="#">{{ single.parts }} <ng-pluralize count="single.parts" when="{'one': 'part', 'other': 'parts'}"></ng-pluralize></a>
+						</span>
 						<i class="icon fa fa-warning"></i> 
-						{{ single.issues }} issues
+						{{ single.issues }} <ng-pluralize count="single.issues" when="{'one': 'issue', 'other': 'issues'}"></ng-pluralize>
 					</p>
 					<p>
 						<span class="right"><a href="{{ getLiveLink() }}">Live Site</a></span>
