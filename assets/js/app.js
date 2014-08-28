@@ -110,7 +110,8 @@ app.controller('MocSingleController', function($scope, $location, ui, mocResourc
 	$scope.cards = {
 		actions: true,
 		info: true,
-		tags: false, 
+		tags: false,
+		avail: false, 
 		stores: true
 	};
 
@@ -924,7 +925,7 @@ app.factory('mocResource', function () {
             		else html += '<i class="fa fa-star-o"></i>';
             	}
             	// @todo should use an actual circle graphic instead of parens ()
-            	if (includeRaters) html += ' (' + moc.raters + ')';
+            	if (includeRaters) html += ' ' + moc.raters;
             }
             else html = 'No ratings yet';
             
@@ -1759,13 +1760,11 @@ app.factory('helpCategoriesResource', function() {
 app.factory('statusResource', function () {
 
 	var data = [
-		{id:0,	name:"Display Only",		classname:"display"},
-		{id:1,	name:"Awaiting Approval",	classname:"pending"},
-		{id:2,	name:"Ready For Sale",		classname:"approved"},
-		{id:3,	name:"In Stores",			classname:"approved"},
-		{id:4,	name:"Banned",				classname:"rejected"},
-		{id:5,	name:"Rejected",			classname:"rejected"},
-		{id:6,	name:"Approved",			classname:"approved"}
+		{id:0,	name:"Display Only",		rank:"Pin"},
+		{id:1,	name:"Awaiting Approval",	rank:"Favorite"},
+		{id:2,	name:"Pending Instructions",rank:"Normal"},
+		{id:3,	name:"Ready For Sale",		rank:"Normal"},
+		{id:4,	name:"In Stores",			rank:"Ban"}
 	];
 	
 	return {
