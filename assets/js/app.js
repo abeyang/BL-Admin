@@ -317,7 +317,7 @@ app.controller('StoreController', function($scope, ui, mocResource, metaResource
 	};
 
 	$scope.getLink = function(id) {
-		return "moc.html#/" + id;
+		return "store.html#/" + id;
 	};
 
 	$scope.toggleFeatured = function(id) {
@@ -329,6 +329,42 @@ app.controller('StoreController', function($scope, ui, mocResource, metaResource
 		rank: ''
 	};
 	$scope.entryOrder = '-submitTime';
+
+});
+
+app.controller('StoreSingleController', function($scope, $location, ui, mocResource, metaResource, statusResource) {
+
+	$scope.mocs = mocResource.list();
+	$scope.ui = ui;
+
+	var id = getIdFromUrl($location);
+	$scope.single = ui.findById(mocResource, id);
+
+	$scope.getRatings = function(id, includeRaters) {
+		return mocResource.ratingsById(id, includeRaters);
+	};
+
+	$scope.getRankIcon = function(rank_id) {
+		return ui.findAttrById(statusResource, 'rankIcon', rank_id);
+	};	
+
+	$scope.getStoreTitle = function(id) {
+		return ui.findAttrById(metaResource, 'store', id);
+	};
+	$scope.getMocTitle = function(id) {
+		return ui.findAttrById(metaResource, 'title', id);
+	};
+
+	$scope.getMocLink = function(id) {
+		return "moc.html#/" + id;
+	};
+
+	$scope.toggleFeatured = function(id) {
+		var store = ui.findById(mocResource, id);
+		store.rank = (store.rank == 1) ? 0 : 1; 
+	}
+
+	$scope.showPartIn = true;
 
 });
 
@@ -447,7 +483,7 @@ function getIdFromUrl(location, backup) {
 
 app.factory('ui', function() {
 	// var isProduction = true;
-	var version = '1.09';
+	var version = '1.1';
 	var name = 'Abe Yang';
 
 	return {
@@ -1810,7 +1846,7 @@ app.factory('statusResource', function () {
 
 	var data = [
 		{id:0,	name:"Display Only",		rank:"Pin",		rankIcon:"fa-thumb-tack"},
-		{id:1,	name:"Awaiting Approval",	rank:"Favorite",rankIcon:"fa-bookmark-o"},
+		{id:1,	name:"Awaiting Approval",	rank:"Feature",	rankIcon:"fa-bookmark-o"},
 		{id:2,	name:"Pending Instructions",rank:"Normal",	rankIcon:"fa-meh-o"},
 		{id:3,	name:"Ready For Sale",		rank:"Ban",		rankIcon:"fa-ban"},
 		{id:4,	name:"In Stores"}
