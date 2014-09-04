@@ -1862,17 +1862,27 @@ app.factory('statusResource', function () {
 app.factory('backOfficeResource', function () {
 
 	var data = [
-		{id:0,	issue:"NSS", order: 10035841, date1:"3/14/14", date2:"8/28/14",	amount:"28.00",	user:"superflynut",		store:"Nutty Legos"},
-		{id:1,	issue:"NRS", order: 10086263, date1:"4/16/14", date2:"8/17/14",	amount:"36.50",	user:"Captain Brick",	store:"Captain AmeriBrick"},
-		{id:2,	issue:"NPX", order: 10012563, date1:"5/20/14", date2:"8/11/14",	amount:"18.90",	user:"LegoLass",		store:"Lord of the Bricks"},
-		{id:3,	issue:"NSB", order: 10023463, date1:"6/05/14", date2:"8/08/14",	amount:"17.00",	user:"legolandia",		store:"Lego Landia"},
-		{id:4,	issue:"NSS", order: 10089242, date1:"6/23/14", date2:"8/06/14",	amount:"5.00",	user:"Big Poppa",		store:"Dad's AFOL"},
-		{id:5,	issue:"NRS", order: 10082352, date1:"6/23/14", date2:"8/05/14",	amount:"31.10",	user:"AFOL 4 the Win",	store:"AFOL 4 Life"},
-		{id:6,	issue:"NPX", order: 10046831, date1:"7/27/14", date2:"7/27/14",	amount:"7.50",	user:"Bricktopia",		store:"Brick Utopia"},
-		{id:7,	issue:"NSB", order: 10092948, date1:"8/08/14", date2:"7/25/14",	amount:"180.00",user:"Free 4 All",		store:"Brick 4 Less"},
-		{id:8,	issue:"NSS", order: 10092352, date1:"8/21/14", date2:"7/23/14",	amount:"250.00",user:"Sink or Swim",	store:"Does it Float"},
-		{id:9,	issue:"NPX", order: 10016362, date1:"8/28/14", date2:"7/21/14",	amount:"52.75",	user:"Brick City",		store:"Bricks 4 Sale"},
-		{id:10,	issue:"NRS", order: 10084634, date1:"8/28/14", date2:"7/16/14",	amount:"83.80",	user:"Fan of Lego",		store:"Legora"}
+		{id:0,	status: "Pending", issue:"NSS", 	order: 10035841, date1:"03/14/14", date2:"08/28/14",	amount:"28.00",	user:"superflynut",		store:"Nutty Legos"},
+		{id:1,	status: "Completed", issue:"", 		order: 10086263, date1:"04/16/14", date2:"08/17/14",	amount:"36.50",	user:"Captain Brick",	store:"Captain AmeriBrick"},
+		{id:2,	status: "Pending", issue:"", 		order: 10012563, date1:"05/20/14", date2:"08/11/14",	amount:"18.90",	user:"LegoLass",		store:"Lord of the Bricks"},
+		{id:3,	status: "Pending", issue:"OCR", 	order: 10023463, date1:"06/05/14", date2:"08/08/14",	amount:"17.00",	user:"legolandia",		store:"Lego Landia"},
+		{id:4,	status: "Pending", issue:"NSS", 	order: 10089242, date1:"06/23/14", date2:"08/06/14",	amount:"5.00",	user:"Big Poppa",		store:"Dad's AFOL"},
+		{id:5,	status: "Cancelled", issue:"", 		order: 10082352, date1:"06/23/14", date2:"08/05/14",	amount:"31.10",	user:"AFOL 4 the Win",	store:"AFOL 4 Life"},
+		{id:6,	status: "Shipped", issue:"OCR", 	order: 10046831, date1:"07/27/14", date2:"07/27/14",	amount:"7.50",	user:"Bricktopia",		store:"Brick Utopia"},
+		{id:7,	status: "Received", issue:"OCR", 	order: 10092948, date1:"08/08/14", date2:"07/25/14",	amount:"180.00",user:"Free 4 All",		store:"Brick 4 Less"},
+		{id:8,	status: "Pending", issue:"NSS", 	order: 10092352, date1:"08/21/14", date2:"07/23/14",	amount:"250.00",user:"Sink or Swim",	store:"Does it Float"},
+		{id:9,	status: "Completed", issue:"", 		order: 10016362, date1:"08/28/14", date2:"07/21/14",	amount:"52.75",	user:"Brick City",		store:"Bricks 4 Sale"},
+		{id:10,	status: "Pending", issue:"", 	order: 10084634, date1:"08/28/14", date2:"07/16/14",	amount:"83.80",	user:"Fan of Lego",		store:"Legora"},
+		{id:11,	status: "Completed", issue:"", 		order: 10023231, date1:"09/01/14", date2:"07/15/14",	amount:"26.00",	user:"Captain Brick",	store:"Captain AmeriBrick"},
+		{id:12,	status: "Pending", issue:"", 		order: 10052632, date1:"09/01/14", date2:"07/11/14",	amount:"41.00",	user:"LegoLass",		store:"Lord of the Bricks"},
+		{id:13,	status: "Pending", issue:"OCR", 	order: 10062342, date1:"09/02/14", date2:"07/08/14",	amount:"39.00",	user:"legolandia",		store:"Lego Landia"},
+		{id:14,	status: "Pending", issue:"NSS", 	order: 10079656, date1:"09/02/14", date2:"07/06/14",	amount:"55.00",	user:"Big Poppa",		store:"Dad's AFOL"},
+		{id:15,	status: "Cancelled", issue:"", 		order: 10081568, date1:"09/02/14", date2:"07/05/14",	amount:"62.10",	user:"AFOL 4 the Win",	store:"AFOL 4 Life"},
+		{id:16,	status: "Shipped", issue:"OCR", 	order: 10093452, date1:"09/03/14", date2:"06/27/14",	amount:"77.00",	user:"Bricktopia",		store:"Brick Utopia"},
+		{id:17,	status: "Received", issue:"", 		order: 10001531, date1:"09/03/14", date2:"06/25/14",	amount:"80.00",	user:"Free 4 All",		store:"Brick 4 Less"},
+		{id:18,	status: "Pending", issue:"NSS", 	order: 10013642, date1:"09/04/14", date2:"06/23/14",	amount:"98.00",	user:"Sink or Swim",	store:"Does it Float"},
+		{id:19,	status: "Completed", issue:"", 		order: 10022363, date1:"09/05/14", date2:"06/21/14",	amount:"3.75",	user:"Brick City",		store:"Bricks 4 Sale"},
+		{id:20,	status: "Pending", issue:"", 	order: 10035683, date1:"09/06/14", date2:"06/16/14",	amount:"13.00",	user:"Fan of Lego",		store:"Legora"}
 	];
 	
 	return {

@@ -11,7 +11,7 @@
 					<li>
 						<a href="">Orders <i class="fa fa-angle-down pad-left"></i></a>
 						<ul>
-							<li><a href="@path backoffice_dashboard.html">Dashboard</a></li>
+							<li><a href="@path backoffice_dashboard.html">Summary</a></li>
 							<li><a href="@path backoffice_orders.html">Orders</a></li>
 							<li><a href="@path backoffice_outbalance.html">Outstanding Balance</a></li>
 							<li><a href="@path backoffice_users.html">Users</a></li>
@@ -33,8 +33,9 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Status</th>
+						<th>Alert</th>
 						<th>Order</th>
+						<th>Status</th>
 						<th>Buyer</th>
 						<th>Seller</th>
 						<th class="align-right">Date</th>
@@ -42,25 +43,37 @@
 					</tr>	
 				</thead>
 				<tbody>
-					<tr class="hover text-warning" ng-repeat="item in bo | orderBy:'-date1' | filter:searchtext" ng-click="gotoOrderPage(item.order)">
+					<tr class="hover" ng-class="{'text-warning': item.issue!=''}" ng-repeat="item in bo | orderBy:'-date1' | filter:searchtext" ng-click="gotoOrderPage(item.order)">
 						<td>{{ item.issue }}</td>
 						<td>{{ item.order }}</td>
+						<td>{{ item.status }}</td>
 						<td>{{ item.user }}</td>
 						<td>{{ item.store }}</td>
 						<td class="align-right">{{ item.date1 }}</td>
 						<td class="align-right">{{ item.amount | currency }}</td>
 					</tr>
-					<tr class="hover" ng-show="searchtext.length<1" ng-repeat="item in bo | orderBy:'date2'" ng-click="gotoOrderPage(item.order)">
-						<td>Pending</td>
-						<td>{{ item.order }}</td>
-						<td>{{ item.user }}</td>
-						<td>{{ item.store }}</td>
-						<td class="align-right">2/23/14</td>
-						<td class="align-right">{{ item.amount | currency }}</td>
-					</tr>
 				</tbody>
 			</table>
+
+			<div class="pagination">
+				<ul>
+					<li class="page-prev"><a href="">Prev</a></li>
+					<li>
+						<ul>
+							<li><a href="" class="active">1</a></li>
+							<li><a href="">2</a></li>
+							<li><a href="">3</a></li>
+							<li><a href="">4</a></li>
+							<li><a href="">5</a></li>
+							<li><a href="">6</a></li>
+							<li><a href="">7</a></li>
+						</ul>
+					</li>
+					<li class="page-next"><a href="">Next</a></li>
+				</ul>
+			</div>
 		</div> <!-- /.container -->
 	</section>
+
 
 <!-- @include _footer -->

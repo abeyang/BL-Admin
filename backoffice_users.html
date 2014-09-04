@@ -11,7 +11,7 @@
 					<li>
 						<a href="">Users <i class="fa fa-angle-down pad-left"></i></a>
 						<ul>
-							<li><a href="@path backoffice_dashboard.html">Dashboard</a></li>
+							<li><a href="@path backoffice_dashboard.html">Summary</a></li>
 							<li><a href="@path backoffice_orders.html">Orders</a></li>
 							<li><a href="@path backoffice_outbalance.html">Outstanding Balance</a></li>
 							<li><a href="@path backoffice_users.html">Users</a></li>
@@ -40,7 +40,7 @@
 					</tr>	
 				</thead>
 				<tbody>
-					<tr class="hover" ng-repeat="item in bo | orderBy:'user' | filter:searchtext" ng-click="gotoUserPage()">
+					<tr class="hover" ng-repeat="item in bo | limitTo: 11 | filter:searchtext" ng-click="gotoUserPage()">
 						<td>{{ item.user }}</td>
 						<td>{{ item.store }}</td>
 						<td class="align-right">{{ item.date1 }}</td>

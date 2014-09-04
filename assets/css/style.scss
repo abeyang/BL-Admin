@@ -987,36 +987,14 @@ div.info {
         p.header i { @include transform(rotate(45deg)); }
     }
 
-/*    .btn {
-        @include span-columns(2 of 4);
-        border-color: $black;
-        background-color: transparent;
-        text-align: center;
-    }*/
     
     .btn-group {
-        /*width: 100%;*/
-
         .btn {
             width: 25%;
 
             &.active { background-color: $white; }
         }
     }
-
-/*    .btn.active {
-        &.btn-display { @include filledbutton($color_display); }
-        &.btn-pending { @include filledbutton($color_pending); }
-        &.btn-approved { @include filledbutton($color_approved); }
-        &.btn-rejected { @include filledbutton($color_rejected); }
-        &.btn-featured { @include filledbutton($orange); }
-    }
-
-    .btn.btn-disabled, .btn.btn-disabled.active { 
-        border-color: $gray;
-        color: $black;
-        background-color: transparent;
-    }*/
 
     .icon {
         margin-right: $pad;
@@ -1028,6 +1006,50 @@ div.info {
     }
     
 }
+
+.pagination {
+    @include clearfix; 
+    margin-top: $margin;
+    margin-bottom: $margin;
+    $pagination-border-color: #eee;
+    $pagination-border: 1px solid $pagination-border-color;
+    $pagination-background: lighten($pagination-border-color, 10);
+    $pagination-hover-background: lighten($pagination-background, 5);
+    $pagination-color: $black;
+
+    text-align: center;
+
+    ul {
+        padding-left: 0;
+        display: inline;
+        text-align: center;
+
+        li {
+          display: inline;
+        }
+
+        li a {
+            @include transition (all 0.2s ease-in-out);
+            background: $pagination-background;
+            border-radius: $radius;
+            border: $pagination-border;
+            color: $pagination-color;
+            padding: $pad/4 $pad;
+
+            &:hover,
+            &:focus {
+                background: $pagination-hover-background;
+                color: $color_link;
+            }
+
+            &:active, &.active {
+                border-color: $lighterorange;
+                color: $color_link;
+            }
+        }
+    }
+}
+
 
 // MEDIA QUERIES
 
