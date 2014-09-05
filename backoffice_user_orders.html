@@ -35,8 +35,9 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Status</th>
+						<th>Alert</th>
 						<th>Order</th>
+						<th>Status</th>
 						<th ng-show="id=='R'">Buyer</th>
 						<th ng-show="id=='P'">Seller</th>
 						<th class="align-right">Date</th>
@@ -45,24 +46,35 @@
 				</thead>
 				<tbody>
 				<!-- @todo link to order page -->
-					<tr class="hover text-warning" ng-repeat="item in bo | orderBy:'-date1' ">
+					<tr class="hover" ng-class="{'text-warning': item.issue!=''}" ng-repeat="item in bo | orderBy:'-date1' " ng-click="gotoOrderPage(item.order)">
 						<td>{{ item.issue }}</td>
 						<td>{{ item.order }}</td>
+						<td>{{ item.status }}</td>
 						<td ng-show="id=='R'">{{ item.user }}</td>
 						<td ng-show="id=='P'">{{ item.store }}</td>
 						<td class="align-right">{{ item.date1 }}</td>
 						<td class="align-right">{{ item.amount | currency }}</td>
 					</tr>
-					<tr class="hover" ng-repeat="item in bo | orderBy:'date2' ">
-						<td>Pending</td>
-						<td>{{ item.order }}</td>
-						<td ng-show="id=='R'">{{ item.user }}</td>
-						<td ng-show="id=='P'">{{ item.store }}</td>
-						<td class="align-right">2/23/14</td>
-						<td class="align-right">{{ item.amount | currency }}</td>
-					</tr>
 				</tbody>
 			</table>
+
+			<div class="pagination">
+				<ul>
+					<li class="page-prev"><a href="">Prev</a></li>
+					<li>
+						<ul>
+							<li><a href="" class="active">1</a></li>
+							<li><a href="">2</a></li>
+							<li><a href="">3</a></li>
+							<li><a href="">4</a></li>
+							<li><a href="">5</a></li>
+							<li><a href="">6</a></li>
+							<li><a href="">7</a></li>
+						</ul>
+					</li>
+					<li class="page-next"><a href="">Next</a></li>
+				</ul>
+			</div>
 		</div> <!-- /.container -->
 	</section>
 

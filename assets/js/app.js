@@ -404,6 +404,8 @@ app.controller('BackOfficeController', function($scope, ui, backOfficeResource) 
 	// Outstanding Balance
 	$scope.mastercheckbox = false;
 	$scope.selectedItems = 0;
+	// '' = Active; 'R' = Revoked
+	$scope.id = '';
 
 	$scope.$watch('bo', function(bo){
 		var selectedItems = 0;
