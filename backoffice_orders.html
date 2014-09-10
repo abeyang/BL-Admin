@@ -20,37 +20,67 @@
 				</ul>
 			</li>
 			<li class="separator">&nbsp;</li>
+			
+			<li class="right separator">&nbsp;</li>
+			<li class="right pad">
+				<select ng-model="filterItems.status">
+					<option value="">All Status</option>
+					<option value="Cancelled">Cancelled</option>
+					<option value="Pending">Pending</option>
+					<option value="Completed">Completed</option>
+					<option value="Shipped">Shipped</option>
+				</select>
+			</li>
+			<li class="right pad">
+				<select ng-model="filterItems.mocshop">
+					<option value="">1.0 + 2.0 Orders</option>
+					<option value="false">1.0 Orders</option>
+					<option value="true">2.0 Orders</option>
+				</select>
+			</li>
+
+			<li class="right separator">&nbsp;</li>
+			<li class="right pad" ng-class="{active: filterItems.vat==true}"><a ng-click="filterItems.tax=''; toggle('vat')" href="">VAT only</a></li>
+			<li class="right pad" ng-class="{active: filterItems.tax==true}"><a ng-click="filterItems.vat=''; toggle('tax')" href="">Sales Tax only</a></li>
+			
 		</ul>
 	</nav>
 	
 	<section>
 		<div class="container">
-
 			<div class="searchbar">
-				<i class="fa fa-search"></i> <input ng-model="searchtext" type="text" placeholder="Search by Order ID" />
+				<i class="fa fa-search"></i> <input ng-model="filterItems.order" type="text" placeholder="Search by Order ID" />
 			</div>
 
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Alert</th>
+						<th class="align-right">Date</th>
+						<th>Issue</th>
 						<th>Order</th>
+						<th>Type</th>
 						<th>Status</th>
 						<th>Buyer</th>
 						<th>Seller</th>
-						<th class="align-right">Date</th>
+						<th class="align-right">Order Amt</th>
+						<th class="align-right">Sales Tax</th>
+						<th class="align-right">VAT</th>
 						<th class="align-right">Fee</th>
 					</tr>	
 				</thead>
 				<tbody>
-					<tr class="hover" ng-class="{'text-warning': item.issue!=''}" ng-repeat="item in bo | orderBy:'-date1' | filter:searchtext" ng-click="gotoOrderPage(item.order)">
+					<tr class="hover" ng-class="{'text-warning': item.issue!=''}" ng-repeat="item in bo | orderBy:'-date1' | filter:filterItems" ng-click="gotoOrderPage(item.order)">
+						<td class="align-right">{{ item.date1 }}</td>
 						<td>{{ item.issue }}</td>
 						<td>{{ item.order }}</td>
+						<td ng-if="!item.mocshop">1.0</td><td ng-if="item.mocshop">2.0</td>
 						<td>{{ item.status }}</td>
 						<td>{{ item.user }}</td>
 						<td>{{ item.store }}</td>
-						<td class="align-right">{{ item.date1 }}</td>
 						<td class="align-right">{{ item.amount | currency }}</td>
+						<td class="align-right"><span ng-if="item.tax">{{ item.amount * .09 | currency }}</span></td>
+						<td class="align-right"><span ng-if="item.vat">{{ item.amount * .2 | currency }}</span></td>
+						<td class="align-right">{{ item.amount * .05 | currency }}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -74,6 +104,5 @@
 			</div>
 		</div> <!-- /.container -->
 	</section>
-
 
 <!-- @include _footer -->
