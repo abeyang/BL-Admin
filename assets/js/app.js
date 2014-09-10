@@ -396,10 +396,11 @@ app.controller('HelpTopicsController', function($scope, $location, ui, helpCateg
 
 /* Back Office Controller */
 
-app.controller('BackOfficeController', function($scope, ui, backOfficeResource) {
+app.controller('BackOfficeController', function($scope, ui, backOfficeResource, summaryResource) {
 
 	$scope.ui = ui;
 	$scope.bo = backOfficeResource.list();
+	$scope.sr = summaryResource;
 
 	// Outstanding Balance
 	$scope.mastercheckbox = false;
@@ -1011,7 +1012,6 @@ app.factory('mocResource', function () {
             		if (moc.ratings >= i) html += '<i class="fa fa-star"></i>';
             		else html += '<i class="fa fa-star-o"></i>';
             	}
-            	// @todo should use an actual circle graphic instead of parens ()
             	if (includeRaters) html += ' ' + moc.raters;
             }
             else html = 'No ratings yet';
@@ -1874,7 +1874,7 @@ app.factory('backOfficeResource', function () {
 		{id:7,	status: "Received", issue:"OCR", 	order: 10092948, date1:"08/08/14", date2:"07/25/14",	amount:"180.00",user:"Free 4 All",		store:"Brick 4 Less"},
 		{id:8,	status: "Pending", issue:"NSS", 	order: 10092352, date1:"08/21/14", date2:"07/23/14",	amount:"250.00",user:"Sink or Swim",	store:"Does it Float"},
 		{id:9,	status: "Completed", issue:"", 		order: 10016362, date1:"08/28/14", date2:"07/21/14",	amount:"52.75",	user:"Brick City",		store:"Bricks 4 Sale"},
-		{id:10,	status: "Pending", issue:"", 	order: 10084634, date1:"08/28/14", date2:"07/16/14",	amount:"83.80",	user:"Fan of Lego",		store:"Legora"},
+		{id:10,	status: "Pending", issue:"", 		order: 10084634, date1:"08/28/14", date2:"07/16/14",	amount:"83.80",	user:"Fan of Lego",		store:"Legora"},
 		{id:11,	status: "Completed", issue:"", 		order: 10023231, date1:"09/01/14", date2:"07/15/14",	amount:"26.00",	user:"Captain Brick",	store:"Captain AmeriBrick"},
 		{id:12,	status: "Pending", issue:"", 		order: 10052632, date1:"09/01/14", date2:"07/11/14",	amount:"41.00",	user:"LegoLass",		store:"Lord of the Bricks"},
 		{id:13,	status: "Pending", issue:"OCR", 	order: 10062342, date1:"09/02/14", date2:"07/08/14",	amount:"39.00",	user:"legolandia",		store:"Lego Landia"},
@@ -1884,12 +1884,43 @@ app.factory('backOfficeResource', function () {
 		{id:17,	status: "Received", issue:"", 		order: 10001531, date1:"09/03/14", date2:"06/25/14",	amount:"80.00",	user:"Free 4 All",		store:"Brick 4 Less"},
 		{id:18,	status: "Pending", issue:"NSS", 	order: 10013642, date1:"09/04/14", date2:"06/23/14",	amount:"98.00",	user:"Sink or Swim",	store:"Does it Float"},
 		{id:19,	status: "Completed", issue:"", 		order: 10022363, date1:"09/05/14", date2:"06/21/14",	amount:"3.75",	user:"Brick City",		store:"Bricks 4 Sale"},
-		{id:20,	status: "Pending", issue:"", 	order: 10035683, date1:"09/06/14", date2:"06/16/14",	amount:"13.00",	user:"Fan of Lego",		store:"Legora"}
+		{id:20,	status: "Pending", issue:"", 		order: 10035683, date1:"09/06/14", date2:"06/16/14",	amount:"13.00",	user:"Fan of Lego",		store:"Legora"}
 	];
 	
 	return {
 		list: function() {
 			return data;
+		}
+	}
+});
+
+app.factory('summaryResource', function () {
+
+	var data = [
+		{id:0,	year: 2013, invoice: 35000, received: 31000,	paypal: 200, credit: 100, sales1: 300, sales2: 50, fee1: 1000, fee2s: 40, fee2d: 150},
+		{id:1,	year: 2013, invoice: 42000, received: 40000,	paypal: 200, credit: 100, sales1: 300, sales2: 50, fee1: 1000, fee2s: 40, fee2d: 150},
+		{id:2,	year: 2013, invoice: 63000, received: 61000,	paypal: 200, credit: 100, sales1: 300, sales2: 50, fee1: 1000, fee2s: 40, fee2d: 150},
+		{id:3,	year: 2013, invoice: 57000, received: 54000,	paypal: 200, credit: 100, sales1: 300, sales2: 50, fee1: 1000, fee2s: 40, fee2d: 150},
+		{id:4,	year: 2013, invoice: 44100, received: 41000,	paypal: 200, credit: 100, sales1: 300, sales2: 50, fee1: 1000, fee2s: 40, fee2d: 150},
+		{id:5,	year: 2013, invoice: 53000, received: 51000,	paypal: 200, credit: 100, sales1: 300, sales2: 50, fee1: 1000, fee2s: 40, fee2d: 150},
+		{id:6,	year: 2013, invoice: 23000, received: 22000,	paypal: 200, credit: 100, sales1: 300, sales2: 50, fee1: 1000, fee2s: 40, fee2d: 150},
+		{id:7,	year: 2013, invoice: 38000, received: 23000,	paypal: 200, credit: 100, sales1: 300, sales2: 50, fee1: 1000, fee2s: 40, fee2d: 150},
+		{id:8,	year: 2013, invoice: 41000, received: 40000,	paypal: 200, credit: 100, sales1: 300, sales2: 50, fee1: 1000, fee2s: 40, fee2d: 150},
+		{id:9,	year: 2013, invoice: 46000, received: 45500,	paypal: 200, credit: 100, sales1: 300, sales2: 50, fee1: 1000, fee2s: 40, fee2d: 150},
+		{id:10,	year: 2013, invoice: 50000, received: 49200,	paypal: 200, credit: 100, sales1: 300, sales2: 50, fee1: 1000, fee2s: 40, fee2d: 150},
+		{id:11,	year: 2013, invoice: 51000, received: 50000,	paypal: 200, credit: 100, sales1: 300, sales2: 50, fee1: 1000, fee2s: 40, fee2d: 150}
+	];
+	
+	return {
+		list: function() {
+			return data;
+		},
+		// "find attribute by id"
+		fabid: function(id, attr) {
+        	var o = _.find(data, function(obj) {
+                return obj.id == id;
+            });
+			return o[attr];
 		}
 	}
 });

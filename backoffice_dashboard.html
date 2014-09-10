@@ -21,109 +21,117 @@
 			</li>
 			<li class="separator">&nbsp;</li>
 
-			<li class="right pad"><a href="">2015</i></a>
 			<li class="right pad active"><a href="">2014</i></a>
+			<li class="right pad"><a href="">2013</i></a>
 			</li>
 		</ul>
 	</nav>
 
 	<section>
-		<div class="container">
+		<div class="full-container">
+
+			<p>Only the values for <strong>Invoice</strong> are fixed.</p>
+
 			<table class="table">
 				<thead>
 					<tr>
 						<th>&nbsp;</th>
-						<th>Jan</th>
-						<th>Feb</th>
-						<th>Mar</th>
-						<th>Apr</th>
-						<th>May</th>
-						<th>Jun</th>
-						<th>Jul</th>
-						<th>Aug</th>
-						<th>Sep</th>
-						<th>Oct</th>
-						<th>Nov</th>
-						<th>Dec</th>
+						<th class="align-right">Jan</th>
+						<th class="align-right">Feb</th>
+						<th class="align-right">Mar</th>
+						<th class="align-right">Apr</th>
+						<th class="align-right">May</th>
+						<th class="align-right">Jun</th>
+						<th class="align-right">Jul</th>
+						<th class="align-right">Aug</th>
+						<th class="align-right">Sep</th>
+						<th class="align-right">Oct</th>
+						<th class="align-right">Nov</th>
+						<th class="align-right">Dec</th>
 					</tr>
 				</thead>
 				<tbody>
+					<tr class="align-right">
+						<td>1.0 Sales</td>
+						<td ng-repeat="s in sr.list()">{{ sr.fabid(s.id, 'sales1') | currency }}</td>
+					</tr>
+					<tr class="align-right">
+						<td>2.0 Sales</td>
+						<td ng-repeat="s in sr.list()">{{ sr.fabid(s.id, 'sales2') | currency }}</td>
+					</tr>
+					<tr class="em align-right">
+						<td>Total Sales</td>
+						<td ng-repeat="s in sr.list()">{{ sr.fabid(s.id, 'sales1') + sr.fabid(s.id, 'sales2') | currency }}</td>
+					</tr>
 					<tr>
-						<td>Fixed Invoice</td>
-						<td>$1000.00</td>
-						<td>$1000.00</td>
-						<td>$1000.00</td>
-						<td>$1000.00</td>
-						<td>$1000.00</td>
-						<td>$1000.00</td>
-						<td>$1000.00</td>
-						<td>$1000.00</td>
-						<td>$1000.00</td>
-						<td>$1000.00</td>
-						<td>$1000.00</td>
-						<td>$1000.00</td>
+						<td>&nbsp;</td>
+						<td ng-repeat="s in sr.list()">&nbsp;</td>
+					</tr>
+
+					<tr class="align-right">
+						<td>1.0 Store Fee</td>
+						<td ng-repeat="s in sr.list()">{{ sr.fabid(s.id, 'fee1') | currency }}</td>
+					</tr>
+					<tr class="align-right">
+						<td>2.0 Store Fee</td>
+						<td ng-repeat="s in sr.list()">{{ sr.fabid(s.id, 'fee2s') | currency }}</td>
+					</tr>
+					<tr class="align-right">
+						<td>2.0 Design Fee</td>
+						<td ng-repeat="s in sr.list()">{{ sr.fabid(s.id, 'fee2d') | currency }}</td>
+					</tr>
+					<tr class="em align-right">
+						<td>Total Fees</td>
+						<td ng-repeat="s in sr.list()">{{ sr.fabid(s.id, 'fee1') + sr.fabid(s.id, 'fee2s') + sr.fabid(s.id, 'fee2d') | currency }}</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td ng-repeat="s in sr.list()">&nbsp;</td>
+					</tr>
+
+					<tr class="align-right">
+						<td>Active Fee Balance</td>
+						<td ng-repeat="s in sr.list()">{{ sr.fabid(s.id, 'fee1') | currency }}</td>
+					</tr>
+					<tr class="align-right">
+						<td>Inactive Fee Balance</td>
+						<td ng-repeat="s in sr.list()">{{ sr.fabid(s.id, 'fee2s') | currency }}</td>
+					</tr>
+					<tr class="em align-right">
+						<td>Credit Paid</td>
+						<td ng-repeat="s in sr.list()">{{ sr.fabid(s.id, 'credit') | currency }}</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td ng-repeat="s in sr.list()">&nbsp;</td>
+					</tr>
+
+					<tr class="strong align-right">
+						<td>Invoice</td>
+						<td ng-repeat="s in sr.list()">{{ sr.fabid(s.id, 'invoice') | currency }}</td>
+					</tr>
+					<tr class="align-right">
+						<td>Received</td>
+						<td ng-repeat="s in sr.list()">{{ sr.fabid(s.id, 'received') | currency }}</td>
+					</tr>
+					<tr class="align-right">
+						<td>Outstanding</td>
+						<td ng-repeat="s in sr.list()">{{ sr.fabid(s.id, 'invoice') - sr.fabid(s.id, 'received') | currency }}</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td ng-repeat="s in sr.list()">&nbsp;</td>
+					</tr>
+					<tr class="align-right">
+						<td>Paid to Paypal</td>
+						<td ng-repeat="s in sr.list()">{{ sr.fabid(s.id, 'paypal') | currency }}</td>
+					</tr>
+					<tr class="em align-right">
+						<td>Net Profit</td>
+						<td ng-repeat="s in sr.list()">{{ sr.fabid(s.id, 'received') - sr.fabid(s.id, 'paypal') | currency }}</td>
 					</tr>
 				</tbody>
 			</table>
-
-			<!-- <div class="col-third panelet left">
-				<a class="metric" href="#">
-					<span>Store Logs</span>
-					<h2>8</h2>
-				</a>
-				<a class="metric" href="#">
-					<span>Pending Avatars</span>
-					<h2>17</h2>
-				</a>
-				<a class="metric" href="#">
-					<span>Problem Members</span>
-					<h2>13</h2>
-				</a>
-				<a class="metric" href="#">
-					<span>Pending Real Photos</span>
-					<h2>0</h2>
-				</a>
-				<a class="metric" href="#">
-					<span>Problem Items</span>
-					<h2>51</h2>
-				</a>
-				<a class="metric" href="#">
-					<span>Outstanding Balances</span>
-					<h2>9</h2>
-				</a>
-				<a class="metric" href="#">
-					<span>Feedback Removal</span>
-					<h2>26</h2>
-				</a>
-			</div>
-
-			<div class="col-twothird">
-				<div class="dashboard_fees">
-					<h2 class="pad-left-10">Fee Issues</h2>
-					<table class="table">
-						<tbody>
-							<tr class="hover" ng-repeat="item in bo | orderBy:'date1'" ng-click="gotoUserPage()">
-								<td>{{ item.user }}</td><td class="text-dull align-right">{{ item.date1 }}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-
-				<div class="dashboard_orders">
-					<h2 class="pad-left-10">Order Issues</h2>
-					<table class="table">
-						<tbody>
-							<tr class="hover" ng-repeat="item in bo | orderBy:'-date2'" ng-click="gotoOrderPage(item.order)">
-								<td class="text-dull">{{ item.issue }}</td>
-								<td>{{ item.order }}</td>
-								<td>{{ item.user }}</td>
-								<td class="align-right">{{ item.amount | currency }}</td>
-								<td class="text-dull align-right">{{ item.date2 }}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div> -->
 		
 		</div> <!-- /.container -->
 	</section>
