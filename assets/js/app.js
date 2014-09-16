@@ -472,8 +472,7 @@ app.controller('BackOfficeOrdersController', function($scope, $location, ui, bac
 	};
 
 	$scope.show = {
-		statusUpdate: false,
-		activity: true
+		statusUpdate: false
 	};
 
 	$scope.toggle = function(attr) {

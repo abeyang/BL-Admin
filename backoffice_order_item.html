@@ -22,28 +22,21 @@
 			<li class="separator">&nbsp;</li>
 			<li class="active"><a href="#">{{ id }}</a></li>
 
-			<li class="right pad" ng-class="{active: !show.activity}"><a ng-click="show.activity = false" href="#">Items</a></li>
-			<li class="right pad" ng-class="{active: show.activity}"><a ng-click="show.activity = true" href="#">Activity</a></li>
+			<li class="right active"><a href=""><span class="badge badge-danger">NSS</span></a></li>
+			<li class="right"><a href="">Cancelled</a></li>
+
 		</ul>
 	</nav>
 	
 	<div class="container">
 		<div class="col-third panelet left">
 			<div class="info">
-				<small>Status</small>
-				<p class="text-danger">Cancelled</p>
+				<small>Type</small>
+				<p><a href="#">1.0</a></p>
 			</div>
 			<div class="info">
 				<small>Order Date</small>
 				<p>Jun 23, 2014</p>
-			</div>
-			<div class="info">
-				<small>Buyer</small>
-				<p><a href="@path backoffice_user_profile.html">LegoLass</a></p>
-			</div>
-			<div class="info">
-				<small>Seller</small>
-				<p><a href="@path backoffice_user_profile.html">BrickBro</a></p>
 			</div>
 			<div class="info">
 				<small>Items</small>
@@ -55,7 +48,6 @@
 			</div>
 
 			<hr />
-
 			<div class="info">
 				<small>Sub-total</small>
 				<p class="align-right">$72.20</p>
@@ -65,46 +57,41 @@
 				<p class="align-right">$8.00</p>
 			</div>
 			<div class="info">
-				<small>Insurance</small>
-				<p class="align-right">$0.00</p>
-			</div>
-			<div class="info">
-				<small>Extra Charges</small>
-				<p class="align-right">$0.00</p>
-			</div>
-			<div class="info">
 				<small>Total</small>
 				<p class="align-right"><strong>$80.20</strong></p>
 			</div>
+
+			<hr />
+
+			<div class="info">
+				<small>Buyer</small>
+				<p><a href="@path backoffice_user_profile.html">LegoLass</a></p>
+			</div>
+			<div class="info">
+				<small>Seller</small>
+				<p><a href="@path backoffice_user_profile.html">BrickBro</a></p>
+			</div>
+
 		</div>
 
 		<div class="col-twothird margin-top">
-			<div ng-show="show.activity">
-				<textarea placeholder="Write a comment to the buyer and seller"></textarea>
+			<div>
+				<textarea placeholder="Write a note"></textarea>
 
-				<a ng-show="!show.statusUpdate" ng-click="show.statusUpdate=true" href="#">Change status</a>
+				<a ng-show="!show.statusUpdate" ng-click="show.statusUpdate=true" href="#">Update Issue</a>
 				<select ng-show="show.statusUpdate">
-					<option>Pending</option>
-					<option>Updated</option>
-					<option>Processing</option>
-					<option>Ready</option>
-					<option>Paid</option>
-					<option>Packed</option>
-					<option>Shipped</option>
-					<option>Received</option>
-					<option>Completed</option>
+					<option>None</option>
 					<option>OCR</option>
 					<option>NPB</option>
 					<option>NPX</option>
 					<option>NRS</option>
-					<option>NSS</option>
-					<option selected>Cancelled</option>
-					<option>Purged</option>
+					<option selected>NSS</option>
 				</select>
 				<a class="btn btn-primary right" href="">Submit</a>
 				
 				<table class="table">
 					<tbody>
+					<!-- @todo no longer "cancel" order -->
 						<tr>
 							<td class="date">Jul 10, 2014</td>
 							<td class="text-danger"><small class="right all-caps text-info">Admin</small>Jaclyn cancelled the order:</td>
@@ -164,31 +151,6 @@
 					</tbody>
 				</table>
 			</div> <!-- /.$show.activity -->
-
-			<div ng-show="!show.activity">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Image</th>
-							<th>Condition</th>
-							<th>Description</th>
-							<th>Qty</th>
-							<th>Unit Price</th>
-							<th>Total</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="item in bo | orderBy:'date1'">
-							<td><img src="http://placehold.it/75x60"></td>
-							<td>Used</td>
-							<td>Imperial Officer</td>
-							<td>1</td>
-							<td>$0.25</td>
-							<td>$0.25</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
 			
 		</div>
 		
