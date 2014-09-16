@@ -146,12 +146,14 @@
 
 			<div class="card" ng-class="{active: cards.status}">
 				<p class="header all-caps"><i ng-click="cards.status = (cards.status) ? false : true" class="fa fa-plus hover right"></i>Status Change</p>
-				<select>
-					<option>None</option>
-					<option>Buyer Privileges Revoked</option>
-					<option selected>Seller Privileges Revoked</option>
-					<option>Banned</option>
-				</select>
+				<div class="form-group margin-top">
+					<select>
+						<option>None</option>
+						<option>Buyer Privileges Revoked</option>
+						<option selected>Seller Privileges Revoked</option>
+						<option>Banned</option>
+					</select>
+				</div>
 				<div class="form-group margin-top">
 					<label for="amount">Reason</label>
 					<textarea></textarea>
